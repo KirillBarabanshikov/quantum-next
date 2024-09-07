@@ -1,3 +1,5 @@
+'use client';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -46,9 +48,11 @@ const FilterItem = ({ list }: { list: boolean }) => {
                         <div className={styles.filterContent}>
                             {list ? (
                                 <div className={styles.list}>
-                                    <div className={styles.listItem}>
-                                        <span>Бренд 1</span>
-                                    </div>
+                                    {Array.from({ length: 4 }).map((_, index) => (
+                                        <div className={styles.listItem} key={index}>
+                                            <span>Бренд 1</span>
+                                        </div>
+                                    ))}
                                 </div>
                             ) : (
                                 <div className={styles.inputsWrap}>

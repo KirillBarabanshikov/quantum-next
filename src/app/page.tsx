@@ -7,7 +7,7 @@ import {
     QuestionBanner,
 } from '@/widgets';
 
-import styles from './HomePage.module.scss';
+import styles from './page.module.scss';
 
 export default function Home() {
     return (

@@ -1,19 +1,27 @@
-import clsx from 'clsx';
+'use client';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Button } from '@/shared/ui';
+import { FC } from 'react';
+import clsx from 'clsx';
 
-import styles from './FilterByCategory.module.scss';
+interface IFilterByCategoryProps {
+    className?: string;
+}
 
-export const FilterByCategory = () => {
+export const FilterByCategory: FC<IFilterByCategoryProps> = ({ className }) => {
     return (
-        <div className={clsx(styles.categories, 'container', 'scrollable')}>
+        <Swiper slidesPerView={'auto'} spaceBetween={'10'} className={clsx('container', className)}>
             {Array.from({ length: 7 }).map((_, index) => {
                 return (
-                    <Button key={index} variant={'outline'} size={'md'}>
-                        Приемники
-                    </Button>
+                    <SwiperSlide key={index} style={{ width: 'auto' }}>
+                        <Button variant={'outline'} size={'md'}>
+                            Приемники
+                        </Button>
+                    </SwiperSlide>
                 );
             })}
-        </div>
+        </Swiper>
     );
 };
