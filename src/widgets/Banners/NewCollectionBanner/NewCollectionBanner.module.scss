@@ -1,0 +1,27 @@
+.newCollectionBanner {
+    .newCollectionBannerContainer {
+        background-image: url('../../../shared/assets/images/banners/new_collection_banner_bg.png');
+        background-size: cover;
+        padding: 137px 108px 128px;
+        border-radius: 20px;
+        min-height: 487px;
+
+        .title {
+            font-weight: 500;
+            font-size: 54px;
+            line-height: 38px;
+            margin-bottom: 30px;
+        }
+
+        .description {
+            font-size: 18px;
+            line-height: 21.6px;
+            max-width: 550px;
+            margin-bottom: 47px;
+        }
+
+        .button {
+            min-width: 220px;
+        }
+    }
+}

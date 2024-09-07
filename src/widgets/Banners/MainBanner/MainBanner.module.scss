@@ -1,0 +1,29 @@
+.mainBanner {
+    .mainBannerContainer {
+        background-image: url('../../../shared/assets/images/banners/main_banner_bg.png');
+        background-size: cover;
+        padding: 135px 108px 117px;
+        border-radius: 20px;
+        min-height: 487px;
+
+        .title {
+            font-weight: 500;
+            font-size: 54px;
+            line-height: 38px;
+            color: var(--color-white);
+            margin-bottom: 37px;
+        }
+
+        .description {
+            font-size: 18px;
+            line-height: 21.6px;
+            color: var(--color-white);
+            margin-bottom: 43px;
+            white-space: pre-wrap;
+        }
+
+        .button {
+            min-width: 220px;
+        }
+    }
+}

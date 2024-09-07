@@ -1,0 +1,89 @@
+.footer {
+    background-color: var(--color-dark-blue);
+    padding: 80px 0;
+
+    .logo {
+        display: inline-block;
+        margin-bottom: 42px;
+    }
+
+    .links {
+        display: flex;
+        justify-content: space-between;
+        gap: 25px;
+        margin-bottom: 48px;
+
+        .linksList {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .link {
+            font-size: 14px;
+            line-height: 10px;
+            color: var(--color-white);
+        }
+
+        .title {
+            font-size: 16px;
+            line-height: 11px;
+        }
+
+        .catalogLinks {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 25px;
+            flex: 1;
+        }
+
+        .navLinks {
+            display: flex;
+            justify-content: flex-end;
+            flex: 1;
+        }
+
+        .contacts {
+            display: flex;
+            justify-content: flex-end;
+            flex: 1;
+
+            .telWrap {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                span {
+                    font-size: 14px;
+                    color: var(--color-blue-tertiary);
+                }
+            }
+        }
+    }
+
+    .foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .footLinks {
+            display: flex;
+
+            .policy {
+                margin-right: 118px;
+            }
+
+            a {
+                font-size: 14px;
+                color: var(--color-blue-tertiary);
+            }
+        }
+
+        .socials {
+            display: flex;
+            gap: 25px;
+        }
+    }
+}

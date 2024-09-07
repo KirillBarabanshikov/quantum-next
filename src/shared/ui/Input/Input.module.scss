@@ -1,0 +1,38 @@
+.inputWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+
+    .labelWrap {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .label {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 10px;
+        }
+
+        .hint {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 8px;
+            color: var(--color-blue-tertiary);
+        }
+    }
+}
+
+.input {
+    background-color: var(--color-grey);
+    border-radius: 10px;
+    height: 34px;
+    font-size: 14px;
+    color: var(--color-dark-blue);
+    padding: 12px 15px;
+
+    &::placeholder {
+        color: var(--color-blue-tertiary);
+    }
+}

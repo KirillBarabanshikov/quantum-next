@@ -1,0 +1,39 @@
+.categoryCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--color-grey);
+    border-radius: 20px;
+    aspect-ratio: 1;
+    overflow: hidden;
+
+    &.main {
+        .title {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 13px;
+            padding: 30px 25px 0 25px;
+        }
+    }
+
+    &.catalog {
+        .title {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 10px;
+            padding: 18px 18px 0 18px;
+        }
+
+        .image {
+            scale: 1.5;
+            transform: translate(10px, 11px);
+        }
+    }
+
+    .image {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        mix-blend-mode: darken;
+    }
+}

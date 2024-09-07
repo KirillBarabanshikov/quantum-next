@@ -1,0 +1,65 @@
+.header {
+    position: sticky;
+    top: 14px;
+    z-index: 2;
+
+    .headerContent {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--color-dark-blue);
+        border-radius: 20px;
+        padding: 14px 30px;
+        position: sticky;
+        top: 0;
+
+        .logo {
+            margin-right: 83px;
+            height: 17px;
+        }
+
+        .searchWrap {
+            display: flex;
+            gap: 17px;
+            width: 100%;
+            max-width: 684px;
+            margin-right: 17px;
+        }
+
+        .options {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            gap: 23px;
+            flex: 1;
+
+            .option {
+                position: relative;
+                color: var(--color-white);
+
+                @media (hover: hover) {
+                    cursor: pointer;
+                }
+
+                .badge {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    position: absolute;
+                    right: -5px;
+                    bottom: 0;
+                    min-width: 12px;
+
+                    background-color: var(--color-red-accent);
+                    border-radius: 10px;
+                    padding: 3px 4px;
+
+                    font-weight: 700;
+                    font-size: 8px;
+                    line-height: 6px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+.search {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    height: 40px;
+    width: 100%;
+
+    .input {
+        font-weight: 500;
+        font-size: 18px;
+        color: var(--color-dark-blue);
+        width: 100%;
+        height: 100%;
+        padding: 0 20px;
+        background-color: unset;
+    }
+
+    .icon {
+        margin-right: 20px;
+    }
+}
