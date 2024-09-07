@@ -1,10 +1,11 @@
 import clsx from 'clsx';
 
 import { FilterByCategory, Filters } from '@/feature/catalog';
+import { Button } from '@/shared/ui';
+import { ProductsList } from '@/widgets';
+import { CallBanner } from '@/widgets/Banners';
 
 import styles from './page.module.scss';
-import { ProductsList } from '@/widgets';
-import { Button } from '@/shared/ui';
 
 export default function Catalog() {
     return (
@@ -22,6 +23,7 @@ export default function Catalog() {
                     </div>
                 </div>
             </section>
+            <CallBanner />
         </div>
     );
 }

@@ -1,0 +1,14 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 340px;
+
+    .policy {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14.56px;
+        color: var(--color-white);
+        margin-top: 20px;
+    }
+}
