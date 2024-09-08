@@ -1,0 +1,33 @@
+.inputCounter {
+    display: flex;
+    gap: 12px;
+    background-color: var(--color-dark-blue);
+    padding: 7px 13px;
+    height: 50px;
+    border-radius: 20px;
+    min-width: 108px;
+    max-width: 108px;
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        color: var(--color-white);
+    }
+
+    input {
+        border-radius: 10px;
+        width: 100%;
+        text-align: center;
+        font-weight: 600;
+        font-size: 20px;
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+}
