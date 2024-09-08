@@ -24,10 +24,10 @@ export const Header = () => {
                             <Search />
                         </div>
                         <div className={styles.options}>
-                            <div className={styles.option}>
+                            <Link href={'/cart'} className={styles.option}>
                                 <BagIcon />
                                 <span className={styles.badge}>1</span>
-                            </div>
+                            </Link>
                             <div className={styles.option}>
                                 <GradeIcon />
                             </div>
