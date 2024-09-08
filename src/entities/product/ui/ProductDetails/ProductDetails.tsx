@@ -1,4 +1,6 @@
-import { ProductInfo, ProductSlider } from '@/entities/product/ui/ProductDetails/ui';
+import clsx from 'clsx';
+
+import { ProductInfo, ProductSlider, ProductTabs } from '@/entities/product/ui/ProductDetails/ui';
 import { Breadcrumbs } from '@/shared/ui';
 
 import styles from './ProductDetails.module.scss';
@@ -14,13 +16,14 @@ const links = [
 export const ProductDetails = () => {
     return (
         <div className={styles.productDetails}>
-            <section className={styles.productInfoContainer}>
+            <section className={clsx(styles.productInfoContainer, 'container')}>
                 <div>
                     <Breadcrumbs links={links} className={styles.breadcrumbs} />
                     <ProductSlider />
                 </div>
                 <ProductInfo />
             </section>
+            <ProductTabs />
         </div>
     );
 };

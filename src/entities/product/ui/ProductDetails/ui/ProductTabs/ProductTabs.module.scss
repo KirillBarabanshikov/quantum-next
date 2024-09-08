@@ -1,0 +1,74 @@
+.productTabs {
+    .slide {
+        flex: 1;
+    }
+
+    .tabs {
+        border-bottom: 1px solid rgba(88, 105, 148, 0.2);
+
+        .tab {
+            height: 27px;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 13px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: border-color 300ms;
+
+            span {
+                color: var(--color-blue-tertiary);
+            }
+
+            &.current {
+                border-color: var(--color-dark-blue);
+            }
+        }
+    }
+
+    .tabBody {
+        padding-top: 60px;
+    }
+}
+
+.content {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19.41px;
+
+    h2 {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24.5px;
+    }
+
+    ul,
+    ol {
+        list-style: inside;
+    }
+}
+
+.specifications {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+
+    .specification {
+        .title {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 11px;
+            margin-bottom: 14px;
+        }
+
+        .value {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19.41px;
+            color: var(--color-blue-tertiary);
+        }
+    }
+}
