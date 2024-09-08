@@ -35,6 +35,10 @@
     font-size: 16px;
     line-height: 19.41px;
 
+    .wrap {
+        max-width: 580px;
+    }
+
     h2 {
         font-weight: 600;
         font-size: 20px;
@@ -69,6 +73,95 @@
             font-size: 16px;
             line-height: 19.41px;
             color: var(--color-blue-tertiary);
+        }
+    }
+}
+
+.feedback {
+    .gradeWrap {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 32px;
+        color: var(--color-blue-tertiary);
+        margin-bottom: 40px;
+
+        svg {
+            margin-right: 11px;
+            color: var(--color-dark-blue);
+            scale: 1.1;
+        }
+
+        .ellipse {
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-blue-tertiary);
+            border-radius: 6px;
+            margin: 0 16px;
+        }
+    }
+
+    .feedbackList {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 830px;
+
+        .feedbackCard {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--color-grey);
+            padding: 24px;
+            border-radius: 20px;
+            min-height: 190px;
+
+            .body {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                max-width: 360px;
+
+                .name {
+                    font-weight: 600;
+                    font-size: 18px;
+                    line-height: 13px;
+                    margin-bottom: 15px;
+                }
+
+                .grades {
+                    display: flex;
+                    gap: 3px;
+                }
+
+                .text {
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 16.98px;
+                }
+            }
+
+            .rateWrap {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                span {
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: var(--color-blue-tertiary);
+                }
+
+                .rate {
+                    display: flex;
+                    gap: 19px;
+
+                    .rateItem {
+                        display: flex;
+                        align-items: center;
+                        gap: 7px;
+                    }
+                }
+            }
         }
     }
 }
