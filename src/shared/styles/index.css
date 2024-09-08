@@ -73,6 +73,12 @@ h6 {
     font-weight: 500;
 }
 
+input[type='checkbox'],
+input[type='radio'],
+input[type='file'] {
+    display: none;
+}
+
 .layout {
     display: flex;
     flex-direction: column;

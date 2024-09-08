@@ -1,0 +1,51 @@
+.productCard {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    background-color: var(--color-grey);
+    border-radius: 20px;
+    padding: 30px;
+
+    .image {
+        mix-blend-mode: darken;
+    }
+
+    .body {
+        width: 100%;
+
+        .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .name {
+                font-weight: 500;
+                font-size: 18px;
+            }
+
+            .price {
+                font-weight: 500;
+                font-size: 24px;
+            }
+        }
+
+        .info {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-blue-tertiary);
+            margin-bottom: 8px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+        }
+    }
+
+    .gradeIcon {
+        scale: 0.8;
+    }
+}

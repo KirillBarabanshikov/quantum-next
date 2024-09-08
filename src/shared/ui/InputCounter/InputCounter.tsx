@@ -1,13 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import clsx from 'clsx';
+import { FC, useState } from 'react';
 
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 
 import styles from './InputCounter.module.scss';
 
-export const InputCounter = () => {
+interface IInputCounterProps {
+    size?: 'sm' | 'md';
+    className?: string;
+}
+
+export const InputCounter: FC<IInputCounterProps> = ({ size = 'md', className }) => {
     const [count, setCount] = useState(1);
 
     const increment = () => {
@@ -19,7 +25,7 @@ export const InputCounter = () => {
     };
 
     return (
-        <div className={styles.inputCounter}>
+        <div className={clsx(styles.inputCounter, styles[size], className)}>
             <button onClick={decrement}>
                 <MinusIcon />
             </button>
