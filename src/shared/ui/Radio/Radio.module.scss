@@ -1,0 +1,37 @@
+.wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+
+    .radio {
+        width: 14px;
+        height: 14px;
+        border-radius: 14px;
+        border: 1px solid var(--color-dark-blue);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .ellipse {
+            width: 8px;
+            height: 8px;
+            border-radius: 8px;
+            transition: background-color 300ms ease-out;
+        }
+    }
+
+    .label {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16.98px;
+    }
+
+    input:checked + .radio,
+    .checked {
+        .ellipse {
+            background-color: var(--color-dark-blue);
+        }
+    }
+}

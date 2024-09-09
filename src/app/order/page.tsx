@@ -9,7 +9,7 @@ import { useState } from 'react';
 import BackIcon from '@/shared/assets/icons/arrow_right_alt.svg';
 import CheckCircle from '@/shared/assets/icons/check_circle.svg';
 import CheckIcon from '@/shared/assets/icons/priority.svg';
-import { Badge, Button, Input } from '@/shared/ui';
+import { Badge, Button, Input, Radio } from '@/shared/ui';
 
 import styles from './page.module.scss';
 
@@ -124,6 +124,77 @@ export default function Order() {
                                 </div>
                                 <div className={styles.buttonWrap}>
                                     <Button className={styles.button}>Создать профиль</Button>
+                                </div>
+                            </div>
+                            <div className={clsx(styles.content, styles.delivery)}>
+                                <div>
+                                    <h2>Доставка</h2>
+                                    <div className={styles.label}>Способ доставки</div>
+                                    <div className={styles.deliveriesList}>
+                                        <div className={styles.deliveryItem}>
+                                            <Radio label={'Курьер по Москве в пределах МКАДа — 290 ₽'} />
+                                            <span className={styles.term}>завтра</span>
+                                        </div>
+                                        <div className={styles.deliveryItem}>
+                                            <Radio label={'Срочная доставка в пределах МКАДа ⚡️ — 1000 ₽'} />
+                                            <span className={styles.term}>сегодня</span>
+                                        </div>
+                                        <div className={styles.deliveryItem}>
+                                            <Radio label={'Курьер по Москве в пределах МКАДа — 290 ₽'} />
+                                            <span className={styles.term}>завтра</span>
+                                        </div>
+                                        <div className={styles.deliveryItem}>
+                                            <Radio label={'Курьер по Москве в пределах МКАДа — 290 ₽'} />
+                                            <span className={styles.term}>завтра</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>Адрес доставки</h2>
+                                    <div className={styles.formBody}>
+                                        <Input label={'Город'} placeholder={'Москва'} theme={'white'} />
+                                        <Input label={'Улица'} placeholder={'ул. Проспект мира 3'} theme={'white'} />
+                                        <div className={styles.inputs}>
+                                            <Input
+                                                label={'Дом'}
+                                                placeholder={'ул. Проспект мира 3, д. 1, к2'}
+                                                theme={'white'}
+                                                className={styles.input}
+                                            />
+                                            <Input
+                                                label={'Подъезд'}
+                                                placeholder={'1'}
+                                                theme={'white'}
+                                                className={styles.input}
+                                            />
+                                        </div>
+                                        <div className={styles.inputs}>
+                                            <Input
+                                                label={'Этаж'}
+                                                placeholder={'4'}
+                                                theme={'white'}
+                                                className={styles.input}
+                                            />
+                                            <Input
+                                                label={'Квартира/офис'}
+                                                placeholder={'6'}
+                                                theme={'white'}
+                                                className={styles.input}
+                                            />
+                                        </div>
+                                        <Input
+                                            label={'Комментарий'}
+                                            placeholder={'Комментарий к заказу'}
+                                            theme={'white'}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>Контакты</h2>
+                                    <div className={styles.formBody}>
+                                        <Input label={'Телефон'} placeholder={'+7 (495) 000 00 00'} theme={'white'} />
+                                        <Input label={'E-mail'} placeholder={'example@email.com'} theme={'white'} />
+                                    </div>
                                 </div>
                             </div>
                             <div className={clsx(styles.content, styles.products)}>
