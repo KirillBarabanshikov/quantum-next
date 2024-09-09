@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { OrderCard } from '@/entities/order';
 import { ProductCard } from '@/entities/product';
-import { Dropdown } from '@/shared/ui';
+import { Button, Dropdown, Input } from '@/shared/ui';
 
 import styles from './page.module.scss';
 
@@ -80,11 +80,39 @@ const Orders = () => {
 };
 
 const Profiles = () => {
-    return <div>Profiles</div>;
+    return <div></div>;
 };
 
 const Account = () => {
-    return <div>Account</div>;
+    return (
+        <div className={styles.account}>
+            <div className={styles.accountInfo}>
+                <h2>Аккаунт</h2>
+                <div className={styles.accountWrap}>
+                    <form className={styles.accountForm}>
+                        <Input label={'Логин'} placeholder={'Login099'} />
+                        <Input label={'Телефон'} placeholder={'+7 (495) 423 69 27'} />
+                        <Input label={'E-mail'} placeholder={'example@email.com'} />
+                        <Button className={styles.button}>Сохранить изменения</Button>
+                    </form>
+                    <div className={styles.buttons}>
+                        <Button variant={'outline'}>Изменить</Button>
+                        <Button variant={'outline'}>Изменить</Button>
+                        <Button variant={'outline'}>Изменить</Button>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.changePassword}>
+                <h2>Сменить пароль</h2>
+                <form className={styles.accountForm}>
+                    <Input label={'Старый пароль'} placeholder={'Login099'} />
+                    <Input label={'Новый пароль'} placeholder={'+7 (495) 423 69 27'} />
+                    <Input label={'Повторите новый пароль'} placeholder={'example@email.com'} />
+                    <Button className={styles.button}>Сохранить изменения</Button>
+                </form>
+            </div>
+        </div>
+    );
 };
 
 const Favorites = () => {

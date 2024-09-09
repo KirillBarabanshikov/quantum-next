@@ -47,6 +47,53 @@
     }
 }
 
+.account {
+    display: flex;
+    padding: 80px 0 200px 0;
+
+    h2 {
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 20px;
+        margin-bottom: 34px;
+    }
+
+    .accountInfo {
+        flex: 1;
+        .accountWrap {
+            display: flex;
+            gap: 10px;
+        }
+    }
+
+    .changePassword {
+        flex: 1;
+    }
+
+    .accountForm {
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+        width: 265px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 10px;
+
+        button {
+            width: 136px;
+            height: 53px;
+        }
+    }
+
+    .button {
+        margin-top: 13px;
+    }
+}
+
 .favorites {
     padding: 40px 0 200px 0;
 

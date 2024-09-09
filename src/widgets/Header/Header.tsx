@@ -34,9 +34,9 @@ export const Header = () => {
                                 <BagIcon />
                                 <span className={styles.badge}>1</span>
                             </Link>
-                            <div className={styles.option}>
+                            <Link href={'/cabinet'} className={styles.option}>
                                 <GradeIcon />
-                            </div>
+                            </Link>
                             <div className={styles.option} onClick={() => setIsOpen(true)}>
                                 <AccountIcon />
                             </div>
