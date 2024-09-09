@@ -46,3 +46,14 @@
         }
     }
 }
+
+.favorites {
+    padding: 40px 0 200px 0;
+
+    .favoritesList {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(305px, 1fr));
+        gap: 70px 20px;
+        margin-top: 18px;
+    }
+}
