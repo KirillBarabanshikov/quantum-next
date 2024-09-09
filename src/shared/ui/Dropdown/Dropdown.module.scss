@@ -2,19 +2,31 @@
     position: relative;
     width: min-content;
 
+    &.solid {
+        .dropdownButton {
+            background-color: var(--color-grey);
+        }
+    }
+
+    &.outline {
+        .dropdownButton {
+            border: 1px solid var(--color-dark-blue);
+        }
+    }
+
     .dropdownButton {
         display: flex;
         align-items: center;
         gap: 8px;
 
         height: 35px;
-        background-color: var(--color-grey);
         border-radius: 20px;
         padding: 12px 17px;
 
         font-weight: 500;
         font-size: 16px;
         white-space: nowrap;
+        cursor: pointer;
     }
 
     .dropdownList {

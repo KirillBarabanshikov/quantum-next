@@ -18,10 +18,11 @@ interface IDropdownProps {
     options: IDropdownOption[];
     value: string | number;
     onChange: (value: string | number) => void;
+    variant?: 'solid' | 'outline';
     className?: string;
 }
 
-export const Dropdown: FC<IDropdownProps> = ({ options, value, onChange, className }) => {
+export const Dropdown: FC<IDropdownProps> = ({ options, value, onChange, variant = 'solid', className }) => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
 
@@ -35,7 +36,7 @@ export const Dropdown: FC<IDropdownProps> = ({ options, value, onChange, classNa
     };
 
     return (
-        <div className={clsx(styles.dropdown, className)} ref={ref}>
+        <div className={clsx(styles.dropdown, styles[variant], className)} ref={ref}>
             <div onClick={toggleDropdown} className={styles.dropdownButton}>
                 <span>{options.find((option) => option.value === value)?.label}</span>
                 <DropdownIcon />

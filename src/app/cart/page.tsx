@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Link from 'next/link';
 
 import { ProductCartCard } from '@/entities/product';
 import CancelIcon from '@/shared/assets/icons/cancel.svg';
@@ -7,7 +8,6 @@ import { Button } from '@/shared/ui';
 import { ProductsCarousel } from '@/widgets';
 
 import styles from './page.module.scss';
-import Link from 'next/link';
 
 export default function Cart() {
     return (
