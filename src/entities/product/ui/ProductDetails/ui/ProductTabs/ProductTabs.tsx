@@ -4,9 +4,10 @@ import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+import Dislike from '@/shared/assets/icons/dislike.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import Like from '@/shared/assets/icons/like.svg';
-import Dislike from '@/shared/assets/icons/dislike.svg';
 
 import styles from './ProductTabs.module.scss';
 

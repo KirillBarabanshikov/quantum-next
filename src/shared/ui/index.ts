@@ -8,3 +8,4 @@ export { Input } from './Input';
 export { InputCounter } from './InputCounter';
 export { Modal } from './Modal';
 export { Radio } from './Radio';
+export { Separator } from './Separator';

@@ -123,7 +123,9 @@ export default function Order() {
                                     </div>
                                 </div>
                                 <div className={styles.buttonWrap}>
-                                    <Button className={styles.button}>Создать профиль</Button>
+                                    <Link href={'/profile'}>
+                                        <Button className={styles.button}>Создать профиль</Button>
+                                    </Link>
                                 </div>
                             </div>
                             <div className={clsx(styles.content, styles.delivery)}>
