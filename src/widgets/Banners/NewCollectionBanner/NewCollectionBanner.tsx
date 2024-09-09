@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Link from 'next/link';
 import { FC } from 'react';
 
 import { Button } from '@/shared/ui';
@@ -19,9 +20,11 @@ export const NewCollectionBanner: FC<INewCollectionBannerProps> = ({ className }
                         Zenmuse H20N, оснащенная сенсорами с технологией Starlight в камерах с зумом и широким углом,
                         позволяет обнаруживать даже едва уловимые источники света до 0,0001 лк.
                     </p>
-                    <Button variant={'outline'} theme={'blue'} className={styles.button}>
-                        Каталог
-                    </Button>
+                    <Link href={'/catalog'}>
+                        <Button variant={'outline'} theme={'blue'} className={styles.button}>
+                            Каталог
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </section>

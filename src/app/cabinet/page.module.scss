@@ -47,6 +47,36 @@
     }
 }
 
+.profiles {
+    padding: 84px 0 200px 0;
+    max-width: 846px;
+
+    h2 {
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 20px;
+        margin-bottom: 38px;
+    }
+
+    .button {
+        width: 265px;
+        height: 53px;
+        margin-top: 48px;
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 54px;
+        cursor: pointer;
+
+        font-weight: 600;
+        font-size: 18px;
+        border-bottom: 1px solid #091b514d;
+    }
+}
+
 .account {
     display: flex;
     padding: 80px 0 200px 0;

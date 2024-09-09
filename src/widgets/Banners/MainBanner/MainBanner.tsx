@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Link from 'next/link';
 import { FC } from 'react';
 
 import { Button } from '@/shared/ui';
@@ -22,9 +23,11 @@ export const MainBanner: FC<IMainBannerProps> = ({ className }) => {
                         <br />
                         ввезенное оборудование и решения на его базе.
                     </p>
-                    <Button variant={'outline'} theme={'white'} className={styles.button}>
-                        Каталог
-                    </Button>
+                    <Link href={'/catalog'}>
+                        <Button variant={'outline'} theme={'white'} className={styles.button}>
+                            Каталог
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </section>

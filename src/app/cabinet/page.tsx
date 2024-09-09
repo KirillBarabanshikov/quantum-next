@@ -2,10 +2,12 @@
 
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import { OrderCard } from '@/entities/order';
 import { ProductCard } from '@/entities/product';
+import ArrowIcon from '@/shared/assets/icons/arrow_down2.svg';
 import { Button, Dropdown, Input } from '@/shared/ui';
 
 import styles from './page.module.scss';
@@ -80,7 +82,20 @@ const Orders = () => {
 };
 
 const Profiles = () => {
-    return <div></div>;
+    return (
+        <div className={styles.profiles}>
+            <h2>Профили плательщиков</h2>
+            <div className={styles.profile}>
+                ООО «Цифродинамика»
+                <ArrowIcon />
+            </div>
+            <Link href={'/profile'}>
+                <Button variant={'outline'} className={styles.button}>
+                    Создать профиль
+                </Button>
+            </Link>
+        </div>
+    );
 };
 
 const Account = () => {
