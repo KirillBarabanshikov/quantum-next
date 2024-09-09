@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
 
 import { Search } from '@/feature/search';
+import { AuthModal } from '@/feature/session/auth';
 import AccountIcon from '@/shared/assets/icons/account_box.svg';
 import BagIcon from '@/shared/assets/icons/bag.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
@@ -10,6 +14,8 @@ import styles from './Header.module.scss';
 import { CatalogButton, HeaderLinks } from './ui';
 
 export const Header = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <>
             <HeaderLinks />
@@ -31,13 +37,14 @@ export const Header = () => {
                             <div className={styles.option}>
                                 <GradeIcon />
                             </div>
-                            <div className={styles.option}>
+                            <div className={styles.option} onClick={() => setIsOpen(true)}>
                                 <AccountIcon />
                             </div>
                         </div>
                     </div>
                 </div>
             </header>
+            <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </>
     );
 };

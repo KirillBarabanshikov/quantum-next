@@ -51,6 +51,7 @@ export default function RootLayout({
                     <main>{children}</main>
                     <Footer />
                 </div>
+                <div id={'portal'} />
             </body>
         </html>
     );

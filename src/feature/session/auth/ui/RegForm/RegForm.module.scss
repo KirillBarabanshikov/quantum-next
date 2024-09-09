@@ -1,0 +1,14 @@
+.regForm {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin: 39px 0 15px 0;
+
+    .hint {
+        font-weight: 500;
+        font-size: 14px;
+        color: var(--color-blue-tertiary);
+        max-width: 323px;
+        margin: 13px 0 5px 0;
+    }
+}
