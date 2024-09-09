@@ -7,6 +7,7 @@ import { Button } from '@/shared/ui';
 import { ProductsCarousel } from '@/widgets';
 
 import styles from './page.module.scss';
+import Link from 'next/link';
 
 export default function Cart() {
     return (
@@ -34,7 +35,9 @@ export default function Cart() {
                             ))}
                         </div>
                         <div className={styles.cartOrder}>
-                            <Button fullWidth>Оформить заказ</Button>
+                            <Link href={'/order'}>
+                                <Button fullWidth>Оформить заказ</Button>
+                            </Link>
                             <p className={styles.hint}>
                                 Доступные способы и время доставки можно выбрать при оформлении заказа
                             </p>

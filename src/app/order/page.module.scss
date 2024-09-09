@@ -1,0 +1,268 @@
+.orderPage {
+    padding: 49px 0 129px 0;
+
+    .back {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 9px;
+
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 10px;
+        color: var(--color-blue-tertiary);
+        cursor: pointer;
+
+        margin-bottom: 19px;
+    }
+
+    .title {
+        margin-bottom: 57px;
+    }
+
+    .content {
+        padding: 30px;
+        border-radius: 20px;
+        background-color: var(--color-grey);
+
+        h2 {
+            font-weight: 500;
+            font-size: 28px;
+        }
+    }
+
+    .order {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+
+            .profiles {
+                h2 {
+                    margin-bottom: 29px;
+                }
+
+                .profilesList {
+                    margin-bottom: 20px;
+
+                    .profile {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 10px;
+                        cursor: pointer;
+
+                        &.selected {
+                            .icon {
+                                color: var(--color-blue-accent);
+                            }
+                        }
+
+                        .icon {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: transparent;
+                            min-width: 32px;
+                            height: 32px;
+                            border-radius: 20px;
+                            background-color: var(--color-white);
+                            margin-top: 10px;
+                            transition: color 300ms ease-out;
+                        }
+
+                        .profileItem {
+                            padding: 20px;
+                            background-color: var(--color-white);
+                            border-radius: 20px;
+                            width: 100%;
+
+                            .profileName {
+                                font-weight: 600;
+                                font-size: 18px;
+                                line-height: 13px;
+                            }
+
+                            .profileBody {
+                                overflow: hidden;
+
+                                .profileContent {
+                                    padding: 20px 0 0 0;
+
+                                    .separator {
+                                        height: 1px;
+                                        background-color: var(--color-dark-blue);
+                                        opacity: 0.3;
+                                        margin: 25px 0;
+                                    }
+
+                                    form {
+                                        .formBody {
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 17px;
+                                            max-width: 413px;
+                                        }
+
+                                        h2 {
+                                            font-weight: 500;
+                                            font-size: 18px;
+                                            margin-bottom: 8px;
+                                        }
+
+                                        .inputs {
+                                            display: flex;
+                                            gap: 20px;
+
+                                            .input {
+                                                width: 100%;
+                                            }
+                                        }
+
+                                        .contacts {
+                                            margin-top: 25px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .buttonWrap {
+                    display: flex;
+                    justify-content: flex-end;
+
+                    .button {
+                        width: 265px;
+                    }
+                }
+            }
+
+            .products {
+                h2 {
+                    margin-bottom: 25px;
+                }
+
+                .productsList {
+                    display: flex;
+                    flex-direction: column;
+
+                    .product {
+                        display: flex;
+                        align-items: center;
+                        gap: 28px;
+
+                        .image {
+                            mix-blend-mode: darken;
+                        }
+
+                        .productInfo {
+                            width: 100%;
+
+                            .productNameWrap {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                margin-bottom: 10px;
+
+                                .productName {
+                                    font-weight: 500;
+                                    font-size: 18px;
+                                }
+
+                                .productPrice {
+                                    font-weight: 500;
+                                    font-size: 24px;
+                                }
+                            }
+
+                            .productCharacteristics {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 8px;
+
+                                font-weight: 500;
+                                font-size: 14px;
+                                line-height: 10px;
+                                color: var(--color-blue-tertiary);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .check {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 10px;
+            min-width: 413px;
+
+            .checkInfo {
+                display: flex;
+                justify-content: space-between;
+
+                .checkWrap {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .ellipse {
+                    width: 4px;
+                    height: 4px;
+                    background-color: var(--color-dark-blue);
+                    border-radius: 4px;
+                    margin: 0 10px;
+                }
+            }
+
+            .separator {
+                height: 1px;
+                background-color: var(--color-dark-blue);
+                opacity: 0.3;
+                margin: 15px 0;
+            }
+
+            .checkDelivery {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .input {
+                margin: 40px 0 42px 0;
+            }
+
+            .cost {
+                display: flex;
+                justify-content: space-between;
+                font-size: 24px;
+                line-height: 17px;
+                margin-bottom: 19px;
+
+                .price {
+                    font-weight: 700;
+                }
+            }
+
+            .checkDocument {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 40px;
+            }
+
+            .hint {
+                font-size: 12px;
+                line-height: 14px;
+                color: var(--color-blue-tertiary);
+                margin-top: 19px;
+                max-width: 298px;
+            }
+        }
+    }
+}
