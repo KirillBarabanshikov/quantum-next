@@ -21,13 +21,24 @@
     }
 
     .label {
+        font-weight: 500;
         font-size: 14px;
         line-height: 18.2px;
     }
 
-    input:checked + .checkbox {
-        svg {
-            color: var(--color-blue-accent);
+    &.blue {
+        input:checked + .checkbox {
+            svg {
+                color: var(--color-blue-accent);
+            }
+        }
+    }
+
+    &.dark-blue {
+        input:checked + .checkbox {
+            svg {
+                color: var(--color-dark-blue);
+            }
         }
     }
 }

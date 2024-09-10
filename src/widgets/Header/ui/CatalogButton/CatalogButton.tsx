@@ -2,7 +2,8 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { CategoryCard } from '@/entities/category';
 import ArrowDownIcon from '@/shared/assets/icons/arrow_down.svg';
@@ -15,13 +16,20 @@ import styles from './CatalogButton.module.scss';
 export const CatalogButton = () => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
 
     return (
         <div className={styles.catalogButtonWrap} ref={ref}>
             <Button theme={'white'} className={styles.catalogButton} onClick={() => setIsOpen((prev) => !prev)}>
                 <UnionIcon />
                 Каталог
-                <ArrowDownIcon />
+                <motion.div animate={{ rotate: isOpen ? '180deg' : '0deg' }}>
+                    <ArrowDownIcon />
+                </motion.div>
             </Button>
             <AnimatePresence>
                 {isOpen && (

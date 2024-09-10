@@ -1,8 +1,8 @@
+import clsx from 'clsx';
 import Link from 'next/link';
 import { FC, Fragment } from 'react';
 
 import styles from './Breadcrumbs.module.scss';
-import clsx from 'clsx';
 
 interface IBreadcrumbsLink {
     text: string;

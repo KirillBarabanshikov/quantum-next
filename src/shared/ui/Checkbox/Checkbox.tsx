@@ -7,18 +7,21 @@ import styles from './Checkbox.module.scss';
 
 interface ICheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string | ReactNode;
+    theme?: 'blue' | 'dark-blue';
 }
 
-export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>(({ label, className, ...props }, ref) => {
-    return (
-        <label className={clsx(styles.wrap, className)}>
-            <input type='checkbox' ref={ref} {...props} />
-            <span className={styles.checkbox}>
-                <CheckboxIcon />
-            </span>
-            <span className={styles.label}>{label}</span>
-        </label>
-    );
-});
+export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>(
+    ({ label, theme = 'blue', className, ...props }, ref) => {
+        return (
+            <label className={clsx(styles.wrap, styles[theme], className)}>
+                <input type='checkbox' ref={ref} {...props} />
+                <span className={styles.checkbox}>
+                    <CheckboxIcon />
+                </span>
+                <span className={styles.label}>{label}</span>
+            </label>
+        );
+    },
+);
 
 Checkbox.displayName = 'Checkbox';

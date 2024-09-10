@@ -8,8 +8,7 @@ import { useState } from 'react';
 
 import BackIcon from '@/shared/assets/icons/arrow_right_alt.svg';
 import CheckCircle from '@/shared/assets/icons/check_circle.svg';
-import CheckIcon from '@/shared/assets/icons/priority.svg';
-import { Badge, Button, Input, Radio } from '@/shared/ui';
+import { Badge, Button, Checkbox, Input, Radio } from '@/shared/ui';
 
 import styles from './page.module.scss';
 
@@ -247,10 +246,11 @@ export default function Order() {
                                 <div>Общая стоимость</div>
                                 <div className={styles.price}>190 770 ₽</div>
                             </div>
-                            <div className={styles.checkDocument}>
-                                <CheckIcon />
-                                <div>использовать электронный документооборот</div>
-                            </div>
+                            <Checkbox
+                                label={'использовать электронный документооборот'}
+                                theme={'dark-blue'}
+                                className={styles.checkDocument}
+                            />
                             <Button fullWidth>Выставить счет</Button>
                             <div className={styles.hint}>
                                 Нажимая на кнопку, вы соглашаетесь с Условиями обработки персональных данных, а также с

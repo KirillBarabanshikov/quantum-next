@@ -102,7 +102,7 @@ const PhysicalForm = () => {
                     </div>
                 </div>
                 <Separator />
-                <Checkbox label={'согласие на обработку персональных данных'} />
+                <Checkbox label={'согласие на обработку персональных данных'} theme={'dark-blue'} />
                 <Button className={styles.createButton} fullWidth>
                     Создать профиль
                 </Button>
@@ -164,7 +164,7 @@ const LegalForm = () => {
                     </div>
                 </div>
                 <Separator />
-                <Checkbox label={'согласие на обработку персональных данных'} />
+                <Checkbox label={'согласие на обработку персональных данных'} theme={'dark-blue'} />
                 <Button className={styles.createButton} fullWidth>
                     Создать профиль
                 </Button>
@@ -226,7 +226,7 @@ const IndividualEntrepreneurForm = () => {
                     </div>
                 </div>
                 <Separator />
-                <Checkbox label={'согласие на обработку персональных данных'} />
+                <Checkbox label={'согласие на обработку персональных данных'} theme={'dark-blue'} />
                 <Button className={styles.createButton} fullWidth>
                     Создать профиль
                 </Button>

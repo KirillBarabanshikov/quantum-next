@@ -1,10 +1,10 @@
 'use client';
 
+import clsx from 'clsx';
+import { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { Button } from '@/shared/ui';
-import { FC } from 'react';
-import clsx from 'clsx';
 
 interface IFilterByCategoryProps {
     className?: string;
