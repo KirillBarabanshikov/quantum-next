@@ -33,20 +33,22 @@ export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, className 
                         </button>
                     </div>
                 </div>
-                <Swiper
-                    slidesPerView={'auto'}
-                    breakpoints={{ 0: { spaceBetween: 11 }, 768: { spaceBetween: 20 } }}
-                    onSwiper={setSwiper}
-                >
-                    {Array.from({ length: 10 }).map((_, index) => {
-                        return (
-                            <SwiperSlide key={index} className={styles.slide}>
-                                <ProductCard />
-                            </SwiperSlide>
-                        );
-                    })}
-                </Swiper>
             </div>
+
+            <Swiper
+                slidesPerView={'auto'}
+                breakpoints={{ 0: { spaceBetween: 11 }, 768: { spaceBetween: 20 } }}
+                onSwiper={setSwiper}
+                className={'container'}
+            >
+                {Array.from({ length: 10 }).map((_, index) => {
+                    return (
+                        <SwiperSlide key={index} className={styles.slide}>
+                            <ProductCard />
+                        </SwiperSlide>
+                    );
+                })}
+            </Swiper>
         </section>
     );
 };

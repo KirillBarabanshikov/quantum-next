@@ -12,8 +12,9 @@ import Logo from '@/shared/assets/logos/logo.svg';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
 
+import { Menu } from '../Menu';
 import styles from './Header.module.scss';
-import { CatalogButton, HeaderLinks } from './ui';
+import { HeaderLinks } from './ui';
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,7 @@ export const Header = () => {
                                 <Logo />
                             </Link>
                             <div className={styles.searchWrap}>
-                                <CatalogButton />
+                                <Menu />
                                 <Search />
                             </div>
                         </div>
@@ -46,7 +47,7 @@ export const Header = () => {
                                 <AccountIcon />
                             </div>
                         </div>
-                        {isMatch && <CatalogButton />}
+                        {isMatch && <Menu />}
                     </div>
                 </div>
             </header>

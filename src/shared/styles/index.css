@@ -108,3 +108,10 @@ input[type='file'] {
         width: 0;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 32px;
+        line-height: 22px;
+    }
+}

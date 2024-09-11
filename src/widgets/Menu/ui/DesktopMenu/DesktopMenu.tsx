@@ -1,27 +1,32 @@
-'use client';
-
 import clsx from 'clsx';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
-import ArrowDownIcon from '@/shared/assets/icons/arrow_down.svg';
 import ArrowDown from '@/shared/assets/icons/arrow_down2.svg';
-import UnionIcon from '@/shared/assets/icons/union.svg';
-import { MAX_WIDTH_MD } from '@/shared/consts';
-import { useBodyScrollLock, useMediaQuery } from '@/shared/hooks';
-import { Button, Portal } from '@/shared/ui';
 
-import styles from './CatalogButton.module.scss';
+import styles from './DeskropMenu.module.scss';
 
-const items = [
+interface Item {
+    name: string;
+    path: string;
+    children: {
+        name: string;
+        path: string;
+    }[];
+}
+
+const items: Item[] = [
     {
         name: 'Портативное аудио',
         path: '/',
         children: [
             { name: 'Портативные колонки', path: '/' },
             { name: 'Умные колонки', path: '/' },
+            { name: 'Компьютерные колонки', path: '/' },
+            { name: 'МР3 плееры', path: '/' },
+            { name: 'Диктофоны', path: '/' },
+            { name: 'Магнитолы', path: '/' },
         ],
     },
     {
@@ -81,80 +86,43 @@ const items = [
     },
 ];
 
-export const CatalogButton = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const pathname = usePathname();
-    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
-    const { setIsLocked } = useBodyScrollLock();
-
-    useEffect(() => {
-        setIsOpen(false);
-    }, [pathname]);
-
-    useEffect(() => {
-        setIsLocked(isOpen);
-    }, [isOpen, setIsLocked]);
-
+export const DesktopMenu = () => {
     return (
-        <div className={styles.catalogButtonWrap}>
-            <Button theme={'white'} className={styles.catalogButton} onClick={() => setIsOpen((prev) => !prev)}>
-                <UnionIcon />
-                {!isMatch && (
-                    <>
-                        Каталог
-                        <motion.div animate={{ rotate: isOpen ? '180deg' : '0deg' }}>
-                            <ArrowDownIcon />
-                        </motion.div>
-                    </>
-                )}
-            </Button>
-            <Portal>
-                <AnimatePresence>
-                    {isOpen && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className={styles.catalogMenuWrap}
-                        >
-                            <div className={clsx(styles.catalogMenu, 'container')}>
-                                <div className={clsx(styles.catalogList, 'scrollbar-hide')}>
-                                    {Array.from({ length: 20 }).map((_, index) => {
-                                        return (
-                                            <Link key={index} href={'/'} className={styles.catalogListItem}>
-                                                Акции, скидки и распродажи
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
-                                <div className={clsx(styles.catalogCategory, 'scrollbar-hide')}>
-                                    <div className={styles.title}>
-                                        Аудиотехника<span>3453 товара</span>
-                                    </div>
-                                    <div className={styles.categoryItems}>
-                                        {items.map((item, index) => (
-                                            <CategoryItemsList key={index} item={item} />
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </Portal>
-        </div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.menu}>
+            <div className={clsx(styles.menuContainer, 'container')}>
+                <div className={clsx(styles.menuCategoriesList, 'scrollbar-hide')}>
+                    {Array.from({ length: 20 }).map((_, index) => {
+                        return (
+                            <Link key={index} href={'/'} className={styles.menuCategoriesItem}>
+                                Акции, скидки и распродажи
+                            </Link>
+                        );
+                    })}
+                </div>
+                <div className={clsx(styles.menuCategory, 'scrollbar-hide')}>
+                    <div className={styles.categoryTitle}>
+                        Аудиотехника<span>3453 товара</span>
+                    </div>
+                    <div className={styles.categoryItems}>
+                        {items.map((item, index) => (
+                            <CategoryItem key={index} item={item} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </motion.div>
     );
 };
 
 interface ICategoryItemsListProps {
-    item: { name: string; path: string; children: { name: string; path: string }[] };
+    item: Item;
 }
 
-const CategoryItemsList: FC<ICategoryItemsListProps> = ({ item }) => {
+const CategoryItem: FC<ICategoryItemsListProps> = ({ item }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className={styles.categoryItemsList}>
+        <div className={styles.categoryItemList}>
             <Link href={item.path} className={clsx(styles.categoryItem, styles.categoryItemTitle)}>
                 {item.name}
             </Link>
