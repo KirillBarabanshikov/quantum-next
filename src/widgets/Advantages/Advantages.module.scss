@@ -29,7 +29,7 @@
                     font-weight: 500;
                     font-size: 18px;
                     line-height: 21.83px;
-                    max-width: 155px;
+                    width: 155px;
                     margin-bottom: 20px;
                 }
 
@@ -39,6 +39,28 @@
                     line-height: 13px;
                     color: var(--color-blue-tertiary);
                     text-decoration: underline;
+                    text-underline-offset: 4px;
+                }
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            gap: 10px;
+
+            .advantage {
+                padding: 30px 28px;
+
+                .advantageBody {
+                    .title {
+                        font-size: 16px;
+                        line-height: 19.41px;
+                        margin-bottom: 25px;
+                    }
+
+                    .link {
+                        font-size: 16px;
+                        line-height: 11px;
+                    }
                 }
             }
         }
