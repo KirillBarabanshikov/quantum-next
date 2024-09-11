@@ -12,6 +12,18 @@
         svg {
             display: block;
         }
+
+        @media screen and (max-width: 768px) {
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            padding: unset;
+
+            svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
     }
 
     .catalogMenu {

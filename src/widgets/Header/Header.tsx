@@ -9,12 +9,15 @@ import AccountIcon from '@/shared/assets/icons/account_box.svg';
 import BagIcon from '@/shared/assets/icons/bag.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import Logo from '@/shared/assets/logos/logo_small.svg';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 
 import styles from './Header.module.scss';
 import { CatalogButton, HeaderLinks } from './ui';
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
 
     return (
         <>
@@ -22,12 +25,14 @@ export const Header = () => {
             <header className={styles.header}>
                 <div className={'container'}>
                     <div className={styles.headerContent}>
-                        <Link href={'/'} className={styles.logo}>
-                            <Logo />
-                        </Link>
-                        <div className={styles.searchWrap}>
-                            <CatalogButton />
-                            <Search />
+                        <div className={styles.wrap}>
+                            <Link href={'/'} className={styles.logo}>
+                                <Logo />
+                            </Link>
+                            <div className={styles.searchWrap}>
+                                <CatalogButton />
+                                <Search />
+                            </div>
                         </div>
                         <div className={styles.options}>
                             <Link href={'/cart'} className={styles.option}>
@@ -41,6 +46,7 @@ export const Header = () => {
                                 <AccountIcon />
                             </div>
                         </div>
+                        {isMatch && <CatalogButton />}
                     </div>
                 </div>
             </header>

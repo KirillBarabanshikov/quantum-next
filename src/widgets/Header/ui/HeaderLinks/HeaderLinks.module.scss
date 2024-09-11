@@ -1,4 +1,4 @@
-.headerTop {
+.headerLinksContainer {
     padding: 14px 0;
 
     .headerLinksWrap {
@@ -22,5 +22,9 @@
         .tel {
             font-weight: 600;
         }
+    }
+
+    @media screen and (max-width: 768px) {
+        display: none;
     }
 }

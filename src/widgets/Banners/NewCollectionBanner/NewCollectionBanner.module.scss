@@ -23,5 +23,28 @@
         .button {
             min-width: 220px;
         }
+
+        @media screen and (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            min-height: 365px;
+            background-position: right;
+
+            .title {
+                font-size: 32px;
+            }
+
+            .description {
+                font-size: 14px;
+                line-height: 16.8px;
+                max-width: unset;
+                flex: 1;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
     }
 }

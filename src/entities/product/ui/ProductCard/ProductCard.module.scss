@@ -60,4 +60,29 @@
             background-color: var(--color-grey);
         }
     }
+
+    @media screen and (max-width: 768px) {
+        padding: 0;
+        max-width: 177px;
+
+        .productImage {
+            height: 160px;
+            margin-bottom: 10px;
+
+            .grade {
+                width: 20px;
+                height: 20px;
+                top: 6px;
+                right: 6px;
+            }
+        }
+
+        .productTitle {
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16.98px;
+            margin-bottom: 16px;
+        }
+    }
 }

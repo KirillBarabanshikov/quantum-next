@@ -1,29 +1,54 @@
 .mainBanner {
     .mainBannerContainer {
         background-image: url('../../../shared/assets/images/banners/main_banner_bg.png');
+        background-repeat: no-repeat;
         background-size: cover;
-        padding: 135px 108px 117px;
+        padding: 82px 108px 71px 108px;
         border-radius: 20px;
-        min-height: 487px;
+        min-height: 401px;
 
         .title {
             font-weight: 500;
             font-size: 54px;
             line-height: 38px;
             color: var(--color-white);
-            margin-bottom: 37px;
+            margin-bottom: 36px;
         }
 
         .description {
             font-size: 18px;
             line-height: 21.6px;
             color: var(--color-white);
-            margin-bottom: 43px;
-            white-space: pre-wrap;
+            margin-bottom: 64px;
         }
 
         .button {
             min-width: 220px;
+        }
+
+        @media screen and (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+            background-position: top;
+            padding: 24px 16px 21px 16px;
+            min-height: 487px;
+
+            .title {
+                flex: 1;
+                font-size: 40px;
+                line-height: 48.52px;
+                margin-bottom: 36px;
+            }
+
+            .description {
+                font-size: 16px;
+                line-height: 19.2px;
+                margin-bottom: 36px;
+
+                br {
+                    display: none;
+                }
+            }
         }
     }
 }

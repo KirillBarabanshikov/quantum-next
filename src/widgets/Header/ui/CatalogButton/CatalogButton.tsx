@@ -8,15 +8,17 @@ import { useEffect, useState } from 'react';
 import { CategoryCard } from '@/entities/category';
 import ArrowDownIcon from '@/shared/assets/icons/arrow_down.svg';
 import UnionIcon from '@/shared/assets/icons/union.svg';
-import { useOutsideClick } from '@/shared/hooks';
+import { useMediaQuery, useOutsideClick } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
 
 import styles from './CatalogButton.module.scss';
+import { MAX_WIDTH_MD } from '@/shared/consts';
 
 export const CatalogButton = () => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
     const pathname = usePathname();
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
 
     useEffect(() => {
         setIsOpen(false);
@@ -26,10 +28,14 @@ export const CatalogButton = () => {
         <div className={styles.catalogButtonWrap} ref={ref}>
             <Button theme={'white'} className={styles.catalogButton} onClick={() => setIsOpen((prev) => !prev)}>
                 <UnionIcon />
-                Каталог
-                <motion.div animate={{ rotate: isOpen ? '180deg' : '0deg' }}>
-                    <ArrowDownIcon />
-                </motion.div>
+                {!isMatch && (
+                    <>
+                        Каталог
+                        <motion.div animate={{ rotate: isOpen ? '180deg' : '0deg' }}>
+                            <ArrowDownIcon />
+                        </motion.div>
+                    </>
+                )}
             </Button>
             <AnimatePresence>
                 {isOpen && (

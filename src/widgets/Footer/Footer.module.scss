@@ -5,6 +5,14 @@
     .logo {
         display: inline-block;
         margin-bottom: 42px;
+
+        @media screen and (max-width: 768px) {
+            margin-bottom: 25px;
+
+            svg {
+                max-width: 138px;
+            }
+        }
     }
 
     .links {
@@ -18,12 +26,17 @@
             align-items: flex-start;
             flex-direction: column;
             gap: 25px;
+
+            @media screen and (max-width: 768px) {
+                flex: 1;
+            }
         }
 
         .link {
             font-size: 14px;
             line-height: 10px;
             color: var(--color-white);
+            white-space: nowrap;
         }
 
         .title {
@@ -37,12 +50,21 @@
             justify-content: space-between;
             gap: 25px;
             flex: 1;
+
+            @media screen and (max-width: 768px) {
+                justify-content: flex-start;
+                flex-basis: 100%;
+            }
         }
 
         .navLinks {
             display: flex;
             justify-content: flex-end;
             flex: 1;
+
+            @media screen and (max-width: 768px) {
+                justify-content: flex-start;
+            }
         }
 
         .contacts {
@@ -60,6 +82,15 @@
                     color: var(--color-blue-tertiary);
                 }
             }
+
+            @media screen and (max-width: 768px) {
+                justify-content: flex-start;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            flex-wrap: wrap;
+            margin-bottom: 40px;
         }
     }
 
@@ -85,5 +116,27 @@
             display: flex;
             gap: 25px;
         }
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+
+            .footLinks {
+                width: 100%;
+                justify-content: space-between;
+
+                .policy {
+                    margin-right: unset;
+                }
+            }
+
+            .socials {
+                order: -1;
+                margin-bottom: 30px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 40px 0;
     }
 }

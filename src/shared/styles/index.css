@@ -91,7 +91,7 @@ input[type='file'] {
 
 .container {
     max-width: 1280px;
-    padding: 0 15px;
+    padding: 0 14px;
     margin: 0 auto;
     box-sizing: content-box;
 }

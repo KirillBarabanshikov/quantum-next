@@ -5,7 +5,7 @@ import styles from './HeaderLinks.module.scss';
 
 export const HeaderLinks = () => {
     return (
-        <div className={styles.headerTop}>
+        <div className={styles.headerLinksContainer}>
             <div className={'container'}>
                 <div className={styles.headerLinksWrap}>
                     <nav>

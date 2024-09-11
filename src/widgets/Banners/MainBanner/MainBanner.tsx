@@ -1,5 +1,7 @@
+'use client';
+
 import clsx from 'clsx';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/shared/ui';
@@ -11,6 +13,8 @@ interface IMainBannerProps {
 }
 
 export const MainBanner: FC<IMainBannerProps> = ({ className }) => {
+    const router = useRouter();
+
     return (
         <section className={clsx(styles.mainBanner, className)}>
             <div className={'container'}>
@@ -23,11 +27,14 @@ export const MainBanner: FC<IMainBannerProps> = ({ className }) => {
                         <br />
                         ввезенное оборудование и решения на его базе.
                     </p>
-                    <Link href={'/catalog'}>
-                        <Button variant={'outline'} theme={'white'} className={styles.button}>
-                            Каталог
-                        </Button>
-                    </Link>
+                    <Button
+                        variant={'outline'}
+                        theme={'white'}
+                        onClick={() => router.push('/catalog')}
+                        className={styles.button}
+                    >
+                        Каталог
+                    </Button>
                 </div>
             </div>
         </section>

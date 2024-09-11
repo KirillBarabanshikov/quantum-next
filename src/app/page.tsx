@@ -1,3 +1,4 @@
+import { Button } from '@/shared/ui';
 import {
     Advantages,
     CategoriesList,
@@ -12,8 +13,10 @@ import styles from './page.module.scss';
 export default function Home() {
     return (
         <div className={styles.homePage}>
-            <MainBanner className={styles.mainBanner} />
-            <CategoriesList className={styles.categoriesList} />
+            <div>
+                <MainBanner className={styles.mainBanner} />
+                <CategoriesList className={styles.categoriesList} />
+            </div>
             <ProductsCarousel title={'Новинки'} className={styles.new} />
             <ProductsCarousel title={'Популярное'} className={styles.popular} />
             <NewCollectionBanner className={styles.newCollectionBanner} />
