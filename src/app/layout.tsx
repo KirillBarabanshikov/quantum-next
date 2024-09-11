@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import React from 'react';
 
-import { Footer, Header } from '@/widgets';
+import { BottomNavbar, Footer, Header } from '@/widgets';
 
 const gilroy = localFont({
     src: [
@@ -48,7 +48,10 @@ export default function RootLayout({
             <body>
                 <div className={'layout'}>
                     <Header />
-                    <main>{children}</main>
+                    <main>
+                        {children}
+                        <BottomNavbar />
+                    </main>
                     <Footer />
                 </div>
                 <div id={'portal'} />
