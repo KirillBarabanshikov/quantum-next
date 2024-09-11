@@ -8,7 +8,7 @@ import { AuthModal } from '@/feature/session/auth';
 import AccountIcon from '@/shared/assets/icons/account_box.svg';
 import BagIcon from '@/shared/assets/icons/bag.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
-import Logo from '@/shared/assets/logos/logo_small.svg';
+import Logo from '@/shared/assets/logos/logo.svg';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
 

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 
 import Icon from '@/shared/assets/icons/telegram.svg';
-import Logo from '@/shared/assets/logos/logo_large.svg';
+import Logo from '@/shared/assets/logos/logo.svg';
 
 import styles from './Footer.module.scss';
 
