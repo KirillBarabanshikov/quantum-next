@@ -101,3 +101,10 @@ input[type='file'] {
     font-size: 38px;
     line-height: 27px;
 }
+
+.scrollbar-hide {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}

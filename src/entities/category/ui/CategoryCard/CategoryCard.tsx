@@ -5,13 +5,9 @@ import { FC } from 'react';
 import styles from './CategoryCard.module.scss';
 import image from './image.png';
 
-interface ICategoryCardProps {
-    variant?: 'main' | 'catalog';
-}
-
-export const CategoryCard: FC<ICategoryCardProps> = ({ variant = 'main' }) => {
+export const CategoryCard: FC = ({}) => {
     return (
-        <article className={clsx(styles.categoryCard, styles[variant])}>
+        <article className={clsx(styles.categoryCard)}>
             <p className={styles.title}>Приемники</p>
             <div className={styles.imageWrap}>
                 <Image src={image} width={300} height={300} alt='Приемники' className={styles.image} />
