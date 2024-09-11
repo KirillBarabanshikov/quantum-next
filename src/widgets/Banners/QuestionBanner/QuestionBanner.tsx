@@ -16,11 +16,9 @@ export const QuestionBanner: FC<IQuestionBannerProps> = ({ className }) => {
                 <div className={styles.questionBannerContainer}>
                     <h2 className={styles.title}>Возникли вопросы?</h2>
                     <p className={styles.description}>
-                        Обратитесь в нашу службу поддержки,
-                        <br />
+                        Обратитесь в нашу службу поддержки, <br />
                         наши специалисты обязательно помогут вам.
-                        <br />
-                        Операторы работают круглосуточно.
+                        <br /> Операторы работают круглосуточно.
                     </p>
                     <Button variant={'outline'} theme={'white'} className={styles.button}>
                         Написать
