@@ -51,6 +51,9 @@
             white-space: nowrap;
             padding: 12px 14px;
             border-radius: 14px;
+            transition:
+                color 300ms,
+                background-color 300ms;
 
             @media (hover: hover) {
                 &:hover {
