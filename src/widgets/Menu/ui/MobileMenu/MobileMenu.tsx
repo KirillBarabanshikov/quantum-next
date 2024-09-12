@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -6,7 +7,6 @@ import TelegramIcon from '@/shared/assets/icons/telegram_dark.svg';
 import Logo from '@/shared/assets/logos/logo_dark.svg';
 
 import styles from './MobileMenu.module.scss';
-import { motion } from 'framer-motion';
 
 interface IMobileMenuProps {
     onClose: () => void;
