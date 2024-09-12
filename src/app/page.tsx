@@ -1,4 +1,3 @@
-import { Button } from '@/shared/ui';
 import {
     Advantages,
     CategoriesList,
