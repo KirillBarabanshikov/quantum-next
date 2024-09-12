@@ -1,10 +1,10 @@
 .menuButton {
-    border-radius: 10px;
-    min-width: unset;
-    padding: 0 17px;
+    border-radius: 10px !important;
+    min-width: unset !important;
+    padding: 0 17px !important;
     height: 40px !important;
-    gap: 9px;
-    font-weight: 700;
+    gap: 9px !important;
+    font-weight: 700 !important;
 
     svg {
         display: block;
