@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -7,7 +8,6 @@ import FileIcon from '@/shared/assets/icons/file.svg';
 import { Button, Separator } from '@/shared/ui';
 
 import styles from './OrderCard.module.scss';
-import clsx from 'clsx';
 
 export const OrderCard = () => {
     const [isOpen, setIsOpen] = useState(false);
