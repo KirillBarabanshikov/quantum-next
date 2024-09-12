@@ -6,6 +6,7 @@ import TelegramIcon from '@/shared/assets/icons/telegram_dark.svg';
 import Logo from '@/shared/assets/logos/logo_dark.svg';
 
 import styles from './MobileMenu.module.scss';
+import { motion } from 'framer-motion';
 
 interface IMobileMenuProps {
     onClose: () => void;
@@ -13,7 +14,7 @@ interface IMobileMenuProps {
 
 export const MobileMenu: FC<IMobileMenuProps> = ({ onClose }) => {
     return (
-        <div className={styles.menu}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.menu}>
             <div className={styles.logoWrap}>
                 <Logo />
                 <div onClick={onClose} className={styles.close}>
@@ -53,6 +54,6 @@ export const MobileMenu: FC<IMobileMenuProps> = ({ onClose }) => {
                     </a>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
