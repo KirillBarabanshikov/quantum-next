@@ -14,6 +14,18 @@
         }
     }
 
+    &.right {
+        .dropdownList {
+            right: 0;
+        }
+    }
+
+    &.left {
+        .dropdownList {
+            left: 0;
+        }
+    }
+
     .dropdownButton {
         display: flex;
         align-items: center;
@@ -28,13 +40,17 @@
         line-height: 10px;
         white-space: nowrap;
         cursor: pointer;
+
+        svg {
+            display: block;
+            width: 8px;
+        }
     }
 
     .dropdownList {
         position: absolute;
         z-index: 1;
         top: 40px;
-        left: 0;
 
         display: flex;
         flex-direction: column;
@@ -51,6 +67,7 @@
             white-space: nowrap;
             padding: 12px 14px;
             border-radius: 14px;
+            min-width: 223px;
             transition:
                 color 300ms,
                 background-color 300ms;

@@ -1,0 +1,39 @@
+.categoryPage {
+    padding: 24px 0 160px 0;
+
+    .categorySection {
+        margin-bottom: 160px;
+
+        .titleContainer {
+            margin-bottom: 40px;
+
+            .breadcrumbs {
+                margin-bottom: 24px;
+            }
+        }
+
+        .categoryContainer {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+
+            .topFilters {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            .productsContainer {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                .more {
+                    min-width: 265px;
+                    margin: 96px auto 0 auto;
+                }
+            }
+        }
+    }
+}

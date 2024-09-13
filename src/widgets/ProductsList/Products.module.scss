@@ -1,5 +1,5 @@
 .productsList {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(305px, 1fr));
-    gap: 76px 20px;
+    grid-gap: 20px;
 }
