@@ -1,11 +1,9 @@
 'use client';
 
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { CategoryCard } from '@/entities/category';
-import { Button } from '@/shared/ui';
 
 import styles from './CategoriesList.module.scss';
 
@@ -14,8 +12,6 @@ interface ICategoriesListProps {
 }
 
 export const CategoriesList: FC<ICategoriesListProps> = ({ className }) => {
-    const router = useRouter();
-
     return (
         <div className={clsx(className)}>
             <div className={'container'}>
@@ -24,9 +20,6 @@ export const CategoriesList: FC<ICategoriesListProps> = ({ className }) => {
                         <CategoryCard key={index} />
                     ))}
                 </div>
-                <Button variant={'outline'} onClick={() => router.push('/catalog')} className={styles.button}>
-                    Каталог
-                </Button>
             </div>
         </div>
     );
