@@ -46,5 +46,10 @@
                 width: 100%;
             }
         }
+
+        @media screen and (max-width: 576px) {
+            background-image: url('../../../shared/assets/images/banners/new_collection_banner_mobile_bg.png');
+            background-position: bottom;
+        }
     }
 }
