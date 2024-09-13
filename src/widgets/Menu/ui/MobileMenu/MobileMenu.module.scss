@@ -63,3 +63,33 @@
         }
     }
 }
+
+.collapsibleLink {
+    .collapsibleTitle {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+
+        svg {
+            display: block;
+        }
+    }
+
+    .collapsibleBody {
+        overflow: hidden;
+
+        .collapsibleList {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding-top: 18px;
+
+            a {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 11px;
+                color: var(--color-blue-tertiary);
+            }
+        }
+    }
+}

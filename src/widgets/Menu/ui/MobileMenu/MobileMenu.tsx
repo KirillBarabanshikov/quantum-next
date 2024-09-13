@@ -1,7 +1,9 @@
-import { motion } from 'framer-motion';
+import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
+import ArrowIcon from '@/shared/assets/icons/arrow_down2.svg';
 import CloseIcon from '@/shared/assets/icons/close.svg';
 import TelegramIcon from '@/shared/assets/icons/telegram_dark.svg';
 import Logo from '@/shared/assets/logos/logo_dark.svg';
@@ -22,6 +24,7 @@ export const MobileMenu: FC<IMobileMenuProps> = ({ onClose }) => {
                 </div>
             </div>
             <div className={styles.linksList}>
+                <CollapsibleLink />
                 <Link href={'/'} className={styles.link}>
                     Гарантии
                 </Link>
@@ -55,5 +58,39 @@ export const MobileMenu: FC<IMobileMenuProps> = ({ onClose }) => {
                 </div>
             </div>
         </motion.div>
+    );
+};
+
+const CollapsibleLink = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div className={styles.collapsibleLink}>
+            <div className={clsx(styles.collapsibleTitle, styles.link)} onClick={() => setIsOpen((prev) => !prev)}>
+                Каталог
+                <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ damping: 0 }}>
+                    <ArrowIcon />
+                </motion.div>
+            </div>
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: 'auto' }}
+                        exit={{ height: 0 }}
+                        className={styles.collapsibleBody}
+                    >
+                        <div className={styles.collapsibleList}>
+                            <Link href={'/'}>Умные колонки</Link>
+                            <Link href={'/'}>Умные колонки</Link>
+                            <Link href={'/'}>Умные колонки</Link>
+                            <Link href={'/'}>Умные колонки</Link>
+                            <Link href={'/'}>Умные колонки</Link>
+                            <Link href={'/'}>Умные колонки</Link>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 };
