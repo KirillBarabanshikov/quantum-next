@@ -28,7 +28,7 @@ export const CategoryPage = () => {
                     <h1 className={'title'}>Приемники</h1>
                 </div>
                 <div className={clsx(styles.categoryContainer, 'container')}>
-                    <Filters />
+                    <Filters className={styles.filters} />
                     <div className={styles.productsContainer}>
                         <div className={styles.topFilters}>
                             <div className={styles.topFiltersList}></div>

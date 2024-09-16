@@ -1,4 +1,4 @@
-import { CallForm } from '@/feature/call/ui';
+import { CallForm } from '@/feature/call';
 
 import styles from './CallBanner.module.scss';
 

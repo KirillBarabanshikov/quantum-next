@@ -1,16 +1,21 @@
 'use client';
 
+import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import ArrowIcon from '@/shared/assets/icons/arrow_down2.svg';
 import { Button } from '@/shared/ui';
 
 import styles from './Filters.module.scss';
 
-export const Filters = () => {
+interface IFiltersProps {
+    className?: string;
+}
+
+export const Filters: FC<IFiltersProps> = ({ className }) => {
     return (
-        <div className={styles.filters}>
+        <div className={clsx(styles.filters, className)}>
             <div className={styles.filtersList}>
                 {Array.from({ length: 5 }).map((_, index) => {
                     return <FilterItem key={index} list={index < 4} />;

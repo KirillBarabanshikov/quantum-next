@@ -17,6 +17,12 @@
             align-items: flex-start;
             gap: 20px;
 
+            .filters {
+                @media screen and (max-width: 768px) {
+                    display: none;
+                }
+            }
+
             .topFilters {
                 display: flex;
                 align-items: center;
