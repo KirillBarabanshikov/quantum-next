@@ -17,10 +17,8 @@ export const Filters = () => {
                 })}
             </div>
             <div className={styles.buttons}>
-                <Button size={'md'}>Применить</Button>
-                <Button variant={'outline'} size={'md'}>
-                    Сбросить фильтры
-                </Button>
+                <Button>Применить</Button>
+                <Button variant={'outline'}>Сбросить фильтры</Button>
             </div>
         </div>
     );
