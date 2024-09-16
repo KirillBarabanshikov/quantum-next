@@ -21,7 +21,8 @@
         background-color: var(--color-white);
         border-radius: 20px;
         pointer-events: initial;
-        min-width: 414px;
+        width: 100%;
+        max-width: 467px;
 
         .titleWrap {
             display: flex;
