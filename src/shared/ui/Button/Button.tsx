@@ -15,12 +15,14 @@ export const Button: FC<IButtonProps> = ({
     theme = 'blue',
     fullWidth = false,
     size = 'lg',
-    className,
+    type = 'button',
     children,
+    className,
     ...props
 }) => {
     return (
         <button
+            type={type}
             className={clsx(
                 className,
                 styles.button,

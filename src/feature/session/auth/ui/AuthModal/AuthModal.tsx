@@ -4,7 +4,7 @@ import { RecoverForm } from '@/feature/session/auth/ui/RecoverForm';
 import { Button, Modal } from '@/shared/ui';
 
 import { LoginForm } from '../LoginForm';
-import { RegForm } from '../RegForm';
+import { SignupForm } from '../SignupForm';
 import styles from './AuthModal.module.scss';
 
 interface IAuthModalProps {
@@ -40,7 +40,7 @@ export const AuthModal: FC<IAuthModalProps> = ({ isOpen, onClose }) => {
                 </div>
             ) : currentForm === 'reg' ? (
                 <div>
-                    <RegForm />
+                    <SignupForm />
                     <Button fullWidth variant={'outline'} onClick={() => setCurrentForm('login')}>
                         Вернуться к авторизации
                     </Button>

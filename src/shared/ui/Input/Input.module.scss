@@ -76,4 +76,18 @@
             padding: 19px 27px;
         }
     }
+
+    &.isError {
+        .input {
+            outline: 1px solid var(--color-red-accent);
+        }
+
+        .error {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 10px;
+            margin-top: 10px;
+            color: var(--color-red-accent);
+        }
+    }
 }
