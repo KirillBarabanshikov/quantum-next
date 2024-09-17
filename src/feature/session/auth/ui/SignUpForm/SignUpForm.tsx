@@ -1,13 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { maskPhone } from '@/shared/lib';
-import { Button, Input } from '@/shared/ui';
+import { Button, Input, Modal } from '@/shared/ui';
 
 import { signUpFormScheme, TSignUpFormScheme } from '../../model';
 import styles from './SignupForm.module.scss';
 
-export const SignUpForm = () => {
+interface ISignUpForm {
+    setIsSuccess: (value: boolean) => void;
+}
+
+export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -18,6 +25,8 @@ export const SignUpForm = () => {
 
     const onSubmit = (data: TSignUpFormScheme) => {
         console.log(data);
+        setIsSuccess(true);
+        setIsOpen(true);
     };
 
     return (
@@ -82,6 +91,15 @@ export const SignUpForm = () => {
                 Ссылка для входа в личный кабинет будет отправлена на вашу электронную почту.
             </div>
             <Button type={'submit'}>ЗАРЕГИСТРИРОВАТЬСЯ</Button>
+            <Modal
+                isOpen={isOpen}
+                onClose={() => {
+                    setIsOpen(false);
+                }}
+                title={'Проверьте вашу почту'}
+            >
+                <div>123123123</div>
+            </Modal>
         </form>
     );
 };

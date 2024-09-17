@@ -22,6 +22,9 @@
         background-color: var(--color-white);
         border-radius: 20px;
         pointer-events: initial;
+        width: 100%;
+        max-height: 95vh;
+        overflow-y: auto;
 
         .titleWrap {
             display: flex;

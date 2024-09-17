@@ -14,10 +14,11 @@ interface IModalProps extends PropsWithChildren {
     isOpen: boolean;
     onClose: () => void;
     title?: string;
+    maxWidth?: number;
     className?: string;
 }
 
-export const Modal: FC<IModalProps> = ({ children, isOpen, onClose, title, className }) => {
+export const Modal: FC<IModalProps> = ({ children, isOpen, onClose, title, maxWidth = 474, className }) => {
     const { setIsLocked } = useBodyScrollLock();
 
     useEffect(() => {
@@ -42,7 +43,10 @@ export const Modal: FC<IModalProps> = ({ children, isOpen, onClose, title, class
                             exit={{ opacity: 0 }}
                             className={styles.modalWrap}
                         >
-                            <div className={clsx(styles.modal, className)}>
+                            <div
+                                className={clsx(styles.modal, 'scrollbar-hide', className)}
+                                style={{ maxWidth: `${maxWidth}px` }}
+                            >
                                 <div className={styles.titleWrap}>
                                     <h2 className={styles.title}>{title}</h2>
                                     <CloseIcon onClick={onClose} />

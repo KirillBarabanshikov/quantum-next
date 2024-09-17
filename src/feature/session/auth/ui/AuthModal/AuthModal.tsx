@@ -10,53 +10,85 @@ import { SignInForm } from '../SignInForm';
 import { SignUpForm } from '../SignUpForm';
 import styles from './AuthModal.module.scss';
 
-const titles: Record<string, string> = {
-    signIn: 'Авторизация',
-    signUp: 'Регистрация',
-    recover: 'Восстановить пароль',
+type TFormName = 'signin' | 'signup' | 'recovery';
+
+const formNames: Record<TFormName, string> = {
+    signin: 'Авторизация',
+    signup: 'Регистрация',
+    recovery: 'Восстановить пароль',
 };
 
 export const AuthModal: FC = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [currentForm, setCurrentForm] = useState('signIn');
+    const [currentForm, setCurrentForm] = useState<TFormName>('signin');
+    const [isSuccess, setIsSuccess] = useState(false);
     const searchParams = useSearchParams();
     const router = useRouter();
 
     useEffect(() => {
-        setIsOpen(searchParams.has('authentication'));
+        if (!searchParams.get('authentication') || !((searchParams.get('authentication') || '') in formNames)) return;
+        setCurrentForm(searchParams.get('authentication') as TFormName);
+        setIsOpen(true);
     }, [searchParams]);
 
     const handleClose = () => {
-        setIsOpen(false);
         const params = new URLSearchParams(searchParams.toString());
         params.delete('authentication');
         router.replace(`?${params}`, { scroll: false });
-        setCurrentForm('signIn');
+        setIsOpen(false);
+        setIsSuccess(false);
+    };
+
+    const handleChangeForm = (name: TFormName) => {
+        setCurrentForm(name);
+        router.push(`?authentication=${name}`, { scroll: false });
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={handleClose} title={titles[currentForm]}>
-            {currentForm === 'signIn' ? (
+        <Modal isOpen={isOpen} onClose={handleClose}>
+            {currentForm === 'signin' ? (
                 <>
+                    <div className={styles.title}>Авторизация</div>
                     <SignInForm />
-                    <span className={styles.recovery} onClick={() => setCurrentForm('recover')}>
+                    <span className={styles.recovery} onClick={() => handleChangeForm('recovery')}>
                         Восстановить пароль
                     </span>
-                    <Button fullWidth variant={'outline'} onClick={() => setCurrentForm('signUp')}>
+                    <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signup')}>
                         РЕГИСТРАЦИЯ
                     </Button>
                 </>
-            ) : currentForm === 'signUp' ? (
-                <>
-                    <SignUpForm />
-                    <Button fullWidth variant={'outline'} onClick={() => setCurrentForm('signIn')}>
-                        ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
-                    </Button>
-                </>
+            ) : currentForm === 'signup' ? (
+                isSuccess ? (
+                    <>
+                        <div className={styles.title}>Проверьте вашу почту</div>
+                        <div className={styles.hint}>
+                            Направили письмо с ссылкой для входа в личный кабинет на вашу электронную почту.
+                        </div>
+                        <Button
+                            fullWidth
+                            variant={'outline'}
+                            onClick={() => {
+                                handleChangeForm('signin');
+                                setIsSuccess(false);
+                            }}
+                        >
+                            ВОЙТИ
+                        </Button>
+                    </>
+                ) : (
+                    <>
+                        <div className={styles.title}>Регистрация</div>
+                        <SignUpForm setIsSuccess={setIsSuccess} />
+                        <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
+                            ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
+                        </Button>
+                    </>
+                )
             ) : (
                 <>
+                    <div className={styles.title}>Восстановить пароль</div>
                     <RecoverForm />
-                    <Button fullWidth variant={'outline'} onClick={() => setCurrentForm('signIn')}>
+                    <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
                         ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
                     </Button>
                 </>

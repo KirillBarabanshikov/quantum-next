@@ -42,12 +42,9 @@ export const Header = () => {
                             <Link href={'/cabinet'} className={styles.option}>
                                 <GradeIcon />
                             </Link>
-                            <div
-                                className={styles.option}
-                                onClick={() => router.push('?authentication=signin', { scroll: false })}
-                            >
+                            <Link href={'/cabinet'} className={styles.option}>
                                 <AccountIcon />
-                            </div>
+                            </Link>
                         </div>
                         {isMatch && <Menu />}
                     </div>
