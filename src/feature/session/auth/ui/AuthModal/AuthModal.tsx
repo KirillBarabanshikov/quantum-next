@@ -27,6 +27,7 @@ export const AuthModal: FC = () => {
     }, [searchParams]);
 
     const handleClose = () => {
+        setIsOpen(false);
         const params = new URLSearchParams(searchParams.toString());
         params.delete('authentication');
         router.replace(`?${params}`, { scroll: false });
