@@ -1,1 +1,2 @@
-export { signupFormScheme, type TSignupFormScheme } from './signupFormScheme';
+export { signInFormScheme, type TSignInFormScheme } from './signInFormScheme';
+export { signUpFormScheme, type TSignUpFormScheme } from './signUpFormScheme';

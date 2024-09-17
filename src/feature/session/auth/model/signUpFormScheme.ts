@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const signupFormScheme = yup.object().shape({
+export const signUpFormScheme = yup.object().shape({
     username: yup
         .string()
         .required('Пожалуйста, заполните обязательное поле')
@@ -25,4 +25,4 @@ export const signupFormScheme = yup.object().shape({
         .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
 });
 
-export type TSignupFormScheme = yup.InferType<typeof signupFormScheme>;
+export type TSignUpFormScheme = yup.InferType<typeof signUpFormScheme>;

@@ -1,5 +1,7 @@
 .recoverForm {
-    margin: 20px 0 10px 0;
+    margin: 24px 0 18px 0;
+    width: 100vw;
+    max-width: 407px;
 
     .hint {
         display: inline-block;
@@ -10,10 +12,10 @@
     }
 
     .input {
-        margin: 30px 0 13px 0;
+        margin: 24px 0;
     }
 
     .button {
-        margin-top: 59px;
+        margin-top: 24px;
     }
 }

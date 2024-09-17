@@ -1,14 +1,16 @@
 .signupForm {
     display: flex;
     flex-direction: column;
-    gap: 17px;
-    margin: 39px 0 15px 0;
+    gap: 18px;
+    margin: 24px 0 18px 0;
+    width: 100vw;
+    max-width: 407px;
 
     .hint {
         font-weight: 500;
         font-size: 14px;
         color: var(--color-blue-tertiary);
         max-width: 323px;
-        margin: 13px 0 5px 0;
+        margin: 6px 0;
     }
 }
