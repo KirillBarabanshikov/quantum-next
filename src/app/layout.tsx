@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import React from 'react';
 
+import { AuthModal } from '@/feature/session/auth';
 import { BottomNavbar, Footer, Header } from '@/widgets';
 
 const gilroy = localFont({
@@ -51,6 +52,7 @@ export default function RootLayout({
                     <main>
                         {children}
                         <BottomNavbar />
+                        <AuthModal />
                     </main>
                     <Footer />
                 </div>

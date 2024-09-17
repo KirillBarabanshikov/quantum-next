@@ -1,4 +1,7 @@
-import { FC, useState } from 'react';
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
+import { FC, useEffect, useState } from 'react';
 
 import { RecoverForm } from '@/feature/session/auth/ui/RecoverForm';
 import { Button, Modal } from '@/shared/ui';
@@ -7,22 +10,26 @@ import { SignInForm } from '../SignInForm';
 import { SignUpForm } from '../SignUpForm';
 import styles from './AuthModal.module.scss';
 
-interface IAuthModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
 const titles: Record<string, string> = {
     signIn: 'Авторизация',
     signUp: 'Регистрация',
     recover: 'Восстановить пароль',
 };
 
-export const AuthModal: FC<IAuthModalProps> = ({ isOpen, onClose }) => {
+export const AuthModal: FC = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const [currentForm, setCurrentForm] = useState('signIn');
+    const searchParams = useSearchParams();
+    const router = useRouter();
+
+    useEffect(() => {
+        setIsOpen(searchParams.has('authentication'));
+    }, [searchParams]);
 
     const handleClose = () => {
-        onClose();
+        const params = new URLSearchParams(searchParams.toString());
+        params.delete('authentication');
+        router.replace(`?${params}`, { scroll: false });
         setCurrentForm('signIn');
     };
 

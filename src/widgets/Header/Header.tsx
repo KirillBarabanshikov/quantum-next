@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Search } from '@/feature/search';
-import { AuthModal } from '@/feature/session/auth';
 import AccountIcon from '@/shared/assets/icons/account_box.svg';
 import BagIcon from '@/shared/assets/icons/bag.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
@@ -17,8 +16,8 @@ import styles from './Header.module.scss';
 import { HeaderLinks } from './ui';
 
 export const Header = () => {
-    const [isOpen, setIsOpen] = useState(false);
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+    const router = useRouter();
 
     return (
         <>
@@ -43,7 +42,10 @@ export const Header = () => {
                             <Link href={'/cabinet'} className={styles.option}>
                                 <GradeIcon />
                             </Link>
-                            <div className={styles.option} onClick={() => setIsOpen(true)}>
+                            <div
+                                className={styles.option}
+                                onClick={() => router.push('?authentication=signin', { scroll: false })}
+                            >
                                 <AccountIcon />
                             </div>
                         </div>
@@ -51,7 +53,6 @@ export const Header = () => {
                     </div>
                 </div>
             </header>
-            <AuthModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </>
     );
 };
