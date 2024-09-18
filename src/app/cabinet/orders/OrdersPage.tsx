@@ -1,8 +1,9 @@
 'use client';
 
-import styles from './OrdersPage.module.scss';
-import { Dropdown } from '@/shared/ui';
 import { OrderCard } from '@/entities/order';
+import { Dropdown } from '@/shared/ui';
+
+import styles from './OrdersPage.module.scss';
 
 export const Orders = () => {
     return (

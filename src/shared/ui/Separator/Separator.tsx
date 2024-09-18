@@ -1,6 +1,7 @@
-import styles from './Separator.module.scss';
-import { FC } from 'react';
 import clsx from 'clsx';
+import { FC } from 'react';
+
+import styles from './Separator.module.scss';
 
 interface ISeparatorProps {
     className?: string;

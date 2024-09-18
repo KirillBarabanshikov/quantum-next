@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
-import styles from './layout.module.scss';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import React from 'react';
+
+import styles from './layout.module.scss';
 
 const navItems = [
     {

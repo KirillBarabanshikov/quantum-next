@@ -1,5 +1,6 @@
-import styles from './AccountPage.module.scss';
 import { Button, Input, Separator } from '@/shared/ui';
+
+import styles from './AccountPage.module.scss';
 
 export const AccountPage = () => {
     return (
