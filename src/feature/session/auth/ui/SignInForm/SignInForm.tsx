@@ -25,7 +25,7 @@ export const SignInForm: FC<ISignInFormProps> = ({ onClose }) => {
     const onSubmit = async (data: TSignInFormScheme) => {
         try {
             await signIn(data);
-            router.push('/cabinet');
+            router.push('/cabinet/orders');
             onClose();
         } catch (error) {
             console.error(error);

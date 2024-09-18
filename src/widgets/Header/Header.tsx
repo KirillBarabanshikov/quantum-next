@@ -37,7 +37,7 @@ export const Header = () => {
                                 <BagIcon />
                                 <span className={styles.badge}>1</span>
                             </Link>
-                            <Link href={'/cabinet'} className={styles.option}>
+                            <Link href={'/cabinet/favorites'} className={styles.option}>
                                 <GradeIcon />
                             </Link>
                             <Link href={'/cabinet'} className={styles.option}>

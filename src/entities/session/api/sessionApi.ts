@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import { instance } from '@/shared/api';
 
@@ -17,8 +17,8 @@ const useSignUpMutation = () => {
 const useSignInMutation = () => {
     return useMutation<IResponseSignIn, Error, IRequestSignInBody>({
         mutationFn: async (body) => {
-            const response = await axios.post<IResponseSignIn>('/api/signin', body);
-            console.log(response.data.token);
+            const response = await instance.post<IResponseSignIn>('/authentication_token', body);
+            Cookies.set('token', response.data.token);
             return response.data;
         },
     });

@@ -49,7 +49,12 @@ export const AuthModal: FC = () => {
             {currentForm === 'signin' ? (
                 <>
                     <div className={styles.title}>Авторизация</div>
-                    <SignInForm onClose={handleClose} />
+                    <SignInForm
+                        onClose={() => {
+                            setIsOpen(false);
+                            setIsSuccess(false);
+                        }}
+                    />
                     <span className={styles.recovery} onClick={() => handleChangeForm('recovery')}>
                         Восстановить пароль
                     </span>
