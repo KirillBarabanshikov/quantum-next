@@ -1,20 +1,35 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useSignInMutation } from '@/entities/session/api';
 import { Button, Input } from '@/shared/ui';
 
 import { signInFormScheme, TSignInFormScheme } from '../../model';
 import styles from './SignInForm.module.scss';
 
-export const SignInForm = () => {
+interface ISignInFormProps {
+    onClose: () => void;
+}
+
+export const SignInForm: FC<ISignInFormProps> = ({ onClose }) => {
+    const { mutateAsync: signIn } = useSignInMutation();
+    const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<TSignInFormScheme>({ resolver: yupResolver(signInFormScheme), mode: 'all' });
 
-    const onSubmit = (data: TSignInFormScheme) => {
-        console.log(data);
+    const onSubmit = async (data: TSignInFormScheme) => {
+        try {
+            await signIn(data);
+            router.push('/cabinet');
+            onClose();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

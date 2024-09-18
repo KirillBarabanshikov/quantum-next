@@ -49,7 +49,7 @@ export const AuthModal: FC = () => {
             {currentForm === 'signin' ? (
                 <>
                     <div className={styles.title}>Авторизация</div>
-                    <SignInForm />
+                    <SignInForm onClose={handleClose} />
                     <span className={styles.recovery} onClick={() => handleChangeForm('recovery')}>
                         Восстановить пароль
                     </span>
@@ -66,7 +66,6 @@ export const AuthModal: FC = () => {
                         </div>
                         <Button
                             fullWidth
-                            variant={'outline'}
                             onClick={() => {
                                 handleChangeForm('signin');
                                 setIsSuccess(false);

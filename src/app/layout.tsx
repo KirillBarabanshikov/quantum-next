@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import React from 'react';
 
+import Providers from '@/app/providers';
 import { AuthModal } from '@/feature/session/auth';
 import { BottomNavbar, Footer, Header } from '@/widgets';
 
@@ -47,16 +48,18 @@ export default function RootLayout({
     return (
         <html lang='en' className={gilroy.className}>
             <body>
-                <div className={'layout'}>
-                    <Header />
-                    <main>
-                        {children}
-                        <BottomNavbar />
-                        <AuthModal />
-                    </main>
-                    <Footer />
-                </div>
-                <div id={'portal'} />
+                <Providers>
+                    <div className={'layout'}>
+                        <Header />
+                        <main>
+                            {children}
+                            <BottomNavbar />
+                            <AuthModal />
+                        </main>
+                        <Footer />
+                    </div>
+                    <div id={'portal'} />
+                </Providers>
             </body>
         </html>
     );

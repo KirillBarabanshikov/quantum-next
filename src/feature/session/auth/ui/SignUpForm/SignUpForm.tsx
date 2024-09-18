@@ -1,9 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useSignUpMutation } from '@/entities/session';
 import { maskPhone } from '@/shared/lib';
-import { Button, Input, Modal } from '@/shared/ui';
+import { Button, Input } from '@/shared/ui';
 
 import { signUpFormScheme, TSignUpFormScheme } from '../../model';
 import styles from './SignupForm.module.scss';
@@ -13,8 +14,7 @@ interface ISignUpForm {
 }
 
 export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
+    const { mutateAsync: signUp } = useSignUpMutation();
     const {
         register,
         handleSubmit,
@@ -23,10 +23,13 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
         setValue,
     } = useForm<TSignUpFormScheme>({ resolver: yupResolver(signUpFormScheme), mode: 'all' });
 
-    const onSubmit = (data: TSignUpFormScheme) => {
-        console.log(data);
-        setIsSuccess(true);
-        setIsOpen(true);
+    const onSubmit = async (data: TSignUpFormScheme) => {
+        try {
+            await signUp(data);
+            setIsSuccess(true);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -91,15 +94,6 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
                 Ссылка для входа в личный кабинет будет отправлена на вашу электронную почту.
             </div>
             <Button type={'submit'}>ЗАРЕГИСТРИРОВАТЬСЯ</Button>
-            <Modal
-                isOpen={isOpen}
-                onClose={() => {
-                    setIsOpen(false);
-                }}
-                title={'Проверьте вашу почту'}
-            >
-                <div>123123123</div>
-            </Modal>
         </form>
     );
 };

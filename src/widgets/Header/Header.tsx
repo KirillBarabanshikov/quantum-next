@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { Search } from '@/feature/search';
 import AccountIcon from '@/shared/assets/icons/account_box.svg';
@@ -17,7 +16,6 @@ import { HeaderLinks } from './ui';
 
 export const Header = () => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
-    const router = useRouter();
 
     return (
         <>
