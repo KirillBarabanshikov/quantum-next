@@ -1,0 +1,10 @@
+.favorites {
+    width: 100%;
+
+    .favoritesList {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(305px, 1fr));
+        grid-gap: 20px;
+        margin-top: 18px;
+    }
+}

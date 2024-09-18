@@ -90,4 +90,9 @@
         height: 37px;
         font-size: 14px;
     }
+
+    &:disabled {
+        pointer-events: none;
+        background-color: var(--color-blue-tertiary) !important;
+    }
 }

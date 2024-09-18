@@ -11,6 +11,10 @@ export function middleware(req: NextRequest) {
         return NextResponse.redirect(url);
     }
 
+    if (pathname === '/cabinet') {
+        return NextResponse.redirect(new URL('/cabinet/orders', req.url));
+    }
+
     return NextResponse.next();
 }
 
