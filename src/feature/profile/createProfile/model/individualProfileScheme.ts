@@ -1,8 +1,14 @@
 import * as yup from 'yup';
 
 export const individualProfileScheme = yup.object().shape({
-    firstName: yup.string().required('Пожалуйста, заполните обязательное поле'),
-    lastName: yup.string().required('Пожалуйста, заполните обязательное поле'),
+    firstName: yup
+        .string()
+        .required('Пожалуйста, заполните обязательное поле')
+        .matches(/^[A-Za-zА-Яа-яЁё]+$/, 'Имя должно содержать только буквы'),
+    lastName: yup
+        .string()
+        .required('Пожалуйста, заполните обязательное поле')
+        .matches(/^[A-Za-zА-Яа-яЁё]+$/, 'Фамилия должна содержать только буквы'),
     phoneNumber: yup
         .string()
         .required('Пожалуйста, заполните обязательное поле')
@@ -16,18 +22,18 @@ export const individualProfileScheme = yup.object().shape({
         .string()
         .required('Пожалуйста, заполните обязательное поле')
         .min(4, 'Недействительная серия паспорта')
-        .max(4, 'Недействительная серия паспорта'),
+        .max(4, 'Недействительная серия паспорта')
+        .matches(/^[0-9]+$/, 'Недействительная серия паспорта'),
     passportNumber: yup
         .string()
         .required('Пожалуйста, заполните обязательное поле')
         .min(6, 'Недействительный номер паспорта')
-        .max(6, 'Недействительный номер паспорта'),
+        .max(6, 'Недействительный номер паспорта')
+        .matches(/^[0-9]+$/, 'Недействительный номер паспорта'),
     passportIssued: yup.string().required('Пожалуйста, заполните обязательное поле'),
     passportDepartmentCode: yup.string().required('Пожалуйста, заполните обязательное поле'),
-    passportDate: yup
-        .string()
-        .required('Пожалуйста, заполните обязательное поле')
-        .matches(/^\d{2}\.\d{2}\.\d{4}$/, 'Дата должна быть в формате дд.мм.гггг'),
+    // .matches(/^\d{3}-\d{3}$/, 'Недействительный номер подразделения'),
+    passportDate: yup.string().required('Пожалуйста, заполните обязательное поле'),
     deliveryAddressCity: yup.string().required('Пожалуйста, заполните обязательное поле'),
     deliveryAddress: yup.string().required('Пожалуйста, заполните обязательное поле'),
     checked: yup.bool().oneOf([true]),

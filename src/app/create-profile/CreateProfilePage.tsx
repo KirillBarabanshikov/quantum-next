@@ -43,11 +43,7 @@ export const CreateProfilePage = () => {
     });
 
     const onSubmit = async (data: TIndividualProfileScheme) => {
-        const [day, month, year] = data.passportDate.split('.');
-
-        const date = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
-
-        await createProfile({ ...data, type: 'individual', passportDate: date.toISOString() });
+        await createProfile({ ...data, type: 'individual' });
         refetch().then(() => router.push('/cabinet/orders'));
     };
 
@@ -149,6 +145,7 @@ export const CreateProfilePage = () => {
                                                             />
                                                             <Input
                                                                 label={'Дата'}
+                                                                type={'date'}
                                                                 placeholder={'01.01.2024'}
                                                                 className={styles.input}
                                                                 {...register('passportDate')}
@@ -177,6 +174,7 @@ export const CreateProfilePage = () => {
                                                 <Checkbox
                                                     label={'согласие на обработку персональных данных'}
                                                     {...register('checked')}
+                                                    error={!!errors.checked?.message}
                                                 />
                                                 <Button className={styles.button} type={'submit'}>
                                                     Создать профиль
