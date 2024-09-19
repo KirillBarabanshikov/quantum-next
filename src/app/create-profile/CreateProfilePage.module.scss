@@ -1,0 +1,114 @@
+.createProfilePage {
+    padding: 24px 0 160px 0;
+
+    .title {
+        margin-bottom: 40px;
+    }
+
+    .profilesList {
+        border-radius: 20px;
+        padding: 30px;
+        background-color: var(--color-grey);
+    }
+}
+
+.profileTitle {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 20px;
+    margin-bottom: 28px;
+}
+
+.profilesList {
+    margin-bottom: 20px;
+
+    .profile {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+
+        &.selected {
+            cursor: initial;
+
+            .icon {
+                color: var(--color-blue-accent);
+            }
+        }
+
+        .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            min-width: 32px;
+            height: 32px;
+            border-radius: 20px;
+            background-color: var(--color-white);
+            margin-top: 10px;
+            transition: color 300ms ease-out;
+        }
+
+        .profileItem {
+            padding: 20px;
+            background-color: var(--color-white);
+            border-radius: 20px;
+            width: 100%;
+
+            .profileName {
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 13px;
+            }
+
+            .profileBody {
+                overflow: hidden;
+
+                .profileContent {
+                    padding: 20px 0 0 0;
+
+                    .separator {
+                        height: 1px;
+                        background-color: var(--color-dark-blue);
+                        opacity: 0.3;
+                        margin: 25px 0;
+                    }
+
+                    form {
+                        .formBody {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 17px;
+                            max-width: 600px;
+                        }
+
+                        h2 {
+                            font-weight: 500;
+                            font-size: 18px;
+                            margin-bottom: 8px;
+                        }
+
+                        .contacts {
+                            margin-top: 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.inputs {
+    display: flex;
+    gap: 20px;
+
+    .input {
+        width: 100%;
+    }
+}
+
+.button {
+    margin-top: 24px;
+    width: 100%;
+    max-width: 517px;
+}

@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import CheckCircle from '@/shared/assets/icons/check_circle.svg';
@@ -11,6 +12,7 @@ import styles from './ProfilePage.module.scss';
 
 export const ProfilePage = () => {
     const [selectedProfile, setSelectedProfile] = useState<number>();
+    const router = useRouter();
 
     return (
         <div className={styles.profileWrap}>
@@ -73,7 +75,9 @@ export const ProfilePage = () => {
                     </div>
                 </div>
             </div>
-            <Button className={clsx(styles.button, styles.create)}>Создать профиль</Button>
+            <Button className={clsx(styles.button, styles.create)} onClick={() => router.push('/create-profile')}>
+                Создать профиль
+            </Button>
         </div>
     );
 };

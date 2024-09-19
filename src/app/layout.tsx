@@ -3,7 +3,7 @@ import 'swiper/css';
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import Providers from '@/app/providers';
 import { AuthModal } from '@/feature/session/auth';
@@ -54,7 +54,9 @@ export default function RootLayout({
                         <main>
                             {children}
                             <BottomNavbar />
-                            <AuthModal />
+                            <Suspense fallback={<div></div>}>
+                                <AuthModal />
+                            </Suspense>
                         </main>
                         <Footer />
                     </div>
