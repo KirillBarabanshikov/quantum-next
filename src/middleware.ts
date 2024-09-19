@@ -11,6 +11,8 @@ export async function middleware(req: NextRequest) {
         return NextResponse.redirect(url);
     }
 
+    console.log(token.value);
+
     if (pathname.startsWith('/cabinet')) {
         const response = await instance.get('/me', { headers: { Authorization: `Bearer ${token.value}` } });
 

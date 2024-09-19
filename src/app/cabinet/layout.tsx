@@ -2,8 +2,10 @@
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
+
+import { useMeQuery } from '@/entities/user/api';
 
 import styles from './layout.module.scss';
 
@@ -28,6 +30,20 @@ const navItems = [
 
 export default function CabinetLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
+    const { data } = useMeQuery();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!data) return;
+
+        if (!data.payerProfiles.length) {
+            router.push('/create-profile');
+        }
+    }, [data]);
+
+    if (!data) {
+        return <></>;
+    }
 
     return (
         <section className={styles.cabinet}>
@@ -35,7 +51,9 @@ export default function CabinetLayout({ children }: { children: React.ReactNode 
                 <h1 className={clsx(styles.title, 'title')}>Личный кабинет</h1>
                 <div className={styles.cabinetArea}>
                     <aside className={styles.sideMenu}>
-                        <div className={styles.name}>Иванов Иван</div>
+                        <div className={styles.name}>
+                            {data.payerProfiles[0]?.firstName} {data.payerProfiles[0]?.lastName}
+                        </div>
                         <nav className={styles.navList}>
                             {navItems.map((item) => (
                                 <Link

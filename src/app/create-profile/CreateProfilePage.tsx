@@ -42,7 +42,7 @@ export const CreateProfilePage = () => {
         const date = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
 
         await createProfile({ ...data, type: 'individual', passportDate: date.toISOString() });
-        router.push('/cabinet');
+        router.push('/cabinet/orders');
     };
 
     return (
