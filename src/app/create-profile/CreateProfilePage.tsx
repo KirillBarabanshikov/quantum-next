@@ -14,7 +14,7 @@ import { individualProfileScheme, TIndividualProfileScheme } from '@/feature/pro
 import { instance } from '@/shared/api';
 import CheckCircle from '@/shared/assets/icons/check_circle.svg';
 import { maskPhone } from '@/shared/lib';
-import { Button, Input } from '@/shared/ui';
+import { Button, Checkbox, Input } from '@/shared/ui';
 
 import styles from './CreateProfilePage.module.scss';
 
@@ -84,12 +84,14 @@ export const CreateProfilePage = () => {
                                                         <div className={styles.inputs}>
                                                             <Input
                                                                 label={'Имя'}
+                                                                placeholder={'Иван'}
                                                                 className={styles.input}
                                                                 {...register('firstName')}
                                                                 error={errors.firstName?.message}
                                                             />
                                                             <Input
                                                                 label={'Фамилия'}
+                                                                placeholder={'Иванов'}
                                                                 className={styles.input}
                                                                 {...register('lastName')}
                                                                 error={errors.lastName?.message}
@@ -97,6 +99,7 @@ export const CreateProfilePage = () => {
                                                         </div>
                                                         <Input
                                                             label={'Телефон'}
+                                                            placeholder={'+7 (495) 000 00 00'}
                                                             {...register('phoneNumber', {
                                                                 onChange: (e) => {
                                                                     setValue('phoneNumber', maskPhone(e.target.value));
@@ -107,6 +110,7 @@ export const CreateProfilePage = () => {
                                                         />
                                                         <Input
                                                             label={'E-mail'}
+                                                            placeholder={'example@email.com'}
                                                             {...register('email')}
                                                             error={errors.email?.message}
                                                         />
@@ -116,12 +120,14 @@ export const CreateProfilePage = () => {
                                                         <div className={styles.inputs}>
                                                             <Input
                                                                 label={'Серия'}
+                                                                placeholder={'0000'}
                                                                 className={styles.input}
                                                                 {...register('passportSeries')}
                                                                 error={errors.passportSeries?.message}
                                                             />
                                                             <Input
                                                                 label={'Номер'}
+                                                                placeholder={'000000'}
                                                                 className={styles.input}
                                                                 {...register('passportNumber')}
                                                                 error={errors.passportNumber?.message}
@@ -129,18 +135,21 @@ export const CreateProfilePage = () => {
                                                         </div>
                                                         <Input
                                                             label={'Кем выдан'}
+                                                            placeholder={'ГУ МВД по г. Москва'}
                                                             {...register('passportIssued')}
                                                             error={errors.passportIssued?.message}
                                                         />
                                                         <div className={styles.inputs}>
                                                             <Input
                                                                 label={'Номер подразделения'}
+                                                                placeholder={'310-067'}
                                                                 className={styles.input}
                                                                 {...register('passportDepartmentCode')}
                                                                 error={errors.passportDepartmentCode?.message}
                                                             />
                                                             <Input
                                                                 label={'Дата'}
+                                                                placeholder={'01.01.2024'}
                                                                 className={styles.input}
                                                                 {...register('passportDate')}
                                                                 error={errors.passportDate?.message}
@@ -153,16 +162,19 @@ export const CreateProfilePage = () => {
                                                     <h2>Адрес доставки</h2>
                                                     <Input
                                                         label={'Город'}
+                                                        placeholder={'Москва'}
                                                         {...register('deliveryAddressCity')}
                                                         error={errors.deliveryAddressCity?.message}
                                                     />
                                                     <Input
                                                         label={'Адрес'}
+                                                        placeholder={'ул. Проспект мира 3, д. 1, к2'}
                                                         {...register('deliveryAddress')}
                                                         error={errors.deliveryAddress?.message}
                                                     />
                                                 </div>
                                                 <div className={styles.separator} />
+                                                <Checkbox label={'согласие на обработку персональных данных'} />
                                                 <Button className={styles.button} type={'submit'}>
                                                     Создать профиль
                                                 </Button>

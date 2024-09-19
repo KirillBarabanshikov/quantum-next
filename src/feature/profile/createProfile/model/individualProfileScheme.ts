@@ -12,8 +12,16 @@ export const individualProfileScheme = yup.object().shape({
         .required('Пожалуйста, заполните обязательное поле')
         .email('Недействительный адрес электронной почты')
         .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Недействительный адрес электронной почты'),
-    passportSeries: yup.string().required('Пожалуйста, заполните обязательное поле'),
-    passportNumber: yup.string().required('Пожалуйста, заполните обязательное поле'),
+    passportSeries: yup
+        .string()
+        .required('Пожалуйста, заполните обязательное поле')
+        .min(4, 'Недействительная серия паспорта')
+        .max(4, 'Недействительная серия паспорта'),
+    passportNumber: yup
+        .string()
+        .required('Пожалуйста, заполните обязательное поле')
+        .min(6, 'Недействительный номер паспорта')
+        .max(6, 'Недействительный номер паспорта'),
     passportIssued: yup.string().required('Пожалуйста, заполните обязательное поле'),
     passportDepartmentCode: yup.string().required('Пожалуйста, заполните обязательное поле'),
     passportDate: yup
