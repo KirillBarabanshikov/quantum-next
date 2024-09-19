@@ -16,8 +16,6 @@ export async function middleware(req: NextRequest) {
     if (pathname.startsWith('/cabinet')) {
         const response = await instance.get('/me', { headers: { Authorization: `Bearer ${token.value}` } });
 
-        console.log(response.data);
-
         if (!response.data.payerProfiles.length) {
             return NextResponse.redirect(new URL('/create-profile', req.url));
         }

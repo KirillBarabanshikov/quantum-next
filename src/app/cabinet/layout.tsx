@@ -35,13 +35,13 @@ export default function CabinetLayout({ children }: { children: React.ReactNode 
 
     useEffect(() => {
         if (!data) return;
-
-        if (!data.payerProfiles.length) {
+        console.log(data.payerProfiles.length);
+        if (data.payerProfiles.length === 0) {
             router.push('/create-profile');
         }
     }, [data]);
 
-    if (!data) {
+    if (!data || data.payerProfiles.length === 0) {
         return <></>;
     }
 

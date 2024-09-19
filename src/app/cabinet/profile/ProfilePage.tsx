@@ -3,13 +3,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { useMeQuery } from '@/entities/user/api';
 import { instance } from '@/shared/api';
 import CheckCircle from '@/shared/assets/icons/check_circle.svg';
-import { Badge, Button, Checkbox, Input, Modal } from '@/shared/ui';
+import { Button, Checkbox, Input, Modal } from '@/shared/ui';
 
 import styles from './ProfilePage.module.scss';
 
@@ -23,7 +24,9 @@ export const ProfilePage = () => {
 
     const { mutate } = useMutation({
         mutationFn: async (id: number) => {
-            await instance.delete(`/payer_profiles/delete/${id}`);
+            await instance.delete(`/payer_profiles/delete/${id}`, {
+                headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+            });
             await queryClient.invalidateQueries({ queryKey: ['me'] });
         },
     });
@@ -63,10 +66,10 @@ export const ProfilePage = () => {
                                                 className={styles.profileBody}
                                             >
                                                 <div className={styles.profileContent}>
-                                                    <Badge
-                                                        text={'Профиль верифицирован с помощью Госуслуг'}
-                                                        color={'#058943'}
-                                                    />
+                                                    {/*<Badge*/}
+                                                    {/*    text={'Профиль верифицирован с помощью Госуслуг'}*/}
+                                                    {/*    color={'#058943'}*/}
+                                                    {/*/>*/}
                                                     <div className={styles.separator} />
                                                     <form>
                                                         <div className={styles.formBody}>

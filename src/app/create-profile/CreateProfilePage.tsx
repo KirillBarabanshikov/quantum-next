@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useMeQuery } from '@/entities/user/api';
 import { individualProfileScheme, TIndividualProfileScheme } from '@/feature/profile/createProfile';
 import { instance } from '@/shared/api';
 import CheckCircle from '@/shared/assets/icons/check_circle.svg';
@@ -20,6 +21,8 @@ import styles from './CreateProfilePage.module.scss';
 export const CreateProfilePage = () => {
     const [selectedProfile, setSelectedProfile] = useState<number>();
     const router = useRouter();
+
+    const { refetch } = useMeQuery({ enabled: false });
 
     const { mutateAsync: createProfile } = useMutation({
         mutationFn: async (body: TIndividualProfileScheme & { type: string }) => {
@@ -45,7 +48,7 @@ export const CreateProfilePage = () => {
         const date = new Date(`${year}-${month}-${day}T00:00:00.000Z`);
 
         await createProfile({ ...data, type: 'individual', passportDate: date.toISOString() });
-        router.push('/cabinet/orders');
+        refetch().then(() => router.push('/cabinet/orders'));
     };
 
     return (
@@ -75,75 +78,77 @@ export const CreateProfilePage = () => {
                                         <div className={styles.profileContent}>
                                             <div className={styles.separator} />
                                             <form onSubmit={handleSubmit(onSubmit)}>
-                                                <div className={styles.formBody}>
-                                                    <h2>Контакты</h2>
-                                                    <div className={styles.inputs}>
+                                                <div className={styles.wrap}>
+                                                    <div className={styles.formBody}>
+                                                        <h2>Контакты</h2>
+                                                        <div className={styles.inputs}>
+                                                            <Input
+                                                                label={'Имя'}
+                                                                className={styles.input}
+                                                                {...register('firstName')}
+                                                                error={errors.firstName?.message}
+                                                            />
+                                                            <Input
+                                                                label={'Фамилия'}
+                                                                className={styles.input}
+                                                                {...register('lastName')}
+                                                                error={errors.lastName?.message}
+                                                            />
+                                                        </div>
                                                         <Input
-                                                            label={'Имя'}
-                                                            className={styles.input}
-                                                            {...register('firstName')}
-                                                            error={errors.firstName?.message}
+                                                            label={'Телефон'}
+                                                            {...register('phoneNumber', {
+                                                                onChange: (e) => {
+                                                                    setValue('phoneNumber', maskPhone(e.target.value));
+                                                                    trigger('phoneNumber');
+                                                                },
+                                                            })}
+                                                            error={errors.phoneNumber?.message}
                                                         />
                                                         <Input
-                                                            label={'Фамилия'}
-                                                            className={styles.input}
-                                                            {...register('lastName')}
-                                                            error={errors.lastName?.message}
+                                                            label={'E-mail'}
+                                                            {...register('email')}
+                                                            error={errors.email?.message}
                                                         />
                                                     </div>
-                                                    <Input
-                                                        label={'Телефон'}
-                                                        {...register('phoneNumber', {
-                                                            onChange: (e) => {
-                                                                setValue('phoneNumber', maskPhone(e.target.value));
-                                                                trigger('phoneNumber');
-                                                            },
-                                                        })}
-                                                        error={errors.phoneNumber?.message}
-                                                    />
-                                                    <Input
-                                                        label={'E-mail'}
-                                                        {...register('email')}
-                                                        error={errors.email?.message}
-                                                    />
+                                                    <div className={styles.formBody}>
+                                                        <h2>Паспортные данные</h2>
+                                                        <div className={styles.inputs}>
+                                                            <Input
+                                                                label={'Серия'}
+                                                                className={styles.input}
+                                                                {...register('passportSeries')}
+                                                                error={errors.passportSeries?.message}
+                                                            />
+                                                            <Input
+                                                                label={'Номер'}
+                                                                className={styles.input}
+                                                                {...register('passportNumber')}
+                                                                error={errors.passportNumber?.message}
+                                                            />
+                                                        </div>
+                                                        <Input
+                                                            label={'Кем выдан'}
+                                                            {...register('passportIssued')}
+                                                            error={errors.passportIssued?.message}
+                                                        />
+                                                        <div className={styles.inputs}>
+                                                            <Input
+                                                                label={'Номер подразделения'}
+                                                                className={styles.input}
+                                                                {...register('passportDepartmentCode')}
+                                                                error={errors.passportDepartmentCode?.message}
+                                                            />
+                                                            <Input
+                                                                label={'Дата'}
+                                                                className={styles.input}
+                                                                {...register('passportDate')}
+                                                                error={errors.passportDate?.message}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div className={styles.separator} />
-                                                <div className={styles.formBody}>
-                                                    <h2>Паспортные данные</h2>
-                                                    <div className={styles.inputs}>
-                                                        <Input
-                                                            label={'Серия'}
-                                                            className={styles.input}
-                                                            {...register('passportSeries')}
-                                                            error={errors.passportSeries?.message}
-                                                        />
-                                                        <Input
-                                                            label={'Номер'}
-                                                            className={styles.input}
-                                                            {...register('passportNumber')}
-                                                            error={errors.passportNumber?.message}
-                                                        />
-                                                    </div>
-                                                    <Input
-                                                        label={'Кем выдан'}
-                                                        {...register('passportIssued')}
-                                                        error={errors.passportIssued?.message}
-                                                    />
-                                                    <div className={styles.inputs}>
-                                                        <Input
-                                                            label={'Номер подразделения'}
-                                                            className={styles.input}
-                                                            {...register('passportDepartmentCode')}
-                                                            error={errors.passportDepartmentCode?.message}
-                                                        />
-                                                        <Input
-                                                            label={'Дата'}
-                                                            className={styles.input}
-                                                            {...register('passportDate')}
-                                                            error={errors.passportDate?.message}
-                                                        />
-                                                    </div>
-                                                </div>
                                                 <div className={clsx(styles.formBody, styles.contacts)}>
                                                     <h2>Адрес доставки</h2>
                                                     <Input
@@ -157,6 +162,7 @@ export const CreateProfilePage = () => {
                                                         error={errors.deliveryAddress?.message}
                                                     />
                                                 </div>
+                                                <div className={styles.separator} />
                                                 <Button className={styles.button} type={'submit'}>
                                                     Создать профиль
                                                 </Button>

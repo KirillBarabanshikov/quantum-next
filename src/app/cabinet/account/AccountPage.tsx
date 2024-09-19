@@ -65,28 +65,48 @@ export const AccountPage = () => {
 
     const { mutate: editEmail } = useMutation({
         mutationFn: async (email: string) => {
-            await instance.post('/users/edit-email', { email });
+            await instance.post(
+                '/users/edit-email',
+                { email },
+                {
+                    headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+                },
+            );
             await queryClient.invalidateQueries({ queryKey: ['me'] });
         },
     });
 
     const { mutate: editPhone } = useMutation({
         mutationFn: async (phoneNumber: string) => {
-            await instance.post('/users/edit-phone', { phoneNumber });
+            await instance.post(
+                '/users/edit-phone',
+                { phoneNumber },
+                {
+                    headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+                },
+            );
             await queryClient.invalidateQueries({ queryKey: ['me'] });
         },
     });
 
     const { mutate: editUsername } = useMutation({
         mutationFn: async (username: string) => {
-            await instance.post('/users/edit-username', { username });
+            await instance.post(
+                '/users/edit-username',
+                { username },
+                {
+                    headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+                },
+            );
             await queryClient.invalidateQueries({ queryKey: ['me'] });
         },
     });
 
     const { mutate: deleteUser } = useMutation({
         mutationFn: async () => {
-            await instance.delete(`/users/delete`);
+            await instance.delete(`/users/delete`, {
+                headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+            });
             router.push('/');
             Cookies.remove('token');
         },
@@ -227,7 +247,9 @@ export const PasswordForm = () => {
 
     const { mutate: changePassword, isError } = useMutation({
         mutationFn: async (data: TPasswordScheme) => {
-            await instance.post(`/users/edit-password`, data);
+            await instance.post(`/users/edit-password`, data, {
+                headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+            });
             await queryClient.invalidateQueries({ queryKey: ['me'] });
             reset();
         },

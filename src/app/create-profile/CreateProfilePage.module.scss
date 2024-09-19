@@ -65,8 +65,6 @@
                 overflow: hidden;
 
                 .profileContent {
-                    padding: 20px 0 0 0;
-
                     .separator {
                         height: 1px;
                         background-color: var(--color-dark-blue);
@@ -90,6 +88,7 @@
 
                         .contacts {
                             margin-top: 25px;
+                            max-width: 557px;
                         }
                     }
                 }
@@ -110,5 +109,14 @@
 .button {
     margin-top: 24px;
     width: 100%;
-    max-width: 517px;
+    max-width: 557px;
+}
+
+.wrap {
+    display: flex;
+    gap: 24px;
+
+    .formBody {
+        flex: 1;
+    }
 }
