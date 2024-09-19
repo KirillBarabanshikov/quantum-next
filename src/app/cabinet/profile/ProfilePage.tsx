@@ -168,7 +168,14 @@ export const ProfilePage = () => {
                                                                 checked={isSure}
                                                                 onChange={(e) => setIsSure(e.target.checked)}
                                                             />
-                                                            <Button disabled={!isSure} onClick={() => mutate(item.id)}>
+                                                            <Button
+                                                                disabled={!isSure}
+                                                                onClick={() => {
+                                                                    mutate(item.id);
+                                                                    setIsOpen(false);
+                                                                    setIsSure(false);
+                                                                }}
+                                                            >
                                                                 Удалить
                                                             </Button>
                                                         </div>

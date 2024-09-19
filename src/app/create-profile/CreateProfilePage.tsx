@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -22,7 +23,9 @@ export const CreateProfilePage = () => {
 
     const { mutateAsync: createProfile } = useMutation({
         mutationFn: async (body: TIndividualProfileScheme & { type: string }) => {
-            await instance.post('/payer_profiles/create', body);
+            await instance.post('/payer_profiles/create', body, {
+                headers: { Authorization: `Bearer ${Cookies.get('token')}` },
+            });
         },
     });
 

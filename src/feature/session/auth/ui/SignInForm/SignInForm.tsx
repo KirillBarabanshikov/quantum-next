@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useSignInMutation } from '@/entities/session/api';
+import { useMeQuery } from '@/entities/user/api';
 import { Button, Input } from '@/shared/ui';
 
 import { signInFormScheme, TSignInFormScheme } from '../../model';
@@ -15,6 +16,7 @@ interface ISignInFormProps {
 
 export const SignInForm: FC<ISignInFormProps> = ({ onClose }) => {
     const { mutateAsync: signIn } = useSignInMutation();
+    const { refetch } = useMeQuery({ enabled: false });
     const router = useRouter();
     const {
         register,
@@ -25,8 +27,14 @@ export const SignInForm: FC<ISignInFormProps> = ({ onClose }) => {
     const onSubmit = async (data: TSignInFormScheme) => {
         try {
             await signIn(data);
-            router.push('/create-profile');
-            onClose();
+            refetch().then((data) => {
+                if (!data?.data?.payerProfiles.length) {
+                    router.push('/create-profile');
+                } else {
+                    router.push('/cabinet/orders');
+                }
+                onClose();
+            });
         } catch (error) {
             console.error(error);
         }

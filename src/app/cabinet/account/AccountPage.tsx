@@ -32,7 +32,29 @@ const accountScheme = yup.object().shape({
         .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 'Недействительный адрес электронной почты'),
 });
 
-type TAccountSheme = yup.InferType<typeof accountScheme>;
+type TAccountScheme = yup.InferType<typeof accountScheme>;
+
+const passwordScheme = yup.object().shape({
+    oldPassword: yup
+        .string()
+        .required('Пожалуйста, заполните обязательное поле')
+        .min(6, 'Пароль должен содержать не менее 6 символов')
+        .matches(/\d/, 'Пароль должен содержать хотя бы одну цифру'),
+    password: yup
+        .string()
+        .required('Пожалуйста, заполните обязательное поле')
+        .min(6, 'Пароль должен содержать не менее 6 символов')
+        .matches(/\d/, 'Пароль должен содержать хотя бы одну цифру')
+        .oneOf([yup.ref('passwordRepeat')], 'Пароли должны совпадать'),
+    passwordRepeat: yup
+        .string()
+        .required('Пожалуйста, заполните обязательное поле')
+        .min(6, 'Пароль должен содержать не менее 6 символов')
+        .matches(/\d/, 'Пароль должен содержать хотя бы одну цифру')
+        .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
+});
+
+type TPasswordScheme = yup.InferType<typeof passwordScheme>;
 
 export const AccountPage = () => {
     const { data } = useMeQuery();
@@ -77,7 +99,7 @@ export const AccountPage = () => {
         formState: { errors },
         setValue,
         trigger,
-    } = useForm<TAccountSheme>({
+    } = useForm<TAccountScheme>({
         resolver: yupResolver(accountScheme),
         defaultValues: {
             email: data?.email,
@@ -86,7 +108,7 @@ export const AccountPage = () => {
         },
     });
 
-    const onSubmit = (changedData: TAccountSheme) => {
+    const onSubmit = (changedData: TAccountScheme) => {
         if (changedData.email !== data?.email) {
             editEmail(changedData.email);
         }
@@ -108,7 +130,7 @@ export const AccountPage = () => {
         username: data.username,
         phoneNumber: data.phoneNumber,
         email: data.email,
-    }).some((key) => watchedValues[key as keyof TAccountSheme] !== data[key as keyof typeof data]);
+    }).some((key) => watchedValues[key as keyof TAccountScheme] !== data[key as keyof typeof data]);
 
     return (
         <div className={styles.account}>
@@ -143,15 +165,7 @@ export const AccountPage = () => {
                             Сохранить данные
                         </Button>
                     </form>
-                    <form className={styles.form}>
-                        <div className={styles.title}>Сменить пароль</div>
-                        <Input label={'Старый пароль'} />
-                        <Input label={'Новый пароль'} />
-                        <Input label={'Повторите новый пароль'} />
-                        <Button type={'submit'} disabled className={styles.button}>
-                            Сохранить данные
-                        </Button>
-                    </form>
+                    <PasswordForm />
                 </div>
                 <Separator className={styles.separator} />
                 <span className={styles.deleteAccount} onClick={() => setIsOpen(true)}>
@@ -174,11 +188,83 @@ export const AccountPage = () => {
                         checked={isSure}
                         onChange={(e) => setIsSure(e.target.checked)}
                     />
-                    <Button disabled={!isSure} onClick={() => deleteUser()}>
+                    <Button
+                        disabled={!isSure}
+                        onClick={() => {
+                            deleteUser();
+                            setIsOpen(false);
+                            setIsSure(false);
+                        }}
+                    >
                         Удалить
                     </Button>
                 </div>
             </Modal>
         </div>
+    );
+};
+
+export const PasswordForm = () => {
+    const queryClient = useQueryClient();
+
+    const defaultValues = {
+        oldPassword: '',
+        password: '',
+        passwordRepeat: '',
+    };
+
+    const {
+        register,
+        trigger,
+        handleSubmit,
+        formState: { errors, isValid },
+        reset,
+    } = useForm<TPasswordScheme>({
+        resolver: yupResolver(passwordScheme),
+        mode: 'all',
+        defaultValues,
+    });
+
+    const { mutate: changePassword, isError } = useMutation({
+        mutationFn: async (data: TPasswordScheme) => {
+            await instance.post(`/users/edit-password`, data);
+            await queryClient.invalidateQueries({ queryKey: ['me'] });
+            reset();
+        },
+    });
+
+    const onSubmit = (data: TPasswordScheme) => {
+        changePassword(data);
+    };
+
+    return (
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.title}>Сменить пароль</div>
+            <Input label={'Старый пароль'} {...register('oldPassword')} error={errors.oldPassword?.message} />
+            <Input
+                label={'Новый пароль'}
+                {...register('password', {
+                    onChange: () => {
+                        trigger('passwordRepeat');
+                        trigger('password');
+                    },
+                })}
+                error={errors.password?.message}
+            />
+            <Input
+                label={'Повторите новый пароль'}
+                {...register('passwordRepeat', {
+                    onChange: () => {
+                        trigger('passwordRepeat');
+                        trigger('password');
+                    },
+                })}
+                error={errors.passwordRepeat?.message}
+            />
+            <Button type={'submit'} disabled={!isValid} className={styles.button}>
+                Сохранить данные
+            </Button>
+            {isError && <span className={styles.error}>Неверный старый пароль</span>}
+        </form>
     );
 };
