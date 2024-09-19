@@ -30,6 +30,7 @@ export const individualProfileScheme = yup.object().shape({
         .matches(/^\d{2}\.\d{2}\.\d{4}$/, 'Дата должна быть в формате дд.мм.гггг'),
     deliveryAddressCity: yup.string().required('Пожалуйста, заполните обязательное поле'),
     deliveryAddress: yup.string().required('Пожалуйста, заполните обязательное поле'),
+    checked: yup.bool().oneOf([true]),
 });
 
 export type TIndividualProfileScheme = yup.InferType<typeof individualProfileScheme>;

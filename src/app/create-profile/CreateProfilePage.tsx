@@ -174,7 +174,10 @@ export const CreateProfilePage = () => {
                                                     />
                                                 </div>
                                                 <div className={styles.separator} />
-                                                <Checkbox label={'согласие на обработку персональных данных'} />
+                                                <Checkbox
+                                                    label={'согласие на обработку персональных данных'}
+                                                    {...register('checked')}
+                                                />
                                                 <Button className={styles.button} type={'submit'}>
                                                     Создать профиль
                                                 </Button>
