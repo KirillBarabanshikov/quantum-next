@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import ReactSlider from 'react-slider';
-import styles from './Range.module.scss';
+
+import styles from './PriceRange.module.scss';
 
 interface IRangeProps {
     min: number;

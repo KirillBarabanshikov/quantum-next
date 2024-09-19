@@ -1,6 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 
+import { useSessionStore } from '@/entities/session/model';
+import { IUser } from '@/entities/user';
 import { instance } from '@/shared/api';
 
 import { IRequestSignInBody, IRequestSignUpBody, IResponseSignIn, IResponseSignUp } from './types';
@@ -15,11 +17,13 @@ const useSignUpMutation = () => {
 };
 
 const useSignInMutation = () => {
-    return useMutation<IResponseSignIn, Error, IRequestSignInBody>({
+    return useMutation<void, Error, IRequestSignInBody>({
         mutationFn: async (body) => {
             const response = await instance.post<IResponseSignIn>('/authentication_token', body);
             Cookies.set('token', response.data.token);
-            return response.data;
+            const user = await instance.get<IUser>('/me');
+            const { setAuthenticated } = useSessionStore.getState();
+            setAuthenticated(true, user.data);
         },
     });
 };

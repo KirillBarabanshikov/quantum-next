@@ -1,5 +1,4 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
-import Cookies from 'js-cookie';
 
 import { instance } from '@/shared/api';
 
@@ -11,10 +10,7 @@ export const useMeQuery = (options?: UseMeQueryOptions) => {
     return useQuery<IUser, Error>({
         queryKey: ['me'],
         queryFn: async () => {
-            const response = await instance.get<IUser>('/me', {
-                headers: { Authorization: `Bearer ${Cookies.get('token')}` },
-            });
-            localStorage.setItem('user', JSON.stringify(response.data));
+            const response = await instance.get<IUser>('/me');
             return response.data;
         },
         ...options,

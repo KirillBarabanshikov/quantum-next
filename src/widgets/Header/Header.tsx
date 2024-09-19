@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 
+import { useSessionStore } from '@/entities/session/model';
 import { Search } from '@/feature/search';
 import AccountIcon from '@/shared/assets/icons/account_box.svg';
 import BagIcon from '@/shared/assets/icons/bag.svg';
@@ -16,6 +17,7 @@ import { HeaderLinks } from './ui';
 
 export const Header = () => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+    const { isAuthenticated } = useSessionStore();
 
     return (
         <>
@@ -37,10 +39,13 @@ export const Header = () => {
                                 <BagIcon />
                                 <span className={styles.badge}>1</span>
                             </Link>
-                            <Link href={'/cabinet/favorites'} className={styles.option}>
+                            <Link href={'/favorites'} className={styles.option}>
                                 <GradeIcon />
                             </Link>
-                            <Link href={'/cabinet'} className={styles.option}>
+                            <Link
+                                href={isAuthenticated ? '/cabinet' : '?authentication=signin'}
+                                className={styles.option}
+                            >
                                 <AccountIcon />
                             </Link>
                         </div>
