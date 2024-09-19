@@ -7,7 +7,7 @@ import { maskPhone } from '@/shared/lib';
 import { Button, Input } from '@/shared/ui';
 
 import { signUpFormScheme, TSignUpFormScheme } from '../../model';
-import styles from './SignupForm.module.scss';
+import styles from './SignUpForm.module.scss';
 
 interface ISignUpForm {
     setIsSuccess: (value: boolean) => void;
