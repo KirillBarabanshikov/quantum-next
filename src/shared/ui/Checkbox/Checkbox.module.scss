@@ -1,45 +1,65 @@
 .wrap {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  .checkbox {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border: 2px solid var(--color-blue-tertiary);
+    border-radius: 6px;
+    cursor: pointer;
+
+    svg {
+      position: absolute;
+      inset: -2px;
+      color: transparent;
+      transition: color 300ms;
+    }
+  }
+
+  .label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18.2px;
+    cursor: pointer;
+  }
+
+  &.blue {
+    input:checked + .checkbox {
+      svg {
+        color: var(--color-blue-accent);
+      }
+    }
+  }
+
+  &.dark-blue {
+    input:checked + .checkbox {
+      svg {
+        color: var(--color-dark-blue);
+      }
+    }
+  }
+
+  &.tabs {
+    padding: 12px;
+    border: 2px solid var(--color-blue-tertiary);
+    border-radius: 10px;
+    transition: border 300ms ease-out;
+    cursor: pointer;
 
     .checkbox {
-        position: relative;
-        width: 18px;
-        height: 18px;
-        min-width: 18px;
-        border: 2px solid var(--color-blue-tertiary);
-        border-radius: 6px;
-        cursor: pointer;
-
-        svg {
-            position: absolute;
-            inset: -2px;
-            color: transparent;
-            transition: color 300ms;
-        }
+      display: none;
     }
 
-    .label {
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 18.2px;
-        cursor: pointer;
+    .label{
+      color: var(--color-dark-blue)!important;
     }
 
-    &.blue {
-        input:checked + .checkbox {
-            svg {
-                color: var(--color-blue-accent);
-            }
-        }
+    &:has(input:checked) {
+      border: 2px solid var(--color-blue-accent);
     }
-
-    &.dark-blue {
-        input:checked + .checkbox {
-            svg {
-                color: var(--color-dark-blue);
-            }
-        }
-    }
+  }
 }
