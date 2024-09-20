@@ -1,5 +1,7 @@
+'use client';
+
 import clsx from 'clsx';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { Button } from '@/shared/ui';
@@ -11,6 +13,8 @@ interface INewCollectionBannerProps {
 }
 
 export const NewCollectionBanner: FC<INewCollectionBannerProps> = ({ className }) => {
+    const router = useRouter();
+
     return (
         <section className={clsx(styles.newCollectionBanner, className)}>
             <div className={'container'}>
@@ -20,11 +24,14 @@ export const NewCollectionBanner: FC<INewCollectionBannerProps> = ({ className }
                         Zenmuse H20N, оснащенная сенсорами с технологией Starlight в камерах с зумом и широким углом,
                         позволяет обнаруживать даже едва уловимые источники света до 0,0001 лк.
                     </p>
-                    <Link href={'/catalog'}>
-                        <Button variant={'outline'} theme={'blue'} className={styles.button}>
-                            Каталог
-                        </Button>
-                    </Link>
+                    <Button
+                        variant={'outline'}
+                        theme={'blue'}
+                        onClick={() => router.push('/catalog')}
+                        className={styles.button}
+                    >
+                        Каталог
+                    </Button>
                 </div>
             </div>
         </section>

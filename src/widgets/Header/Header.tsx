@@ -39,7 +39,10 @@ export const Header = () => {
                                 <BagIcon />
                                 <span className={styles.badge}>1</span>
                             </Link>
-                            <Link href={'/favorites'} className={styles.option}>
+                            <Link
+                                href={isAuthenticated ? '/cabinet/favorites' : '/favorites'}
+                                className={styles.option}
+                            >
                                 <GradeIcon />
                             </Link>
                             <Link
