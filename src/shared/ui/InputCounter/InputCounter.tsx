@@ -21,12 +21,12 @@ export const InputCounter: FC<IInputCounterProps> = ({ size = 'md', className })
     };
 
     const decrement = () => {
-        setCount((prev) => prev - 1);
+        if (count > 0) setCount((prev) => prev - 1);
     };
 
     return (
         <div className={clsx(styles.inputCounter, styles[size], className)}>
-            <button onClick={decrement}>
+            <button onClick={decrement} className={clsx(count === 0 && styles.disabled)}>
                 <MinusIcon />
             </button>
             <input type={'number'} value={`${count}`} onChange={(e) => setCount(+e.target.value)} />

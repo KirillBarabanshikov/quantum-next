@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import ReactSlider from 'react-slider';
 
 import styles from './PriceRange.module.scss';
+import { Input } from '@/shared/ui';
 
 interface IRangeProps {
     min: number;
@@ -17,10 +18,41 @@ export const Range: FC<IRangeProps> = ({ min, max, onChange }) => {
         onChange(newValues);
     };
 
+    const handleOnChangeMin = (e: { target: { value: string }; }) => {
+        const data = [...values];
+        if (+e.target.value >= data[1])
+            data[0] = data[1] - 5;
+        else if (+e.target.value < min)
+            data[0] = min;
+        else
+            data[0] = +e.target.value;
+        setValues(data);
+    };
+
+    const handleOnChangeMax = (e: { target: { value: string }; }) => {
+        const data = [...values];
+        if (+e.target.value <= data[0])
+            data[1] = data[1] + 5;
+        else if (+e.target.value > max)
+            data[1] = max;
+        else
+            data[1] = +e.target.value;
+        setValues(data)
+    };
+
     return (
         <div className={styles.sliderContainer}>
-            <p>От: {values[0]}</p>
-            <p>До: {values[1]}</p>
+
+            <div className={styles.inputsWrap}>
+                <div className={styles.input}>
+                    <span>от</span>
+                    <input value={values[0]} onChange={handleOnChangeMin} />
+                </div>
+                <div className={styles.input}>
+                    <span>до</span>
+                    <input value={values[1]} onChange={handleOnChangeMax} />
+                </div>
+            </div>
 
             <ReactSlider
                 className={styles.horizontalSlider}
