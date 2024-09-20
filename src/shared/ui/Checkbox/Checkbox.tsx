@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
 
-import CheckboxIcon from '@/shared/assets/icons/priority.svg';
+import CheckboxIcon from '@/shared/assets/icons/check.svg';
 
 import styles from './Checkbox.module.scss';
 

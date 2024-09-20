@@ -26,11 +26,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 38px;
+    height: 43px;
 
     span {
-      font-weight: 500;
-      font-size: 14px;
+      font-weight: 600;
+      font-size: 16px;
     }
 
     @media (hover: hover) {
@@ -66,7 +66,6 @@
         span {
           font-weight: 500;
           font-size: 14px;
-          color: var(--color-blue-tertiary);
         }
       }
 
