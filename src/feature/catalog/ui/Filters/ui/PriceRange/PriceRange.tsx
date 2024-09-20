@@ -1,8 +1,7 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import ReactSlider from 'react-slider';
 
 import styles from './PriceRange.module.scss';
-import { Input } from '@/shared/ui';
 
 interface IRangeProps {
     min: number;
@@ -18,31 +17,24 @@ export const Range: FC<IRangeProps> = ({ min, max, onChange }) => {
         onChange(newValues);
     };
 
-    const handleOnChangeMin = (e: { target: { value: string }; }) => {
+    const handleOnChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
         const data = [...values];
-        if (+e.target.value >= data[1])
-            data[0] = data[1] - 5;
-        else if (+e.target.value < min)
-            data[0] = min;
-        else
-            data[0] = +e.target.value;
+        if (+e.target.value >= data[1]) data[0] = data[1] - 5;
+        else if (+e.target.value < min) data[0] = min;
+        else data[0] = +e.target.value;
         setValues(data);
     };
 
-    const handleOnChangeMax = (e: { target: { value: string }; }) => {
+    const handleOnChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
         const data = [...values];
-        if (+e.target.value <= data[0])
-            data[1] = data[1] + 5;
-        else if (+e.target.value > max)
-            data[1] = max;
-        else
-            data[1] = +e.target.value;
-        setValues(data)
+        if (+e.target.value <= data[0]) data[1] = data[1] + 5;
+        else if (+e.target.value > max) data[1] = max;
+        else data[1] = +e.target.value;
+        setValues(data);
     };
 
     return (
         <div className={styles.sliderContainer}>
-
             <div className={styles.inputsWrap}>
                 <div className={styles.input}>
                     <span>от</span>
