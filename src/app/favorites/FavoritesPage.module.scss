@@ -1,0 +1,44 @@
+.favoritesPage {
+    padding: 24px 0 160px 0;
+}
+
+.favoritesList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(305px, 1fr));
+    grid-gap: 20px;
+    margin-top: 19px;
+    margin-bottom: 160px;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background-color: var(--color-grey);
+    padding: 26px 24px 34px 26px;
+    border-radius: 20px;
+    min-width: 305px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 11px;
+}
+
+.favoritesWrap {
+    width: 100%;
+}
+
+.productsWrap {
+    max-width: 977px;
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+}
