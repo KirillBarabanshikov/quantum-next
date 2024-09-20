@@ -170,18 +170,7 @@ const FilterItem = ({ item }: any) => {
                                         ))
                                     )}
                                 </div>
-                            ) : (
-                                <div className={styles.inputsWrap}>
-                                    <div className={styles.input}>
-                                        <span>от</span>
-                                        <input />
-                                    </div>
-                                    <div className={styles.input}>
-                                        <span>до</span>
-                                        <input />
-                                    </div>
-                                </div>
-                            )}
+                            ): (<div></div>)}
                         </div>
                     </motion.div>
                 )}
