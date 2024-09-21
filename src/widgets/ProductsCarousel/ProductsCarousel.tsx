@@ -4,16 +4,17 @@ import clsx from 'clsx';
 import { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { ProductCard } from '@/entities/product';
+import { IProduct, ProductCard } from '@/entities/product';
 
 import styles from './ProductsCarousel.module.scss';
 
 interface IProductsCarouselProps {
     title: string;
     className?: string;
+    products?: IProduct[];
 }
 
-export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, className }) => {
+export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, products, className }) => {
     return (
         <section className={clsx(styles.productsCarouselWrap, className)}>
             <div className={'container'}>
@@ -27,13 +28,14 @@ export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, className 
                 breakpoints={{ 0: { spaceBetween: 11 }, 768: { spaceBetween: 20 } }}
                 className={'container'}
             >
-                {Array.from({ length: 10 }).map((_, index) => {
-                    return (
-                        <SwiperSlide key={index} className={styles.slide}>
-                            <ProductCard />
-                        </SwiperSlide>
-                    );
-                })}
+                {products &&
+                    products.map((product, index) => {
+                        return (
+                            <SwiperSlide key={index} className={styles.slide}>
+                                <ProductCard product={product} />
+                            </SwiperSlide>
+                        );
+                    })}
             </Swiper>
         </section>
     );

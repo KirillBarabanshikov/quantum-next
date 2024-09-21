@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
+import { useProductsQuery } from '@/entities/product';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
@@ -19,6 +20,7 @@ import styles from './MainPage.module.scss';
 export const MainPage = () => {
     const router = useRouter();
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+    const { data: products } = useProductsQuery();
 
     return (
         <div className={styles.mainPage}>
@@ -36,7 +38,10 @@ export const MainPage = () => {
                     </Button>
                 </div>
             </div>
-            <ProductsCarousel title={'Новинки'} />
+            <ProductsCarousel
+                title={'Новинки'}
+                products={products ? products.filter((product) => product.articles[0].new) : []}
+            />
             <ProductsCarousel title={'Популярное'} />
             <NewCollectionBanner />
             <ProductsCarousel title={'Аккумуляторы'} />

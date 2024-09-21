@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 
-import { ProductCard } from '@/entities/product';
+// import { ProductCard } from '@/entities/product';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import { Dropdown, Radio } from '@/shared/ui';
 import { ProductsCarousel } from '@/widgets';
@@ -34,9 +34,9 @@ export const FavoritesPage = () => {
                                 onChange={() => {}}
                             />
                             <div className={styles.favoritesList}>
-                                {Array.from({ length: 8 }).map((_, index) => {
-                                    return <ProductCard key={index} />;
-                                })}
+                                {/*{Array.from({ length: 8 }).map((_, index) => {*/}
+                                {/*    return <ProductCard key={index} product={}/>;*/}
+                                {/*})}*/}
                             </div>
                         </>
                     ) : (
