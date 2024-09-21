@@ -4,9 +4,9 @@ import { instance } from '@/shared/api';
 
 import { IProduct } from '../model';
 
-const useProductsQuery = ({ page, categoryId }: { page?: string; categoryId?: string } = {}) => {
+const useProductsQuery = ({ page, categoryId }: { page?: string | number; categoryId?: string } = {}) => {
     return useQuery<IProduct[], Error>({
-        queryKey: ['products'],
+        queryKey: ['products', page, categoryId],
         queryFn: async () => {
             const response = await instance.get<IProduct[]>('/products', {
                 params: { page, 'category.id': categoryId },
@@ -46,4 +46,4 @@ const usePopularProductsQuery = () => {
     });
 };
 
-export { useNewProductsQuery, usePopularProductsQuery,useProductDetailsQuery, useProductsQuery };
+export { useNewProductsQuery, usePopularProductsQuery, useProductDetailsQuery, useProductsQuery };

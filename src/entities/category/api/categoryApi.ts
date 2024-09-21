@@ -16,7 +16,7 @@ const useCategoriesQuery = () => {
 
 const useCategoryByIdQuery = (id: number | string) => {
     return useQuery<ICategory, Error>({
-        queryKey: ['category'],
+        queryKey: ['category', id],
         queryFn: async () => {
             const response = await instance.get<ICategory>(`/categories/${id}`);
             return response.data;

@@ -2,10 +2,10 @@
 
 import clsx from 'clsx';
 import Error from 'next/error';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useCategoryByIdQuery } from '@/entities/category';
-import { useProductsQuery } from '@/entities/product';
+import { IProduct, useProductsQuery } from '@/entities/product';
 import { Filters } from '@/feature/catalog';
 import { Breadcrumbs, Button, Dropdown, Skeleton } from '@/shared/ui';
 import { ProductsList } from '@/widgets';
@@ -31,8 +31,24 @@ interface ICategoryPageProps {
 }
 
 export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsList, setProductsList] = useState<IProduct[]>([]);
     const { data: category, isError, isLoading: isCategoryLoading } = useCategoryByIdQuery(slug);
-    const { data: products, isLoading: isProductsLoading } = useProductsQuery({ categoryId: slug });
+    const { data: products, isLoading: isProductsLoading } = useProductsQuery({
+        page: currentPage,
+        categoryId: slug,
+    });
+
+    useEffect(() => {
+        if (!products) return;
+        setProductsList((prev) => [...prev, ...products]);
+
+        return () => setProductsList([]);
+    }, [products]);
+
+    const handleLoadMore = () => {
+        setCurrentPage((prev) => prev + 1);
+    };
 
     if (isError) {
         return <Error statusCode={404} />;
@@ -62,8 +78,12 @@ export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
                                 position={'right'}
                             />
                         </div>
-                        <ProductsList products={products} isLoading={isProductsLoading} />
-                        <Button className={styles.more}>Загрузить еще</Button>
+                        <ProductsList products={productsList} isLoading={isProductsLoading} />
+                        {products && products.length === 25 && (
+                            <Button onClick={handleLoadMore} className={styles.more}>
+                                Загрузить еще
+                            </Button>
+                        )}
                     </div>
                 </div>
             </section>
