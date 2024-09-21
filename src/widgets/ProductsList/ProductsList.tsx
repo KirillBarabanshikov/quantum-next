@@ -14,7 +14,7 @@ export const ProductsList: FC<IProductsListProps> = ({ products, isLoading }) =>
     return (
         <div className={styles.productsList}>
             {isLoading
-                ? Array.from({ length: 6 }).map((_, index) => <Skeleton key={index} width={305} height={440} />)
+                ? Array.from({ length: 6 }).map((_, index) => <Skeleton key={index} width={305} height={420} />)
                 : products?.map((product) => <ProductCard key={product.id} product={product} />)}
         </div>
     );

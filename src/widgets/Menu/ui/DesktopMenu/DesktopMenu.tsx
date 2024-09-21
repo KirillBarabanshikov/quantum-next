@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 
+import { useCategoriesQuery } from '@/entities/category';
 import ArrowDown from '@/shared/assets/icons/arrow_down2.svg';
 
 import styles from './DeskropMenu.module.scss';
@@ -87,17 +88,24 @@ const items: Item[] = [
 ];
 
 export const DesktopMenu = () => {
+    const { data: categories } = useCategoriesQuery();
+
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.menu}>
             <div className={clsx(styles.menuContainer, 'container')}>
                 <div className={clsx(styles.menuCategoriesList, 'scrollbar-hide')}>
-                    {Array.from({ length: 20 }).map((_, index) => {
-                        return (
-                            <Link key={index} href={'/'} className={styles.menuCategoriesItem}>
-                                Акции, скидки и распродажи
-                            </Link>
-                        );
-                    })}
+                    {categories &&
+                        categories.map((category) => {
+                            return (
+                                <Link
+                                    key={category.id}
+                                    href={`/catalog/${category.id}`}
+                                    className={styles.menuCategoriesItem}
+                                >
+                                    {category.title}
+                                </Link>
+                            );
+                        })}
                 </div>
                 <div className={clsx(styles.menuCategory, 'scrollbar-hide')}>
                     <div className={styles.categoryTitle}>
