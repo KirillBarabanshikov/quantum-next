@@ -15,6 +15,10 @@ interface IProductsCarouselProps {
 }
 
 export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, products, className }) => {
+    if (!products?.length) {
+        return <></>;
+    }
+
     return (
         <section className={clsx(styles.productsCarouselWrap, className)}>
             <div className={'container'}>

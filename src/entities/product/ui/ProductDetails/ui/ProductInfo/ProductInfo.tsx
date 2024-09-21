@@ -1,23 +1,30 @@
 import clsx from 'clsx';
+import { FC } from 'react';
 
+import { IProduct } from '@/entities/product';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import ShareIcon from '@/shared/assets/icons/share.svg';
+import { priceFormat } from '@/shared/lib';
 import { Badge, Button, IconButton, InputCounter } from '@/shared/ui';
 
 import styles from './ProductInfo.module.scss';
 
-export const ProductInfo = () => {
+interface IProductInfoProps {
+    product: IProduct;
+}
+
+export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
     return (
         <div className={styles.productInfo}>
-            <h1 className={styles.name}>Набор BETAFPV Cetus Pro FPV Kit (RTF)</h1>
+            <h1 className={styles.name}>{product.articles[0].title}</h1>
             <div className={styles.gradeContainer}>
                 <GradeIcon />
                 <span className={clsx(styles.grade, styles.info)}>4.4</span>
                 <span className={styles.ellipse} />
                 <span className={styles.info}>32 отзыва</span>
             </div>
-            <div className={styles.info}>Артикул: 274916</div>
-            <div className={styles.price}>29 990 ₽</div>
+            <div className={styles.info}>Артикул: {product.articles[0].number}</div>
+            <div className={styles.price}>{priceFormat(+product.articles[0].price)}</div>
             <div className={styles.separator} />
             <div className={styles.tags}>
                 <Badge text={'В наличии'} color={'#058943'} />

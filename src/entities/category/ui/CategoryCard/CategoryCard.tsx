@@ -3,16 +3,28 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import styles from './CategoryCard.module.scss';
-import image from './image.png';
+import { ICategory } from '@/entities/category';
+import { BASE_URL } from '@/shared/consts';
 
-export const CategoryCard: FC = ({}) => {
+import styles from './CategoryCard.module.scss';
+
+interface ICategoryCardProps {
+    category: ICategory;
+}
+
+export const CategoryCard: FC<ICategoryCardProps> = ({ category }) => {
     return (
-        <Link href={'/catalog/category'}>
+        <Link href={`/catalog/${category.id}`}>
             <article className={clsx(styles.categoryCard)}>
-                <p className={styles.title}>Приемники</p>
+                <p className={styles.title}>{category.title}</p>
                 <div className={styles.imageWrap}>
-                    <Image src={image} width={300} height={300} alt='Приемники' className={styles.image} />
+                    <Image
+                        src={`${BASE_URL}/${category.image}`}
+                        width={300}
+                        height={300}
+                        alt={category.title}
+                        className={styles.image}
+                    />
                 </div>
             </article>
         </Link>

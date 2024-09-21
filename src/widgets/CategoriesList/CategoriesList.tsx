@@ -3,22 +3,26 @@
 import clsx from 'clsx';
 import { FC } from 'react';
 
-import { CategoryCard } from '@/entities/category';
+import { CategoryCard, useCategoriesQuery } from '@/entities/category';
 
 import styles from './CategoriesList.module.scss';
 
 interface ICategoriesListProps {
+    max?: number;
     className?: string;
 }
 
-export const CategoriesList: FC<ICategoriesListProps> = ({ className }) => {
+export const CategoriesList: FC<ICategoriesListProps> = ({ max, className }) => {
+    const { data: categories } = useCategoriesQuery();
+
     return (
         <div className={clsx(className)}>
             <div className={'container'}>
                 <div className={styles.categoriesList}>
-                    {Array.from({ length: 8 }).map((_, index) => (
-                        <CategoryCard key={index} />
-                    ))}
+                    {categories &&
+                        categories
+                            .slice(0, max)
+                            .map((category) => <CategoryCard key={category.id} category={category} />)}
                 </div>
             </div>
         </div>

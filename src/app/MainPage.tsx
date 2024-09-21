@@ -26,7 +26,7 @@ export const MainPage = () => {
         <div className={styles.mainPage}>
             <div>
                 <MainBanner className={styles.mainBanner} />
-                <CategoriesList className={styles.categoriesList} />
+                <CategoriesList className={styles.categoriesList} max={8} />
                 <div className={'container'}>
                     <Button
                         variant={'outline'}
@@ -40,9 +40,12 @@ export const MainPage = () => {
             </div>
             <ProductsCarousel
                 title={'Новинки'}
-                products={products ? products.filter((product) => product.articles[0].new) : []}
+                products={products ? products.filter((product) => product.articles[0]?.new) : []}
             />
-            <ProductsCarousel title={'Популярное'} />
+            <ProductsCarousel
+                title={'Популярное'}
+                products={products ? products.filter((product) => product.articles[0]?.popular) : []}
+            />
             <NewCollectionBanner />
             <ProductsCarousel title={'Аккумуляторы'} />
             <Advantages />

@@ -9,6 +9,7 @@ import { FC } from 'react';
 import { useSessionStore } from '@/entities/session';
 import GradeIcon from '@/shared/assets/icons/grade-outline.svg';
 import { BASE_URL } from '@/shared/consts';
+import { priceFormat } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import { IProduct } from '../../model';
@@ -31,7 +32,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
     return (
         <article className={styles.productCard}>
             <div className={styles.productImage}>
-                <Link href={'/product'}>
+                <Link href={`/product/${product.id}`}>
                     <Image
                         src={
                             BASE_URL +
@@ -44,10 +45,10 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
                 </Link>
                 <GradeIcon className={clsx(styles.grade, styles.active)} />
             </div>
-            <Link href={'/product'} className={styles.productTitle}>
+            <Link href={`/product/${product.id}`} className={styles.productTitle}>
                 {product.articles[0]?.title}
             </Link>
-            <p className={styles.productPrice}>1 117 ₽</p>
+            <p className={styles.productPrice}>{priceFormat(+product.articles[0]?.price)}</p>
             <Button variant={'outline'} fullWidth onClick={handleAddToCart}>
                 В КОРЗИНУ
             </Button>
