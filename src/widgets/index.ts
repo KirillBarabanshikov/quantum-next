@@ -1,5 +1,5 @@
 export { Advantages } from './Advantages';
-export { MainBanner, NewCollectionBanner, QuestionBanner } from './Banners';
+export { CallBanner, MainBanner, NewCollectionBanner, QuestionBanner } from './Banners';
 export { BottomNavbar } from './BottomNavbar';
 export { CategoriesList } from './CategoriesList';
 export { Footer } from './Footer';
