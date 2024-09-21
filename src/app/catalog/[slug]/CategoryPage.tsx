@@ -5,8 +5,9 @@ import Error from 'next/error';
 import { FC } from 'react';
 
 import { useCategoryByIdQuery } from '@/entities/category';
+import { useProductsQuery } from '@/entities/product';
 import { Filters } from '@/feature/catalog';
-import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
+import { Breadcrumbs, Button, Dropdown, Skeleton } from '@/shared/ui';
 import { ProductsList } from '@/widgets';
 import { CallBanner } from '@/widgets/Banners';
 
@@ -30,20 +31,24 @@ interface ICategoryPageProps {
 }
 
 export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
-    const { data: category, isError } = useCategoryByIdQuery(slug);
+    const { data: category, isError, isLoading: isCategoryLoading } = useCategoryByIdQuery(slug);
+    const { data: products, isLoading: isProductsLoading } = useProductsQuery({ categoryId: slug });
 
     if (isError) {
         return <Error statusCode={404} />;
     }
 
-    if (!category) return <></>;
-
     return (
         <div className={styles.categoryPage}>
             <section className={styles.categorySection}>
                 <div className={clsx(styles.titleContainer, 'container')}>
-                    <Breadcrumbs links={[...breadcrumbs, { text: category.title }]} className={styles.breadcrumbs} />
-                    <h1 className={'title'}>{category.title}</h1>
+                    <Breadcrumbs
+                        links={[...breadcrumbs, { text: category?.title ?? '' }]}
+                        className={styles.breadcrumbs}
+                    />
+                    <h1 className={'title'}>
+                        {isCategoryLoading ? <Skeleton width={100} height={27} /> : category?.title}
+                    </h1>
                 </div>
                 <div className={clsx(styles.categoryContainer, 'container')}>
                     <Filters className={styles.filters} />
@@ -57,7 +62,7 @@ export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
                                 position={'right'}
                             />
                         </div>
-                        <ProductsList />
+                        <ProductsList products={products} isLoading={isProductsLoading} />
                         <Button className={styles.more}>Загрузить еще</Button>
                     </div>
                 </div>

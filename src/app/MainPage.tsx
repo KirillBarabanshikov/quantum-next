@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { useProductsQuery } from '@/entities/product';
+import { useNewProductsQuery, usePopularProductsQuery } from '@/entities/product/api';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
@@ -20,7 +20,8 @@ import styles from './MainPage.module.scss';
 export const MainPage = () => {
     const router = useRouter();
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
-    const { data: products } = useProductsQuery();
+    const { data: newProducts, isLoading: isNewProductsLoading } = useNewProductsQuery();
+    const { data: popularProducts, isLoading: isPopularProductsLoading } = usePopularProductsQuery();
 
     return (
         <div className={styles.mainPage}>
@@ -38,14 +39,8 @@ export const MainPage = () => {
                     </Button>
                 </div>
             </div>
-            <ProductsCarousel
-                title={'Новинки'}
-                products={products ? products.filter((product) => product.articles[0]?.new) : []}
-            />
-            <ProductsCarousel
-                title={'Популярное'}
-                products={products ? products.filter((product) => product.articles[0]?.popular) : []}
-            />
+            <ProductsCarousel title={'Новинки'} products={newProducts} isLoading={isNewProductsLoading} />
+            <ProductsCarousel title={'Популярное'} products={popularProducts} isLoading={isPopularProductsLoading} />
             <NewCollectionBanner />
             <ProductsCarousel title={'Аккумуляторы'} />
             <Advantages />

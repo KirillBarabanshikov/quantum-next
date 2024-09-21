@@ -1,1 +1,1 @@
-export { useProductDetailsQuery, useProductsQuery } from './productApi';
+export { useNewProductsQuery, usePopularProductsQuery,useProductDetailsQuery, useProductsQuery } from './productApi';

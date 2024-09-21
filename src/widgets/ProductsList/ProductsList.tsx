@@ -1,13 +1,21 @@
-// import { ProductCard } from '@/entities/product';
+import { FC } from 'react';
+
+import { IProduct, ProductCard } from '@/entities/product';
+import { Skeleton } from '@/shared/ui';
 
 import styles from './Products.module.scss';
 
-export const ProductsList = () => {
+interface IProductsListProps {
+    products?: IProduct[];
+    isLoading: boolean;
+}
+
+export const ProductsList: FC<IProductsListProps> = ({ products, isLoading }) => {
     return (
         <div className={styles.productsList}>
-            {/*{Array.from({ length: 10 }).map((_, index) => {*/}
-            {/*    return <ProductCard key={index} />;*/}
-            {/*})}*/}
+            {isLoading
+                ? Array.from({ length: 6 }).map((_, index) => <Skeleton key={index} width={305} height={440} />)
+                : products?.map((product) => <ProductCard key={product.id} product={product} />)}
         </div>
     );
 };
