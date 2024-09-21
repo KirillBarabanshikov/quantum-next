@@ -1,5 +1,7 @@
+'use client';
+
 import clsx from 'clsx';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { ProductCartCard } from '@/entities/product';
 import CancelIcon from '@/shared/assets/icons/cancel.svg';
@@ -10,51 +12,75 @@ import { ProductsCarousel } from '@/widgets';
 import styles from './CartPage.module.scss';
 
 export const CartPage = () => {
+    const router = useRouter();
+
     return (
         <div className={styles.cartPage}>
-            <section>
-                <div className={'container'}>
-                    <h1 className={clsx(styles.title, 'title')}>
-                        Корзина
-                        <span className={styles.count}>3</span>
-                    </h1>
-                    <div className={styles.actions}>
-                        <button>
-                            <CheckIcon className={styles.check} />
-                            Выбрать все
-                        </button>
-                        <button>
-                            <CancelIcon />
-                            Удалить выбранное
-                        </button>
-                    </div>
-                    <div className={styles.cart}>
-                        <div className={styles.cartList}>
-                            {Array.from({ length: 3 }).map((_, index) => (
-                                <ProductCartCard key={index} />
-                            ))}
-                        </div>
-                        <div className={styles.cartOrder}>
-                            <Link href={'/order'}>
-                                <Button fullWidth>Оформить заказ</Button>
-                            </Link>
-                            <p className={styles.hint}>
-                                Доступные способы и время доставки можно выбрать при оформлении заказа
-                            </p>
-                            <div className={styles.separator} />
-                            <div className={styles.counts}>
-                                <span>Всего: 3 товара</span>
-                                <span className={styles.ellipse} />
-                                <span>2 489 г</span>
-                            </div>
-                            <div className={styles.cost}>
-                                <div>Общая стоимость</div>
-                                <div className={styles.price}>190 770 ₽</div>
-                            </div>
-                        </div>
+            {true ? (
+                <div className={styles.placeholder}>
+                    <div className={styles.placeholderTitle}>Корзина пуста</div>
+                    <p className={styles.subtitle}>
+                        Перейдите в каталог, чтобы добавить товары в корзину. Или авторизуйтесь, чтобы посмотреть уже
+                        добавленные товары.
+                    </p>
+                    <div className={styles.buttons}>
+                        <Button onClick={() => router.push('/catalog')} className={styles.button}>
+                            Продолжить покупки
+                        </Button>
+                        <Button
+                            variant={'outline'}
+                            onClick={() => router.push('?authentication=signin')}
+                            className={styles.button}
+                        >
+                            Войти
+                        </Button>
                     </div>
                 </div>
-            </section>
+            ) : (
+                <section>
+                    <div className={'container'}>
+                        <h1 className={clsx(styles.title, 'title')}>
+                            Корзина
+                            <span className={styles.count}>3</span>
+                        </h1>
+                        <div className={styles.actions}>
+                            <button>
+                                <CheckIcon className={styles.check} />
+                                Выбрать все
+                            </button>
+                            <button>
+                                <CancelIcon />
+                                Удалить выбранное
+                            </button>
+                        </div>
+                        <div className={styles.cart}>
+                            <div className={styles.cartList}>
+                                {Array.from({ length: 3 }).map((_, index) => (
+                                    <ProductCartCard key={index} />
+                                ))}
+                            </div>
+                            <div className={styles.cartOrder}>
+                                <Button fullWidth disabled onClick={() => router.push('/order')}>
+                                    Оформить заказ
+                                </Button>
+                                <p className={styles.hint}>
+                                    Доступные способы и время доставки можно выбрать при оформлении заказа
+                                </p>
+                                <div className={styles.separator} />
+                                <div className={styles.counts}>
+                                    <span>Всего: 3 товара</span>
+                                    <span className={styles.ellipse} />
+                                    <span>2 489 г</span>
+                                </div>
+                                <div className={styles.cost}>
+                                    <div>Общая стоимость</div>
+                                    <div className={styles.price}>190 770 ₽</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            )}
             <ProductsCarousel title={'Вы смотрели'} />
         </div>
     );

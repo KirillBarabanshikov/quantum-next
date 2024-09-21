@@ -104,3 +104,35 @@
         }
     }
 }
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 160px;
+
+    .placeholderTitle {
+        font-weight: 500;
+        font-size: 38px;
+        line-height: 27px;
+        margin-bottom: 24px;
+    }
+
+    .subtitle {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 21.83px;
+        margin-bottom: 40px;
+        max-width: 526px;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 20px;
+
+        .button {
+            height: 40px !important;
+            min-width: 190px !important;
+        }
+    }
+}

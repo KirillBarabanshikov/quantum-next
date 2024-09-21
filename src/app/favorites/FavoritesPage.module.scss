@@ -42,3 +42,30 @@
     flex-direction: column;
     gap: 160px;
 }
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 206px;
+    margin-top: 38px;
+
+    svg {
+        width: 46px;
+        height: 46px;
+        margin-bottom: 24px;
+    }
+
+    .placeholderTitle {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 13px;
+        margin-bottom: 14px;
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 14px;
+    }
+}
