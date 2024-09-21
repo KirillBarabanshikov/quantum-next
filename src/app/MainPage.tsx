@@ -42,7 +42,7 @@ export const MainPage = () => {
             <ProductsCarousel title={'Новинки'} products={newProducts} isLoading={isNewProductsLoading} />
             <ProductsCarousel title={'Популярное'} products={popularProducts} isLoading={isPopularProductsLoading} />
             <NewCollectionBanner />
-            <ProductsCarousel title={'Аккумуляторы'} />
+            {/*<ProductsCarousel title={'Аккумуляторы'} />*/}
             <Advantages />
             <QuestionBanner />
         </div>
