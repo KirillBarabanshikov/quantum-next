@@ -1,7 +1,10 @@
 'use client';
 
 import clsx from 'clsx';
+import Error from 'next/error';
+import { FC } from 'react';
 
+import { useCategoryByIdQuery } from '@/entities/category';
 import { Filters } from '@/feature/catalog';
 import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
 import { ProductsList } from '@/widgets';
@@ -17,15 +20,30 @@ const options = [
     { label: 'Сначала старые', value: 'Сначала старые' },
 ];
 
-const breadcrumbs = [{ text: 'Главная', href: '/' }, { text: 'Каталог', href: '/catalog' }, { text: 'Приемники' }];
+const breadcrumbs = [
+    { text: 'Главная', href: '/' },
+    { text: 'Каталог', href: '/catalog' },
+];
 
-export const CategoryPage = () => {
+interface ICategoryPageProps {
+    slug: string;
+}
+
+export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
+    const { data: category, isError } = useCategoryByIdQuery(slug);
+
+    if (isError) {
+        return <Error statusCode={404} />;
+    }
+
+    if (!category) return <></>;
+
     return (
         <div className={styles.categoryPage}>
             <section className={styles.categorySection}>
                 <div className={clsx(styles.titleContainer, 'container')}>
-                    <Breadcrumbs links={breadcrumbs} className={styles.breadcrumbs} />
-                    <h1 className={'title'}>Приемники</h1>
+                    <Breadcrumbs links={[...breadcrumbs, { text: category.title }]} className={styles.breadcrumbs} />
+                    <h1 className={'title'}>{category.title}</h1>
                 </div>
                 <div className={clsx(styles.categoryContainer, 'container')}>
                     <Filters className={styles.filters} />
