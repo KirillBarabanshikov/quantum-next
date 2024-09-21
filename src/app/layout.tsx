@@ -1,5 +1,7 @@
 import '@/shared/styles/index.css';
+import '@/shared/styles/swiper.scss';
 import 'swiper/css';
+import 'swiper/css/pagination';
 
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';

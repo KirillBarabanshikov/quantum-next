@@ -37,7 +37,7 @@ export const FavoritesPage = () => {
                     </div>
                     <div className={styles.productsWrap}>
                         <ProductsCarousel title={'Новинки'} />
-                        <ProductsCarousel title={'Новинки'} />
+                        <ProductsCarousel title={'Популярное'} />
                     </div>
                 </div>
             </div>

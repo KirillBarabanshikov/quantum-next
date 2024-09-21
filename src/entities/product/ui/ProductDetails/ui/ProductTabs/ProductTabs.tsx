@@ -2,13 +2,16 @@
 
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import { useState } from 'react';
+import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import Dislike from '@/shared/assets/icons/dislike.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import Like from '@/shared/assets/icons/like.svg';
 
+import image from './image.png';
 import styles from './ProductTabs.module.scss';
 
 const tabs = ['Описание', 'Параметры', 'Отзывы', 'Гаранития', 'Оплата', 'Доставка'];
@@ -59,30 +62,54 @@ export const ProductTabs = () => {
 
 const ProductDescription = () => {
     return (
-        <div className={styles.content}>
-            <div className={styles.wrap}>
-                <div>
-                    Набор Cetus Pro FPV Kit — лучший выбор для новичков на данный момент. В комплекте бесколлекторный
-                    квадрокоптер Cetus Pro, пульт управления LiteRadio2 SE, видео-шлем VR02 FPV Goggles — достаточно
-                    мощный и манёвренный как для начинающих, так и для профессионалов, чтобы практиковаться и дома, и на
-                    улице.
+        <div className={clsx(styles.content, styles.productDescription)}>
+            {false ? (
+                <></>
+            ) : (
+                <div className={styles.wrap}>
+                    <div>
+                        Набор Cetus Pro FPV Kit — лучший выбор для новичков на данный момент. В комплекте
+                        бесколлекторный квадрокоптер Cetus Pro, пульт управления LiteRadio2 SE, видео-шлем VR02 FPV
+                        Goggles — достаточно мощный и манёвренный как для начинающих, так и для профессионалов, чтобы
+                        практиковаться и дома, и на улице.
+                    </div>
+                    <br />
+                    <h2>Cetus Pro</h2>
+                    <br />
+                    <div>
+                        Cetus Pro — бесколлекторный дрон с рамой 78 мм и питанием от 1S, предназначен для полётов в
+                        помещении. Связывается с пультом по протоколу Frsky. Как и Cetus X версии Cetus FC, он имеет три
+                        режима полёта (N/S/M), три уровня скорости и функцию Turtle. Оборудован нижней камерой,
+                        барометром и лазером для стабилизации, умеет зависать в точке.
+                    </div>
+                    <ul>
+                        <li>
+                            Функция полётного помощника значительно снижает уровень требований к навыкам для управления
+                            дроном. Коптер способен зависать в точке благодаря барометру/лазеру. Это самый упрощённый
+                            способ попасть в продвинутый FPV.
+                        </li>
+                    </ul>
                 </div>
-                <br />
-                <h2>Cetus Pro</h2>
-                <br />
-                <div>
-                    Cetus Pro — бесколлекторный дрон с рамой 78 мм и питанием от 1S, предназначен для полётов в
-                    помещении. Связывается с пультом по протоколу Frsky. Как и Cetus X версии Cetus FC, он имеет три
-                    режима полёта (N/S/M), три уровня скорости и функцию Turtle. Оборудован нижней камерой, барометром и
-                    лазером для стабилизации, умеет зависать в точке.
-                </div>
-                <ul>
-                    <li>
-                        Функция полётного помощника значительно снижает уровень требований к навыкам для управления
-                        дроном. Коптер способен зависать в точке благодаря барометру/лазеру. Это самый упрощённый способ
-                        попасть в продвинутый FPV.
-                    </li>
-                </ul>
+            )}
+            <div className={clsx(styles.imageWrap)}>
+                {false ? (
+                    <Swiper
+                        spaceBetween={20}
+                        pagination={true}
+                        modules={[Pagination]}
+                        className={styles.productDescriptionSlider}
+                    >
+                        {Array.from({ length: 10 }).map((_, index) => {
+                            return (
+                                <SwiperSlide key={index}>
+                                    <Image src={image} alt={'image'} />
+                                </SwiperSlide>
+                            );
+                        })}
+                    </Swiper>
+                ) : (
+                    <Image src={image} alt={'image'} />
+                )}
             </div>
         </div>
     );

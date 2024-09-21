@@ -165,3 +165,28 @@
         }
     }
 }
+
+.productDescription {
+    display: flex;
+    gap: 60px;
+
+    .productDescriptionSlider {
+        img {
+            height: 553px;
+        }
+    }
+
+    .imageWrap {
+        width: 100%;
+
+        &.left {
+            order: -1;
+        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+    }
+}
