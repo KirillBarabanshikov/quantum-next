@@ -41,12 +41,14 @@ export const Header = () => {
                             </Link>
                             <Link
                                 href={isAuthenticated ? '/cabinet/favorites' : '/favorites'}
+                                scroll={false}
                                 className={styles.option}
                             >
                                 <GradeIcon />
                             </Link>
                             <Link
                                 href={isAuthenticated ? '/cabinet' : '?authentication=signin'}
+                                scroll={false}
                                 className={styles.option}
                             >
                                 <AccountIcon />

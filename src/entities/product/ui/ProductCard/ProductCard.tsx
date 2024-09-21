@@ -1,8 +1,12 @@
+'use client';
+
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
+import { useSessionStore } from '@/entities/session';
 import GradeIcon from '@/shared/assets/icons/grade-outline.svg';
 import { Button } from '@/shared/ui';
 
@@ -14,6 +18,15 @@ interface IProductCardProps {
 }
 
 export const ProductCard: FC<IProductCardProps> = () => {
+    const router = useRouter();
+    const { isAuthenticated } = useSessionStore();
+
+    const handleAddToCart = () => {
+        if (!isAuthenticated) {
+            return router.push('?authentication=signin', { scroll: false });
+        }
+    };
+
     return (
         <article className={styles.productCard}>
             <div className={styles.productImage}>
@@ -33,7 +46,7 @@ export const ProductCard: FC<IProductCardProps> = () => {
                 Рама квадрокоптера Cetus X (BETAFPV)
             </Link>
             <p className={styles.productPrice}>1 117 ₽</p>
-            <Button variant={'outline'} fullWidth>
+            <Button variant={'outline'} fullWidth onClick={handleAddToCart}>
                 В КОРЗИНУ
             </Button>
         </article>
