@@ -19,9 +19,9 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
             <h1 className={styles.name}>{product.articles[0].title}</h1>
             <div className={styles.gradeContainer}>
                 <GradeIcon />
-                <span className={clsx(styles.grade, styles.info)}>4.4</span>
+                <span className={clsx(styles.grade, styles.info)}>0.0</span>
                 <span className={styles.ellipse} />
-                <span className={styles.info}>32 отзыва</span>
+                <span className={styles.info}>0 отзыва</span>
             </div>
             <div className={styles.info}>Артикул: {product.articles[0].number}</div>
             <div className={styles.price}>{priceFormat(+product.articles[0].price)}</div>

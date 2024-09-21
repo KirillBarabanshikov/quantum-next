@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 import { useProductDetailsQuery } from '@/entities/product';
 import { ProductDetails } from '@/entities/product/ui/ProductDetails';
-import { ProductsCarousel } from '@/widgets';
+// import { ProductsCarousel } from '@/widgets';
 import { CallBanner } from '@/widgets/Banners';
 
 import styles from './ProductPage.module.scss';
@@ -26,7 +26,7 @@ export const ProductPage: FC<IProductPageProps> = ({ slug }) => {
     return (
         <div className={styles.productPage}>
             <ProductDetails product={product} />
-            <ProductsCarousel title={'Вы смотрели'} className={styles.carousel} />
+            {/*<ProductsCarousel title={'Вы смотрели'} className={styles.carousel} />*/}
             <CallBanner />
         </div>
     );

@@ -7,7 +7,6 @@ import { ProductCartCard } from '@/entities/product';
 import CancelIcon from '@/shared/assets/icons/cancel.svg';
 import CheckIcon from '@/shared/assets/icons/priority.svg';
 import { Button } from '@/shared/ui';
-import { ProductsCarousel } from '@/widgets';
 
 import styles from './CartPage.module.scss';
 
@@ -81,7 +80,7 @@ export const CartPage = () => {
                     </div>
                 </section>
             )}
-            <ProductsCarousel title={'Вы смотрели'} />
+            {/*<ProductsCarousel title={'Вы смотрели'} />*/}
         </div>
     );
 };

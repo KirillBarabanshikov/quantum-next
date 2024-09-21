@@ -31,7 +31,7 @@ export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
                             ...links,
                             ...[
                                 { text: category.title, href: `/catalog/${category.id}` },
-                                { text: product.articles[0].title, href: `/product/${product.id}` },
+                                { text: product.articles[0].title },
                             ],
                         ]}
                         className={styles.breadcrumbs}
