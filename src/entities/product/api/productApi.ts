@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { instance } from '@/shared/api';
 
 import { IProduct } from '../model';
+import { ICartBody } from './types';
 
 const useProductsQuery = ({ page, categoryId }: { page?: string | number; categoryId?: string } = {}) => {
     return useQuery<IProduct[], Error>({
@@ -46,4 +47,15 @@ const usePopularProductsQuery = () => {
     });
 };
 
-export { useNewProductsQuery, usePopularProductsQuery, useProductDetailsQuery, useProductsQuery };
+const useAddToCartMutation = () => {
+    return useMutation<void, Error, ICartBody>({
+        mutationFn: async ({ userId, productId }) => {
+            await instance.post(`/product_carts`, {
+                user: `/api/users/${userId}`,
+                product: `/api/articles/${productId}`,
+            });
+        },
+    });
+};
+
+export { useAddToCartMutation, useNewProductsQuery, usePopularProductsQuery, useProductDetailsQuery, useProductsQuery };

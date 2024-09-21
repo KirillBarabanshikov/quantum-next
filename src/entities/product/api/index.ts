@@ -1,1 +1,7 @@
-export { useNewProductsQuery, usePopularProductsQuery,useProductDetailsQuery, useProductsQuery } from './productApi';
+export {
+    useAddToCartMutation,
+    useNewProductsQuery,
+    usePopularProductsQuery,
+    useProductDetailsQuery,
+    useProductsQuery,
+} from './productApi';

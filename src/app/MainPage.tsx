@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { useNewProductsQuery, usePopularProductsQuery } from '@/entities/product/api';
+import { useNewProductsQuery, usePopularProductsQuery } from '@/entities/product';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
 import { Button } from '@/shared/ui';

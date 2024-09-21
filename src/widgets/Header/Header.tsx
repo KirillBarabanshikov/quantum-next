@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 import { useSessionStore } from '@/entities/session/model';
+import { useMeQuery } from '@/entities/user';
 import { Search } from '@/feature/search';
 import AccountIcon from '@/shared/assets/icons/account_box.svg';
 import BagIcon from '@/shared/assets/icons/bag.svg';
@@ -18,6 +20,21 @@ import { HeaderLinks } from './ui';
 export const Header = () => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
     const { isAuthenticated } = useSessionStore();
+    const { data: me } = useMeQuery();
+    const [uniqueCount, setUniqueCount] = useState(0);
+
+    useEffect(() => {
+        if (!me) return;
+
+        const uniqueIds: (number | string)[] = [];
+
+        for (const item of me.cart) {
+            if (!uniqueIds.includes(item.product.id)) {
+                uniqueIds.push(item.product.id);
+            }
+        }
+        setUniqueCount(uniqueIds.length);
+    }, [me]);
 
     return (
         <>
@@ -37,7 +54,7 @@ export const Header = () => {
                         <div className={styles.options}>
                             <Link href={'/cart'} className={styles.option}>
                                 <BagIcon />
-                                <span className={styles.badge}>1</span>
+                                {!!uniqueCount && <span className={styles.badge}>{uniqueCount}</span>}
                             </Link>
                             <Link
                                 href={isAuthenticated ? '/cabinet/favorites' : '/favorites'}

@@ -6,7 +6,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
+import { useAddToCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
+import { useMeQuery } from '@/entities/user';
 import GradeIcon from '@/shared/assets/icons/grade-outline.svg';
 import { BASE_URL } from '@/shared/consts';
 import { priceFormat } from '@/shared/lib';
@@ -22,11 +24,16 @@ interface IProductCardProps {
 export const ProductCard: FC<IProductCardProps> = ({ product }) => {
     const router = useRouter();
     const { isAuthenticated } = useSessionStore();
+    const { mutateAsync: addToCart } = useAddToCartMutation();
+    const { user } = useSessionStore();
+    const { refetch } = useMeQuery({ enabled: false });
 
-    const handleAddToCart = () => {
-        if (!isAuthenticated) {
+    const handleAddToCart = async (productId: number) => {
+        if (!isAuthenticated || !user) {
             return router.push('?authentication=signin', { scroll: false });
         }
+        await addToCart({ userId: user.id, productId });
+        await refetch();
     };
 
     return (
@@ -49,7 +56,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
                 {product.articles[0]?.title}
             </Link>
             <p className={styles.productPrice}>{priceFormat(+product.articles[0]?.price)}</p>
-            <Button variant={'outline'} fullWidth onClick={handleAddToCart}>
+            <Button variant={'outline'} fullWidth onClick={() => handleAddToCart(+product.articles[0].id)}>
                 В КОРЗИНУ
             </Button>
         </article>

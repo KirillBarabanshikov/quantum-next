@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useSignInMutation } from '@/entities/session/api';
-import { useMeQuery } from '@/entities/user/api';
+// import { useMeQuery } from '@/entities/user/api';
 import { Button, Input } from '@/shared/ui';
 
 import { signInFormScheme, TSignInFormScheme } from '../../model';
@@ -16,8 +16,8 @@ interface ISignInFormProps {
 
 export const SignInForm: FC<ISignInFormProps> = ({ onClose }) => {
     const { mutateAsync: signIn } = useSignInMutation();
-    const { refetch } = useMeQuery({ enabled: false });
-    const router = useRouter();
+    // const { refetch } = useMeQuery({ enabled: false });
+    // const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -27,14 +27,15 @@ export const SignInForm: FC<ISignInFormProps> = ({ onClose }) => {
     const onSubmit = async (data: TSignInFormScheme) => {
         try {
             await signIn(data);
-            refetch().then((data) => {
-                if (!data?.data?.payerProfiles.length) {
-                    router.push('/create-profile');
-                } else {
-                    router.push('/cabinet/orders');
-                }
-                onClose();
-            });
+            // refetch().then((data) => {
+            //     if (!data?.data?.payerProfiles.length) {
+            //         router.push('/create-profile');
+            //     } else {
+            //         router.push('/cabinet/orders');
+            //     }
+            //     onClose();
+            // });
+            onClose();
         } catch (error) {
             console.error(error);
         }
