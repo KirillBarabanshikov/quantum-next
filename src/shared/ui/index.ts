@@ -10,4 +10,5 @@ export { Modal } from './Modal';
 export { Portal } from './Portal';
 export { Radio } from './Radio';
 export { Separator } from './Separator';
+export { Skeleton } from './Skeleton';
 export { Switch } from './Switch';
