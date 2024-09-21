@@ -1,12 +1,19 @@
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FC } from 'react';
 
 import GradeIcon from '@/shared/assets/icons/grade-outline.svg';
 import { Button } from '@/shared/ui';
 
+import { IProduct } from '../../model';
 import styles from './ProductCard.module.scss';
 
-export const ProductCard = () => {
+interface IProductCardProps {
+    product?: IProduct;
+}
+
+export const ProductCard: FC<IProductCardProps> = () => {
     return (
         <article className={styles.productCard}>
             <div className={styles.productImage}>
@@ -20,7 +27,7 @@ export const ProductCard = () => {
                         alt={'product'}
                     />
                 </Link>
-                <GradeIcon className={styles.grade} />
+                <GradeIcon className={clsx(styles.grade, styles.active)} />
             </div>
             <Link href={'/product'} className={styles.productTitle}>
                 Рама квадрокоптера Cetus X (BETAFPV)
