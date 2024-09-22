@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -16,8 +17,9 @@ interface ISignInFormProps {
 
 export const SignInForm: FC<ISignInFormProps> = ({ onClose }) => {
     const { mutateAsync: signIn } = useSignInMutation();
+    const searchParams = useSearchParams();
     // const { refetch } = useMeQuery({ enabled: false });
-    // const router = useRouter();
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -35,6 +37,9 @@ export const SignInForm: FC<ISignInFormProps> = ({ onClose }) => {
             //     }
             //     onClose();
             // });
+            const params = new URLSearchParams(searchParams.toString());
+            params.delete('authentication');
+            router.replace(`?${params}`, { scroll: false });
             onClose();
         } catch (error) {
             console.error(error);
