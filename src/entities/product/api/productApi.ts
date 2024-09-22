@@ -58,4 +58,19 @@ const useAddToCartMutation = () => {
     });
 };
 
-export { useAddToCartMutation, useNewProductsQuery, usePopularProductsQuery, useProductDetailsQuery, useProductsQuery };
+const useDeleteFromCartMutation = () => {
+    return useMutation<void, Error, string | number>({
+        mutationFn: async (id) => {
+            await instance.delete(`/product_carts/${id}`);
+        },
+    });
+};
+
+export {
+    useAddToCartMutation,
+    useDeleteFromCartMutation,
+    useNewProductsQuery,
+    usePopularProductsQuery,
+    useProductDetailsQuery,
+    useProductsQuery,
+};

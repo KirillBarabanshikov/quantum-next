@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 
 import { ProductCartCard } from '@/entities/product';
+import { useSessionStore } from '@/entities/session';
 import CancelIcon from '@/shared/assets/icons/cancel.svg';
 import CheckIcon from '@/shared/assets/icons/priority.svg';
 import { Button } from '@/shared/ui';
@@ -12,27 +13,30 @@ import styles from './CartPage.module.scss';
 
 export const CartPage = () => {
     const router = useRouter();
+    const { user } = useSessionStore();
 
     return (
         <div className={styles.cartPage}>
-            {true ? (
+            {!user || !user.cart.length ? (
                 <div className={styles.placeholder}>
                     <div className={styles.placeholderTitle}>Корзина пуста</div>
                     <p className={styles.subtitle}>
-                        Перейдите в каталог, чтобы добавить товары в корзину. Или авторизуйтесь, чтобы посмотреть уже
-                        добавленные товары.
+                        Перейдите в каталог, чтобы добавить товары в корзину.{' '}
+                        {!user && 'Или авторизуйтесь, чтобы посмотреть уже добавленные товары.'}
                     </p>
                     <div className={styles.buttons}>
                         <Button onClick={() => router.push('/catalog')} className={styles.button}>
                             Продолжить покупки
                         </Button>
-                        <Button
-                            variant={'outline'}
-                            onClick={() => router.push('?authentication=signin')}
-                            className={styles.button}
-                        >
-                            Войти
-                        </Button>
+                        {!user && (
+                            <Button
+                                variant={'outline'}
+                                onClick={() => router.push('?authentication=signin')}
+                                className={styles.button}
+                            >
+                                Войти
+                            </Button>
+                        )}
                     </div>
                 </div>
             ) : (

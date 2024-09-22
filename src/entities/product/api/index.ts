@@ -1,5 +1,6 @@
 export {
     useAddToCartMutation,
+    useDeleteFromCartMutation,
     useNewProductsQuery,
     usePopularProductsQuery,
     useProductDetailsQuery,

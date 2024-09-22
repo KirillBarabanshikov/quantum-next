@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
-import { useAddToCartMutation } from '@/entities/product';
+import { useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
 import GradeIcon from '@/shared/assets/icons/grade-outline.svg';
@@ -25,14 +25,22 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
     const router = useRouter();
     const { isAuthenticated } = useSessionStore();
     const { mutateAsync: addToCart } = useAddToCartMutation();
+    const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
     const { user } = useSessionStore();
     const { refetch } = useMeQuery({ enabled: false });
+
+    const productCart = user?.cart.find((item) => item.product.id === product.articles[0].id);
+    const inCart = !!productCart;
 
     const handleAddToCart = async (productId: number) => {
         if (!isAuthenticated || !user) {
             return router.push('?authentication=signin', { scroll: false });
         }
-        await addToCart({ userId: user.id, productId });
+        if (inCart) {
+            await deleteFromCart(productCart.id);
+        } else {
+            await addToCart({ userId: user.id, productId });
+        }
         await refetch();
     };
 
@@ -56,8 +64,12 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
                 {product.articles[0]?.title}
             </Link>
             <p className={styles.productPrice}>{priceFormat(+product.articles[0]?.price)}</p>
-            <Button variant={'outline'} fullWidth onClick={() => handleAddToCart(+product.articles[0].id)}>
-                В КОРЗИНУ
+            <Button
+                variant={inCart ? 'solid' : 'outline'}
+                fullWidth
+                onClick={() => handleAddToCart(+product.articles[0].id)}
+            >
+                {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
             </Button>
         </article>
     );
