@@ -6,7 +6,7 @@ import { FC, useState } from 'react';
 import { useCategoriesQuery } from '@/entities/category';
 import ArrowDown from '@/shared/assets/icons/arrow_down2.svg';
 
-import styles from './DeskropMenu.module.scss';
+import styles from './DesktopMenu.module.scss';
 
 interface Item {
     name: string;
