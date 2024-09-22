@@ -95,18 +95,17 @@
                 align-items: center;
                 justify-content: center;
                 height: 34px;
-                min-width: 117px;
                 border-radius: 20px;
-                background-color: transparent;
-                border: 1px solid #091b5133;
+                background-color: var(--color-grey);
+                padding: 0 12px;
 
                 font-weight: 500;
                 font-size: 14px;
                 color: var(--color-dark-blue);
 
                 &.selected {
-                    background-color: var(--color-grey);
-                    border-color: var(--color-grey);
+                    background-color: var(--color-blue-accent);
+                    color: var(--color-white);
                 }
             }
         }

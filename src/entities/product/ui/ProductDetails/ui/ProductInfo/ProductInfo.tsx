@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 
 import { IProduct, useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
@@ -66,14 +66,23 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                     </div>
                 ))}
             </div>
-            <div className={styles.separator} />
-            <div className={styles.equipments}>
-                <p>Комплектация</p>
-                <div className={styles.equipmentsList}>
-                    <button className={clsx(styles.equipment, styles.selected)}>Комплект</button>
-                    <button className={styles.equipment}>Только дрон</button>
-                </div>
-            </div>
+            {product.characteristics
+                .filter((characteristics) => characteristics.modification)
+                .map((characteristics) => {
+                    return (
+                        <Fragment key={characteristics.id}>
+                            <div className={styles.separator} />
+                            <div className={styles.equipments}>
+                                <p>{characteristics.title}</p>
+                                <div className={styles.equipmentsList}>
+                                    <button className={clsx(styles.equipment, styles.selected)}>
+                                        {characteristics.value} {characteristics.categoryCharacteristic.measurement}
+                                    </button>
+                                </div>
+                            </div>
+                        </Fragment>
+                    );
+                })}
             <div className={styles.buttons}>
                 <Button fullWidth onClick={() => handleAddToCart(+product.articles[0].id)}>
                     {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}

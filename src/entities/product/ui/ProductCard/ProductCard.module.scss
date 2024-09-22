@@ -37,9 +37,9 @@
                 fill 300ms linear,
                 opacity 300ms linear;
 
-            &.active {
-                fill: var(--color-dark-blue);
-            }
+            //&.active {
+            //    fill: var(--color-dark-blue);
+            //}
 
             @media (hover: hover) {
                 &:hover {
