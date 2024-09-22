@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { useCategoryByIdQuery } from '@/entities/category';
 import { IProduct, useProductsQuery } from '@/entities/product';
-import { Filters } from '@/feature/catalog';
+// import { Filters } from '@/feature/catalog';
 import { Breadcrumbs, Button, Dropdown, Skeleton } from '@/shared/ui';
 import { ProductsList } from '@/widgets';
 import { CallBanner } from '@/widgets/Banners';
@@ -67,7 +67,7 @@ export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
                     </h1>
                 </div>
                 <div className={clsx(styles.categoryContainer, 'container')}>
-                    <Filters className={styles.filters} />
+                    {/*<Filters className={styles.filters} />*/}
                     <div className={styles.productsContainer}>
                         <div className={styles.topFilters}>
                             <div className={styles.topFiltersList}></div>
