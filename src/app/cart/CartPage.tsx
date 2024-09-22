@@ -4,9 +4,10 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
-import { ProductCartCard } from '@/entities/product';
+import { ProductCartCard, useDropCartMutation } from '@/entities/product';
 import { Article } from '@/entities/product/model/types';
 import { useSessionStore } from '@/entities/session';
+import { useMeQuery } from '@/entities/user';
 import { priceFormat } from '@/shared/lib';
 import { Button, Checkbox } from '@/shared/ui';
 
@@ -15,6 +16,8 @@ import styles from './CartPage.module.scss';
 export const CartPage = () => {
     const [uniqueCount, setUniqueCount] = useState(0);
     const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
+    const { mutateAsync } = useDropCartMutation();
+    const { refetch } = useMeQuery({ enabled: false });
     const router = useRouter();
     const { user } = useSessionStore();
 
@@ -32,17 +35,40 @@ export const CartPage = () => {
     }, [user]);
 
     const handleSelectAll = (checked: boolean) => {
+        if (!user) return;
+
         if (!checked) {
             return setSelectedProducts([]);
         }
-        setSelectedProducts([...groupedCartProducts.map((product) => product.id)]);
+        setSelectedProducts([...user?.cart.map((product) => product.id)]);
     };
 
-    const handleSelectProduct = (productId: number) => {
-        if (selectedProducts.includes(productId)) {
-            return setSelectedProducts(selectedProducts.filter((id) => id !== productId));
+    const handleSelectProduct = (cartItemId: number, productId: number) => {
+        if (!user) return;
+        const groupProductsIds = user.cart
+            .filter((product) => +product.product.id === productId)
+            .map((product) => product.id);
+        if (selectedProducts.includes(cartItemId)) {
+            setSelectedProducts((prev) => {
+                const newIds: number[] = [];
+                prev.forEach((id) => {
+                    if (!groupProductsIds.includes(id)) {
+                        newIds.push(id);
+                    }
+                });
+                return newIds;
+            });
+        } else {
+            setSelectedProducts((prev) => [...prev, ...groupProductsIds]);
         }
-        setSelectedProducts((prev) => [...prev, productId]);
+    };
+
+    const handleDropProducts = async () => {
+        if (!selectedProducts.length || !user) return;
+
+        await mutateAsync(selectedProducts.map((cartItemId) => ({ cartItemId })));
+        await refetch();
+        setSelectedProducts([]);
     };
 
     const groupedCartProducts = useMemo(() => {
@@ -106,6 +132,7 @@ export const CartPage = () => {
                                 onChange={(e) => handleSelectAll(e.target.checked)}
                             />
                             <button
+                                onClick={handleDropProducts}
                                 className={clsx(styles.button, styles.delete, selectedProducts.length && styles.active)}
                             >
                                 Удалить выбранное

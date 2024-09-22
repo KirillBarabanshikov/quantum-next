@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 
-import { useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
+import { useAddToCartMutation, useDropCartMutation } from '@/entities/product';
 import { Article } from '@/entities/product/model/types';
 import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
@@ -17,17 +17,19 @@ interface IProductCartCard {
     product: { id: number; product: Article };
     countProducts: number;
     selected: boolean;
-    handleSelectProduct: (id: number) => void;
+    handleSelectProduct: (cartItemId: number, productId: number) => void;
 }
 
 export const ProductCartCard: FC<IProductCartCard> = ({ product, countProducts, selected, handleSelectProduct }) => {
-    const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
+    // const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
     const { mutateAsync: addToCart } = useAddToCartMutation();
+    const { mutateAsync: dropCartItem } = useDropCartMutation();
     const { refetch } = useMeQuery();
     const { user } = useSessionStore();
 
     const handleDeleteProduct = async (id: number) => {
-        await deleteFromCart(id);
+        // await deleteFromCart(id);
+        await dropCartItem([{ cartItemId: id }]);
         await refetch();
     };
 
@@ -39,7 +41,7 @@ export const ProductCartCard: FC<IProductCartCard> = ({ product, countProducts, 
 
     return (
         <article className={styles.productCard}>
-            <Checkbox checked={selected} onClick={() => handleSelectProduct(product.id)} />
+            <Checkbox checked={selected} onChange={() => handleSelectProduct(product.id, +product.product.id)} />
             <Image
                 src={`${BASE_URL}/${product.product.images && product.product.images[0].image}`}
                 width={129}

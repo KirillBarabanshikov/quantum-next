@@ -1,7 +1,12 @@
+'use client';
+
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
-import { IProduct } from '@/entities/product';
+import { IProduct, useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
+import { useSessionStore } from '@/entities/session';
+import { useMeQuery } from '@/entities/user';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import ShareIcon from '@/shared/assets/icons/share.svg';
 import { priceFormat } from '@/shared/lib';
@@ -14,6 +19,27 @@ interface IProductInfoProps {
 }
 
 export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
+    const { mutateAsync: addToCart } = useAddToCartMutation();
+    const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
+    const { isAuthenticated, user } = useSessionStore();
+    const router = useRouter();
+    const { refetch } = useMeQuery({ enabled: false });
+
+    const productCart = user?.cart.find((item) => item.product.id === product.articles[0].id);
+    const inCart = !!productCart;
+
+    const handleAddToCart = async (productId: number) => {
+        if (!isAuthenticated || !user) {
+            return router.push('?authentication=signin', { scroll: false });
+        }
+        if (inCart) {
+            await deleteFromCart(productCart.id);
+        } else {
+            await addToCart({ userId: user.id, productId });
+        }
+        await refetch();
+    };
+
     return (
         <div className={styles.productInfo}>
             <h1 className={styles.name}>{product.articles[0].title}</h1>
@@ -49,7 +75,9 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                 </div>
             </div>
             <div className={styles.buttons}>
-                <Button fullWidth>В КОРЗИНУ</Button>
+                <Button fullWidth onClick={() => handleAddToCart(+product.articles[0].id)}>
+                    {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
+                </Button>
                 <InputCounter />
                 <IconButton radius={'full'}>
                     <GradeIcon />

@@ -5,8 +5,8 @@ import clsx from 'clsx';
 // import { ProductCard } from '@/entities/product';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import { Dropdown, Radio } from '@/shared/ui';
-import { ProductsCarousel } from '@/widgets';
 
+// import { ProductsCarousel } from '@/widgets';
 import styles from './FavoritesPage.module.scss';
 
 export const FavoritesPage = () => {
@@ -46,10 +46,10 @@ export const FavoritesPage = () => {
                             <p>Добавьте товары, чтобы не искать их снова</p>
                         </div>
                     )}
-                    <div className={styles.productsWrap}>
-                        <ProductsCarousel title={'Новинки'} />
-                        <ProductsCarousel title={'Популярное'} />
-                    </div>
+                    {/*<div className={styles.productsWrap}>*/}
+                    {/*    <ProductsCarousel title={'Новинки'} />*/}
+                    {/*    <ProductsCarousel title={'Популярное'} />*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>

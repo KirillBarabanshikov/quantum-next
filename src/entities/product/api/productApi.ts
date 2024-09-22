@@ -66,9 +66,18 @@ const useDeleteFromCartMutation = () => {
     });
 };
 
+const useDropCartMutation = () => {
+    return useMutation<void, Error, { cartItemId: number }[]>({
+        mutationFn: async (body) => {
+            await instance.post(`/productCarts/drop`, { cartItems: body });
+        },
+    });
+};
+
 export {
     useAddToCartMutation,
     useDeleteFromCartMutation,
+    useDropCartMutation,
     useNewProductsQuery,
     usePopularProductsQuery,
     useProductDetailsQuery,
