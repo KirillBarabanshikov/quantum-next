@@ -50,6 +50,26 @@ export const Filters: FC<IFiltersProps> = ({ className }) => {
             ],
         },
         {
+            id: 31,
+            title: 'Модель устройства',
+            type: 'checkbox',
+            values: [
+                { id: 1, title: 'Android', checked: false },
+                { id: 2, title: 'Tecno', checked: false },
+                { id: 3, title: 'realme', checked: false },
+                { id: 4, title: 'Xiaomi', checked: false },
+                { id: 5, title: 'Samsung', checked: false },
+                { id: 6, title: 'Windows', checked: false },
+            ],
+        },
+        {
+            id: 6,
+            title: 'Цена',
+            type: 'range',
+            min: 0,
+            max: 1000,
+        },
+        {
             id: 4,
             title: 'Сроки доставки',
             type: 'radio',
@@ -77,11 +97,19 @@ export const Filters: FC<IFiltersProps> = ({ className }) => {
             value: false,
         },
         {
-            id: 6,
-            title: 'Цена',
-            type: 'range',
-            min: 0,
-            max: 1000,
+            id: 88,
+            title: 'Товары в наличии',
+            type: 'switch',
+            value: false,
+        },
+        {
+            id: 412,
+            title: 'Поддержка карты памяти',
+            type: 'radio',
+            values: [
+                { id: 1, title: 'Да', checked: false },
+                { id: 2, title: 'Нет', checked: false },
+            ],
         },
         {
             id: 7,
@@ -122,12 +150,16 @@ const FilterItem = ({ item }: any) => {
         <div className={styles.filterItem}>
             <div className={styles.filterHeader} onClick={() => setIsOpen((prev) => !prev)}>
                 <span>{item.title}</span>
-                <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ damping: 0 }}>
-                    <ArrowIcon />
-                </motion.div>
+                {item.type === 'switch' ? (
+                    <Switch isOn={item.value} />
+                ) : (
+                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ damping: 0 }}>
+                        <ArrowIcon />
+                    </motion.div>
+                )}
             </div>
             <AnimatePresence>
-                {isOpen && (
+                {isOpen && item.type !== 'switch' && (
                     <motion.div
                         initial={{ height: 0 }}
                         animate={{ height: 'auto' }}
@@ -170,7 +202,9 @@ const FilterItem = ({ item }: any) => {
                                         ))
                                     )}
                                 </div>
-                            ): (<div></div>)}
+                            ) : (
+                                <div></div>
+                            )}
                         </div>
                     </motion.div>
                 )}
