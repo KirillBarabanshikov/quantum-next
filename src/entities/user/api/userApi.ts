@@ -1,5 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
+import { useSessionStore } from '@/entities/session';
 import { instance } from '@/shared/api';
 
 import { IUser } from '../model';
@@ -11,6 +12,8 @@ export const useMeQuery = (options?: UseMeQueryOptions) => {
         queryKey: ['me'],
         queryFn: async () => {
             const response = await instance.get<IUser>('/me');
+            const { setUser } = useSessionStore.getState();
+            setUser(response.data);
             return response.data;
         },
         ...options,
