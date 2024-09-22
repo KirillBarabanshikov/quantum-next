@@ -1,9 +1,10 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { FC, useEffect, useState } from 'react';
 
-import { useCategoriesQuery } from '@/entities/category';
+import { ICategory, useCategoriesQuery } from '@/entities/category';
 import ArrowDown from '@/shared/assets/icons/arrow_down2.svg';
 
 import styles from './DesktopMenu.module.scss';
@@ -88,7 +89,14 @@ const items: Item[] = [
 ];
 
 export const DesktopMenu = () => {
+    const [selectedCategory, setSelectedCategory] = useState<ICategory>();
     const { data: categories } = useCategoriesQuery();
+    const params = useParams<{ slug: string }>();
+
+    useEffect(() => {
+        if (!categories) return;
+        setSelectedCategory(categories[0]);
+    }, [categories]);
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.menu}>
@@ -100,7 +108,11 @@ export const DesktopMenu = () => {
                                 <Link
                                     key={category.id}
                                     href={`/catalog/${category.id}`}
-                                    className={styles.menuCategoriesItem}
+                                    className={clsx(
+                                        styles.menuCategoriesItem,
+                                        +params.slug === category.id && styles.active,
+                                    )}
+                                    onMouseEnter={() => setSelectedCategory(category)}
                                 >
                                     {category.title}
                                 </Link>
@@ -109,7 +121,8 @@ export const DesktopMenu = () => {
                 </div>
                 <div className={clsx(styles.menuCategory, 'scrollbar-hide')}>
                     <div className={styles.categoryTitle}>
-                        Аудиотехника<span>3453 товара</span>
+                        {selectedCategory?.title}
+                        <span>{selectedCategory?.total} товара</span>
                     </div>
                     <div className={styles.categoryItems}>
                         {items.map((item, index) => (

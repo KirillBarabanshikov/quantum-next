@@ -32,6 +32,11 @@
                     color 300ms;
                 white-space: nowrap;
 
+                &.active {
+                    background-color: var(--color-grey);
+                    color: var(--color-blue-accent);
+                }
+
                 @media (hover: hover) {
                     &:hover {
                         background-color: var(--color-grey);
