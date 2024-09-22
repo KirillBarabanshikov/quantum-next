@@ -106,9 +106,9 @@ const ProductDescription = ({ product }: { product: IProduct }) => {
                                     <h2>{description.title}</h2>
                                     <p>{description.description}</p>
                                 </div>
-                                {description.images && (
+                                {!!description.images?.length && (
                                     <Image
-                                        src={`${BASE_URL}/${description.images[0].image}`}
+                                        src={`${BASE_URL}/${description.images[0]?.image}`}
                                         alt={'image'}
                                         width={630}
                                         height={450}

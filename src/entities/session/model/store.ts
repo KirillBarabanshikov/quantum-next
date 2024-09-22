@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 import { IUser } from '@/entities/user/model';
 
@@ -11,20 +12,27 @@ interface SessionState {
     logout: () => void;
 }
 
-export const useSessionStore = create<SessionState>((set) => ({
-    isAuthenticated: false,
-    user: null,
+export const useSessionStore = create<SessionState>()(
+    persist(
+        (set) => ({
+            isAuthenticated: false,
+            user: null,
 
-    setAuthenticated: (status: boolean, user: IUser | null) => {
-        set({ isAuthenticated: status, user });
-    },
+            setAuthenticated: (status: boolean, user: IUser | null) => {
+                set({ isAuthenticated: status, user });
+            },
 
-    setUser: (user: IUser | null) => {
-        set({ user });
-    },
+            setUser: (user: IUser | null) => {
+                set({ user });
+            },
 
-    logout: () => {
-        Cookies.remove('token');
-        set({ isAuthenticated: false, user: null });
-    },
-}));
+            logout: () => {
+                Cookies.remove('token');
+                set({ isAuthenticated: false, user: null });
+            },
+        }),
+        {
+            name: 'session-store',
+        },
+    ),
+);

@@ -13,28 +13,34 @@
     .actions {
         display: flex;
         gap: 10px;
-        margin-bottom: 15px;
+        margin-bottom: 16px;
 
-        .check {
-            scale: 0.8;
-        }
-
-        button {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            height: 30px;
-
-            padding: 8px 10px;
+        .button {
             background-color: var(--color-grey);
             border-radius: 20px;
+            height: 34px;
+            padding: 12px;
 
             font-weight: 500;
             font-size: 14px;
+            line-height: 10px;
             color: var(--color-dark-blue);
 
-            svg {
-                color: var(--color-blue-accent);
+            &.check {
+                gap: 6px;
+            }
+
+            &.delete {
+                pointer-events: none;
+                transition:
+                    background-color 300ms,
+                    color 300ms;
+
+                &.active {
+                    pointer-events: initial;
+                    background-color: var(--color-blue-accent);
+                    color: var(--color-white);
+                }
             }
         }
     }

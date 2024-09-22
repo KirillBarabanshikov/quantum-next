@@ -2,18 +2,71 @@
 
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 
 import { ProductCartCard } from '@/entities/product';
+import { Article } from '@/entities/product/model/types';
 import { useSessionStore } from '@/entities/session';
-import CancelIcon from '@/shared/assets/icons/cancel.svg';
-import CheckIcon from '@/shared/assets/icons/priority.svg';
-import { Button } from '@/shared/ui';
+import { priceFormat } from '@/shared/lib';
+import { Button, Checkbox } from '@/shared/ui';
 
 import styles from './CartPage.module.scss';
 
 export const CartPage = () => {
+    const [uniqueCount, setUniqueCount] = useState(0);
+    const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
     const router = useRouter();
     const { user } = useSessionStore();
+
+    useEffect(() => {
+        if (!user) return;
+
+        const uniqueIds: (number | string)[] = [];
+
+        for (const item of user.cart) {
+            if (!uniqueIds.includes(item.product.id)) {
+                uniqueIds.push(item.product.id);
+            }
+        }
+        setUniqueCount(uniqueIds.length);
+    }, [user]);
+
+    const handleSelectAll = (checked: boolean) => {
+        if (!checked) {
+            return setSelectedProducts([]);
+        }
+        setSelectedProducts([...groupedCartProducts.map((product) => product.id)]);
+    };
+
+    const handleSelectProduct = (productId: number) => {
+        if (selectedProducts.includes(productId)) {
+            return setSelectedProducts(selectedProducts.filter((id) => id !== productId));
+        }
+        setSelectedProducts((prev) => [...prev, productId]);
+    };
+
+    const groupedCartProducts = useMemo(() => {
+        if (!user) return [];
+        return [...user.cart]
+            .sort((a, b) => +a.product.id - +b.product.id)
+            .reduce((acc: { id: number; product: Article; count: number }[], product) => {
+                const foundProduct = acc.find((item) => item.product.id === product.product.id);
+
+                if (foundProduct) {
+                    foundProduct.count += 1;
+                } else {
+                    acc.push({ ...product, count: 1 });
+                }
+
+                return acc;
+            }, []);
+    }, [user]);
+
+    const totalCost = useMemo(() => {
+        return groupedCartProducts.reduce((total, { product, count }) => {
+            return total + +product.price * count;
+        }, 0);
+    }, [groupedCartProducts]);
 
     return (
         <div className={styles.cartPage}>
@@ -44,22 +97,30 @@ export const CartPage = () => {
                     <div className={'container'}>
                         <h1 className={clsx(styles.title, 'title')}>
                             Корзина
-                            <span className={styles.count}>3</span>
+                            <span className={styles.count}>{uniqueCount}</span>
                         </h1>
                         <div className={styles.actions}>
-                            <button>
-                                <CheckIcon className={styles.check} />
-                                Выбрать все
-                            </button>
-                            <button>
-                                <CancelIcon />
+                            <Checkbox
+                                label={'Выбрать все'}
+                                className={clsx(styles.button, styles.check)}
+                                onChange={(e) => handleSelectAll(e.target.checked)}
+                            />
+                            <button
+                                className={clsx(styles.button, styles.delete, selectedProducts.length && styles.active)}
+                            >
                                 Удалить выбранное
                             </button>
                         </div>
                         <div className={styles.cart}>
                             <div className={styles.cartList}>
-                                {Array.from({ length: 3 }).map((_, index) => (
-                                    <ProductCartCard key={index} />
+                                {groupedCartProducts.map((product) => (
+                                    <ProductCartCard
+                                        key={product.id}
+                                        product={product}
+                                        countProducts={product.count}
+                                        selected={selectedProducts.includes(product.id)}
+                                        handleSelectProduct={handleSelectProduct}
+                                    />
                                 ))}
                             </div>
                             <div className={styles.cartOrder}>
@@ -71,13 +132,13 @@ export const CartPage = () => {
                                 </p>
                                 <div className={styles.separator} />
                                 <div className={styles.counts}>
-                                    <span>Всего: 3 товара</span>
+                                    <span>Всего: {uniqueCount} товара</span>
                                     <span className={styles.ellipse} />
                                     <span>2 489 г</span>
                                 </div>
                                 <div className={styles.cost}>
                                     <div>Общая стоимость</div>
-                                    <div className={styles.price}>190 770 ₽</div>
+                                    <div className={styles.price}>{priceFormat(totalCost)}</div>
                                 </div>
                             </div>
                         </div>

@@ -10,18 +10,33 @@ import styles from './InputCounter.module.scss';
 
 interface IInputCounterProps {
     size?: 'sm' | 'md';
+    onIncrement?: (count: number) => void;
+    onDecrement?: (count: number) => void;
+    defaultCount?: number;
     className?: string;
 }
 
-export const InputCounter: FC<IInputCounterProps> = ({ size = 'md', className }) => {
-    const [count, setCount] = useState(1);
+export const InputCounter: FC<IInputCounterProps> = ({
+    size = 'md',
+    onIncrement,
+    onDecrement,
+    defaultCount = 1,
+    className,
+}) => {
+    const [count, setCount] = useState(defaultCount);
 
     const increment = () => {
-        setCount((prev) => prev + 1);
+        const newCount = count + 1;
+        setCount(newCount);
+        onIncrement && onIncrement(newCount);
     };
 
     const decrement = () => {
-        if (count > 0) setCount((prev) => prev - 1);
+        const newCount = count - 1;
+        if (newCount > 0) {
+            setCount(newCount);
+            onDecrement && onDecrement(newCount);
+        }
     };
 
     return (
