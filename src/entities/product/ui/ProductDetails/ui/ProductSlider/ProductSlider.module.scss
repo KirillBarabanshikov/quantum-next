@@ -13,6 +13,7 @@
         border: 1px solid #091b5133;
         border-radius: 20px;
         transition: border-color 300ms linear;
+        object-fit: contain;
 
         &.current {
             border-color: var(--color-dark-blue);

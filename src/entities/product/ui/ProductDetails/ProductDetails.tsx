@@ -20,7 +20,7 @@ interface IProductDetailsProps {
 export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
     const { data: category } = useCategoryByIdQuery(product?.categoryId as string);
 
-    if (!category) return <></>;
+    if (!category || !product.articles.length) return <></>;
 
     return (
         <div className={styles.productDetails}>
@@ -40,7 +40,7 @@ export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
                 </div>
                 <ProductInfo product={product} />
             </section>
-            <ProductTabs />
+            <ProductTabs product={product} />
         </div>
     );
 };

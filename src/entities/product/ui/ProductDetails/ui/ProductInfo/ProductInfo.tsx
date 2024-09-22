@@ -31,10 +31,12 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                 <Badge text={'Отечественный производитель'} color={'#4733F4'} />
             </div>
             <div className={styles.specifications}>
-                {Array.from({ length: 6 }).map((_, index) => (
-                    <div key={index} className={styles.specification}>
-                        <p className={styles.specificationTitle}>Тип</p>
-                        <p className={styles.specificationValue}>Квадрокоптер</p>
+                {product.articles[0].characteristics.map((characteristic) => (
+                    <div key={characteristic.id} className={styles.specification}>
+                        <p className={styles.specificationTitle}>{characteristic.title}</p>
+                        <p className={styles.specificationValue}>
+                            {characteristic.value} {characteristic.categoryCharacteristic.measurement}
+                        </p>
                     </div>
                 ))}
             </div>

@@ -1,4 +1,6 @@
 .productCard {
+    display: flex;
+    flex-direction: column;
     padding: 0 20px 20px 20px;
     max-width: 305px;
     border-radius: 20px;
@@ -49,11 +51,16 @@
     }
 
     .productTitle {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
         display: block;
         font-weight: 500;
         font-size: 16px;
         line-height: 19.41px;
         margin-bottom: 16px;
+        height: 38px;
     }
 
     .productPrice {
@@ -61,6 +68,7 @@
         font-size: 20px;
         line-height: 14px;
         margin-bottom: 36px;
+        flex: 1;
     }
 
     @media (hover: hover) {

@@ -43,7 +43,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
                     <Image
                         src={
                             BASE_URL +
-                            `/${product.articles[0].images?.length ? product.articles[0].images[0].image : ''}`
+                            `/${product.articles[0]?.images?.length ? product.articles[0].images[0].image : ''}`
                         }
                         width={300}
                         height={300}

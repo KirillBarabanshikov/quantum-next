@@ -36,6 +36,7 @@ export interface Characteristics extends CharacteristicsCategory {
     value: string;
     categoryCharacteristicId?: number | string;
     additional: boolean;
+    categoryCharacteristic: CharacteristicsCategory;
 }
 
 // характеристика категории (без заполнения)
