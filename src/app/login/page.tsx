@@ -14,7 +14,7 @@ export default function Page() {
     const router = useRouter();
 
     const onSubmit = () => {
-        if (value === 'foo') {
+        if (value === 'UAVmarkt24') {
             Cookies.set('test', 'test');
             router.push('/');
         }
@@ -26,7 +26,12 @@ export default function Page() {
             <br />
             <br />
             <div style={{ width: '400px' }}>
-                <Input placeholder={'Пароль'} extent={'md'} onChange={(e) => setValue(e.target.value)} />
+                <Input
+                    placeholder={'Пароль'}
+                    type={'password'}
+                    extent={'md'}
+                    onChange={(e) => setValue(e.target.value)}
+                />
                 <br />
                 <Button fullWidth onClick={onSubmit}>
                     Вход
