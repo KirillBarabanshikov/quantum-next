@@ -21,8 +21,8 @@ export const NewCollectionBanner: FC<INewCollectionBannerProps> = ({ className }
                 <div className={styles.newCollectionBannerContainer}>
                     <h2 className={styles.title}>Новая коллекция</h2>
                     <p className={styles.description}>
-                        Zenmuse H20N, оснащенная сенсорами с технологией Starlight в камерах с зумом и широким углом,
-                        позволяет обнаруживать даже едва уловимые источники света до 0,0001 лк.
+                        Высокопроизводительные встраиваемые бесколлекторные электродвигатели постоянного тока для
+                        робототехники, станкостроения, авиастроения и космоса
                     </p>
                     <Button
                         variant={'outline'}
