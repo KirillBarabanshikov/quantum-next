@@ -48,7 +48,13 @@ export default function Page() {
             <div style={{ width: '400px' }}>
                 <p>Оставьте ваш адрес электронной почты, и мы сообщим вам о запуске маркетплейса Rubot.pro</p>
                 <br />
-                <Input placeholder={'Email'} type={'email'} extent={'md'} onChange={(e) => setEmail(e.target.value)} />
+                <Input
+                    placeholder={'Email'}
+                    type={'email'}
+                    extent={'md'}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
                 <br />
                 <Button fullWidth onClick={() => onEmailSubmit()}>
                     Отправить
