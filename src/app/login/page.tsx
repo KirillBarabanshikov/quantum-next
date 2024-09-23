@@ -24,15 +24,15 @@ export default function Page() {
         <div className={clsx(styles.container)}>
             <h1 className={'title'}>Сайт в разработке</h1>
             <br />
-            <br />
-            <br />
-            <br />
+            {/*<br />*/}
+            {/*<br />*/}
+            {/*<br />*/}
             <div style={{ width: '400px' }}>
-                <p>Оставьте ваш адрес электронной почты, и мы сообщим вам о запуске маркетплейса Rubot.pro</p>
-                <br />
-                <Input placeholder={'Email'} type={'email'} extent={'md'} />
-                <br />
-                <Button fullWidth>Отправить</Button>
+                {/*<p>Оставьте ваш адрес электронной почты, и мы сообщим вам о запуске маркетплейса Rubot.pro</p>*/}
+                {/*<br />*/}
+                {/*<Input placeholder={'Email'} type={'email'} extent={'md'} />*/}
+                {/*<br />*/}
+                {/*<Button fullWidth>Отправить</Button>*/}
                 <br />
                 <br />
                 <br />
