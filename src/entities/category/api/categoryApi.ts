@@ -9,7 +9,11 @@ const useCategoriesQuery = () => {
         queryKey: ['categories'],
         queryFn: async () => {
             const response = await instance.get<ICategory[]>('/categories');
-            return response.data;
+            return response.data
+                .filter((category) => category.title !== 'Аналого-цифровые преобразователи')
+                .filter((category) => category.title !== 'Камеры')
+                .filter((category) => category.title !== 'Синтезаторы частот');
+            // return response.data;
         },
     });
 };
