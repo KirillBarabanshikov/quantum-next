@@ -8,7 +8,6 @@ import localFont from 'next/font/local';
 import React, { Suspense } from 'react';
 
 import { AuthModal } from '@/feature/session/auth';
-import { BottomNavbar, Footer, Header } from '@/widgets';
 
 import Providers from './providers';
 import { SessionProvider } from './sessionProvider';
@@ -50,21 +49,14 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang='en' className={gilroy.className}>
+        <html lang='ru' className={gilroy.className}>
             <body>
                 <Providers>
                     <SessionProvider>
-                        <div className={'layout'}>
-                            <Header />
-                            <main>
-                                {children}
-                                <BottomNavbar />
-                                <Suspense fallback={<div></div>}>
-                                    <AuthModal />
-                                </Suspense>
-                            </main>
-                            <Footer />
-                        </div>
+                        {children}
+                        <Suspense fallback={<div></div>}>
+                            <AuthModal />
+                        </Suspense>
                         <div id={'portal'} />
                     </SessionProvider>
                 </Providers>

@@ -101,4 +101,38 @@
             color: var(--color-red-accent);
         }
     }
+
+    .inputContainer {
+        width: 100%;
+        position: relative;
+
+        .input {
+            width: 100%;
+        }
+    }
+
+    .eye {
+        position: absolute;
+        right: 14px;
+        top: 14px;
+        color: var(--color-blue-tertiary);
+
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+
+        svg {
+            display: block;
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
 }

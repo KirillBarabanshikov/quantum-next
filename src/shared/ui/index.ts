@@ -6,6 +6,7 @@ export { Dropdown } from './Dropdown';
 export { IconButton } from './IconButton';
 export { Input } from './Input';
 export { InputCounter } from './InputCounter';
+export { Layout } from './Layout';
 export { Modal } from './Modal';
 export { Portal } from './Portal';
 export { Radio } from './Radio';
