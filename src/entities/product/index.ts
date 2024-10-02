@@ -1,4 +1,5 @@
 export {
+    fetchProducts,
     useAddToCartMutation,
     useDeleteFromCartMutation,
     useDropCartMutation,

@@ -3,14 +3,23 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '@/shared/api';
 
 import { IProduct } from '../model';
-import { ICartBody } from './types';
+import { ICartBody, IProductParams } from './types';
 
-const useProductsQuery = ({ page, categoryId }: { page?: string | number; categoryId?: string } = {}) => {
+const useProductsQuery = (params: IProductParams = {}) => {
     return useQuery<IProduct[], Error>({
-        queryKey: ['products', page, categoryId],
+        queryKey: ['products', params.query, params.page, params.limit, params.categoryId],
         queryFn: async () => {
             const response = await instance.get<IProduct[]>('/products', {
-                params: { page, 'category.id': categoryId },
+                params: {
+                    query: params.query,
+                    page: params.page,
+                    limit: params.limit,
+                    'category.id': params.categoryId,
+                    stock: params.stock,
+                    sort: params.sort,
+                    filters: params.filters,
+                    price: params.price,
+                },
             });
             return response.data;
         },
@@ -72,6 +81,26 @@ const useDropCartMutation = () => {
             await instance.post(`/productCarts/drop`, { cartItems: body });
         },
     });
+};
+
+export const fetchProducts = async (params: IProductParams = {}): Promise<IProduct[] | undefined> => {
+    try {
+        const response = await instance.get('/products', {
+            params: {
+                query: params.query,
+                page: params.page,
+                limit: params.limit,
+                'category.id': params.categoryId,
+                stock: params.stock,
+                sort: params.sort,
+                filters: params.filters,
+                price: params.price,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 export {
