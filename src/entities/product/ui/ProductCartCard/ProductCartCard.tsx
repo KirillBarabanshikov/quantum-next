@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 
-import { useAddToCartMutation, useDropCartMutation } from '@/entities/product';
-import { Article } from '@/entities/product/model/types';
+import { IArticle, useAddToCartMutation, useDropCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
 import DeleteIcon from '@/shared/assets/icons/delete.svg';
@@ -14,7 +13,7 @@ import { Checkbox, IconButton, InputCounter } from '@/shared/ui';
 import styles from './ProductCartCard.module.scss';
 
 interface IProductCartCard {
-    product: { id: number; product: Article };
+    product: { id: number; product: IArticle };
     countProducts: number;
     selected: boolean;
     handleSelectProduct: (cartItemId: number, productId: number) => void;

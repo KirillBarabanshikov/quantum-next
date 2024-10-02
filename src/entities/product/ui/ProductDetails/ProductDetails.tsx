@@ -18,7 +18,7 @@ interface IProductDetailsProps {
 }
 
 export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
-    const { data: category } = useCategoryByIdQuery(product?.categoryId as string);
+    const { data: category } = useCategoryByIdQuery(product?.categoryId || '');
 
     if (!category || !product.articles.length) return <></>;
 

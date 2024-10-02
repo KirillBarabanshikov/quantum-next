@@ -2,9 +2,9 @@
 
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useState } from 'react';
 
-import { IProduct, useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
+import { IArticle, IProduct, useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
@@ -13,12 +13,15 @@ import { priceFormat } from '@/shared/lib';
 import { Badge, Button, IconButton, InputCounter } from '@/shared/ui';
 
 import styles from './ProductInfo.module.scss';
+import { IModification } from '@/entities/product/model';
 
 interface IProductInfoProps {
     product: IProduct;
 }
 
 export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
+    const [selectedArticle, setSelectedArticle] = useState<IArticle | undefined>(product.articles[0]);
+
     const { mutateAsync: addToCart } = useAddToCartMutation();
     const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
     const { isAuthenticated, user } = useSessionStore();
@@ -40,49 +43,81 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
         await refetch();
     };
 
+    if (!selectedArticle) return <></>;
+
+    // Функция для получения всех возможных комбинаций на основе общего articleId
+    const getAllCombinations = (modifications) => {
+        // Создадим объект, где ключом будет articleId, а значениями будут объединенные данные по этому articleId
+        const combinationsByArticle = {};
+
+        modifications.forEach((modification) => {
+            modification.values.forEach((value) => {
+                if (!combinationsByArticle[value.articleId]) {
+                    combinationsByArticle[value.articleId] = {};
+                }
+                combinationsByArticle[value.articleId][modification.title] =
+                    `${value.value} ${value.measurement || ''}`.trim();
+            });
+        });
+
+        // Преобразуем объект в массив комбинаций
+        return Object.values(combinationsByArticle);
+    };
+
+    const combinations = getAllCombinations(product.modifications);
+
+    console.log(combinations);
+
     return (
         <div className={styles.productInfo}>
-            <h1 className={styles.name}>{product.articles[0].title}</h1>
+            <h1 className={styles.name}>{selectedArticle?.title}</h1>
             <div className={styles.gradeContainer}>
                 <GradeIcon />
                 <span className={clsx(styles.grade, styles.info)}>0.0</span>
                 <span className={styles.ellipse} />
                 <span className={styles.info}>0 отзыва</span>
             </div>
-            <div className={styles.info}>Артикул: {product.articles[0].number}</div>
-            <div className={styles.price}>{priceFormat(+product.articles[0].price)}</div>
+
+            <ul>
+                {combinations.map((combination, index) => (
+                    <li key={index}>
+                        {Object.entries(combination).map(([key, value]) => (
+                            <span key={key}>
+                                {key}: {value},{' '}
+                            </span>
+                        ))}
+                    </li>
+                ))}
+            </ul>
+
+            <div className={styles.info}>Артикул: {selectedArticle.number}</div>
+            <div className={styles.price}>{priceFormat(+selectedArticle.price)}</div>
             <div className={styles.separator} />
             <div className={styles.tags}>
                 <Badge text={'В наличии'} color={'#058943'} />
                 <Badge text={'Отечественный производитель'} color={'#4733F4'} />
             </div>
             <div className={styles.specifications}>
-                {product.articles[0].characteristics.map((characteristic) => (
+                {selectedArticle.characteristics.map((characteristic) => (
                     <div key={characteristic.id} className={styles.specification}>
                         <p className={styles.specificationTitle}>{characteristic.title}</p>
                         <p className={styles.specificationValue}>
-                            {characteristic.value} {characteristic.categoryCharacteristic.measurement}
+                            {characteristic.value} {characteristic?.categoryCharacteristic?.measurement}
                         </p>
                     </div>
                 ))}
             </div>
-            {product.characteristics
-                .filter((characteristics) => characteristics.modification)
-                .map((characteristics) => {
-                    return (
-                        <Fragment key={characteristics.id}>
-                            <div className={styles.separator} />
-                            <div className={styles.equipments}>
-                                <p>{characteristics.title}</p>
-                                <div className={styles.equipmentsList}>
-                                    <button className={clsx(styles.equipment, styles.selected)}>
-                                        {characteristics.value} {characteristics.categoryCharacteristic.measurement}
-                                    </button>
-                                </div>
-                            </div>
-                        </Fragment>
-                    );
-                })}
+            {product.modifications.map((modification) => {
+                return (
+                    <Fragment key={modification.title}>
+                        <div className={styles.separator} />
+                        <div className={styles.equipments}>
+                            <p>{modification.title}</p>
+                            <div className={styles.equipmentsList}></div>
+                        </div>
+                    </Fragment>
+                );
+            })}
             <div className={styles.buttons}>
                 <Button fullWidth onClick={() => handleAddToCart(+product.articles[0].id)}>
                     {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}

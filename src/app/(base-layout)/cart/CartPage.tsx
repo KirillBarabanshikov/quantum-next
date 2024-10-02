@@ -4,8 +4,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
-import { ProductCartCard, useDropCartMutation } from '@/entities/product';
-import { Article } from '@/entities/product/model/types';
+import { IArticle, ProductCartCard, useDropCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
 import { priceFormat } from '@/shared/lib';
@@ -75,7 +74,7 @@ export const CartPage = () => {
         if (!user) return [];
         return [...user.cart]
             .sort((a, b) => +a.product.id - +b.product.id)
-            .reduce((acc: { id: number; product: Article; count: number }[], product) => {
+            .reduce((acc: { id: number; product: IArticle; count: number }[], product) => {
                 const foundProduct = acc.find((item) => item.product.id === product.product.id);
 
                 if (foundProduct) {

@@ -1,1 +1,1 @@
-export type { IProduct } from './types';
+export type { IArticle, IModification, IProduct } from './types';

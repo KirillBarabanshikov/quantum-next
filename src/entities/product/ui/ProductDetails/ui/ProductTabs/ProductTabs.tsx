@@ -132,7 +132,7 @@ const ProductSpecifications = ({ product }: { product: IProduct }) => {
                     <div key={characteristic.id} className={styles.specification}>
                         <div className={styles.title}>{characteristic.title}</div>
                         <div className={styles.value}>
-                            {characteristic.value} {characteristic.categoryCharacteristic.measurement}
+                            {characteristic.value} {characteristic?.categoryCharacteristic?.measurement}
                         </div>
                     </div>
                 );
