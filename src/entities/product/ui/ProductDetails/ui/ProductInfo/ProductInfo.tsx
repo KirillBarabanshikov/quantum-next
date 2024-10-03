@@ -13,7 +13,6 @@ import { priceFormat } from '@/shared/lib';
 import { Badge, Button, IconButton, InputCounter } from '@/shared/ui';
 
 import styles from './ProductInfo.module.scss';
-import { IModification } from '@/entities/product/model';
 
 interface IProductInfoProps {
     product: IProduct;
@@ -45,29 +44,6 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
 
     if (!selectedArticle) return <></>;
 
-    // Функция для получения всех возможных комбинаций на основе общего articleId
-    const getAllCombinations = (modifications) => {
-        // Создадим объект, где ключом будет articleId, а значениями будут объединенные данные по этому articleId
-        const combinationsByArticle = {};
-
-        modifications.forEach((modification) => {
-            modification.values.forEach((value) => {
-                if (!combinationsByArticle[value.articleId]) {
-                    combinationsByArticle[value.articleId] = {};
-                }
-                combinationsByArticle[value.articleId][modification.title] =
-                    `${value.value} ${value.measurement || ''}`.trim();
-            });
-        });
-
-        // Преобразуем объект в массив комбинаций
-        return Object.values(combinationsByArticle);
-    };
-
-    const combinations = getAllCombinations(product.modifications);
-
-    console.log(combinations);
-
     return (
         <div className={styles.productInfo}>
             <h1 className={styles.name}>{selectedArticle?.title}</h1>
@@ -77,19 +53,6 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                 <span className={styles.ellipse} />
                 <span className={styles.info}>0 отзыва</span>
             </div>
-
-            <ul>
-                {combinations.map((combination, index) => (
-                    <li key={index}>
-                        {Object.entries(combination).map(([key, value]) => (
-                            <span key={key}>
-                                {key}: {value},{' '}
-                            </span>
-                        ))}
-                    </li>
-                ))}
-            </ul>
-
             <div className={styles.info}>Артикул: {selectedArticle.number}</div>
             <div className={styles.price}>{priceFormat(+selectedArticle.price)}</div>
             <div className={styles.separator} />
@@ -113,7 +76,23 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                         <div className={styles.separator} />
                         <div className={styles.equipments}>
                             <p>{modification.title}</p>
-                            <div className={styles.equipmentsList}></div>
+                            <div className={styles.equipmentsList}>
+                                {modification.values.map((value, index) => {
+                                    return (
+                                        <button
+                                            key={index}
+                                            onClick={() =>
+                                                setSelectedArticle(
+                                                    product.articles.find((article) => article.id === value.articleId),
+                                                )
+                                            }
+                                            className={clsx(styles.equipment)}
+                                        >
+                                            {value.value} {value.measurement}
+                                        </button>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </Fragment>
                 );
