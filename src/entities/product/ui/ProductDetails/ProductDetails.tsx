@@ -18,24 +18,24 @@ interface IProductDetailsProps {
 }
 
 export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
-    const { data: category } = useCategoryByIdQuery(product?.categoryId || '');
-
-    if (!category || !product.articles.length) return <></>;
+    // const { data: category } = useCategoryByIdQuery(product?.categoryId || '');
+    //
+    // if (!category || !product.articles.length) return <></>;
 
     return (
         <div className={styles.productDetails}>
             <section className={clsx(styles.productInfoContainer, 'container')}>
                 <div>
-                    <Breadcrumbs
-                        links={[
-                            ...links,
-                            ...[
-                                { text: category.title, href: `/catalog/${category.id}` },
-                                { text: product.articles[0].title },
-                            ],
-                        ]}
-                        className={styles.breadcrumbs}
-                    />
+                    {/*<Breadcrumbs*/}
+                    {/*    links={[*/}
+                    {/*        ...links,*/}
+                    {/*        ...[*/}
+                    {/*            { text: category.title, href: `/catalog/${category.id}` },*/}
+                    {/*            { text: product.articles[0].title },*/}
+                    {/*        ],*/}
+                    {/*    ]}*/}
+                    {/*    className={styles.breadcrumbs}*/}
+                    {/*/>*/}
                     <ProductSlider product={product} />
                 </div>
                 <ProductInfo product={product} />

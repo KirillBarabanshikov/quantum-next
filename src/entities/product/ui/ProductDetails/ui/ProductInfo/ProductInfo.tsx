@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 
 import { IArticle, IProduct, useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
@@ -18,9 +18,10 @@ interface IProductInfoProps {
     product: IProduct;
 }
 
+// TODO Переписать модификации
 export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
     const [selectedArticle, setSelectedArticle] = useState<IArticle | undefined>(product.articles[0]);
-
+    const [selectedModifications, setSelectedModifications] = useState<string[]>([]);
     const { mutateAsync: addToCart } = useAddToCartMutation();
     const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
     const { isAuthenticated, user } = useSessionStore();
@@ -29,6 +30,16 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
 
     const productCart = user?.cart.find((item) => item.product.id === product.articles[0].id);
     const inCart = !!productCart;
+
+    useEffect(() => {
+        const values: string[] = [];
+
+        product.modifications.forEach((modification) => {
+            values.push(modification.values[0].value);
+        });
+
+        setSelectedModifications(values);
+    }, [product]);
 
     const handleAddToCart = async (productId: number) => {
         if (!isAuthenticated || !user) {
@@ -41,6 +52,8 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
         }
         await refetch();
     };
+
+    const duplicates: any = {};
 
     if (!selectedArticle) return <></>;
 
@@ -70,23 +83,84 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                     </div>
                 ))}
             </div>
-            {product.modifications.map((modification) => {
+            {product.modifications.map((modification, index) => {
+                const values: string[] = [];
+                duplicates[index] = [];
+
                 return (
                     <Fragment key={modification.title}>
                         <div className={styles.separator} />
                         <div className={styles.equipments}>
                             <p>{modification.title}</p>
                             <div className={styles.equipmentsList}>
-                                {modification.values.map((value, index) => {
+                                {modification.values.map((value, idx) => {
+                                    if (values.includes(value.value)) {
+                                        duplicates[index].push({ [idx]: value });
+                                        return <Fragment key={idx} />;
+                                    } else {
+                                        values.push(value.value);
+                                    }
+                                    const ids: number[] = [];
                                     return (
                                         <button
-                                            key={index}
-                                            onClick={() =>
-                                                setSelectedArticle(
-                                                    product.articles.find((article) => article.id === value.articleId),
-                                                )
-                                            }
-                                            className={clsx(styles.equipment)}
+                                            key={idx}
+                                            onClick={() => {
+                                                product.modifications.forEach((modification, i) => {
+                                                    modification.values.forEach((val) => {
+                                                        if (val.value === value.value) {
+                                                            ids.push(val.articleId);
+                                                            const mod = selectedModifications;
+                                                            mod[i] = val.value;
+                                                            setSelectedModifications([...mod]);
+                                                        }
+                                                    });
+                                                });
+
+                                                product.modifications.forEach((modification, i) => {
+                                                    if (index !== i) {
+                                                        modification.values.forEach((val) => {
+                                                            if (
+                                                                ids.includes(val.articleId) &&
+                                                                val.value === selectedModifications[i]
+                                                            ) {
+                                                                console.log('туту', val);
+                                                                setSelectedArticle(
+                                                                    product.articles.find(
+                                                                        (article) => article.id === val.articleId,
+                                                                    ),
+                                                                );
+                                                                const mod = selectedModifications;
+                                                                mod[i] = val.value;
+                                                                setSelectedModifications([...mod]);
+                                                            } else {
+                                                                console.log('логика');
+                                                            }
+                                                        });
+                                                    }
+                                                });
+
+                                                // value.value;
+                                                //
+                                                // console.log(duplicates);
+
+                                                // for (const index in duplicates) {
+                                                //     console.log(duplicates[index]);
+                                                // }
+
+                                                // if (duplicates.includes(value.value)) {
+                                                //     console.log(duplicates);
+                                                // } else {
+                                                //     setSelectedArticle(
+                                                //         product.articles.find(
+                                                //             (article) => article.id === value.articleId,
+                                                //         ),
+                                                //     );
+                                                // }
+                                            }}
+                                            className={clsx(
+                                                styles.equipment,
+                                                selectedModifications.includes(value.value) && styles.selected,
+                                            )}
                                         >
                                             {value.value} {value.measurement}
                                         </button>
