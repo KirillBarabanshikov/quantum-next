@@ -1,12 +1,17 @@
+'use client';
+
 import clsx from 'clsx';
 import Link from 'next/link';
 
+import { useCategoriesQuery } from '@/entities/category';
 import Icon from '@/shared/assets/icons/telegram.svg';
 import Logo from '@/shared/assets/logos/logo.svg';
 
 import styles from './Footer.module.scss';
 
 export const Footer = () => {
+    const { data: categories } = useCategoriesQuery();
+
     return (
         <footer className={styles.footer}>
             <div className={'container'}>
@@ -14,37 +19,16 @@ export const Footer = () => {
                     <Logo />
                 </Link>
                 <div className={styles.links}>
-                    <div className={styles.catalogLinks}>
-                        <div className={styles.linksList}>
-                            <Link href={'/'} className={clsx(styles.title, styles.link)}>
-                                Каталог
-                            </Link>
-                            <Link href={'/'} className={styles.link}>
-                                Приемники
-                            </Link>
-                            <Link href={'/'} className={styles.link}>
-                                Пропеллеры
-                            </Link>
-                            <Link href={'/'} className={styles.link}>
-                                Моторы
-                            </Link>
-                            <Link href={'/'} className={styles.link}>
-                                Рамы
-                            </Link>
-                        </div>
-                        <div className={styles.linksList}>
-                            <Link href={'/'} className={styles.link}>
-                                Полетные контроллеры
-                            </Link>
-                            <Link href={'/'} className={styles.link}>
-                                FPV-камеры
-                            </Link>
-                            <Link href={'/'} className={styles.link}>
-                                Видеопередатчики
-                            </Link>
-                            <Link href={'/'} className={styles.link}>
-                                Стеки
-                            </Link>
+                    <div className={styles.catalogLinksWrap}>
+                        <Link href={'/catalog'} className={clsx(styles.title, styles.link)}>
+                            Каталог
+                        </Link>
+                        <div className={styles.catalogLinks}>
+                            {categories?.map((category) => (
+                                <Link key={category.id} href={`/catalog/${category.id}`} className={styles.link}>
+                                    {category.title}
+                                </Link>
+                            ))}
                         </div>
                     </div>
                     <div className={styles.navLinks}>

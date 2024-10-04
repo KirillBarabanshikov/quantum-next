@@ -46,16 +46,20 @@
             line-height: 11px;
         }
 
-        .catalogLinks {
+        .catalogLinksWrap {
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
+            flex-direction: column;
             gap: 25px;
+        }
+
+        .catalogLinks {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 25px;
             flex: 1;
 
             @media screen and (max-width: 768px) {
-                justify-content: flex-start;
-                flex-basis: 100%;
+                grid-template-columns: 1fr;
             }
         }
 
