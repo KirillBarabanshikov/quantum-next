@@ -1,7 +1,9 @@
-import clsx from 'clsx';
-import { FC } from 'react';
+'use client';
 
-import { Button } from '@/shared/ui';
+import clsx from 'clsx';
+import { FC, useState } from 'react';
+
+import { Button, Input, Modal, Textarea } from '@/shared/ui';
 
 import styles from './QuestionBanner.module.scss';
 
@@ -10,6 +12,8 @@ interface IQuestionBannerProps {
 }
 
 export const QuestionBanner: FC<IQuestionBannerProps> = ({ className }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <section className={clsx(styles.questionBanner, className)}>
             <div className={'container'}>
@@ -20,11 +24,24 @@ export const QuestionBanner: FC<IQuestionBannerProps> = ({ className }) => {
                         наши специалисты обязательно помогут вам.
                         <br /> Операторы работают круглосуточно.
                     </p>
-                    <Button variant={'outline'} theme={'white'} className={styles.button}>
+                    <Button
+                        variant={'outline'}
+                        theme={'white'}
+                        onClick={() => setIsOpen(true)}
+                        className={styles.button}
+                    >
                         Написать
                     </Button>
                 </div>
             </div>
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} maxWidth={450} title={'Остались вопросы?'}>
+                <form className={styles.form}>
+                    <Input label={'Имя'} placeholder={'Иван'} extent={'md'} />
+                    <Input label={'E-mail'} placeholder={'example@email.com'} extent={'md'} />
+                    <Textarea label={'Ваш вопрос'} placeholder={'Введите ваш вопрос'} />
+                    <Button>Ответить</Button>
+                </form>
+            </Modal>
         </section>
     );
 };

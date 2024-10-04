@@ -13,3 +13,4 @@ export { Radio } from './Radio';
 export { Separator } from './Separator';
 export { Skeleton } from './Skeleton';
 export { Switch } from './Switch';
+export { Textarea } from './Textarea';
