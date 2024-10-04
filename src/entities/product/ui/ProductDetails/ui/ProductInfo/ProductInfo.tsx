@@ -123,7 +123,6 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                                                                 ids.includes(val.articleId) &&
                                                                 val.value === selectedModifications[i]
                                                             ) {
-                                                                console.log('туту', val);
                                                                 setSelectedArticle(
                                                                     product.articles.find(
                                                                         (article) => article.id === val.articleId,
@@ -132,8 +131,6 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                                                                 const mod = selectedModifications;
                                                                 mod[i] = val.value;
                                                                 setSelectedModifications([...mod]);
-                                                            } else {
-                                                                console.log('логика');
                                                             }
                                                         });
                                                     }
