@@ -5,11 +5,11 @@ import { useSessionStore } from '@/entities/session/model';
 
 import { BASE_URL } from '../consts';
 
-export const instance = axios.create({
+export const apiClient = axios.create({
     baseURL: BASE_URL + '/api',
 });
 
-instance.interceptors.request.use(
+apiClient.interceptors.request.use(
     (config) => {
         const token = Cookies.get('token');
 
@@ -24,7 +24,7 @@ instance.interceptors.request.use(
     },
 );
 
-instance.interceptors.response.use(
+apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         const { logout } = useSessionStore.getState();

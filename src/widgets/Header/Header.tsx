@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { useSessionStore } from '@/entities/session/model';
-import { Search } from '@/feature/search';
+import { Search } from '@/features/search';
 import AccountIcon from '@/shared/assets/icons/account_box.svg';
 import BagIcon from '@/shared/assets/icons/bag.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';

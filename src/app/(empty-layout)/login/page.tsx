@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import { instance } from '@/shared/api';
+import { apiClient } from '@/shared/api';
 import Logo from '@/shared/assets/logos/logo_dark.svg';
 import { Button, Input } from '@/shared/ui';
 
@@ -18,7 +18,7 @@ export default function Page() {
     const router = useRouter();
 
     const { mutateAsync } = useMutation({
-        mutationFn: async (email: string) => await instance.post('/forms', { email }),
+        mutationFn: async (email: string) => await apiClient.post('/forms', { email }),
     });
 
     const onSubmit = () => {

@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useMeQuery } from '@/entities/user/api';
-import { instance } from '@/shared/api';
+import { apiClient } from '@/shared/api';
 import { maskPhone } from '@/shared/lib';
 import { Button, Checkbox, Input, Modal, Separator } from '@/shared/ui';
 
@@ -65,7 +65,7 @@ export const AccountPage = () => {
 
     const { mutate: editEmail } = useMutation({
         mutationFn: async (email: string) => {
-            await instance.post(
+            await apiClient.post(
                 '/users/edit-email',
                 { email },
                 {
@@ -78,7 +78,7 @@ export const AccountPage = () => {
 
     const { mutate: editPhone } = useMutation({
         mutationFn: async (phoneNumber: string) => {
-            await instance.post(
+            await apiClient.post(
                 '/users/edit-phone',
                 { phoneNumber },
                 {
@@ -91,7 +91,7 @@ export const AccountPage = () => {
 
     const { mutate: editUsername } = useMutation({
         mutationFn: async (username: string) => {
-            await instance.post(
+            await apiClient.post(
                 '/users/edit-username',
                 { username },
                 {
@@ -104,7 +104,7 @@ export const AccountPage = () => {
 
     const { mutate: deleteUser } = useMutation({
         mutationFn: async () => {
-            await instance.delete(`/users/delete`, {
+            await apiClient.delete(`/users/delete`, {
                 headers: { Authorization: `Bearer ${Cookies.get('token')}` },
             });
             router.push('/');
@@ -247,7 +247,7 @@ export const PasswordForm = () => {
 
     const { mutate: changePassword, isError } = useMutation({
         mutationFn: async (data: TPasswordScheme) => {
-            await instance.post(`/users/edit-password`, data, {
+            await apiClient.post(`/users/edit-password`, data, {
                 headers: { Authorization: `Bearer ${Cookies.get('token')}` },
             });
             await queryClient.invalidateQueries({ queryKey: ['me'] });

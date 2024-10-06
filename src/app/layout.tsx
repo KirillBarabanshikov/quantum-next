@@ -7,10 +7,9 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import React, { Suspense } from 'react';
 
-import { AuthModal } from '@/feature/session/auth';
+import { AuthModal } from '@/features/session/auth';
 
-import Providers from './providers';
-import { SessionProvider } from './sessionProvider';
+import { QueryProvider, SessionProvider } from './providers';
 
 const gilroy = localFont({
     src: [
@@ -51,7 +50,7 @@ export default function RootLayout({
     return (
         <html lang='ru' className={gilroy.className}>
             <body>
-                <Providers>
+                <QueryProvider>
                     <SessionProvider>
                         {children}
                         <Suspense fallback={<div></div>}>
@@ -59,7 +58,7 @@ export default function RootLayout({
                         </Suspense>
                         <div id={'portal'} />
                     </SessionProvider>
-                </Providers>
+                </QueryProvider>
             </body>
         </html>
     );

@@ -1,17 +1,17 @@
 import clsx from 'clsx';
 import { FC } from 'react';
 
-import { useCategoryByIdQuery } from '@/entities/category';
+// import { useCategoryByIdQuery } from '@/entities/category';
 import { IProduct } from '@/entities/product';
 import { ProductInfo, ProductSlider, ProductTabs } from '@/entities/product/ui/ProductDetails/ui';
-import { Breadcrumbs } from '@/shared/ui';
 
+// import { Breadcrumbs } from '@/shared/ui';
 import styles from './ProductDetails.module.scss';
 
-const links = [
-    { text: 'Главная', href: '/' },
-    { text: 'Каталог', href: '/catalog' },
-];
+// const links = [
+//     { text: 'Главная', href: '/' },
+//     { text: 'Каталог', href: '/catalog' },
+// ];
 
 interface IProductDetailsProps {
     product: IProduct;

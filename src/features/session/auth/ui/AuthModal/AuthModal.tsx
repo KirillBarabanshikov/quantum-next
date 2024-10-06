@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
-import { RecoverForm } from '@/feature/session/auth/ui/RecoverForm';
+import { RecoverForm } from '@/features/session/auth/ui/RecoverForm';
 import { Button, Modal } from '@/shared/ui';
 
 import { SignInForm } from '../SignInForm';

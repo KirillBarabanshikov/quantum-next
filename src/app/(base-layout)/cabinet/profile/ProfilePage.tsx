@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { useMeQuery } from '@/entities/user/api';
-import { instance } from '@/shared/api';
+import { apiClient } from '@/shared/api';
 import CheckCircle from '@/shared/assets/icons/check_circle.svg';
 import { Button, Checkbox, Input, Modal } from '@/shared/ui';
 
@@ -24,7 +24,7 @@ export const ProfilePage = () => {
 
     const { mutate } = useMutation({
         mutationFn: async (id: number) => {
-            await instance.delete(`/payer_profiles/delete/${id}`, {
+            await apiClient.delete(`/payer_profiles/delete/${id}`, {
                 headers: { Authorization: `Bearer ${Cookies.get('token')}` },
             });
             await queryClient.invalidateQueries({ queryKey: ['me'] });

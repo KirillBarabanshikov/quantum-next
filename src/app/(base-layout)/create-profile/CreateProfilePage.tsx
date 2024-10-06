@@ -10,8 +10,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useMeQuery } from '@/entities/user/api';
-import { individualProfileScheme, TIndividualProfileScheme } from '@/feature/profile/createProfile';
-import { instance } from '@/shared/api';
+import { individualProfileScheme, TIndividualProfileScheme } from '@/features/profile/createProfile';
+import { apiClient } from '@/shared/api';
 import CheckCircle from '@/shared/assets/icons/check_circle.svg';
 import { maskPhone } from '@/shared/lib';
 import { Button, Checkbox, Input } from '@/shared/ui';
@@ -26,7 +26,7 @@ export const CreateProfilePage = () => {
 
     const { mutateAsync: createProfile } = useMutation({
         mutationFn: async (body: TIndividualProfileScheme & { type: string }) => {
-            await instance.post('/payer_profiles/create', body, {
+            await apiClient.post('/payer_profiles/create', body, {
                 headers: { Authorization: `Bearer ${Cookies.get('token')}` },
             });
         },

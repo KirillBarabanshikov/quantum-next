@@ -1,5 +1,4 @@
 export {
-    fetchProducts,
     useAddToCartMutation,
     useDeleteFromCartMutation,
     useDropCartMutation,
@@ -8,3 +7,4 @@ export {
     useProductDetailsQuery,
     useProductsQuery,
 } from './productApi';
+export * as productApi from './productApi';

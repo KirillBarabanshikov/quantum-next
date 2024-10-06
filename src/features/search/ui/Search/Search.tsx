@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
-import { fetchProducts } from '@/entities/product';
+import { productApi } from '@/entities/product';
 import SearchIcon from '@/shared/assets/icons/search.svg';
 import { useOutsideClick } from '@/shared/hooks';
 import { Portal } from '@/shared/ui';
@@ -17,7 +17,7 @@ export const Search = () => {
     const ref = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
     const { data: products } = useQuery({
         queryKey: ['search', searchValue],
-        queryFn: () => fetchProducts({ query: searchValue, limit: 5 }),
+        queryFn: () => productApi.fetchProducts({ query: searchValue, limit: 5 }),
         enabled: !!searchValue,
     });
 
