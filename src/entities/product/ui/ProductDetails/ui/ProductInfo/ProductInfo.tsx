@@ -16,11 +16,12 @@ import styles from './ProductInfo.module.scss';
 
 interface IProductInfoProps {
     product: IProduct;
+    selectedArticle: IArticle;
+    setSelectedArticle: (article: IArticle | undefined) => void;
 }
 
 // TODO Переписать модификации
-export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
-    const [selectedArticle, setSelectedArticle] = useState<IArticle | undefined>(product.articles[0]);
+export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, setSelectedArticle }) => {
     const [selectedModifications, setSelectedModifications] = useState<string[]>([]);
     const { mutateAsync: addToCart } = useAddToCartMutation();
     const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
@@ -53,8 +54,6 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
         await refetch();
     };
 
-    const duplicates: any = {};
-
     if (!selectedArticle) return <></>;
 
     return (
@@ -83,9 +82,8 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                     </div>
                 ))}
             </div>
-            {product.modifications.map((modification, index) => {
+            {product.modifications.map((modification) => {
                 const values: string[] = [];
-                duplicates[index] = [];
 
                 return (
                     <Fragment key={modification.title}>
@@ -95,16 +93,30 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                             <div className={styles.equipmentsList}>
                                 {modification.values.map((value, idx) => {
                                     if (values.includes(value.value)) {
-                                        duplicates[index].push({ [idx]: value });
                                         return <Fragment key={idx} />;
                                     } else {
                                         values.push(value.value);
                                     }
-                                    const ids: number[] = [];
+
+                                    const isSelected: string[] = [];
+
+                                    product.modifications.forEach((mod) => {
+                                        mod.values.forEach((v) => {
+                                            if (v.articleId === selectedArticle.id) {
+                                                isSelected.push(v.value);
+                                            }
+                                        });
+                                    });
+
                                     return (
                                         <button
                                             key={idx}
                                             onClick={() => {
+                                                const ids: number[] = [];
+                                                const countMap: any = {};
+                                                let mostFrequent = 0;
+                                                let maxCount = 0;
+
                                                 product.modifications.forEach((modification, i) => {
                                                     modification.values.forEach((val) => {
                                                         if (val.value === value.value) {
@@ -117,46 +129,30 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                                                 });
 
                                                 product.modifications.forEach((modification, i) => {
-                                                    if (index !== i) {
-                                                        modification.values.forEach((val) => {
+                                                    modification.values.forEach((val) => {
+                                                        ids.forEach((id) => {
                                                             if (
-                                                                ids.includes(val.articleId) &&
+                                                                val.articleId === id &&
                                                                 val.value === selectedModifications[i]
                                                             ) {
-                                                                setSelectedArticle(
-                                                                    product.articles.find(
-                                                                        (article) => article.id === val.articleId,
-                                                                    ),
-                                                                );
-                                                                const mod = selectedModifications;
-                                                                mod[i] = val.value;
-                                                                setSelectedModifications([...mod]);
+                                                                countMap[id] = (countMap[id] || 0) + 1;
+
+                                                                if (countMap[id] > maxCount) {
+                                                                    maxCount = countMap[id];
+                                                                    mostFrequent = id;
+                                                                }
                                                             }
                                                         });
-                                                    }
+                                                    });
                                                 });
 
-                                                // value.value;
-                                                //
-                                                // console.log(duplicates);
-
-                                                // for (const index in duplicates) {
-                                                //     console.log(duplicates[index]);
-                                                // }
-
-                                                // if (duplicates.includes(value.value)) {
-                                                //     console.log(duplicates);
-                                                // } else {
-                                                //     setSelectedArticle(
-                                                //         product.articles.find(
-                                                //             (article) => article.id === value.articleId,
-                                                //         ),
-                                                //     );
-                                                // }
+                                                setSelectedArticle(
+                                                    product.articles.find((article) => article.id === mostFrequent),
+                                                );
                                             }}
                                             className={clsx(
                                                 styles.equipment,
-                                                selectedModifications.includes(value.value) && styles.selected,
+                                                isSelected.includes(value.value) && styles.selected,
                                             )}
                                         >
                                             {value.value} {value.measurement}

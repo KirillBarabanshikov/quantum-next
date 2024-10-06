@@ -7,7 +7,7 @@ import { FC, useState } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { IProduct } from '@/entities/product';
+import { IArticle } from '@/entities/product';
 import Dislike from '@/shared/assets/icons/dislike.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import Like from '@/shared/assets/icons/like.svg';
@@ -23,10 +23,10 @@ import styles from './ProductTabs.module.scss';
 const tabs = ['Описание', 'Параметры', 'Отзывы', 'Гаранития', 'Оплата', 'Доставка'];
 
 interface IProductTabsProps {
-    product: IProduct;
+    article: IArticle;
 }
 
-export const ProductTabs: FC<IProductTabsProps> = ({ product }) => {
+export const ProductTabs: FC<IProductTabsProps> = ({ article }) => {
     const [currentTab, setCurrentTab] = useState(0);
 
     return (
@@ -56,8 +56,8 @@ export const ProductTabs: FC<IProductTabsProps> = ({ product }) => {
                 >
                     {
                         [
-                            <ProductDescription key={'description'} product={product} />,
-                            <ProductSpecifications key={'specifications'} product={product} />,
+                            <ProductDescription key={'description'} article={article} />,
+                            <ProductSpecifications key={'specifications'} article={article} />,
                             <ProductFeedback key={'feedback'} />,
                             <ProductWarranty key={'warranty'} />,
                             <ProductPayment key={'payment'} />,
@@ -70,10 +70,10 @@ export const ProductTabs: FC<IProductTabsProps> = ({ product }) => {
     );
 };
 
-const ProductDescription = ({ product }: { product: IProduct }) => {
+const ProductDescription = ({ article }: { article: IArticle }) => {
     return (
         <div className={clsx(styles.productDescription)}>
-            {product.articles[0].descriptions.map((description) => {
+            {article.descriptions.map((description) => {
                 return (
                     <div
                         key={description.id}
@@ -124,10 +124,10 @@ const ProductDescription = ({ product }: { product: IProduct }) => {
     );
 };
 
-const ProductSpecifications = ({ product }: { product: IProduct }) => {
+const ProductSpecifications = ({ article }: { article: IArticle }) => {
     return (
         <div className={styles.specifications}>
-            {[...product.articles[0].characteristics].map((characteristic) => {
+            {article.characteristics.map((characteristic) => {
                 return (
                     <div key={characteristic.id} className={styles.specification}>
                         <div className={styles.title}>{characteristic.title}</div>
@@ -137,7 +137,7 @@ const ProductSpecifications = ({ product }: { product: IProduct }) => {
                     </div>
                 );
             })}
-            {[...product.articles[0].additionalCharacteristics].map((characteristic) => {
+            {article.additionalCharacteristics.map((characteristic) => {
                 return (
                     <div key={characteristic.id} className={styles.specification}>
                         <div className={styles.title}>{characteristic.title}</div>
