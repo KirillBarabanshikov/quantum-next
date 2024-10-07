@@ -53,24 +53,26 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
                             BASE_URL +
                             `/${product.articles[0]?.images?.length ? product.articles[0].images[0].image : ''}`
                         }
-                        width={300}
-                        height={300}
-                        alt={'product'}
+                        fill
+                        sizes={'100%'}
+                        alt={product.articles[0].title}
                     />
                 </Link>
                 <GradeIcon className={clsx(styles.grade, styles.active)} />
             </div>
-            <Link href={`/product/${product.id}`} className={styles.productTitle}>
-                {product.articles[0]?.title}
-            </Link>
-            <p className={styles.productPrice}>{priceFormat(+product.articles[0]?.price)}</p>
-            <Button
-                variant={inCart ? 'solid' : 'outline'}
-                fullWidth
-                onClick={() => handleAddToCart(+product.articles[0].id)}
-            >
-                {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
-            </Button>
+            <div className={styles.productBody}>
+                <Link href={`/product/${product.id}`} className={styles.productTitle}>
+                    {product.articles[0]?.title}
+                </Link>
+                <p className={styles.productPrice}>{priceFormat(+product.articles[0]?.price)}</p>
+                <Button
+                    variant={inCart ? 'solid' : 'outline'}
+                    fullWidth
+                    onClick={() => handleAddToCart(+product.articles[0].id)}
+                >
+                    {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
+                </Button>
+            </div>
         </article>
     );
 };

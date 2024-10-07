@@ -9,7 +9,7 @@
     .title {
         font-weight: 500;
         font-size: 18px;
-        padding: 30px 25px 0 25px;
+        padding: 24px 30px;
     }
 
     .imageWrap {
@@ -20,6 +20,13 @@
         .image {
             mix-blend-mode: darken;
             object-fit: scale-down;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .title {
+            font-size: 14px;
+            padding: 20px;
         }
     }
 }

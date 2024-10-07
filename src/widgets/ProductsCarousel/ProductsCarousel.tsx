@@ -27,7 +27,7 @@ export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, products, 
 
             <Swiper
                 slidesPerView={'auto'}
-                breakpoints={{ 0: { spaceBetween: 11 }, 768: { spaceBetween: 20 } }}
+                breakpoints={{ 0: { spaceBetween: 10 }, 993: { spaceBetween: 20 } }}
                 className={'container'}
             >
                 {isLoading

@@ -5,17 +5,16 @@
         background-size: cover;
         padding: 82px 108px 71px 108px;
         border-radius: 20px;
-        min-height: 401px;
 
         .title {
             font-weight: 500;
             font-size: 54px;
-            line-height: 38px;
             color: var(--color-white);
             margin-bottom: 36px;
         }
 
         .description {
+            font-weight: 500;
             font-size: 18px;
             line-height: 21.6px;
             color: var(--color-white);
@@ -23,10 +22,31 @@
         }
 
         .button {
-            min-width: 220px;
+            width: 100%;
+            max-width: 220px;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 992px) {
+            padding: 46px 64px;
+            background-position: right;
+
+            .title {
+                font-size: 32px;
+                margin-bottom: 24px;
+            }
+
+            .description {
+                font-size: 14px;
+                line-height: 16.98px;
+                margin-bottom: 40px;
+            }
+
+            .button {
+                max-width: 164px;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
             display: flex;
             flex-direction: column;
             background-position: top;
@@ -49,11 +69,14 @@
                     display: none;
                 }
             }
+
+            .button {
+                max-width: unset;
+            }
         }
 
         @media screen and (max-width: 576px) {
             background-image: url('../../../shared/assets/images/banners/main_banner_mobile_bg.png');
-            background-position: right;
         }
     }
 }

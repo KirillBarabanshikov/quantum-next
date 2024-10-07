@@ -35,7 +35,7 @@ export const MainPage = () => {
         <div className={styles.mainPage}>
             <div>
                 <MainBanner className={styles.mainBanner} />
-                <CategoriesList className={styles.categoriesList} max={8} />
+                <CategoriesList className={styles.categoriesList} max={isMatch ? 6 : 8} />
                 <div className={'container'}>
                     <Button
                         variant={'outline'}
