@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import { ICategory } from '@/entities/category';
-import { BASE_URL } from '@/shared/consts';
 
 import styles from './CategoryCard.module.scss';
 
@@ -18,13 +17,7 @@ export const CategoryCard: FC<ICategoryCardProps> = ({ category }) => {
             <article className={clsx(styles.categoryCard)}>
                 <p className={styles.title}>{category.title}</p>
                 <div className={styles.imageWrap}>
-                    <Image
-                        src={`${BASE_URL}/${category.image}`}
-                        fill
-                        alt={category.title}
-                        sizes='100%'
-                        className={styles.image}
-                    />
+                    <Image src={category.image} fill alt={category.title} sizes='100%' className={styles.image} />
                 </div>
             </article>
         </Link>

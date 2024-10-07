@@ -1,10 +1,11 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { ICategory, useCategoriesQuery } from '@/entities/category';
+import { categoryApi, ICategory } from '@/entities/category';
 
 // import ArrowDown from '@/shared/assets/icons/arrow_down2.svg';
 import styles from './DesktopMenu.module.scss';
@@ -90,7 +91,10 @@ import styles from './DesktopMenu.module.scss';
 
 export const DesktopMenu = () => {
     const [selectedCategory, setSelectedCategory] = useState<ICategory>();
-    const { data: categories } = useCategoriesQuery();
+    const { data: categories } = useSuspenseQuery({
+        queryKey: ['categories'],
+        queryFn: categoryApi.fetchCategories,
+    });
     const params = useParams<{ slug: string }>();
 
     useEffect(() => {

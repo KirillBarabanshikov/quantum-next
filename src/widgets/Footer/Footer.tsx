@@ -1,16 +1,20 @@
 'use client';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Link from 'next/link';
 
-import { useCategoriesQuery } from '@/entities/category';
+import { categoryApi } from '@/entities/category';
 import Icon from '@/shared/assets/icons/telegram.svg';
 import Logo from '@/shared/assets/logos/logo.svg';
 
 import styles from './Footer.module.scss';
 
 export const Footer = () => {
-    const { data: categories } = useCategoriesQuery();
+    const { data: categories } = useSuspenseQuery({
+        queryKey: ['categories'],
+        queryFn: categoryApi.fetchCategories,
+    });
 
     return (
         <footer className={styles.footer}>

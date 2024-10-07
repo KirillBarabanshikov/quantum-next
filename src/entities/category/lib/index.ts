@@ -1,0 +1,1 @@
+export { mapCategory } from './mapCategory';

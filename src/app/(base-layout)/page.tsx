@@ -1,5 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
+import { categoryApi } from '@/entities/category';
 import { productApi } from '@/entities/product';
 
 import { MainPage } from './MainPage';
@@ -15,6 +16,10 @@ export default async function Page() {
         queryClient.prefetchQuery({
             queryKey: ['popular-products'],
             queryFn: productApi.fetchPopularProducts,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['categories'],
+            queryFn: categoryApi.fetchCategories,
         }),
     ]);
 
