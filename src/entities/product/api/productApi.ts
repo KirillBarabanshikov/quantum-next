@@ -45,7 +45,7 @@ export const fetchPopularProducts = async (): Promise<IProduct[] | undefined> =>
 
 const useProductsQuery = (params: IProductParams = {}) => {
     return useQuery<IProduct[], Error>({
-        queryKey: ['products', params.query, params.page, params.limit, params.categoryId],
+        queryKey: ['products', params.query, params.page, params.limit, params.categoryId, params.sort],
         queryFn: async () => {
             const response = await apiClient.get<IProduct[]>('/products', {
                 params: {

@@ -55,7 +55,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
                         }
                         fill
                         sizes={'100%'}
-                        alt={product.articles[0].title}
+                        alt={product.articles[0]?.title || 'product'}
                     />
                 </Link>
                 <GradeIcon className={clsx(styles.grade, styles.active)} />
