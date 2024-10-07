@@ -6,3 +6,4 @@ export { Footer } from './Footer';
 export { Header } from './Header';
 export { ProductsCarousel } from './ProductsCarousel';
 export { ProductsList } from './ProductsList';
+export { SideNavigation } from './SideNavigation';
