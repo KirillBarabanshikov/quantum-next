@@ -43,6 +43,17 @@ export const fetchPopularProducts = async (): Promise<IProduct[] | undefined> =>
     }
 };
 
+export const fetchProductsByIds = async (ids: number[]): Promise<IProduct[] | undefined> => {
+    try {
+        const response = await apiClient.get('/productsByIds', {
+            params: { ids },
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const useProductsQuery = (params: IProductParams = {}) => {
     return useQuery<IProduct[], Error>({
         queryKey: ['products', params.query, params.page, params.limit, params.categoryId, params.sort],

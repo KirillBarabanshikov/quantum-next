@@ -9,6 +9,7 @@ import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
 import { priceFormat } from '@/shared/lib';
 import { Button, Checkbox } from '@/shared/ui';
+import { RecentProduct } from '@/widgets';
 
 import styles from './CartPage.module.scss';
 
@@ -171,7 +172,7 @@ export const CartPage = () => {
                     </div>
                 </section>
             )}
-            {/*<ProductsCarousel title={'Вы смотрели'} />*/}
+            <RecentProduct />
         </div>
     );
 };

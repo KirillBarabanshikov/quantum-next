@@ -1,15 +1,27 @@
 'use client';
 
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 
-// import { ProductCard } from '@/entities/product';
+import { productApi, ProductCard, useFavoritesStore } from '@/entities/product';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import { Dropdown, Radio } from '@/shared/ui';
 
-// import { ProductsCarousel } from '@/widgets';
 import styles from './FavoritesPage.module.scss';
 
 export const FavoritesPage = () => {
+    const { favorites } = useFavoritesStore();
+    const queryClient = useQueryClient();
+
+    const { data: products } = useQuery({
+        queryKey: ['favorites', favorites.length],
+        queryFn: () => productApi.fetchProductsByIds(favorites),
+        enabled: !!favorites.length,
+        placeholderData: () => {
+            return queryClient.getQueryData(['favorites', favorites.length + 1]);
+        },
+    });
+
     return (
         <div className={styles.favoritesPage}>
             <div className={clsx(styles.container, 'container')}>
@@ -20,7 +32,7 @@ export const FavoritesPage = () => {
                     <Radio label={'Нет в наличии'} name={'fileter'} variant={'filters'} />
                 </div>
                 <div className={styles.favoritesWrap}>
-                    {false ? (
+                    {!!favorites.length ? (
                         <>
                             <Dropdown
                                 options={[
@@ -34,9 +46,9 @@ export const FavoritesPage = () => {
                                 onChange={() => {}}
                             />
                             <div className={styles.favoritesList}>
-                                {/*{Array.from({ length: 8 }).map((_, index) => {*/}
-                                {/*    return <ProductCard key={index} product={}/>;*/}
-                                {/*})}*/}
+                                {products?.map((product) => {
+                                    return <ProductCard key={product.id} product={product} />;
+                                })}
                             </div>
                         </>
                     ) : (

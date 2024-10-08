@@ -6,11 +6,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
-import { useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
+import { useAddToCartMutation, useDeleteFromCartMutation, useFavoritesStore } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
 import GradeIcon from '@/shared/assets/icons/grade-outline.svg';
 import { BASE_URL } from '@/shared/consts';
+import { useStore } from '@/shared/hooks';
 import { priceFormat } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
@@ -28,9 +29,11 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
     const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
     const { user } = useSessionStore();
     const { refetch } = useMeQuery({ enabled: false });
+    const store = useStore(useFavoritesStore, (state) => state);
 
     const productCart = user?.cart.find((item) => item.product.id === product.articles[0].id);
     const inCart = !!productCart;
+    const isFavorite = !!store?.isFavorite(product.id);
 
     const handleAddToCart = async (productId: number) => {
         if (!isAuthenticated || !user) {
@@ -42,6 +45,14 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
             await addToCart({ userId: user.id, productId });
         }
         await refetch();
+    };
+
+    const toggleFavorite = () => {
+        if (isFavorite) {
+            store?.removeFromFavorites(product.id);
+        } else {
+            store?.addToFavorites(product.id);
+        }
     };
 
     return (
@@ -58,7 +69,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
                         alt={product.articles[0]?.title || 'product'}
                     />
                 </Link>
-                <GradeIcon className={clsx(styles.grade, styles.active)} />
+                <GradeIcon onClick={toggleFavorite} className={clsx(styles.grade, isFavorite && styles.active)} />
             </div>
             <div className={styles.productBody}>
                 <Link href={`/product/${product.id}`} className={styles.productTitle}>
