@@ -14,13 +14,14 @@ interface ISideNavigationItem {
 
 interface ISideNavigationProps {
     items: ISideNavigationItem[];
+    className?: string;
 }
 
-export const SideNavigation: FC<ISideNavigationProps> = ({ items }) => {
+export const SideNavigation: FC<ISideNavigationProps> = ({ items, className }) => {
     const pathname = usePathname();
 
     return (
-        <aside className={styles.sideNavigation}>
+        <aside className={clsx(styles.sideNavigation, className)}>
             {items.map((item) => (
                 <Link
                     key={item.href}
