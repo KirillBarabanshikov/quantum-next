@@ -5,8 +5,17 @@ import { FC } from 'react';
 
 import { apiClient } from '@/shared/api';
 
+import styles from './layout.module.scss';
+
 interface IUniversalPageProps {
-    page: 'Контакты' | 'Доставка' | 'Оплата' | 'Сервисный центр' | 'Гарантии и возврат';
+    page:
+        | 'Сервисный центр'
+        | 'Доставка и оплата'
+        | 'Гарантии и возврат'
+        | 'Контакты'
+        | 'Политика конфиденциальности'
+        | 'Публичная оферта'
+        | 'Согласие на обработку персональных данных';
 }
 
 export const UniversalPage: FC<IUniversalPageProps> = ({ page }) => {
@@ -24,8 +33,8 @@ export const UniversalPage: FC<IUniversalPageProps> = ({ page }) => {
 
     return (
         <div>
-            <h1>{data.page}</h1>
-            <div dangerouslySetInnerHTML={{ __html: data.description }} />
+            <h1 className={styles.title}>{data.page}</h1>
+            <div dangerouslySetInnerHTML={{ __html: data.description }} className={styles.description} />
         </div>
     );
 };

@@ -40,16 +40,16 @@ export const Footer = () => {
                             <Link href={'/'} className={styles.link}>
                                 О компании
                             </Link>
-                            <Link href={'/'} className={styles.link}>
+                            <Link href={'/service-center'} className={styles.link}>
                                 Сервисный центр
                             </Link>
-                            <Link href={'/'} className={styles.link}>
+                            <Link href={'/delivery-payment'} className={styles.link}>
                                 Доставка и оплата
                             </Link>
-                            <Link href={'/'} className={styles.link}>
+                            <Link href={'/warranty-return'} className={styles.link}>
                                 Гарантии и возврат
                             </Link>
-                            <Link href={'/'} className={styles.link}>
+                            <Link href={'/contacts'} className={styles.link}>
                                 Контакты
                             </Link>
                         </div>
@@ -57,7 +57,7 @@ export const Footer = () => {
                     <div className={styles.contacts}>
                         <div className={styles.linksList}>
                             <Link href={'/'} className={styles.link}>
-                                Клиентская слуба
+                                Клиентская служба
                             </Link>
                             <div className={styles.telWrap}>
                                 <a href='tel:+749573011110' className={styles.link}>
@@ -70,8 +70,10 @@ export const Footer = () => {
                 </div>
                 <div className={styles.foot}>
                     <div className={styles.footLinks}>
-                        <a className={styles.policy}>Политика конфиденциальности</a>
-                        <a>Публичная оферта</a>
+                        <Link href={'/privacy-policy'} className={styles.policy}>
+                            Политика конфиденциальности
+                        </Link>
+                        <Link href={'/public-offer'}>Публичная оферта</Link>
                     </div>
                     <div className={styles.socials}>
                         {Array.from({ length: 4 }).map((_, index) => (

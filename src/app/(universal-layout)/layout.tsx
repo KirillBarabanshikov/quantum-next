@@ -13,9 +13,10 @@ import styles from './layout.module.scss';
 const navItems = [
     { title: 'Контакты', href: '/contacts' },
     { title: 'Гарантии и возврат', href: '/warranty-return' },
-    { title: 'Доставка', href: '/delivery' },
-    { title: 'Оплата', href: '/payment' },
+    { title: 'Доставка и оплата', href: '/delivery-payment' },
     { title: 'Сервисный центр', href: '/service-center' },
+    { title: 'Политика конфиденциальности', href: '/privacy-policy' },
+    { title: 'Публичная оферта', href: '/public-offer' },
 ];
 
 export default function UniversalLayout({ children }: PropsWithChildren) {

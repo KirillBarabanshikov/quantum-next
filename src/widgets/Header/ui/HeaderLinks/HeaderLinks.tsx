@@ -11,22 +11,22 @@ export const HeaderLinks = () => {
                     <nav>
                         <ul className={styles.headerLinks}>
                             <li>
-                                <Link href='/' className={styles.link}>
+                                <Link href={'/service-center'} className={styles.link}>
                                     Сервисный центр
                                 </Link>
                             </li>
                             <li>
-                                <Link href='/' className={styles.link}>
+                                <Link href={'/delivery-payment'} className={styles.link}>
                                     Доставка и оплата
                                 </Link>
                             </li>
                             <li>
-                                <Link href='/' className={styles.link}>
+                                <Link href={'/warranty-return'} className={styles.link}>
                                     Гарантии и возврат
                                 </Link>
                             </li>
                             <li>
-                                <Link href='/' className={styles.link}>
+                                <Link href={'/contacts'} className={styles.link}>
                                     Контакты
                                 </Link>
                             </li>
