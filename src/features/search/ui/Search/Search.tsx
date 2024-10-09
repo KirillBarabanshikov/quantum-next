@@ -1,11 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 
 import { productApi } from '@/entities/product';
+import ClearIcon from '@/shared/assets/icons/clear.svg';
 import SearchIcon from '@/shared/assets/icons/search.svg';
-import { useOutsideClick } from '@/shared/hooks';
+import { useDebounce, useOutsideClick } from '@/shared/hooks';
 import { Portal } from '@/shared/ui';
 
 import { SearchItem } from '../SearchItem/SearchItem';
@@ -14,27 +15,48 @@ import styles from './Search.module.scss';
 export const Search = () => {
     const [searchValue, setSearchValue] = useState<string>('');
     const [isOpen, setIsOpen] = useState(false);
-    const ref = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
-    const { data: products } = useQuery({
+    const searchWrapRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
+    const searchRef = useRef<HTMLInputElement>(null);
+
+    const { data: products, refetch } = useQuery({
         queryKey: ['search', searchValue],
         queryFn: () => productApi.fetchProducts({ query: searchValue, limit: 5 }),
-        enabled: !!searchValue,
+        enabled: false,
+        placeholderData: keepPreviousData,
+        staleTime: 0,
     });
 
-    const open = isOpen && !!products?.length;
+    const { debouncedFunction: refetchDebouncedProducts } = useDebounce(refetch, 500);
+
+    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!isOpen) setIsOpen(true);
+        setSearchValue(e.target.value);
+        refetchDebouncedProducts();
+    };
+
+    const clear = () => {
+        if (!searchRef.current) return;
+        setSearchValue('');
+        searchRef.current.focus();
+    };
+
+    const open = isOpen && !!searchValue && !!products?.length;
 
     return (
         <>
-            <div className={clsx(styles.searchWrap, open && styles.isOpen)} ref={ref}>
+            <div className={clsx(styles.searchWrap, open && styles.isOpen)} ref={searchWrapRef}>
                 <div className={styles.search}>
                     <input
                         type={'text'}
                         placeholder={'Поиск'}
-                        className={styles.input}
                         onFocus={() => setIsOpen(true)}
-                        onChange={(e) => setSearchValue(e.target.value)}
+                        onChange={onChangeSearch}
+                        value={searchValue}
+                        ref={searchRef}
+                        className={styles.input}
                     />
-                    <SearchIcon className={styles.icon} />
+                    {searchValue && <ClearIcon className={styles.clearIcon} onClick={clear} />}
+                    <SearchIcon className={styles.searchIcon} />
                 </div>
                 <AnimatePresence>
                     {open && (

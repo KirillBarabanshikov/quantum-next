@@ -1,5 +1,5 @@
-import '@/shared/styles/index.css';
-import '@/shared/styles/swiper.scss';
+import './styles/index.css';
+import './styles/swiper.scss';
 import 'swiper/css';
 import 'swiper/css/pagination';
 

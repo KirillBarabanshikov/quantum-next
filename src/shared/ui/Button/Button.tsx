@@ -24,12 +24,12 @@ export const Button: FC<IButtonProps> = ({
         <button
             type={type}
             className={clsx(
-                className,
                 styles.button,
                 styles[variant],
                 styles[theme],
                 fullWidth && styles.fullWidth,
                 styles[size],
+                className,
             )}
             {...props}
         >

@@ -19,18 +19,18 @@ export const SearchItem: FC<ISearchItemProps> = ({ product, onNavigate, searchVa
         onNavigate();
     };
 
-    const highlightTitle = (text: string, highlight: string) => {
-        if (!highlight.trim()) {
-            return text;
+    const highlightTitle = (title: string | undefined, highlight: string) => {
+        if (!highlight.trim() || !title) {
+            return title;
         }
         const regex = new RegExp(`(${highlight})`, 'gi');
-        const parts = text.split(regex);
+        const parts = title.split(regex);
         return parts.map((part, index) => (regex.test(part) ? <span key={index}>{part}</span> : part));
     };
 
     return (
         <div onClick={handleNavigate} className={styles.searchItem}>
-            {highlightTitle(product.articles[0].title, searchValue)}
+            {highlightTitle(product.articles[0]?.title, searchValue)}
         </div>
     );
 };

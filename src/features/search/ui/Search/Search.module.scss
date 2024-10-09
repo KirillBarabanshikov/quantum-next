@@ -30,7 +30,13 @@
             }
         }
 
-        .icon {
+        .clearIcon {
+            position: absolute;
+            right: 44px;
+            cursor: pointer;
+        }
+
+        .searchIcon {
             position: absolute;
             right: 19px;
         }

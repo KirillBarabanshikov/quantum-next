@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -27,12 +28,16 @@ export const Menu = () => {
 
     return (
         <>
-            <Button theme={'white'} className={styles.menuButton} onClick={() => setIsOpen((prev) => !prev)}>
+            <Button
+                theme={'white'}
+                onClick={() => setIsOpen((prev) => !prev)}
+                className={clsx(styles.menuButton, styles.button)}
+            >
                 <UnionIcon />
                 {!isMatch && (
                     <>
                         Каталог
-                        <motion.div animate={{ rotate: isOpen ? '180deg' : '0deg' }}>
+                        <motion.div animate={{ rotate: isOpen ? '180deg' : '0deg' }} transition={{ damping: 0 }}>
                             <ArrowDownIcon />
                         </motion.div>
                     </>

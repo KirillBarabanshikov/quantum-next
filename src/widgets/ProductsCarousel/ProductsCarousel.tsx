@@ -25,27 +25,25 @@ export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, products, 
                 </div>
             </div>
 
-            <Swiper
-                slidesPerView={'auto'}
-                breakpoints={{ 0: { spaceBetween: 10 }, 993: { spaceBetween: 20 } }}
-                className={'container'}
-            >
-                {isLoading
-                    ? Array.from({ length: 4 }).map((_, index) => {
-                          return (
-                              <SwiperSlide key={index} className={styles.slide}>
-                                  <Skeleton width={305} height={420} />
-                              </SwiperSlide>
-                          );
-                      })
-                    : products?.map((product) => {
-                          return (
-                              <SwiperSlide key={product.id} className={styles.slide}>
-                                  <ProductCard product={product} />
-                              </SwiperSlide>
-                          );
-                      })}
-            </Swiper>
+            <div className={'container'}>
+                <Swiper slidesPerView={'auto'} breakpoints={{ 0: { spaceBetween: 10 }, 993: { spaceBetween: 20 } }}>
+                    {isLoading
+                        ? Array.from({ length: 4 }).map((_, index) => {
+                              return (
+                                  <SwiperSlide key={index} className={styles.slide}>
+                                      <Skeleton width={305} height={420} />
+                                  </SwiperSlide>
+                              );
+                          })
+                        : products?.map((product) => {
+                              return (
+                                  <SwiperSlide key={product.id} className={styles.slide}>
+                                      <ProductCard product={product} />
+                                  </SwiperSlide>
+                              );
+                          })}
+                </Swiper>
+            </div>
         </section>
     );
 };
