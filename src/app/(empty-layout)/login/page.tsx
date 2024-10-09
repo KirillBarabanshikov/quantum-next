@@ -23,7 +23,7 @@ export default function Page() {
 
     const onSubmit = () => {
         if (value === 'UAVmarkt24') {
-            Cookies.set('test', 'test');
+            Cookies.set('quantum', 'quantum', { expires: 1000000 });
             router.push('/');
         }
     };

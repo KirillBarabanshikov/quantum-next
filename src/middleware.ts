@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(req: NextRequest) {
     const token = req.cookies.get('token');
-    const test = req.cookies.get('test');
+    const test = req.cookies.get('quantum');
     const { pathname } = req.nextUrl;
 
     if (!test && pathname !== '/loign') {
