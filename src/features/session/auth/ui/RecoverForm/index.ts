@@ -1,1 +1,0 @@
-export { RecoverForm } from './RecoverForm';

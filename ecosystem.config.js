@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'Моё прекрасное приложение',
+            name: 'rubot',
             script: 'node_modules/next/dist/bin/next',
         },
     ],

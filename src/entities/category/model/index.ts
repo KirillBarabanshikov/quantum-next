@@ -1,1 +1,1 @@
-export { type ICategory } from './types';
+export * from './types';

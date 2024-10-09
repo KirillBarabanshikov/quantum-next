@@ -1,41 +1,10 @@
-import './styles/index.css';
-import './styles/swiper.scss';
-import 'swiper/css';
-import 'swiper/css/pagination';
+import './_styles/index.css';
 
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import React, { Suspense } from 'react';
+import React from 'react';
 
-import { AuthModal } from '@/features/session/auth';
-
-import { QueryProvider, SessionProvider } from './providers';
-
-const gilroy = localFont({
-    src: [
-        {
-            path: '../shared/assets/fonts/Gilroy-Regular.ttf',
-            weight: '400',
-            style: 'normal',
-        },
-        {
-            path: '../shared/assets/fonts/Gilroy-Medium.ttf',
-            weight: '500',
-            style: 'normal',
-        },
-        {
-            path: '../shared/assets/fonts/Gilroy-Semibold.ttf',
-            weight: '600',
-            style: 'normal',
-        },
-        {
-            path: '../shared/assets/fonts/Gilroy-Bold.ttf',
-            weight: '700',
-            style: 'normal',
-        },
-    ],
-    variable: '--font-gilroy',
-});
+import { QueryProvider } from './_providers/QueryProvider';
+import { gilroy } from './_styles/fonts';
 
 export const metadata: Metadata = {
     title: 'rubot.pro – маркетплейс',
@@ -48,17 +17,9 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang='ru' className={gilroy.className}>
-            <body>
-                <QueryProvider>
-                    <SessionProvider>
-                        {children}
-                        <Suspense fallback={<div></div>}>
-                            <AuthModal />
-                        </Suspense>
-                        <div id={'portal'} />
-                    </SessionProvider>
-                </QueryProvider>
+        <html lang='ru'>
+            <body className={gilroy.className}>
+                <QueryProvider>{children}</QueryProvider>
             </body>
         </html>
     );
