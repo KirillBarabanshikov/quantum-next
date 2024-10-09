@@ -5,6 +5,14 @@
         margin-bottom: 40px;
     }
 
+    .categoriesList {
+        margin-bottom: 20px;
+    }
+
+    @media screen and (max-width: 992px) {
+        padding: 24px 0 78px;
+    }
+
     @media screen and (max-width: 768px) {
         padding: 40px 0 60px;
 

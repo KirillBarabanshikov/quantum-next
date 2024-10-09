@@ -72,6 +72,11 @@
                 color 300ms,
                 background-color 300ms;
 
+            &.selected {
+                color: var(--color-blue-accent);
+                background-color: var(--color-grey);
+            }
+
             @media (hover: hover) {
                 &:hover {
                     color: var(--color-blue-accent);

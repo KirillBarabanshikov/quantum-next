@@ -18,7 +18,7 @@ export const CatalogPage = () => {
                 <div className={clsx(styles.title, 'container')}>
                     <h1 className={'title'}>Каталог</h1>
                 </div>
-                <CategoriesList />
+                <CategoriesList className={styles.categoriesList} />
                 {isMatch && (
                     <div className={'container'}>
                         <Button variant={'outline'} fullWidth>

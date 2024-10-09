@@ -64,7 +64,7 @@ export const Dropdown: FC<IDropdownProps> = ({
                                 <div
                                     key={option.value}
                                     onClick={() => handleSelect(option.value)}
-                                    className={styles.dropdownListItem}
+                                    className={clsx(styles.dropdownListItem, option.value === value && styles.selected)}
                                 >
                                     <span>{option.label}</span>
                                 </div>

@@ -87,7 +87,7 @@ input[type='file'] {
 .title {
     font-weight: 500;
     font-size: 38px;
-    line-height: 27px;
+    line-height: 46.09px;
 }
 
 .scrollbar-hide {
@@ -97,9 +97,9 @@ input[type='file'] {
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
     .title {
-        font-size: 32px;
-        line-height: 22px;
+        font-size: 24px;
+        line-height: 26.4px;
     }
 }

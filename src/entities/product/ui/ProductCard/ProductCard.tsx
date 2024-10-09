@@ -31,7 +31,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
     const { refetch } = useMeQuery({ enabled: false });
     const store = useStore(useFavoritesStore, (state) => state);
 
-    const productCart = user?.cart.find((item) => item.product.id === product.articles[0].id);
+    const productCart = user?.cart.find((item) => item.product.id === product.articles[0]?.id);
     const inCart = !!productCart;
     const isFavorite = !!store?.isFavorite(product.id);
 

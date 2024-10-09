@@ -1,13 +1,13 @@
 'use client';
 
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import Error from 'next/error';
-import { FC, useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import { useCategoryByIdQuery } from '@/entities/category';
-import { IProduct, useProductsQuery } from '@/entities/product';
-// import { Filters } from '@/feature/catalog';
-import { Breadcrumbs, Button, Dropdown, Skeleton } from '@/shared/ui';
+import { categoryApi } from '@/entities/category';
+import { IProduct, productApi } from '@/entities/product';
+import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
 import { ProductsList } from '@/widgets';
 import { CallBanner } from '@/widgets/Banners';
 
@@ -26,35 +26,35 @@ const breadcrumbs = [
     { text: 'Каталог', href: '/catalog' },
 ];
 
-interface ICategoryPageProps {
-    slug: string;
-}
-
-export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [productsList, setProductsList] = useState<IProduct[]>([]);
+export const CategoryPage = () => {
+    const [page, setPage] = useState(1);
     const [sort, setSort] = useState('');
-    const { data: category, isError, isLoading: isCategoryLoading } = useCategoryByIdQuery(slug);
-    const { data: products, isLoading: isProductsLoading } = useProductsQuery({
-        page: currentPage,
-        categoryId: slug,
-        sort: sort,
+    const [productsList, setProductsList] = useState<IProduct[]>([]);
+    const { slug } = useParams<{ slug: string }>();
+
+    const { data: category } = useSuspenseQuery({
+        queryKey: ['category', slug],
+        queryFn: () => categoryApi.fetchCategoryById(slug),
+    });
+
+    const { data: products } = useQuery({
+        queryKey: ['products', slug, sort],
+        queryFn: () => productApi.fetchProducts({ page: 1, categoryId: slug, sort: sort }),
+        staleTime: 0,
     });
 
     useEffect(() => {
         if (!products) return;
-        setProductsList((prev) => [...prev, ...products]);
-
-        return () => setProductsList([]);
+        setProductsList(products);
+        setPage(1);
     }, [products]);
 
-    const handleLoadMore = () => {
-        setCurrentPage((prev) => prev + 1);
+    const handleLoadMore = async () => {
+        const currentPage = page + 1;
+        setPage(currentPage);
+        const products = await productApi.fetchProducts({ page: currentPage, categoryId: slug, sort });
+        setProductsList((prev) => [...prev, ...(products || [])]);
     };
-
-    if (isError) {
-        return <Error statusCode={404} />;
-    }
 
     return (
         <div className={styles.categoryPage}>
@@ -64,9 +64,7 @@ export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
                         links={[...breadcrumbs, { text: category?.title ?? '' }]}
                         className={styles.breadcrumbs}
                     />
-                    <h1 className={'title'}>
-                        {isCategoryLoading ? <Skeleton width={100} height={27} /> : category?.title}
-                    </h1>
+                    <h1 className={'title'}>{category?.title}</h1>
                 </div>
                 <div className={clsx(styles.categoryContainer, 'container')}>
                     {/*<Filters className={styles.filters} />*/}
@@ -80,8 +78,8 @@ export const CategoryPage: FC<ICategoryPageProps> = ({ slug }) => {
                                 position={'right'}
                             />
                         </div>
-                        <ProductsList products={productsList} isLoading={isProductsLoading} />
-                        {products && products.length === 25 && (
+                        <ProductsList products={productsList} isLoading={!productsList.length} />
+                        {category && category.total > productsList.length && (
                             <Button onClick={handleLoadMore} className={styles.more}>
                                 Загрузить еще
                             </Button>
