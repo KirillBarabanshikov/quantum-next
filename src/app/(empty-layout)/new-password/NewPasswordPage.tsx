@@ -1,11 +1,14 @@
 'use client';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { apiClient } from '@/shared/api';
 import ArrowBack from '@/shared/assets/icons/arrow_right_alt.svg';
 import { Button, Input } from '@/shared/ui';
 
@@ -28,7 +31,11 @@ const newPasswordScheme = yup.object().shape({
 
 export type TNewPasswordScheme = yup.InferType<typeof newPasswordScheme>;
 
-export const NewPasswordPage = () => {
+interface INewPasswordPageProps {
+    token: string;
+}
+
+export const NewPasswordPage: FC<INewPasswordPageProps> = ({ token }) => {
     const router = useRouter();
 
     const {
@@ -38,8 +45,19 @@ export const NewPasswordPage = () => {
         trigger,
     } = useForm<TNewPasswordScheme>({ resolver: yupResolver(newPasswordScheme) });
 
-    const onSubmit = (data: TNewPasswordScheme) => {
-        console.log(data);
+    const { mutateAsync: changePassword } = useMutation({
+        mutationFn: async (body: { token: string; password: string }) => {
+            await apiClient.get('/users/change', { params: body });
+        },
+    });
+
+    const onSubmit = async (data: TNewPasswordScheme) => {
+        try {
+            await changePassword({ token, password: data.password });
+            router.push('/');
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

@@ -88,10 +88,26 @@ export const AuthModal: FC = () => {
                         </Button>
                     </>
                 )
+            ) : isSuccess ? (
+                <>
+                    <div className={styles.title}>Проверьте вашу почту</div>
+                    <div className={styles.hint}>
+                        Направили письмо с ссылкой для входа в личный кабинет на вашу электронную почту.
+                    </div>
+                    <Button
+                        fullWidth
+                        onClick={() => {
+                            handleChangeForm('signin');
+                            setIsSuccess(false);
+                        }}
+                    >
+                        ВОЙТИ
+                    </Button>
+                </>
             ) : (
                 <>
                     <div className={styles.title}>Восстановить пароль</div>
-                    <RecoverForm />
+                    <RecoverForm setIsSuccess={setIsSuccess} />
                     <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
                         ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
                     </Button>
