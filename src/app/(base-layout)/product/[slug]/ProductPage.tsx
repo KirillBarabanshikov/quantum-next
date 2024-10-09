@@ -1,38 +1,33 @@
 'use client';
 
-import Error from 'next/error';
-import { FC, useEffect } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
 
-import { useProductDetailsQuery, useRecentStore } from '@/entities/product';
+import { productApi, useRecentStore } from '@/entities/product';
 import { ProductDetails } from '@/entities/product/ui/ProductDetails';
-// import { ProductsCarousel } from '@/widgets';
 import { CallBanner } from '@/widgets/Banners';
 
 import styles from './ProductPage.module.scss';
 
-interface IProductPageProps {
-    slug: string;
-}
-
-export const ProductPage: FC<IProductPageProps> = ({ slug }) => {
-    const { data: product, isError } = useProductDetailsQuery(slug);
+export const ProductPage = () => {
     const { addToRecent } = useRecentStore();
+    const { slug } = useParams<{ slug: string }>();
+
+    const { data: product } = useSuspenseQuery({
+        queryKey: ['product', slug],
+        queryFn: () => productApi.fetchProductById(slug),
+    });
 
     useEffect(() => {
-        if (!product) return;
-        addToRecent(product.id);
+        if (product) addToRecent(product.id);
     }, [addToRecent, product]);
-
-    if (isError) {
-        return <Error statusCode={404} />;
-    }
 
     if (!product) return <></>;
 
     return (
         <div className={styles.productPage}>
             <ProductDetails product={product} />
-            {/*<ProductsCarousel title={'Вы смотрели'} className={styles.carousel} />*/}
             <CallBanner />
         </div>
     );
