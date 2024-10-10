@@ -1,0 +1,122 @@
+.reviewCard {
+    border-radius: 20px;
+    padding: 24px;
+    background-color: var(--color-grey);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+
+    .reviewWrap {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        max-width: 600px;
+
+        .wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .reviewer {
+                font-weight: 600;
+                font-size: 18px;
+
+                .date {
+                    display: none;
+                }
+            }
+
+            .rating {
+                display: flex;
+                gap: 4px;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+        .review {
+            .title {
+                font-weight: 600;
+                margin-bottom: 12px;
+            }
+
+            .text {
+                font-weight: 500;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .feedbackWrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        .feedbacks {
+            display: flex;
+            gap: 20px;
+
+            .feedback {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-blue-tertiary);
+
+                svg {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .date {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-blue-tertiary);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .reviewCard {
+        .reviewWrap {
+            gap: 24px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .reviewCard {
+        flex-direction: column;
+
+        .reviewWrap {
+            max-width: unset;
+
+            .wrap {
+                .reviewer {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .date {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        .feedbackWrap {
+            align-items: flex-start;
+
+            .date {
+                display: none;
+            }
+        }
+    }
+}

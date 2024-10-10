@@ -35,7 +35,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, s
     useEffect(() => {
         const values: string[] = [];
 
-        product.modifications.forEach((modification) => {
+        product.modifications?.forEach((modification) => {
             values.push(modification.values[0].value);
         });
 
@@ -82,7 +82,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, s
                     </div>
                 ))}
             </div>
-            {product.modifications.map((modification) => {
+            {product.modifications?.map((modification) => {
                 const values: string[] = [];
 
                 return (
