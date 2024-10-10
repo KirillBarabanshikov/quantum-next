@@ -218,6 +218,21 @@ const ProductFeedback = () => {
                             </div>
                         </div>
                     </div>
+                    <div className={styles.file}>
+                        <div className={styles.title}>Добавьте видео</div>
+                        <div className={styles.fileArea}>
+                            <div className={styles.fileWrap}>
+                                <Plus />
+                                <input type={'file'} />
+                            </div>
+                            <div className={styles.fileText}>
+                                <div className={styles.subtitle}>
+                                    Нажмите на кнопку или перетащите фото в эту область
+                                </div>
+                                <div className={styles.hint}>до 10 изображений в формате PNG, JPEG.</div>
+                            </div>
+                        </div>
+                    </div>
                     <Button>Отправить отзыв</Button>
                 </form>
             </Modal>
