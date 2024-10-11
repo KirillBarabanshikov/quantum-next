@@ -1,9 +1,14 @@
 import { apiClient } from '@/shared/api';
 
-export const createReview = async () => {
+import { ICreateReviewBody } from './types';
+
+export const createReview = async (body: ICreateReviewBody) => {
     try {
-        const response = await apiClient.get('/api/reviews');
-        return response.data;
+        await apiClient.post('/api/reviews/create', body, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
     } catch (error) {
         console.error(error);
     }

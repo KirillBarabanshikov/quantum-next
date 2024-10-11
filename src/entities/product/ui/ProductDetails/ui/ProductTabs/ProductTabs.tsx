@@ -3,24 +3,20 @@
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { IArticle } from '@/entities/product';
 import { ReviewCard } from '@/entities/review';
-import { useSessionStore } from '@/entities/session';
+import { CreateReviewButton } from '@/features/review';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
-import RatingIcon from '@/shared/assets/icons/grade-outline.svg';
 import MasterCard from '@/shared/assets/icons/master-card.svg';
 import Mir from '@/shared/assets/icons/mir.svg';
-import Plus from '@/shared/assets/icons/plus.svg';
 import Qiwi from '@/shared/assets/icons/qiwi.svg';
 import TBank from '@/shared/assets/icons/t-bank_logo.svg';
 import Visa from '@/shared/assets/icons/visa.svg';
 import { BASE_URL } from '@/shared/consts';
-import { Button, Input, Modal } from '@/shared/ui';
 
 import styles from './ProductTabs.module.scss';
 
@@ -154,12 +150,6 @@ const ProductSpecifications = ({ article }: { article: IArticle }) => {
 };
 
 const ProductFeedback = () => {
-    const { isAuthenticated } = useSessionStore();
-    const router = useRouter();
-    const [isOpen, setIsOpen] = useState(false);
-    const [hoveredIndex, setHoveredIndex] = useState(-1);
-    const [selectedIndex, setSelectedIndex] = useState(-1);
-
     return (
         <div className={styles.feedback}>
             <div className={styles.feedbackList}>
@@ -173,69 +163,8 @@ const ProductFeedback = () => {
                     <div className={styles.ellipse} />
                     <div>32 отзыва</div>
                 </div>
-                <Button
-                    fullWidth
-                    onClick={() =>
-                        isAuthenticated ? setIsOpen(true) : router.push('?authentication=signin', { scroll: false })
-                    }
-                >
-                    Добавить отзыв
-                </Button>
+                <CreateReviewButton />
             </div>
-            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={'Напишите отзыв о товаре'} maxWidth={507}>
-                <form className={styles.reviewBody}>
-                    <div className={styles.ratingWrap}>
-                        <div className={styles.rating} onMouseLeave={() => setHoveredIndex(-1)}>
-                            {Array.from({ length: 5 }).map((_, index) => (
-                                <RatingIcon
-                                    key={index}
-                                    onMouseEnter={() => setHoveredIndex(index)}
-                                    onClick={() => setSelectedIndex(index)}
-                                    className={clsx(
-                                        styles.star,
-                                        (hoveredIndex >= index || selectedIndex >= index) && styles.fill,
-                                    )}
-                                />
-                            ))}
-                        </div>
-                        <div className={styles.hint}>Хорошо</div>
-                    </div>
-                    <Input label={'Достоинства'} extent={'md'} />
-                    <Input label={'Недостатки'} extent={'md'} />
-                    <Input label={'Комментарий к отзыву'} extent={'md'} />
-                    <div className={styles.file}>
-                        <div className={styles.title}>Добавьте фотографии</div>
-                        <div className={styles.fileArea}>
-                            <div className={styles.fileWrap}>
-                                <Plus />
-                                <input type={'file'} />
-                            </div>
-                            <div className={styles.fileText}>
-                                <div className={styles.subtitle}>
-                                    Нажмите на кнопку или перетащите фото в эту область
-                                </div>
-                                <div className={styles.hint}>до 10 изображений в формате PNG, JPEG.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.file}>
-                        <div className={styles.title}>Добавьте видео</div>
-                        <div className={styles.fileArea}>
-                            <div className={styles.fileWrap}>
-                                <Plus />
-                                <input type={'file'} />
-                            </div>
-                            <div className={styles.fileText}>
-                                <div className={styles.subtitle}>
-                                    Нажмите на кнопку или перетащите фото в эту область
-                                </div>
-                                <div className={styles.hint}>до 10 изображений в формате PNG, JPEG.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <Button>Отправить отзыв</Button>
-                </form>
-            </Modal>
         </div>
     );
 };

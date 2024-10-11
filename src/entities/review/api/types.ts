@@ -1,9 +1,9 @@
 export interface ICreateReviewBody {
     articleId: number;
-    images: string[];
-    videos: string[];
-    pros: string;
-    cons: string;
+    images?: FileList;
+    videos?: FileList;
+    pros?: string;
+    cons?: string;
     comment: string;
-    rating: string;
+    rating: number;
 }
