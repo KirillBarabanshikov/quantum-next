@@ -7,16 +7,16 @@ import { Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper/types';
 
-import { IArticle } from '@/entities/product';
+import { IProduct } from '@/entities/product';
 import { BASE_URL } from '@/shared/consts';
 
 import styles from './ProductSlider.module.scss';
 
 interface IProductSliderProps {
-    article: IArticle;
+    product: IProduct;
 }
 
-export const ProductSlider: FC<IProductSliderProps> = ({ article }) => {
+export const ProductSlider: FC<IProductSliderProps> = ({ product }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
     const [current, setCurrent] = useState(0);
 
@@ -29,7 +29,7 @@ export const ProductSlider: FC<IProductSliderProps> = ({ article }) => {
                 className={styles.mainSlider}
                 onSlideChange={(swiper) => setCurrent(swiper.activeIndex)}
             >
-                {article.images.map((image) => (
+                {product.images.map((image) => (
                     <SwiperSlide key={image.id} className={styles.slide}>
                         <Image
                             width={567}
@@ -42,7 +42,7 @@ export const ProductSlider: FC<IProductSliderProps> = ({ article }) => {
                 ))}
             </Swiper>
             <Swiper onSwiper={setThumbsSwiper} modules={[Thumbs]} slidesPerView={'auto'} spaceBetween={13}>
-                {article.images.map((image, index) => (
+                {product.images.map((image, index) => (
                     <SwiperSlide key={image.id} className={styles.slide}>
                         <Image
                             width={102}

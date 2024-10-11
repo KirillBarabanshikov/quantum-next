@@ -1,5 +1,3 @@
-import { IArticle } from '@/entities/product';
-
 export interface IUser {
     id: number;
     username: string;
@@ -7,7 +5,7 @@ export interface IUser {
     email: string;
     productFavorites: any[];
     payerProfiles: IUserProfile[];
-    cart: { id: number; product: IArticle }[];
+    cart: { id: number; product: any }[];
 }
 
 export interface IUserProfile {

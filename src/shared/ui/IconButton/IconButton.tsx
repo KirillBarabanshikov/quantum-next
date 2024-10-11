@@ -8,9 +8,12 @@ interface IIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     radius?: 'sm' | 'full';
 }
 
-export const IconButton: FC<IIconButtonProps> = ({ size = 'md', radius = 'sm', children, ...props }) => {
+export const IconButton: FC<IIconButtonProps> = ({ size = 'md', radius = 'sm', children, className, ...props }) => {
     return (
-        <button className={clsx(styles.iconButton, styles[`size-${size}`], styles[`radius-${radius}`])} {...props}>
+        <button
+            className={clsx(styles.iconButton, styles[`size-${size}`], styles[`radius-${radius}`], className)}
+            {...props}
+        >
             {children}
         </button>
     );

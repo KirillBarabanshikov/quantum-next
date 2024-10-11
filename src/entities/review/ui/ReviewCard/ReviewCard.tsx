@@ -1,48 +1,50 @@
+import clsx from 'clsx';
 import { FC } from 'react';
 
+import { IReview } from '@/entities/review';
 import DislikeIcon from '@/shared/assets/icons/dislike.svg';
-import StarIcon from '@/shared/assets/icons/grade-fill.svg';
+import StarIcon from '@/shared/assets/icons/grade-outline.svg';
 import LikeIcon from '@/shared/assets/icons/like.svg';
 
 import styles from './ReviewCard.module.scss';
 
-interface IReviewCardProps {}
+interface IReviewCardProps {
+    review: IReview;
+}
 
-export const ReviewCard: FC<IReviewCardProps> = () => {
+export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
     return (
         <article className={styles.reviewCard}>
             <div className={styles.reviewWrap}>
                 <div className={styles.wrap}>
                     <div className={styles.reviewer}>
-                        Александр Козак
+                        {review.user.username}
                         <time className={styles.date}>месяц назад</time>
                     </div>
                     <div className={styles.rating}>
-                        <StarIcon />
-                        <StarIcon />
+                        {Array.from({ length: 5 }).map((_, index) => (
+                            <StarIcon key={index} className={clsx(index < review.rating && styles.fill)} />
+                        ))}
                     </div>
                 </div>
-                <div className={styles.review}>
-                    <div className={styles.title}>Недостатки</div>
-                    <div className={styles.text}>
-                        Набор быстро пришел. Летает бодро. В качестве обучения очень хорош. Упал раз 200, но продолжает
-                        летать{' '}
+                {review.cons && (
+                    <div className={styles.review}>
+                        <div className={styles.title}>Недостатки</div>
+                        <div className={styles.text}>{review.cons}</div>
                     </div>
-                </div>
-                <div className={styles.review}>
-                    <div className={styles.title}>Достоинства</div>
-                    <div className={styles.text}>
-                        Набор быстро пришел. Летает бодро. В качестве обучения очень хорош. Упал раз 200, но продолжает
-                        летать{' '}
+                )}
+                {review.pros && (
+                    <div className={styles.review}>
+                        <div className={styles.title}>Достоинства</div>
+                        <div className={styles.text}>{review.pros}</div>
                     </div>
-                </div>
-                <div className={styles.review}>
-                    <div className={styles.title}>Комментарий</div>
-                    <div className={styles.text}>
-                        Набор быстро пришел. Летает бодро. В качестве обучения очень хорош. Упал раз 200, но продолжает
-                        летать{' '}
+                )}
+                {review.comment && (
+                    <div className={styles.review}>
+                        <div className={styles.title}>Комментарий</div>
+                        <div className={styles.text}>{review.comment}</div>
                     </div>
-                </div>
+                )}
             </div>
             <div className={styles.feedbackWrap}>
                 <time className={styles.date}>месяц назад</time>

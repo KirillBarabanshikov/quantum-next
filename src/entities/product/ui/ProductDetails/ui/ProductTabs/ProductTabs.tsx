@@ -7,7 +7,7 @@ import { FC, useState } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { IArticle } from '@/entities/product';
+import { IProduct } from '@/entities/product';
 import { ReviewCard } from '@/entities/review';
 import { CreateReviewButton } from '@/features/review';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
@@ -23,7 +23,7 @@ import styles from './ProductTabs.module.scss';
 const tabs = ['Описание', 'Параметры', 'Отзывы', 'Гаранития', 'Оплата', 'Доставка'];
 
 interface IProductTabsProps {
-    article: IArticle;
+    article: IProduct;
 }
 
 export const ProductTabs: FC<IProductTabsProps> = ({ article }) => {
@@ -58,7 +58,7 @@ export const ProductTabs: FC<IProductTabsProps> = ({ article }) => {
                         [
                             <ProductDescription key={'description'} article={article} />,
                             <ProductSpecifications key={'specifications'} article={article} />,
-                            <ProductFeedback key={'feedback'} />,
+                            <ProductFeedback key={'feedback'} product={article} />,
                             <ProductWarranty key={'warranty'} />,
                             <ProductPayment key={'payment'} />,
                             <ProductDelivery key={'delivery'} />,
@@ -70,7 +70,7 @@ export const ProductTabs: FC<IProductTabsProps> = ({ article }) => {
     );
 };
 
-const ProductDescription = ({ article }: { article: IArticle }) => {
+const ProductDescription = ({ article }: { article: IProduct }) => {
     return (
         <div className={clsx(styles.productDescription)}>
             {article.descriptions.map((description) => {
@@ -124,7 +124,7 @@ const ProductDescription = ({ article }: { article: IArticle }) => {
     );
 };
 
-const ProductSpecifications = ({ article }: { article: IArticle }) => {
+const ProductSpecifications = ({ article }: { article: IProduct }) => {
     return (
         <div className={styles.specifications}>
             {article.characteristics.map((characteristic) => {
@@ -149,21 +149,23 @@ const ProductSpecifications = ({ article }: { article: IArticle }) => {
     );
 };
 
-const ProductFeedback = () => {
+const ProductFeedback = ({ product }: { product: IProduct }) => {
     return (
         <div className={styles.feedback}>
             <div className={styles.feedbackList}>
-                <ReviewCard />
+                {product.reviews.map((review) => {
+                    return <ReviewCard key={review.id} review={review} />;
+                })}
             </div>
 
             <div className={styles.reviewWrap}>
                 <div className={styles.gradeWrap}>
                     <GradeIcon />
-                    <div>4.4</div>
+                    <div>0</div>
                     <div className={styles.ellipse} />
-                    <div>32 отзыва</div>
+                    <div>{product.reviews.length} отзыва</div>
                 </div>
-                <CreateReviewButton />
+                <CreateReviewButton productId={product.id} />
             </div>
         </div>
     );

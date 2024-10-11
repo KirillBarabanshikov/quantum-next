@@ -1,14 +1,13 @@
 'use client';
 
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
 import { FC, Fragment, useEffect, useState } from 'react';
 
-import { IArticle, IProduct, useAddToCartMutation, useDeleteFromCartMutation } from '@/entities/product';
-import { useSessionStore } from '@/entities/session';
-import { useMeQuery } from '@/entities/user';
+import { useCartStore } from '@/entities/cart';
+import { IProduct, useFavoritesStore } from '@/entities/product';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import ShareIcon from '@/shared/assets/icons/share.svg';
+import { useStore } from '@/shared/hooks';
 import { priceFormat } from '@/shared/lib';
 import { Badge, Button, IconButton, InputCounter } from '@/shared/ui';
 
@@ -16,21 +15,18 @@ import styles from './ProductInfo.module.scss';
 
 interface IProductInfoProps {
     product: IProduct;
-    selectedArticle: IArticle;
-    setSelectedArticle: (article: IArticle | undefined) => void;
+    selectedArticle: IProduct;
+    setSelectedArticle: (article: IProduct | undefined) => void;
 }
 
 // TODO Переписать модификации
 export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, setSelectedArticle }) => {
     const [selectedModifications, setSelectedModifications] = useState<string[]>([]);
-    const { mutateAsync: addToCart } = useAddToCartMutation();
-    const { mutateAsync: deleteFromCart } = useDeleteFromCartMutation();
-    const { isAuthenticated, user } = useSessionStore();
-    const router = useRouter();
-    const { refetch } = useMeQuery({ enabled: false });
+    const cartStore = useStore(useCartStore, (state) => state);
+    const store = useStore(useFavoritesStore, (state) => state);
 
-    const productCart = user?.cart.find((item) => item.product.id === product.articles[0].id);
-    const inCart = !!productCart;
+    const inCart = !!cartStore?.inCart(product.id);
+    const isFavorite = !!store?.isFavorite(product.id);
 
     useEffect(() => {
         const values: string[] = [];
@@ -43,15 +39,21 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, s
     }, [product]);
 
     const handleAddToCart = async (productId: number) => {
-        if (!isAuthenticated || !user) {
-            return router.push('?authentication=signin', { scroll: false });
-        }
-        if (inCart) {
-            await deleteFromCart(productCart.id);
-        } else {
-            await addToCart({ userId: user.id, productId });
-        }
-        await refetch();
+        // if (!isAuthenticated || !user) {
+        //     return router.push('?authentication=signin', { scroll: false });
+        // }
+        // if (inCart) {
+        //     await deleteFromCart(productCart.id);
+        // } else {
+        //     await addToCart({ userId: user.id, productId });
+        // }
+        // await refetch();
+
+        inCart ? cartStore?.removeFromCart(productId) : cartStore?.addToCart(productId);
+    };
+
+    const handleAddToFavorite = () => {
+        isFavorite ? store?.removeFromFavorites(product.id) : store?.addToFavorites(product.id);
     };
 
     if (!selectedArticle) return <></>;
@@ -63,7 +65,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, s
                 <GradeIcon />
                 <span className={clsx(styles.grade, styles.info)}>0.0</span>
                 <span className={styles.ellipse} />
-                <span className={styles.info}>0 отзыва</span>
+                <span className={styles.info}>{product.reviews.length} отзыва</span>
             </div>
             <div className={styles.info}>Артикул: {selectedArticle.number}</div>
             <div className={styles.price}>{priceFormat(+selectedArticle.price)}</div>
@@ -114,7 +116,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, s
                                             onClick={() => {
                                                 const ids: number[] = [];
                                                 const countMap: any = {};
-                                                let mostFrequent = 0;
+                                                // let mostFrequent = 0;
                                                 let maxCount = 0;
 
                                                 product.modifications.forEach((modification, i) => {
@@ -139,16 +141,14 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, s
 
                                                                 if (countMap[id] > maxCount) {
                                                                     maxCount = countMap[id];
-                                                                    mostFrequent = id;
+                                                                    // mostFrequent = id;
                                                                 }
                                                             }
                                                         });
                                                     });
                                                 });
 
-                                                setSelectedArticle(
-                                                    product.articles.find((article) => article.id === mostFrequent),
-                                                );
+                                                setSelectedArticle(product);
                                             }}
                                             className={clsx(
                                                 styles.equipment,
@@ -165,11 +165,15 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product, selectedArticle, s
                 );
             })}
             <div className={styles.buttons}>
-                <Button fullWidth onClick={() => handleAddToCart(+product.articles[0].id)}>
+                <Button fullWidth onClick={() => handleAddToCart(product.id)}>
                     {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
                 </Button>
                 <InputCounter />
-                <IconButton radius={'full'}>
+                <IconButton
+                    radius={'full'}
+                    onClick={handleAddToFavorite}
+                    className={clsx(isFavorite && styles.favorite)}
+                >
                     <GradeIcon />
                 </IconButton>
                 <Button variant={'outline'} className={styles.shareButton}>

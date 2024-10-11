@@ -33,6 +33,10 @@
                 svg {
                     width: 20px;
                     height: 20px;
+
+                    &.fill {
+                        fill: var(--color-dark-blue);
+                    }
                 }
             }
         }

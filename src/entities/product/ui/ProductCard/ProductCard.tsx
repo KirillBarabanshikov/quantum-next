@@ -33,22 +33,19 @@ export const ProductCard: FC<IProductCardProps> = ({ product }) => {
             <div className={styles.productImage}>
                 <Link href={`/product/${product.id}`}>
                     <Image
-                        src={
-                            BASE_URL +
-                            `/${product.articles[0]?.images?.length ? product.articles[0].images[0].image : ''}`
-                        }
+                        src={BASE_URL + `/${product.images.length ? product.images[0]?.image : ''}`}
                         fill
                         sizes={'100%'}
-                        alt={product.articles[0]?.title || 'product'}
+                        alt={product.title}
                     />
                 </Link>
                 <GradeIcon onClick={toggleFavorite} className={clsx(styles.grade, isFavorite && styles.active)} />
             </div>
             <div className={styles.productBody}>
                 <Link href={`/product/${product.id}`} className={styles.productTitle}>
-                    {product.articles[0]?.title}
+                    {product.title}
                 </Link>
-                <p className={styles.productPrice}>{priceFormat(+product.articles[0]?.price)}</p>
+                <p className={styles.productPrice}>{priceFormat(product.price)}</p>
                 <AddToCartButton product={product} />
             </div>
         </article>

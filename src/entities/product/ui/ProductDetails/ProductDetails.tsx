@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { FC, useState } from 'react';
 
 import { useCategoryByIdQuery } from '@/entities/category';
-import { IArticle, IProduct } from '@/entities/product';
+import { IProduct } from '@/entities/product';
 import { ProductInfo, ProductSlider, ProductTabs } from '@/entities/product/ui/ProductDetails/ui';
 import { Breadcrumbs } from '@/shared/ui';
 
@@ -20,7 +20,7 @@ interface IProductDetailsProps {
 }
 
 export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
-    const [selectedArticle, setSelectedArticle] = useState<IArticle | undefined>(product.articles[0]);
+    const [selectedArticle, setSelectedArticle] = useState<IProduct | undefined>(product);
 
     const { data: category } = useCategoryByIdQuery(product?.categoryId || '');
 
@@ -33,14 +33,11 @@ export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
                     <Breadcrumbs
                         links={[
                             ...links,
-                            ...[
-                                { text: category.title, href: `/catalog/${category.id}` },
-                                { text: product.articles[0].title },
-                            ],
+                            ...[{ text: category.title, href: `/catalog/${category.id}` }, { text: product.title }],
                         ]}
                         className={styles.breadcrumbs}
                     />
-                    <ProductSlider article={selectedArticle} />
+                    <ProductSlider product={selectedArticle} />
                 </div>
                 <ProductInfo
                     product={product}

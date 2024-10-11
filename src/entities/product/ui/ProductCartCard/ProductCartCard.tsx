@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 
-import { IArticle, useAddToCartMutation, useDropCartMutation } from '@/entities/product';
+import { IProduct, useAddToCartMutation, useDropCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
 import DeleteIcon from '@/shared/assets/icons/delete.svg';
@@ -13,7 +13,7 @@ import { Checkbox, IconButton, InputCounter } from '@/shared/ui';
 import styles from './ProductCartCard.module.scss';
 
 interface IProductCartCard {
-    product: { id: number; product: IArticle };
+    product: IProduct;
     countProducts: number;
     selected: boolean;
     handleSelectProduct: (cartItemId: number, productId: number) => void;
@@ -40,21 +40,21 @@ export const ProductCartCard: FC<IProductCartCard> = ({ product, countProducts, 
 
     return (
         <article className={styles.productCard}>
-            <Checkbox checked={selected} onChange={() => handleSelectProduct(product.id, +product.product.id)} />
+            <Checkbox checked={selected} onChange={() => handleSelectProduct(product.id, +product.id)} />
             <Image
-                src={`${BASE_URL}/${product.product.images && product.product.images[0].image}`}
+                src={`${BASE_URL}/${product.images[0]?.image}`}
                 width={129}
                 height={114}
-                alt={product.product.title}
+                alt={product.title}
                 className={styles.image}
             />
             <div className={styles.body}>
                 <div className={styles.wrap}>
-                    <p className={styles.name}>{product.product.title}</p>
-                    <p className={styles.price}>{product.product.price && priceFormat(+product.product.price)}</p>
+                    <p className={styles.name}>{product.title}</p>
+                    <p className={styles.price}>{product.price && priceFormat(+product.price)}</p>
                 </div>
                 <p className={styles.info}>Комплект</p>
-                <p className={styles.info}>Артикул: {product.product.number}</p>
+                <p className={styles.info}>Артикул: {product.number}</p>
                 <div className={styles.buttons}>
                     <IconButton size={'sm'} onClick={() => handleDeleteProduct(product.id)}>
                         <DeleteIcon />
@@ -65,7 +65,7 @@ export const ProductCartCard: FC<IProductCartCard> = ({ product, countProducts, 
                     <InputCounter
                         size={'sm'}
                         defaultCount={countProducts}
-                        onIncrement={() => handleAddProduct(+product.product.id)}
+                        onIncrement={() => handleAddProduct(+product.id)}
                         onDecrement={() => handleDeleteProduct(product.id)}
                     />
                 </div>

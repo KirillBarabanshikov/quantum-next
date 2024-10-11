@@ -30,7 +30,7 @@ export const SearchItem: FC<ISearchItemProps> = ({ product, onNavigate, searchVa
 
     return (
         <div onClick={handleNavigate} className={styles.searchItem}>
-            {highlightTitle(product.articles[0]?.title, searchValue)}
+            {highlightTitle(product.title, searchValue)}
         </div>
     );
 };

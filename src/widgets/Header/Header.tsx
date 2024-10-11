@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
+import { useCartStore } from '@/entities/cart';
 import { useSessionStore } from '@/entities/session/model';
 import { Search } from '@/features/search';
 import AccountIcon from '@/shared/assets/icons/account_box.svg';
@@ -10,7 +11,7 @@ import BagIcon from '@/shared/assets/icons/bag.svg';
 import GradeIcon from '@/shared/assets/icons/grade-fill.svg';
 import Logo from '@/shared/assets/logos/logo.svg';
 import { MAX_WIDTH_MD } from '@/shared/consts';
-import { useMediaQuery } from '@/shared/hooks';
+import { useMediaQuery, useStore } from '@/shared/hooks';
 
 import { Menu } from '../Menu';
 import styles from './Header.module.scss';
@@ -19,7 +20,8 @@ import { HeaderLinks } from './ui';
 export const Header = () => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
     const { isAuthenticated, user } = useSessionStore();
-    const [uniqueCount, setUniqueCount] = useState(0);
+    // const [uniqueCount, setUniqueCount] = useState(0);
+    const store = useStore(useCartStore, (state) => state);
 
     useEffect(() => {
         if (!user) return;
@@ -31,7 +33,7 @@ export const Header = () => {
                 uniqueIds.push(item.product.id);
             }
         }
-        setUniqueCount(uniqueIds.length);
+        // setUniqueCount(uniqueIds.length);
     }, [user]);
 
     return (
@@ -52,13 +54,11 @@ export const Header = () => {
                         <div className={styles.options}>
                             <Link href={'/cart'} className={styles.option}>
                                 <BagIcon />
-                                {!!uniqueCount && <span className={styles.badge}>{uniqueCount}</span>}
+                                {!!store?.products.length && (
+                                    <span className={styles.badge}>{store?.products.length}</span>
+                                )}
                             </Link>
-                            <Link
-                                href={isAuthenticated ? '/cabinet/favorites' : '/favorites'}
-                                scroll={false}
-                                className={styles.option}
-                            >
+                            <Link href={'/favorites'} className={styles.option}>
                                 <GradeIcon />
                             </Link>
                             <Link

@@ -27,7 +27,7 @@ export const MainPage = () => {
         queryFn: productApi.fetchNewProducts,
     });
     const { data: popularProducts, isLoading: isPopularProductsLoading } = useSuspenseQuery({
-        queryKey: ['new-products'],
+        queryKey: ['popular-products'],
         queryFn: productApi.fetchNewProducts,
     });
 

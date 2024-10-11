@@ -8,5 +8,5 @@ export {
     useProductDetailsQuery,
     useProductsQuery,
 } from './api';
-export { type IArticle, type IProduct, useFavoritesStore, useRecentStore } from './model';
+export { type IProduct, useFavoritesStore, useRecentStore } from './model';
 export { ProductCard, ProductCartCard, ProductDetails } from './ui';

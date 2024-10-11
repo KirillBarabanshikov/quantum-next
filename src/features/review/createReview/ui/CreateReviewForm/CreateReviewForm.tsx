@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { forwardRef, InputHTMLAttributes, useState } from 'react';
+import { FC, forwardRef, InputHTMLAttributes, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { reviewApi } from '@/entities/review';
@@ -14,7 +14,11 @@ import styles from './CreateReviewForm.module.scss';
 
 const ratingLabels = ['Ужасно', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
 
-export const CreateReviewForm = () => {
+interface ICreateReviewFormProps {
+    productId: number;
+}
+
+export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId }) => {
     const [rating, setRating] = useState(-1);
 
     const { mutateAsync: createReview, isPending } = useMutation({ mutationFn: reviewApi.createReview });
@@ -23,7 +27,7 @@ export const CreateReviewForm = () => {
 
     const onSubmit = async (data: TCreateReviewScheme) => {
         if (rating < 0) return;
-        await createReview({ articleId: 0, ...data });
+        await createReview({ articleId: productId, ...data });
     };
 
     return (

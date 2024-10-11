@@ -1,9 +1,12 @@
 export interface IReview {
     id: number;
-    images: string[];
-    videos: string[];
+    user: {
+        username: string;
+    };
+    rating: number;
     pros: string;
     cons: string;
     comment: string;
-    rating: string;
+    images: [];
+    videos: [];
 }

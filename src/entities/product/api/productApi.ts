@@ -7,7 +7,7 @@ import { ICartBody, IProductParams } from './types';
 
 export const fetchProducts = async (params: IProductParams = {}): Promise<IProduct[] | undefined> => {
     try {
-        const response = await apiClient.get<IProduct[]>('/products', {
+        const response = await apiClient.get<IProduct[]>('/articles', {
             params: {
                 query: params.query,
                 page: params.page,
@@ -27,7 +27,7 @@ export const fetchProducts = async (params: IProductParams = {}): Promise<IProdu
 
 export const fetchNewProducts = async (): Promise<IProduct[] | undefined> => {
     try {
-        const response = await apiClient.get<IProduct[]>('/products/new');
+        const response = await apiClient.get<IProduct[]>('/articles/new');
         return response.data;
     } catch (error) {
         console.error(error);
@@ -36,7 +36,7 @@ export const fetchNewProducts = async (): Promise<IProduct[] | undefined> => {
 
 export const fetchPopularProducts = async (): Promise<IProduct[] | undefined> => {
     try {
-        const response = await apiClient.get<IProduct[]>('/products/popular');
+        const response = await apiClient.get<IProduct[]>('/articles/popular');
         return response.data;
     } catch (error) {
         console.error(error);
@@ -45,7 +45,7 @@ export const fetchPopularProducts = async (): Promise<IProduct[] | undefined> =>
 
 export const fetchProductsByIds = async (ids: number[]): Promise<IProduct[] | undefined> => {
     try {
-        const response = await apiClient.get('/productsByIds', {
+        const response = await apiClient.get('/articlesByIds', {
             params: { ids },
         });
         return response.data;
@@ -56,7 +56,7 @@ export const fetchProductsByIds = async (ids: number[]): Promise<IProduct[] | un
 
 export const fetchProductById = async (id: number | string): Promise<IProduct | undefined> => {
     try {
-        const response = await apiClient.get(`/products/${id}`);
+        const response = await apiClient.get(`/articles/${id}`);
         return response.data;
     } catch (error) {
         console.error(error);

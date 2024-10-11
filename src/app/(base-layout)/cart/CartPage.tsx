@@ -1,10 +1,12 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
-import { IArticle, ProductCartCard, useDropCartMutation } from '@/entities/product';
+import { useCartStore } from '@/entities/cart';
+import { productApi, ProductCartCard, useDropCartMutation } from '@/entities/product';
 import { useSessionStore } from '@/entities/session';
 import { useMeQuery } from '@/entities/user';
 import { priceFormat } from '@/shared/lib';
@@ -20,6 +22,13 @@ export const CartPage = () => {
     const { refetch } = useMeQuery({ enabled: false });
     const router = useRouter();
     const { user } = useSessionStore();
+    const { products } = useCartStore();
+
+    const { data } = useQuery({
+        queryKey: ['cart', products.length],
+        queryFn: () => productApi.fetchProductsByIds(products),
+        enabled: !!products.length,
+    });
 
     useEffect(() => {
         if (!user) return;
@@ -75,7 +84,7 @@ export const CartPage = () => {
         if (!user) return [];
         return [...user.cart]
             .sort((a, b) => +a.product.id - +b.product.id)
-            .reduce((acc: { id: number; product: IArticle; count: number }[], product) => {
+            .reduce((acc: { id: number; product: any; count: number }[], product) => {
                 const foundProduct = acc.find((item) => item.product.id === product.product.id);
 
                 if (foundProduct) {
@@ -96,82 +105,91 @@ export const CartPage = () => {
 
     return (
         <div className={styles.cartPage}>
-            {!user || !user.cart.length ? (
-                <div className={styles.placeholder}>
-                    <div className={styles.placeholderTitle}>Корзина пуста</div>
-                    <p className={styles.subtitle}>
-                        Перейдите в каталог, чтобы добавить товары в корзину.{' '}
-                        {!user && 'Или авторизуйтесь, чтобы посмотреть уже добавленные товары.'}
-                    </p>
-                    <div className={styles.buttons}>
-                        <Button onClick={() => router.push('/catalog')} className={styles.button}>
-                            Продолжить покупки
-                        </Button>
-                        {!user && (
-                            <Button
-                                variant={'outline'}
-                                onClick={() => router.push('?authentication=signin')}
-                                className={styles.button}
-                            >
-                                Войти
+            {data ? (
+                !data?.length ? (
+                    <div className={styles.placeholder}>
+                        <div className={styles.placeholderTitle}>Корзина пуста</div>
+                        <p className={styles.subtitle}>
+                            Перейдите в каталог, чтобы добавить товары в корзину.Или авторизуйтесь, чтобы посмотреть уже
+                            добавленные товары.
+                        </p>
+                        <div className={styles.buttons}>
+                            <Button onClick={() => router.push('/catalog')} className={styles.button}>
+                                Продолжить покупки
                             </Button>
-                        )}
-                    </div>
-                </div>
-            ) : (
-                <section>
-                    <div className={'container'}>
-                        <h1 className={clsx(styles.title, 'title')}>
-                            Корзина
-                            <span className={styles.count}>{uniqueCount}</span>
-                        </h1>
-                        <div className={styles.actions}>
-                            <Checkbox
-                                label={'Выбрать все'}
-                                className={clsx(styles.button, styles.check)}
-                                onChange={(e) => handleSelectAll(e.target.checked)}
-                            />
-                            <button
-                                onClick={handleDropProducts}
-                                className={clsx(styles.button, styles.delete, selectedProducts.length && styles.active)}
-                            >
-                                Удалить выбранное
-                            </button>
-                        </div>
-                        <div className={styles.cart}>
-                            <div className={styles.cartList}>
-                                {groupedCartProducts.map((product) => (
-                                    <ProductCartCard
-                                        key={product.id}
-                                        product={product}
-                                        countProducts={product.count}
-                                        selected={selectedProducts.includes(product.id)}
-                                        handleSelectProduct={handleSelectProduct}
-                                    />
-                                ))}
-                            </div>
-                            <div className={styles.cartOrder}>
-                                <Button fullWidth disabled onClick={() => router.push('/order')}>
-                                    Оформить заказ
+                            {!user && (
+                                <Button
+                                    variant={'outline'}
+                                    onClick={() => router.push('?authentication=signin')}
+                                    className={styles.button}
+                                >
+                                    Войти
                                 </Button>
-                                <p className={styles.hint}>
-                                    Доступные способы и время доставки можно выбрать при оформлении заказа
-                                </p>
-                                <div className={styles.separator} />
-                                <div className={styles.counts}>
-                                    <span>Всего: {uniqueCount} товара</span>
-                                    <span className={styles.ellipse} />
-                                    <span>2 489 г</span>
+                            )}
+                        </div>
+                    </div>
+                ) : (
+                    <section>
+                        <div className={'container'}>
+                            <h1 className={clsx(styles.title, 'title')}>
+                                Корзина
+                                <span className={styles.count}>{data?.length}</span>
+                            </h1>
+                            <div className={styles.actions}>
+                                <Checkbox
+                                    label={'Выбрать все'}
+                                    className={clsx(styles.button, styles.check)}
+                                    onChange={(e) => handleSelectAll(e.target.checked)}
+                                />
+                                <button
+                                    onClick={handleDropProducts}
+                                    className={clsx(
+                                        styles.button,
+                                        styles.delete,
+                                        selectedProducts.length && styles.active,
+                                    )}
+                                >
+                                    Удалить выбранное
+                                </button>
+                            </div>
+                            <div className={styles.cart}>
+                                <div className={styles.cartList}>
+                                    {data?.map((product) => (
+                                        <ProductCartCard
+                                            key={product.id}
+                                            product={product}
+                                            countProducts={product.count}
+                                            selected={selectedProducts.includes(product.id)}
+                                            handleSelectProduct={handleSelectProduct}
+                                        />
+                                    ))}
                                 </div>
-                                <div className={styles.cost}>
-                                    <div>Общая стоимость</div>
-                                    <div className={styles.price}>{priceFormat(totalCost)}</div>
+                                <div className={styles.cartOrder}>
+                                    <Button fullWidth disabled onClick={() => router.push('/order')}>
+                                        Оформить заказ
+                                    </Button>
+                                    <p className={styles.hint}>
+                                        Доступные способы и время доставки можно выбрать при оформлении заказа
+                                    </p>
+                                    <div className={styles.separator} />
+                                    <div className={styles.counts}>
+                                        <span>Всего: {uniqueCount} товара</span>
+                                        <span className={styles.ellipse} />
+                                        <span>2 489 г</span>
+                                    </div>
+                                    <div className={styles.cost}>
+                                        <div>Общая стоимость</div>
+                                        <div className={styles.price}>{priceFormat(totalCost)}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                )
+            ) : (
+                <></>
             )}
+
             <RecentProduct />
         </div>
     );
