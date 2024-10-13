@@ -1,16 +1,16 @@
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 
+import { categoryApi } from '@/entities/category';
 import ArrowIcon from '@/shared/assets/icons/arrow_down.svg';
 import CloseIcon from '@/shared/assets/icons/close.svg';
 import TelegramIcon from '@/shared/assets/icons/telegram.svg';
 import Logo from '@/shared/assets/logo_dark.svg';
 
 import styles from './MobileMenu.module.scss';
-import { useQuery } from '@tanstack/react-query';
-import { categoryApi } from '@/entities/category';
 
 interface IMobileMenuProps {
     onClose: () => void;
