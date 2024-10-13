@@ -1,0 +1,56 @@
+.mobileNavbar {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-white);
+    border-radius: 20px 20px 0 0;
+    padding: 22px 47.5px;
+
+    .bottomNavbarItem {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 27px;
+        height: 27px;
+        color: var(--color-blue-tertiary);
+
+        &.active {
+            color: var(--color-dark-blue);
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: absolute;
+            top: -4px;
+            right: -9px;
+            min-width: 14px;
+            height: 14px;
+
+            background-color: var(--color-red-accent);
+            color: var(--color-white);
+            border-radius: 10px;
+            padding: 0 3px;
+
+            font-weight: 600;
+            font-size: 10px;
+        }
+    }
+
+    @media screen and (min-width: 769px) {
+        display: none;
+    }
+}

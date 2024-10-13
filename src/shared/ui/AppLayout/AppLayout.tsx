@@ -3,16 +3,18 @@ import { FC, PropsWithChildren, ReactNode } from 'react';
 import styles from './AppLayout.module.scss';
 
 interface IAppLayoutProps extends PropsWithChildren {
-    header?: ReactNode;
-    footer?: ReactNode;
+    headerSlot?: ReactNode;
+    footerSlot?: ReactNode;
+    bottomSlot?: ReactNode;
 }
 
-export const AppLayout: FC<IAppLayoutProps> = ({ header, footer, children }) => {
+export const AppLayout: FC<IAppLayoutProps> = ({ headerSlot, footerSlot, bottomSlot, children }) => {
     return (
         <div className={styles.layout}>
-            {header}
+            {headerSlot}
             <main>{children}</main>
-            {footer}
+            {footerSlot}
+            {bottomSlot}
         </div>
     );
 };
