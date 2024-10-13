@@ -20,6 +20,7 @@ export default function RootLayout({
         <html lang='ru'>
             <body className={gilroy.className}>
                 <QueryProvider>{children}</QueryProvider>
+                <div id={'portal'} />
             </body>
         </html>
     );

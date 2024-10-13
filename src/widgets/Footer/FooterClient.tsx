@@ -1,6 +1,6 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Link from 'next/link';
 
@@ -11,7 +11,7 @@ import Logo from '@/shared/assets/logo_light.svg';
 import styles from './Footer.module.scss';
 
 export const FooterClient = () => {
-    const { data: categories } = useSuspenseQuery({
+    const { data: categories } = useQuery({
         queryKey: ['categories'],
         queryFn: categoryApi.fetchCategories,
     });

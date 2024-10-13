@@ -32,6 +32,18 @@ body {
     overflow-x: hidden;
 }
 
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -46,6 +58,21 @@ button {
 button {
     cursor: pointer;
     background-color: transparent;
+    color: inherit;
+}
+
+ol,
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 500;
 }
 
 .container {
@@ -53,6 +80,14 @@ button {
     padding: 0 80px;
     margin: 0 auto;
     box-sizing: content-box;
+}
+
+.scrollbar-hide {
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    width: 0;
 }
 
 @media screen and (max-width: 992px) {

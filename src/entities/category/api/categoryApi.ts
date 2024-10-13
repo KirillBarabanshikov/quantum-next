@@ -6,7 +6,7 @@ import { ICategoryDto } from './types';
 
 export const fetchCategories = async (): Promise<ICategory[] | undefined> => {
     try {
-        const response = await apiClient.get<ICategoryDto[]>('/categories');
+        const response = await apiClient.get<ICategoryDto[]>('/categories/with-children');
         return response.data.map(mapCategory);
     } catch (error) {
         console.error(error);

@@ -1,0 +1,1 @@
+export { mapImage } from './mapImage';

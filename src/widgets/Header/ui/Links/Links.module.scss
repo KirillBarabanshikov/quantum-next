@@ -1,0 +1,32 @@
+.headerLinksContainer {
+    padding: 14px 0;
+    position: relative;
+    z-index: 2;
+
+    .headerLinksWrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 10px;
+
+        .headerLinks {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .link {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-blue-tertiary);
+        }
+
+        .tel {
+            font-weight: 600;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        display: none;
+    }
+}

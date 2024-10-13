@@ -1,0 +1,99 @@
+.searchWrap {
+    position: relative;
+    width: 100%;
+
+    &.isOpen {
+        .search {
+            border-radius: 10px 10px 0 0;
+        }
+    }
+
+    .search {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        width: 100%;
+        background-color: var(--color-white);
+        border-radius: 10px;
+
+        .input {
+            font-weight: 500;
+            font-size: 18px;
+            color: var(--color-dark-blue);
+            width: 100%;
+            height: 100%;
+            padding: 0 65px 0 20px;
+            background-color: unset;
+
+            &::placeholder {
+                color: var(--color-blue-tertiary);
+            }
+        }
+
+        .clearIcon {
+            position: absolute;
+            right: 44px;
+            cursor: pointer;
+            color: var(--color-blue-tertiary);
+        }
+
+        .searchIcon {
+            position: absolute;
+            right: 19px;
+        }
+    }
+
+    .searchResult {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-white);
+        padding: 3px 20px 9px 20px;
+        border-top: 1px solid rgba(30, 32, 135, 0.1);
+        border-radius: 0 0 10px 10px;
+
+        .searchList {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+.overlay {
+    position: fixed;
+    z-index: 1;
+    inset: 0;
+    background-color: rgba(9, 27, 81, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+@media screen and (max-width: 992px) {
+    .searchWrap {
+        .search {
+            height: 30px;
+
+            .input {
+                font-size: 14px;
+                padding: 0 45px 0 14px;
+            }
+
+            .clearIcon {
+                right: 32px;
+                width: 12px;
+                height: 12px;
+            }
+
+            .searchIcon {
+                right: 14px;
+                width: 13px;
+                height: 13px;
+            }
+        }
+
+        .searchResult {
+            top: 30px;
+            padding: 2px 14px 19px 14px;
+        }
+    }
+}
