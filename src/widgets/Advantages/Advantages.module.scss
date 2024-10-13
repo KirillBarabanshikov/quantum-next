@@ -1,0 +1,108 @@
+.advantages {
+    .advantagesList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .advantage {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex: 1;
+            background-color: var(--color-grey);
+            border-radius: 20px;
+            padding: 51px 0 51px 35px;
+
+            .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 75px;
+                height: 75px;
+                background-color: var(--color-dark-blue);
+                border-radius: 100%;
+                color: var(--color-white);
+            }
+
+            .advantageBody {
+                .title {
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 21.83px;
+                    width: 155px;
+                    margin-bottom: 20px;
+                }
+
+                .link {
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 13px;
+                    color: var(--color-blue-tertiary);
+                    text-decoration: underline;
+                    text-underline-offset: 4px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .advantages {
+        .advantagesList {
+            gap: 10px;
+
+            .advantage {
+                gap: 18px;
+                background-color: var(--color-grey);
+                padding: 34px 15px;
+
+                .icon {
+                    min-width: 60px;
+                    height: 60px;
+
+                    svg {
+                        width: 25px;
+                    }
+                }
+
+                .advantageBody {
+                    .title {
+                        font-size: 14px;
+                        line-height: 1.1;
+                        width: unset;
+                        margin-bottom: 10px;
+                    }
+
+                    .link {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .advantages {
+        .advantagesList {
+            .advantage {
+                padding: 30px 28px;
+                flex-basis: 100%;
+                gap: 25px;
+
+                .advantageBody {
+                    .title {
+                        font-size: 16px;
+                        line-height: 19.41px;
+                        margin-bottom: 25px;
+                    }
+
+                    .link {
+                        font-size: 16px;
+                        line-height: 11px;
+                    }
+                }
+            }
+        }
+    }
+}

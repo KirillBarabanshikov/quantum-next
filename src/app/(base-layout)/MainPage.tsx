@@ -7,7 +7,14 @@ import { useRouter } from 'next/navigation';
 import { categoryApi } from '@/entities/category';
 import { productApi } from '@/entities/product';
 import { Button } from '@/shared/ui';
-import { CategoriesList, MainBanner, NewCollectionBanner, ProductsCarousel, QuestionBanner } from '@/widgets';
+import {
+    Advantages,
+    CategoriesList,
+    MainBanner,
+    NewCollectionBanner,
+    ProductsCarousel,
+    QuestionBanner,
+} from '@/widgets';
 
 import styles from './MainPage.module.scss';
 
@@ -48,6 +55,7 @@ export const MainPage = () => {
             <ProductsCarousel title={'Новинки'} products={newProducts} />
             <ProductsCarousel title={'Популярные'} products={popularProducts} />
             <NewCollectionBanner />
+            <Advantages />
             <QuestionBanner />
         </div>
     );
