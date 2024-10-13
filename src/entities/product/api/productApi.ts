@@ -23,3 +23,21 @@ export const fetchProducts = async (params: IProductParams = {}): Promise<IProdu
         console.error(error);
     }
 };
+
+export const fetchNewProducts = async (): Promise<IProduct[] | undefined> => {
+    try {
+        const response = await apiClient.get<IProduct[]>('/articles/new');
+        return response.data.map(mapProduct);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const fetchPopularProducts = async (): Promise<IProduct[] | undefined> => {
+    try {
+        const response = await apiClient.get<IProduct[]>('/articles/popular');
+        return response.data.map(mapProduct);
+    } catch (error) {
+        console.error(error);
+    }
+};

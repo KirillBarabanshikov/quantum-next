@@ -82,6 +82,21 @@ h5 {
     box-sizing: content-box;
 }
 
+.page {
+    padding-top: 24px;
+    padding-bottom: 160px;
+}
+
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+}
+
+.title {
+    font-size: 38px;
+}
+
 .scrollbar-hide {
     scrollbar-width: none;
 }
@@ -93,6 +108,18 @@ h5 {
 @media screen and (max-width: 992px) {
     .container {
         padding: 0 40px;
+    }
+
+    .page {
+        padding-bottom: 60px;
+    }
+
+    .sections {
+        gap: 60px;
+    }
+
+    .title {
+        font-size: 24px;
     }
 }
 

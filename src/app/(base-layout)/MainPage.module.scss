@@ -1,0 +1,37 @@
+.mainPage {
+    padding-top: 10px;
+
+    .mainBanner {
+        margin-bottom: 30px;
+    }
+
+    .button {
+        max-width: 265px;
+        margin: 30px auto 0 auto;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .mainPage {
+        .mainBanner {
+            margin-bottom: 15px;
+        }
+
+        .button {
+            margin: 24px auto 0 auto;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .mainPage {
+        .mainBanner {
+            margin-bottom: 40px;
+        }
+
+        .button {
+            max-width: unset;
+            margin: 20px auto 0 auto;
+        }
+    }
+}

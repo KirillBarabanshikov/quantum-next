@@ -16,7 +16,7 @@ export const CategoryCard: FC<ICategoryCardProps> = ({ category }) => {
             <article className={clsx(styles.categoryCard)}>
                 <p className={styles.title}>{category.title}</p>
                 <div className={styles.imageWrap}>
-                    <Image src={category.image} fill alt={category.title} sizes='300px' className={styles.image} />
+                    <Image src={category.image} fill alt={category.title} sizes={'300px'} className={styles.image} />
                 </div>
             </article>
         </Link>

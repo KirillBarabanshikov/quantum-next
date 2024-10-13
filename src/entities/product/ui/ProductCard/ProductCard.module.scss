@@ -23,7 +23,7 @@
             position: absolute;
             top: 25px;
             right: 25px;
-            fill: transparent;
+            fill: var(--color-white);
             transition:
                 fill 300ms linear,
                 opacity 300ms linear;
@@ -42,7 +42,7 @@
     }
 
     .productBody {
-        padding: 20px;
+        padding: 20px 20px 36px 20px;
 
         .productTitle {
             overflow: hidden;
@@ -61,9 +61,12 @@
             font-weight: 700;
             font-size: 20px;
             line-height: 14px;
-            margin-bottom: 36px;
             flex: 1;
         }
+    }
+
+    .buttonWrap {
+        padding: 0 20px 20px;
     }
 
     @media (hover: hover) {
@@ -86,11 +89,13 @@
             .grade {
                 top: 10px;
                 right: 10px;
+                width: 24px;
+                height: 24px;
             }
         }
 
         .productBody {
-            padding: unset;
+            padding: 10px 12px 36px 12px;
 
             .productTitle {
                 font-size: 14px;
@@ -103,14 +108,21 @@
                 line-height: 22.05px;
             }
         }
+
+        .buttonWrap {
+            padding: unset;
+
+            .button {
+                height: 42px;
+                font-size: 14px;
+            }
+        }
     }
 
     @media screen and (max-width: 768px) {
         max-width: 177px;
 
         .productImage {
-            padding: unset;
-
             a {
                 width: 177px;
                 height: 160px;
@@ -123,7 +135,7 @@
         }
 
         .productBody {
-            padding: unset;
+            padding: 12px 16px 28px;
 
             .productTitle {
                 font-size: 14px;
@@ -134,6 +146,12 @@
                 font-weight: 600;
                 font-size: 18px;
                 line-height: 22.05px;
+            }
+        }
+
+        .buttonWrap {
+            .button {
+                height: 38px;
             }
         }
     }

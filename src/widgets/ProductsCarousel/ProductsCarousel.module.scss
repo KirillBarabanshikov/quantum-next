@@ -1,0 +1,25 @@
+.productsCarouselWrap {
+    .title {
+        margin-bottom: 60px;
+    }
+
+    .slide {
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .productsCarouselWrap {
+        .title {
+            margin-bottom: 24px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .productsCarouselWrap {
+        .title {
+            margin-bottom: 20px;
+        }
+    }
+}

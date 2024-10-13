@@ -1,7 +1,6 @@
 .footer {
     background-color: var(--color-dark-blue);
     padding: 80px 0 40px 0;
-    margin-top: 160px;
 
     .logo {
         display: inline-block;
@@ -85,7 +84,6 @@
 @media screen and (max-width: 992px) {
     .footer {
         padding: 40px 0 20px 0;
-        margin-top: 60px;
     }
 }
 
@@ -119,6 +117,7 @@
 
             .links {
                 width: 100%;
+                flex-wrap: wrap;
             }
 
             .socials {
