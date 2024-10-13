@@ -1,8 +1,9 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
+import { LeaveQuestionModal } from '@/features/question';
 import { Button } from '@/shared/ui';
 
 import styles from './QuestionBanner.module.scss';
@@ -12,6 +13,8 @@ interface IQuestionBannerProps {
 }
 
 export const QuestionBanner: FC<IQuestionBannerProps> = ({ className }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <section className={clsx(styles.questionBanner, className)}>
             <div className={'container'}>
@@ -22,11 +25,18 @@ export const QuestionBanner: FC<IQuestionBannerProps> = ({ className }) => {
                         наши специалисты обязательно помогут вам.
                         <br /> Операторы работают круглосуточно.
                     </p>
-                    <Button variant={'outline'} theme={'white'} fullWidth className={styles.button}>
+                    <Button
+                        variant={'outline'}
+                        theme={'white'}
+                        fullWidth
+                        onClick={() => setIsOpen(true)}
+                        className={styles.button}
+                    >
                         Написать
                     </Button>
                 </div>
             </div>
+            <LeaveQuestionModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </section>
     );
 };
