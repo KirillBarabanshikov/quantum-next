@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { FC } from 'react';
 
 import { useCartStore } from '@/entities/cart';
 import { useFavoritesStore } from '@/entities/favorites';
@@ -14,7 +15,6 @@ import { useMediaQuery, useStore } from '@/shared/hooks';
 
 import styles from './Header.module.scss';
 import { Links, Menu } from './ui';
-import { FC } from 'react';
 
 interface IHeaderClientProps {
     className?: string;

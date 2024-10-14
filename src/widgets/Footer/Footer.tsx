@@ -1,9 +1,9 @@
 import { dehydrate, QueryClient } from '@tanstack/query-core';
 import { HydrationBoundary } from '@tanstack/react-query';
+import { FC } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { FooterClient } from '@/widgets/Footer/FooterClient';
-import { FC } from 'react';
 
 interface IFooterProps {
     className?: string;

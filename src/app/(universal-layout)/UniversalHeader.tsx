@@ -1,10 +1,12 @@
 'use client';
 
-import { FC } from 'react';
-import styles from './layout.module.scss';
-import CloseIcon from '@/shared/assets/icons/close.svg';
-import { usePathname, useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import { usePathname, useRouter } from 'next/navigation';
+import { FC } from 'react';
+
+import CloseIcon from '@/shared/assets/icons/close.svg';
+
+import styles from './layout.module.scss';
 
 interface IUniversalHeaderProps {
     navItems: { title: string; href: string }[];

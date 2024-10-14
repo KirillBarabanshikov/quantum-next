@@ -3,13 +3,13 @@
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { FC } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import Icon from '@/shared/assets/icons/telegram.svg';
 import Logo from '@/shared/assets/logo_light.svg';
 
 import styles from './Footer.module.scss';
-import { FC } from 'react';
 
 interface IFooterClientProps {
     className?: string;
