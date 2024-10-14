@@ -9,14 +9,15 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     error?: string;
     suffixSlot?: ReactNode;
+    variant?: 'default' | 'dark';
 }
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>(
-    ({ label, error, suffixSlot, type = 'text', className, ...props }, ref) => {
+    ({ label, error, suffixSlot, variant = 'default', type = 'text', className, ...props }, ref) => {
         const id = useId();
 
         return (
-            <div className={clsx(styles.inputWrap, error && styles.isError, className)}>
+            <div className={clsx(styles.inputWrap, styles[variant], error && styles.isError, className)}>
                 {label && (
                     <div className={styles.labelWrap}>
                         <label htmlFor={id} className={styles.label}>

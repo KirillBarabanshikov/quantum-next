@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { categorySlug: string 
 
     const category = queryClient.getQueryData<ICategory>(['category', params.categorySlug]);
 
-    if (!category) return notFound();
+    // if (!category) return notFound();
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
