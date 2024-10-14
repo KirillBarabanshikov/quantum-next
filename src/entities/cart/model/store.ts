@@ -2,9 +2,10 @@ import { create } from 'zustand/index';
 import { devtools, persist } from 'zustand/middleware';
 
 interface ICartStore {
-    productsIds: number[];
+    products: { id: number; count: number }[];
     addToCart: (id: number) => void;
     removeFromCart: (id: number) => void;
+    decrementFromCart: (id: number) => void;
     inCart: (id: number) => boolean;
 }
 
@@ -12,17 +13,39 @@ export const useCartStore = create<ICartStore>()(
     devtools(
         persist(
             (set, get) => ({
-                productsIds: [],
+                products: [],
                 addToCart: (id) => {
-                    const currentFavorites = get().productsIds;
-                    set({ productsIds: [id, ...currentFavorites] });
+                    const currentProducts = get().products;
+                    const product = currentProducts.find((product) => product.id === id);
+
+                    if (product) {
+                        set({
+                            products: currentProducts.map((item) => {
+                                if (item.id === product.id) {
+                                    return { ...item, count: item.count + 1 };
+                                }
+                                return item;
+                            }),
+                        });
+                    } else {
+                        set({ products: [{ id, count: 1 }, ...currentProducts] });
+                    }
                 },
                 removeFromCart: (id) => {
-                    const updatedFavorites = get().productsIds.filter((item) => item !== id);
-                    set({ productsIds: updatedFavorites });
+                    const updatedCart = get().products.filter((item) => item.id !== id);
+                    set({ products: updatedCart });
+                },
+                decrementFromCart: (id) => {
+                    const updatedCart = get().products.map((product) => {
+                        if (product.id === id) {
+                            return { ...product, count: product.count - 1 };
+                        }
+                        return product;
+                    });
+                    set({ products: updatedCart });
                 },
                 inCart: (id) => {
-                    return get().productsIds.some((item) => item === id);
+                    return get().products.some((item) => item.id === id);
                 },
             }),
             {

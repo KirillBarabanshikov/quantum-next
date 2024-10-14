@@ -59,7 +59,7 @@ const CartOption = () => {
     return (
         <Link href={'/cart'} className={styles.option}>
             <BagIcon />
-            {!!store?.productsIds.length && <span className={styles.badge}>{store?.productsIds.length}</span>}
+            {!!store?.products.length && <span className={styles.badge}>{store?.products.length}</span>}
         </Link>
     );
 };

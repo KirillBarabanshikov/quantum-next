@@ -1,0 +1,69 @@
+.cartProduct {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: var(--color-grey);
+
+    .checkbox {
+        margin-right: 20px;
+    }
+
+    .image {
+        mix-blend-mode: darken;
+        margin-right: 28px;
+    }
+
+    .body {
+        width: 100%;
+
+        .titleWrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .title {
+                font-weight: 500;
+                font-size: 18px;
+            }
+
+            .price {
+                font-weight: 500;
+                font-size: 24px;
+            }
+        }
+
+        .equipment {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-blue-tertiary);
+            margin-bottom: 14px;
+        }
+
+        .actionsWrap {
+            display: flex;
+            justify-content: space-between;
+
+            .actions {
+                display: flex;
+                gap: 10px;
+
+                .action {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 10px;
+                    background-color: var(--color-white);
+                    color: var(--color-blue-tertiary);
+
+                    .star {
+                        width: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
