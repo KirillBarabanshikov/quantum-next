@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 
+import { useCartStore } from '@/entities/cart';
+import { useFavoritesStore } from '@/entities/favorites';
 import { Search } from '@/features/search';
 import AccountIcon from '@/shared/assets/icons/account.svg';
 import BagIcon from '@/shared/assets/icons/cart.svg';
@@ -12,8 +14,6 @@ import { useMediaQuery, useStore } from '@/shared/hooks';
 
 import styles from './Header.module.scss';
 import { Links, Menu } from './ui';
-import { useCartStore } from '@/entities/cart';
-import { useFavoritesStore } from '@/entities/favorites';
 
 export const HeaderClient = () => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);

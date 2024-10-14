@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
-import { Button } from '@/shared/ui';
-import { IProduct } from '@/entities/product';
 import { useCartStore } from '@/entities/cart';
+import { IProduct } from '@/entities/product';
 import { useStore } from '@/shared/hooks';
+import { Button } from '@/shared/ui';
 
 interface IAddToCartButton {
     product: IProduct;

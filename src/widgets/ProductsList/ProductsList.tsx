@@ -1,10 +1,10 @@
+import clsx from 'clsx';
 import { FC } from 'react';
 
 import { IProduct, ProductCard } from '@/entities/product';
+import { Skeleton } from '@/shared/ui';
 
 import styles from './ProductsList.module.scss';
-import { Skeleton } from '@/shared/ui';
-import clsx from 'clsx';
 
 interface IProductsListProps {
     products?: IProduct[];

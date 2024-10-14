@@ -1,10 +1,12 @@
 'use client';
 
-import styles from './CatalogPage.module.scss';
-import clsx from 'clsx';
 import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
+
 import { categoryApi } from '@/entities/category';
 import { CategoriesList } from '@/widgets';
+
+import styles from './CatalogPage.module.scss';
 
 export const CatalogPage = () => {
     const { data: categories } = useQuery({

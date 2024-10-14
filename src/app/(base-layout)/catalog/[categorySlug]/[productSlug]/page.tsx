@@ -1,7 +1,8 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-
 import { notFound } from 'next/navigation';
+
 import { IProduct, productApi } from '@/entities/product';
+
 import { ProductPage } from './ProductPage';
 
 export default async function Page({ params }: { params: { productSlug: string } }) {

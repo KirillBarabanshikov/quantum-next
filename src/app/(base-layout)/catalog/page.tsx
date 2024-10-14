@@ -1,6 +1,8 @@
-import { categoryApi } from '@/entities/category';
 import { dehydrate, QueryClient } from '@tanstack/query-core';
 import { HydrationBoundary } from '@tanstack/react-query';
+
+import { categoryApi } from '@/entities/category';
+
 import { CatalogPage } from './CatalogPage';
 
 export default async function Page() {

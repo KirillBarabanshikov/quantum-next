@@ -5,14 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
+import { useFavoritesStore } from '@/entities/favorites';
 import { AddToCartButton } from '@/features/cart';
 import GradeIcon from '@/shared/assets/icons/start_outline.svg';
+import { useStore } from '@/shared/hooks';
+import { priceFormat } from '@/shared/lib';
 
 import { IProduct } from '../../model';
 import styles from './ProductCard.module.scss';
-import { priceFormat } from '@/shared/lib';
-import { useStore } from '@/shared/hooks';
-import { useFavoritesStore } from '@/entities/favorites';
 
 interface IProductCardProps {
     product: IProduct;

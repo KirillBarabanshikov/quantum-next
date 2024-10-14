@@ -1,9 +1,9 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { notFound } from 'next/navigation';
 
 import { categoryApi, ICategory } from '@/entities/category';
 
 import { CategoryPage } from './CategoryPage';
-import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: { params: { categorySlug: string } }) {
     const queryClient = new QueryClient();

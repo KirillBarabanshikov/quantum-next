@@ -1,15 +1,16 @@
 'use client';
 
-import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { categoryApi } from '@/entities/category';
-import { useParams } from 'next/navigation';
 import clsx from 'clsx';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { categoryApi } from '@/entities/category';
+import { IProduct, productApi } from '@/entities/product';
+import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
+import { ProductsList } from '@/widgets';
 
 import styles from './CategoryPage.module.scss';
-import { ProductsList } from '@/widgets';
-import { IProduct, productApi } from '@/entities/product';
-import { useEffect, useState } from 'react';
 
 const breadcrumbs = [
     { text: 'Главная', href: '/' },
