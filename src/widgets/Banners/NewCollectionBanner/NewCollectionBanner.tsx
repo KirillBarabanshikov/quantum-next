@@ -28,6 +28,7 @@ export const NewCollectionBanner: FC<INewCollectionBannerProps> = ({ className }
                         variant={'outline'}
                         theme={'blue'}
                         onClick={() => router.push('/catalog')}
+                        fullWidth
                         className={styles.button}
                     >
                         Каталог

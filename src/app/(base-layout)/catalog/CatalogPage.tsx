@@ -1,31 +1,24 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 
-import { MAX_WIDTH_MD } from '@/shared/consts';
-import { useMediaQuery } from '@/shared/hooks';
-import { Button } from '@/shared/ui';
+import { categoryApi } from '@/entities/category';
 import { CategoriesList } from '@/widgets';
 
 import styles from './CatalogPage.module.scss';
 
 export const CatalogPage = () => {
-    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+    const { data: categories } = useQuery({
+        queryKey: ['categories'],
+        queryFn: categoryApi.fetchCategories,
+    });
 
     return (
-        <div className={styles.catalogPage}>
-            <section>
-                <div className={clsx(styles.title, 'container')}>
-                    <h1 className={'title'}>Каталог</h1>
-                </div>
-                <CategoriesList className={styles.categoriesList} />
-                {isMatch && (
-                    <div className={'container'}>
-                        <Button variant={'outline'} fullWidth>
-                            Показать еще
-                        </Button>
-                    </div>
-                )}
+        <div className={clsx(styles.catalogPage, 'page')}>
+            <section className={'container'}>
+                <h1 className={clsx(styles.title, 'title')}>Каталог</h1>
+                <CategoriesList categories={categories} />
             </section>
         </div>
     );

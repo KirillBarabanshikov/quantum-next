@@ -5,10 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { useFavoritesStore } from '@/entities/product';
+import { useFavoritesStore } from '@/entities/favorites';
 import { AddToCartButton } from '@/features/cart';
-import GradeIcon from '@/shared/assets/icons/grade-outline.svg';
-import { BASE_URL } from '@/shared/consts';
+import GradeIcon from '@/shared/assets/icons/start_outline.svg';
 import { useStore } from '@/shared/hooks';
 import { priceFormat } from '@/shared/lib';
 
@@ -20,34 +19,34 @@ interface IProductCardProps {
 }
 
 export const ProductCard: FC<IProductCardProps> = ({ product }) => {
-    const store = useStore(useFavoritesStore, (state) => state);
-
-    const isFavorite = !!store?.isFavorite(product.id);
-
-    const toggleFavorite = () => {
-        isFavorite ? store?.removeFromFavorites(product.id) : store?.addToFavorites(product.id);
-    };
-
     return (
         <article className={styles.productCard}>
             <div className={styles.productImage}>
-                <Link href={`/product/${product.id}`}>
-                    <Image
-                        src={BASE_URL + `/${product.images.length ? product.images[0]?.image : ''}`}
-                        fill
-                        sizes={'100%'}
-                        alt={product.title}
-                    />
+                <Link href={`/catalog/${product.categoryId}/${product.id}`}>
+                    <Image src={product.images[0]?.image || '/'} fill sizes={'300px'} alt={product.title} />
                 </Link>
-                <GradeIcon onClick={toggleFavorite} className={clsx(styles.grade, isFavorite && styles.active)} />
+                <FavoriteOption productId={product.id} />
             </div>
             <div className={styles.productBody}>
-                <Link href={`/product/${product.id}`} className={styles.productTitle}>
+                <Link href={`/catalog/${product.categoryId}/${product.id}`} className={styles.productTitle}>
                     {product.title}
                 </Link>
                 <p className={styles.productPrice}>{priceFormat(product.price)}</p>
-                <AddToCartButton product={product} />
+            </div>
+            <div className={styles.buttonWrap}>
+                <AddToCartButton product={product} className={styles.button} />
             </div>
         </article>
     );
+};
+
+const FavoriteOption = ({ productId }: { productId: number }) => {
+    const store = useStore(useFavoritesStore, (state) => state);
+    const isFavorite = store?.isFavorite(productId);
+
+    const handleAddFavorite = () => {
+        isFavorite ? store?.removeFromFavorites(productId) : store?.addToFavorites(productId);
+    };
+
+    return <GradeIcon onClick={handleAddFavorite} className={clsx(styles.grade, isFavorite && styles.active)} />;
 };

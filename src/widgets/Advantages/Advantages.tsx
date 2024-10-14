@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import AutorenewIcon from '@/shared/assets/icons/autorenew.svg';
-import PoliceIcon from '@/shared/assets/icons/police.svg';
+import ExchangeIcon from '@/shared/assets/icons/exchange.svg';
+import ShieldIcon from '@/shared/assets/icons/shield.svg';
 import ShippingIcon from '@/shared/assets/icons/shipping.svg';
 
 import styles from './Advantages.module.scss';
@@ -37,7 +37,7 @@ export const Advantages: FC<IAdvantagesProps> = ({ className }) => {
 };
 
 const advantagesList = [
-    { icon: <AutorenewIcon />, title: 'Возврат и обмен в течение 7 дней', link: '/' },
+    { icon: <ExchangeIcon />, title: 'Возврат и обмен в течение 7 дней', link: '/' },
     { icon: <ShippingIcon />, title: 'Доставка по всей России и СНГ', link: '/' },
-    { icon: <PoliceIcon />, title: 'Отечественные производители', link: '/' },
+    { icon: <ShieldIcon />, title: 'Отечественные производители', link: '/' },
 ];

@@ -5,7 +5,7 @@ import styles from './Skeleton.module.scss';
 
 interface ISkeletonProps {
     width?: number;
-    height: number;
+    height?: number;
     className?: string;
 }
 

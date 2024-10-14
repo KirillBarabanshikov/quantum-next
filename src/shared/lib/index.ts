@@ -1,2 +1,2 @@
-export { maskPhone } from './maskPhone';
+export { mapImage } from './mapImage';
 export { priceFormat } from './priceFormat';

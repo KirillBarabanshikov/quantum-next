@@ -12,15 +12,21 @@ interface IAddToCartButton {
 
 export const AddToCartButton: FC<IAddToCartButton> = ({ product, className }) => {
     const store = useStore(useCartStore, (state) => state);
-    const inCart = !!store?.inCart(product.id);
+    const inCart = store?.inCart(product.id);
 
     const handleAddToCart = () => {
         inCart ? store?.removeFromCart(product.id) : store?.addToCart(product.id);
     };
 
     return (
-        <Button variant={inCart ? 'solid' : 'outline'} fullWidth onClick={handleAddToCart} className={className}>
-            {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
+        <Button
+            variant={inCart ? 'solid' : 'outline'}
+            fullWidth
+            onClick={handleAddToCart}
+            disabled={!product.count}
+            className={className}
+        >
+            {!product.count ? 'Нет в наличии' : inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
         </Button>
     );
 };

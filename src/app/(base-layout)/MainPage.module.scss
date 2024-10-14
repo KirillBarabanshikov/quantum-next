@@ -1,28 +1,37 @@
 .mainPage {
-    padding: 10px 0 160px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 160px;
+    padding-top: 10px;
 
     .mainBanner {
-        margin-bottom: 40px;
-    }
-
-    .categoriesList {
         margin-bottom: 30px;
     }
 
     .button {
-        margin: 0 auto;
-        min-width: 265px;
+        max-width: 265px;
+        margin: 30px auto 0 auto;
     }
+}
 
-    @media screen and (max-width: 992px) {
-        padding: 10px 0 60px 0;
-        gap: 60px;
+@media screen and (max-width: 992px) {
+    .mainPage {
+        .mainBanner {
+            margin-bottom: 15px;
+        }
 
-        .categoriesList {
-            margin-bottom: 20px;
+        .button {
+            margin: 24px auto 0 auto;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .mainPage {
+        .mainBanner {
+            margin-bottom: 40px;
+        }
+
+        .button {
+            max-width: unset;
+            margin: 20px auto 0 auto;
         }
     }
 }

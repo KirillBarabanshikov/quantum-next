@@ -4,6 +4,8 @@ const formatter = new Intl.NumberFormat('ru-RU', {
     maximumFractionDigits: 0,
 });
 
-export function priceFormat(price: number) {
+export function priceFormat(price?: number) {
+    if (!price) return price;
+
     return formatter.format(price);
 }

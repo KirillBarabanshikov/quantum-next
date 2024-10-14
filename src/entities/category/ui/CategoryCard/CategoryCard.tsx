@@ -3,8 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { ICategory } from '@/entities/category';
-
+import { ICategory } from '../../model';
 import styles from './CategoryCard.module.scss';
 
 interface ICategoryCardProps {
@@ -17,7 +16,7 @@ export const CategoryCard: FC<ICategoryCardProps> = ({ category }) => {
             <article className={clsx(styles.categoryCard)}>
                 <p className={styles.title}>{category.title}</p>
                 <div className={styles.imageWrap}>
-                    <Image src={category.image} fill alt={category.title} sizes='100%' className={styles.image} />
+                    <Image src={category.image} fill alt={category.title} sizes={'300px'} className={styles.image} />
                 </div>
             </article>
         </Link>

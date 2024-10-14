@@ -11,7 +11,7 @@
             flex: 1;
             background-color: var(--color-grey);
             border-radius: 20px;
-            padding: 51px 35px;
+            padding: 51px 0 51px 35px;
 
             .icon {
                 display: flex;
@@ -43,13 +43,52 @@
                 }
             }
         }
+    }
+}
 
-        @media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
+    .advantages {
+        .advantagesList {
             gap: 10px;
 
             .advantage {
+                gap: 18px;
+                background-color: var(--color-grey);
+                padding: 34px 15px;
+
+                .icon {
+                    min-width: 60px;
+                    height: 60px;
+
+                    svg {
+                        width: 25px;
+                    }
+                }
+
+                .advantageBody {
+                    .title {
+                        font-size: 14px;
+                        line-height: 1.1;
+                        width: unset;
+                        margin-bottom: 10px;
+                    }
+
+                    .link {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .advantages {
+        .advantagesList {
+            .advantage {
                 padding: 30px 28px;
                 flex-basis: 100%;
+                gap: 25px;
 
                 .advantageBody {
                     .title {

@@ -1,12 +1,12 @@
 import { PropsWithChildren } from 'react';
 
-import { Layout } from '@/shared/ui';
-import { BottomNavbar, Footer, Header } from '@/widgets';
+import { AppLayout } from '@/shared/ui';
+import { Footer, Header, MobileNavbar } from '@/widgets';
 
-export default function BaseLayout({ children }: PropsWithChildren) {
+export default function Layout({ children }: PropsWithChildren) {
     return (
-        <Layout headerSlot={<Header />} footerSlot={<Footer />} bottomSlot={<BottomNavbar />}>
+        <AppLayout headerSlot={<Header />} footerSlot={<Footer />} bottomSlot={<MobileNavbar />}>
             {children}
-        </Layout>
+        </AppLayout>
     );
 }

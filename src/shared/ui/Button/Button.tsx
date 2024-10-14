@@ -7,31 +7,20 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'solid' | 'outline';
     theme?: 'blue' | 'white';
     fullWidth?: boolean;
-    size?: 'sm' | 'md' | 'lg';
 }
 
 export const Button: FC<IButtonProps> = ({
     variant = 'solid',
     theme = 'blue',
-    fullWidth = false,
-    size = 'lg',
-    type = 'button',
-    children,
+    fullWidth,
     className,
+    children,
     ...props
 }) => {
     return (
         <button
-            type={type}
-            className={clsx(
-                styles.button,
-                styles[variant],
-                styles[theme],
-                fullWidth && styles.fullWidth,
-                styles[size],
-                className,
-            )}
             {...props}
+            className={clsx(styles.button, styles[variant], styles[theme], fullWidth && styles.fullWidth, className)}
         >
             {children}
         </button>

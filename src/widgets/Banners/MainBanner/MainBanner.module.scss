@@ -1,6 +1,6 @@
 .mainBanner {
     .mainBannerContainer {
-        background-image: url('../../../shared/assets/images/banners/main_banner_bg.png');
+        background-image: url('../../../shared/assets/images/main_banner_bg.png');
         background-repeat: no-repeat;
         background-size: cover;
         padding: 82px 108px 71px 108px;
@@ -46,7 +46,7 @@
             }
         }
 
-        @media screen and (max-width: 576px) {
+        @media screen and (max-width: 768px) {
             display: flex;
             flex-direction: column;
             background-position: top;
@@ -73,10 +73,6 @@
             .button {
                 max-width: unset;
             }
-        }
-
-        @media screen and (max-width: 576px) {
-            background-image: url('../../../shared/assets/images/banners/main_banner_mobile_bg.png');
         }
     }
 }

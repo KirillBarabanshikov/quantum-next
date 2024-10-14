@@ -1,4 +1,5 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { dehydrate, QueryClient } from '@tanstack/query-core';
+import { HydrationBoundary } from '@tanstack/react-query';
 
 import { categoryApi } from '@/entities/category';
 import { productApi } from '@/entities/product';
@@ -10,16 +11,16 @@ export default async function Page() {
 
     await Promise.all([
         queryClient.prefetchQuery({
+            queryKey: ['categories'],
+            queryFn: categoryApi.fetchCategories,
+        }),
+        queryClient.prefetchQuery({
             queryKey: ['new-products'],
             queryFn: productApi.fetchNewProducts,
         }),
         queryClient.prefetchQuery({
             queryKey: ['popular-products'],
             queryFn: productApi.fetchPopularProducts,
-        }),
-        queryClient.prefetchQuery({
-            queryKey: ['categories'],
-            queryFn: categoryApi.fetchCategories,
         }),
     ]);
 

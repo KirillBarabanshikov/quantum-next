@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Link from 'next/link';
-import { FC, Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 
 import styles from './Breadcrumbs.module.scss';
 
@@ -10,14 +10,14 @@ interface IBreadcrumbsLink {
 }
 
 interface IBreadcrumbsProps {
-    links: IBreadcrumbsLink[];
+    breadcrumbs: IBreadcrumbsLink[];
     className?: string;
 }
 
-export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ links, className }) => {
+export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ breadcrumbs, className }) => {
     return (
         <nav className={clsx(styles.breadcrumbs, className)}>
-            {links.map((link, index) => {
+            {breadcrumbs.map((link, index) => {
                 return (
                     <Fragment key={link.text}>
                         {index > 0 && <span>/</span>}

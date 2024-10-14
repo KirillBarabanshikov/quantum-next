@@ -1,4 +1,5 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { dehydrate, QueryClient } from '@tanstack/query-core';
+import { HydrationBoundary } from '@tanstack/react-query';
 
 import { categoryApi } from '@/entities/category';
 

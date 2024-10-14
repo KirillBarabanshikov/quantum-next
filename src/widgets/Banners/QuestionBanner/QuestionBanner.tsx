@@ -3,7 +3,8 @@
 import clsx from 'clsx';
 import { FC, useState } from 'react';
 
-import { Button, Input, Modal, Textarea } from '@/shared/ui';
+import { LeaveQuestionModal } from '@/features/question';
+import { Button } from '@/shared/ui';
 
 import styles from './QuestionBanner.module.scss';
 
@@ -27,6 +28,7 @@ export const QuestionBanner: FC<IQuestionBannerProps> = ({ className }) => {
                     <Button
                         variant={'outline'}
                         theme={'white'}
+                        fullWidth
                         onClick={() => setIsOpen(true)}
                         className={styles.button}
                     >
@@ -34,14 +36,7 @@ export const QuestionBanner: FC<IQuestionBannerProps> = ({ className }) => {
                     </Button>
                 </div>
             </div>
-            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} maxWidth={450} title={'Остались вопросы?'}>
-                <form className={styles.form}>
-                    <Input label={'Имя'} placeholder={'Иван'} extent={'md'} />
-                    <Input label={'E-mail'} placeholder={'example@email.com'} extent={'md'} />
-                    <Textarea label={'Ваш вопрос'} placeholder={'Введите ваш вопрос'} />
-                    <Button>Ответить</Button>
-                </form>
-            </Modal>
+            <LeaveQuestionModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
         </section>
     );
 };

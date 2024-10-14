@@ -28,7 +28,7 @@
 
         .titleWrap {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             margin-bottom: 24px;
 
@@ -36,9 +36,14 @@
                 font-weight: 500;
                 font-size: 24px;
                 line-height: 15.84px;
+
+                @media screen and (max-width: 992px) {
+                    font-size: 18px;
+                }
             }
 
             svg {
+                color: var(--color-blue-tertiary);
                 cursor: pointer;
             }
         }

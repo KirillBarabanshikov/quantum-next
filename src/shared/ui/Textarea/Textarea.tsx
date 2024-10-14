@@ -17,15 +17,17 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>(
         return (
             <div className={clsx(styles.textareaWrap, error && styles.isError, className)}>
                 {label && (
-                    <label htmlFor={id} className={styles.label}>
-                        {label}
-                    </label>
+                    <div className={styles.labelWrap}>
+                        <label htmlFor={id} className={styles.label}>
+                            {label}
+                        </label>
+                    </div>
                 )}
-                <textarea id={id} className={styles.textarea} ref={ref} {...props} />
+                <textarea ref={ref} {...props} className={styles.textarea} />
                 {error && <div className={styles.error}>{error}</div>}
             </div>
         );
     },
 );
 
-Textarea.displayName = 'Input';
+Textarea.displayName = 'Textarea';

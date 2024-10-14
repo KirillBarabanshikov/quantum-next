@@ -1,1 +1,2 @@
-export { HeaderLinks } from './HeaderLinks';
+export { Links } from './Links';
+export { Menu } from './Menu';

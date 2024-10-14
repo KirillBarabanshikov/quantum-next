@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChangeEvent, useRef, useState } from 'react';
 
 import { productApi } from '@/entities/product';
-import ClearIcon from '@/shared/assets/icons/clear.svg';
+import CrossIcon from '@/shared/assets/icons/cross.svg';
 import SearchIcon from '@/shared/assets/icons/search.svg';
 import { useDebounce, useOutsideClick } from '@/shared/hooks';
 import { Portal } from '@/shared/ui';
@@ -28,10 +28,10 @@ export const Search = () => {
 
     const { debouncedFunction: refetchDebouncedProducts } = useDebounce(refetch, 500);
 
-    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeSearch = async (e: ChangeEvent<HTMLInputElement>) => {
         if (!isOpen) setIsOpen(true);
         setSearchValue(e.target.value);
-        refetchDebouncedProducts();
+        await refetchDebouncedProducts();
     };
 
     const clear = () => {
@@ -55,7 +55,7 @@ export const Search = () => {
                         ref={searchRef}
                         className={styles.input}
                     />
-                    {searchValue && <ClearIcon className={styles.clearIcon} onClick={clear} />}
+                    {searchValue && <CrossIcon className={styles.clearIcon} onClick={clear} />}
                     <SearchIcon className={styles.searchIcon} />
                 </div>
                 <AnimatePresence>

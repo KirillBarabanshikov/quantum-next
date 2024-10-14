@@ -1,6 +1,6 @@
 .newCollectionBanner {
     .newCollectionBannerContainer {
-        background-image: url('../../../shared/assets/images/banners/new_collection_banner_bg.jpg');
+        background-image: url('../../../shared/assets/images/new_collection_banner_bg.jpg');
         background-size: cover;
         padding: 137px 108px 128px;
         border-radius: 20px;
@@ -21,35 +21,57 @@
         }
 
         .button {
-            min-width: 220px;
+            max-width: 220px;
         }
+    }
+}
 
-        @media screen and (max-width: 768px) {
-            display: flex;
-            flex-direction: column;
-            padding: 24px 16px;
-            min-height: 365px;
-            background-position: right;
+@media screen and (max-width: 992px) {
+    .newCollectionBanner {
+        .newCollectionBannerContainer {
+            padding: 55px 64px;
+            min-height: 280px;
 
             .title {
                 font-size: 32px;
+                line-height: 1;
+                margin-bottom: 24px;
             }
 
             .description {
                 font-size: 14px;
-                line-height: 16.8px;
+                max-width: 444px;
+                margin-bottom: 40px;
+            }
+
+            .button {
+                max-width: 164px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .newCollectionBanner {
+        .newCollectionBannerContainer {
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            min-height: 350px;
+
+            .title {
+                margin-bottom: 30px;
+            }
+
+            .description {
+                font-size: 14px;
                 max-width: unset;
                 flex: 1;
             }
 
             .button {
-                width: 100%;
+                max-width: unset;
             }
-        }
-
-        @media screen and (max-width: 576px) {
-            background-image: url('../../../shared/assets/images/banners/new_collection_banner_bg.jpg');
-            background-position: bottom;
         }
     }
 }

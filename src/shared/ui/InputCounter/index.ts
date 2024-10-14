@@ -1,1 +1,0 @@
-export { InputCounter } from './InputCounter';

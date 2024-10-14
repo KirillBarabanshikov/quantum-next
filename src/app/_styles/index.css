@@ -1,0 +1,130 @@
+@import 'colors.css';
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+}
+
+body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+
+    background-color: var(--color-white);
+    color: var(--color-dark-blue);
+
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+
+    overflow-x: hidden;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+input,
+textarea,
+button {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+    background-color: transparent;
+    color: inherit;
+}
+
+ol,
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 500;
+}
+
+.container {
+    max-width: 1280px;
+    padding: 0 80px;
+    margin: 0 auto;
+    box-sizing: content-box;
+}
+
+.page {
+    padding-top: 24px;
+    padding-bottom: 160px;
+}
+
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+}
+
+.title {
+    font-size: 38px;
+}
+
+.scrollbar-hide {
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    width: 0;
+}
+
+@media screen and (max-width: 992px) {
+    .container {
+        padding: 0 40px;
+    }
+
+    .page {
+        padding-bottom: 60px;
+    }
+
+    .sections {
+        gap: 60px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0 14px;
+    }
+}
