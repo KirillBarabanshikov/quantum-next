@@ -14,12 +14,17 @@ import { useMediaQuery, useStore } from '@/shared/hooks';
 
 import styles from './Header.module.scss';
 import { Links, Menu } from './ui';
+import { FC } from 'react';
 
-export const HeaderClient = () => {
+interface IHeaderClientProps {
+    className?: string;
+}
+
+export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
 
     return (
-        <>
+        <div className={className}>
             <Links />
             <header className={styles.header}>
                 <div className={'container'}>
@@ -44,7 +49,7 @@ export const HeaderClient = () => {
                     </div>
                 </div>
             </header>
-        </>
+        </div>
     );
 };
 

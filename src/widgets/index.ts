@@ -6,3 +6,4 @@ export { Header } from './Header';
 export { MobileNavbar } from './MobileNavbar';
 export { ProductsCarousel } from './ProductsCarousel';
 export { ProductsList } from './ProductsList';
+export { SideNavigation } from './SideNavigation';

@@ -9,15 +9,20 @@ import Icon from '@/shared/assets/icons/telegram.svg';
 import Logo from '@/shared/assets/logo_light.svg';
 
 import styles from './Footer.module.scss';
+import { FC } from 'react';
 
-export const FooterClient = () => {
+interface IFooterClientProps {
+    className?: string;
+}
+
+export const FooterClient: FC<IFooterClientProps> = ({ className }) => {
     const { data: categories } = useQuery({
         queryKey: ['categories'],
         queryFn: categoryApi.fetchCategories,
     });
 
     return (
-        <footer className={styles.footer}>
+        <footer className={clsx(styles.footer, className)}>
             <div className={'container'}>
                 <Link href={'/'} className={styles.logo}>
                     <Logo />
@@ -48,16 +53,16 @@ export const FooterClient = () => {
                                 <Link href={`/`} className={styles.link}>
                                     О компании
                                 </Link>
-                                <Link href={`/`} className={styles.link}>
+                                <Link href={`/service-center`} className={styles.link}>
                                     Сервисный центр
                                 </Link>
-                                <Link href={`/`} className={styles.link}>
+                                <Link href={`/delivery-payment`} className={styles.link}>
                                     Доставка и оплата
                                 </Link>
-                                <Link href={`/`} className={styles.link}>
+                                <Link href={`/warranty-return`} className={styles.link}>
                                     Гарантии и возврат
                                 </Link>
-                                <Link href={`/`} className={styles.link}>
+                                <Link href={`/contacts`} className={styles.link}>
                                     Контакты
                                 </Link>
                             </div>
@@ -77,10 +82,10 @@ export const FooterClient = () => {
                 </div>
                 <div className={styles.contacts}>
                     <div className={styles.links}>
-                        <Link href={'/'} className={styles.hint}>
+                        <Link href={'/privacy-policy'} className={styles.hint}>
                             Политика конфиденциальности
                         </Link>
-                        <Link href={'/'} className={styles.hint}>
+                        <Link href={'/public-offer'} className={styles.hint}>
                             Публичная оферта
                         </Link>
                     </div>

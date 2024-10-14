@@ -1,0 +1,33 @@
+.sideNavigation {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 305px;
+
+    .sideNavigationItem {
+        display: flex;
+        align-items: center;
+        height: 49px;
+        border-radius: 14px;
+        padding: 0 14px;
+
+        font-weight: 500;
+        font-size: 16px;
+
+        transition:
+            background-color 300ms ease-out,
+            color 300ms ease-out;
+
+        &.active {
+            color: var(--color-blue-accent);
+            background-color: var(--color-grey);
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                color: var(--color-blue-accent);
+                background-color: var(--color-grey);
+            }
+        }
+    }
+}

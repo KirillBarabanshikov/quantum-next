@@ -39,13 +39,13 @@ export const MobileMenu: FC<IMobileMenuProps> = ({ onClose }) => {
                 <Link href={'/'} className={styles.link}>
                     О компании
                 </Link>
-                <Link href={'/'} className={styles.link}>
+                <Link href={'/delivery-payment'} className={styles.link}>
                     Доставка и оплата
                 </Link>
-                <Link href={'/'} className={styles.link}>
+                <Link href={'/warranty-return'} className={styles.link}>
                     Гарантии
                 </Link>
-                <Link href={'/'} className={styles.link}>
+                <Link href={'/contacts'} className={styles.link}>
                     Контакты
                 </Link>
             </div>

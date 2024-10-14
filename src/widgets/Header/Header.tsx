@@ -4,8 +4,13 @@ import { HydrationBoundary } from '@tanstack/react-query';
 import { categoryApi } from '@/entities/category';
 
 import { HeaderClient } from './HeaderClient';
+import { FC } from 'react';
 
-export const Header = async () => {
+interface IHeaderProps {
+    className?: string;
+}
+
+export const Header: FC<IHeaderProps> = async ({ className }) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
@@ -15,7 +20,7 @@ export const Header = async () => {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <HeaderClient />
+            <HeaderClient className={className} />
         </HydrationBoundary>
     );
 };
