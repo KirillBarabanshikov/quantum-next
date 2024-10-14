@@ -1,1 +1,1 @@
-export { OrderCallForm } from './orderCall/ui/OrderCallForm/OrderCallForm';
+export { OrderCallForm } from './orderCall';

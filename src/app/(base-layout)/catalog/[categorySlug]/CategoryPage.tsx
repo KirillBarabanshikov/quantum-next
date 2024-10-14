@@ -51,7 +51,11 @@ export const CategoryPage = () => {
     const handleLoadMore = async () => {
         const currentPage = page + 1;
         setPage(currentPage);
-        const products = await productApi.fetchProducts({ page: currentPage, categoryId: categorySlug, sort });
+        const products = await productApi.fetchProducts({
+            page: currentPage,
+            categoryId: categorySlug,
+            sort,
+        });
         setProductsList((prev) => [...prev, ...(products || [])]);
     };
 
@@ -76,9 +80,11 @@ export const CategoryPage = () => {
                             />
                         </div>
                         <ProductsList products={productsList} isLoading={isLoading} className={styles.productsList} />
-                        <Button fullWidth onClick={handleLoadMore} className={styles.more}>
-                            Загрузить еще
-                        </Button>
+                        {!isLoading && productsList.length <= category!.total && (
+                            <Button fullWidth onClick={handleLoadMore} className={styles.more}>
+                                Загрузить еще
+                            </Button>
+                        )}
                     </div>
                 </div>
             </section>
