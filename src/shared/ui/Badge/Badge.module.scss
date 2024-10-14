@@ -1,0 +1,24 @@
+.badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    padding: 7px 10px;
+    width: min-content;
+    height: 30px;
+
+    .background {
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        opacity: 0.1;
+    }
+
+    .text {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 11px;
+        white-space: nowrap;
+    }
+}

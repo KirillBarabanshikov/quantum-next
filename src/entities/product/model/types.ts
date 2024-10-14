@@ -31,6 +31,14 @@ interface IProductCharacteristic {
     id: number;
     title?: string;
     value: string;
+    categoryCharacteristic: {
+        id: number;
+        title: string;
+        measurement: string;
+        filterType: string;
+        modification: false;
+        additionalId: '';
+    };
 }
 
 interface IProductAdditionalCharacteristic {
