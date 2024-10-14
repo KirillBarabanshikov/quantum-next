@@ -63,8 +63,16 @@
     }
 
     &:disabled {
-        background-color: var(--color-blue-tertiary) !important;
-        color: var(--color-white) !important;
+        &.solid {
+            background-color: var(--color-blue-tertiary) !important;
+            color: var(--color-white) !important;
+        }
+
+        &.outline {
+            outline: 1px solid var(--color-blue-tertiary);
+            color: var(--color-blue-tertiary);
+        }
+
         cursor: not-allowed;
     }
 }

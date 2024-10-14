@@ -8,10 +8,12 @@ import BagIcon from '@/shared/assets/icons/cart.svg';
 import GradeIcon from '@/shared/assets/icons/star.svg';
 import Logo from '@/shared/assets/logo_light.svg';
 import { MAX_WIDTH_MD } from '@/shared/consts';
-import { useMediaQuery } from '@/shared/hooks';
+import { useMediaQuery, useStore } from '@/shared/hooks';
 
 import styles from './Header.module.scss';
 import { Links, Menu } from './ui';
+import { useCartStore } from '@/entities/cart';
+import { useFavoritesStore } from '@/entities/favorites';
 
 export const HeaderClient = () => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
@@ -32,13 +34,8 @@ export const HeaderClient = () => {
                             </div>
                         </div>
                         <div className={styles.options}>
-                            <Link href={'/cart'} className={styles.option}>
-                                <BagIcon />
-                                <span className={styles.badge}>0</span>
-                            </Link>
-                            <Link href={'/favorites'} scroll={false} className={styles.option}>
-                                <GradeIcon />
-                            </Link>
+                            <CartOption />
+                            <FavoritesOption />
                             <Link href={'/'} scroll={false} className={styles.option}>
                                 <AccountIcon />
                             </Link>
@@ -48,5 +45,27 @@ export const HeaderClient = () => {
                 </div>
             </header>
         </>
+    );
+};
+
+const CartOption = () => {
+    const store = useStore(useCartStore, (state) => state);
+
+    return (
+        <Link href={'/cart'} className={styles.option}>
+            <BagIcon />
+            {!!store?.productsIds.length && <span className={styles.badge}>{store?.productsIds.length}</span>}
+        </Link>
+    );
+};
+
+const FavoritesOption = () => {
+    const store = useStore(useFavoritesStore, (state) => state);
+
+    return (
+        <Link href={'/favorites'} scroll={false} className={styles.option}>
+            <GradeIcon />
+            {!!store?.productsIds.length && <span className={styles.badge}>{store?.productsIds.length}</span>}
+        </Link>
     );
 };

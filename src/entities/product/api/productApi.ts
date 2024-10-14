@@ -24,6 +24,15 @@ export const fetchProducts = async (params: IProductParams = {}): Promise<IProdu
     }
 };
 
+export const fetchProductById = async (id: number | string): Promise<IProduct | undefined> => {
+    try {
+        const response = await apiClient.get<IProduct>(`/articles/${id}`);
+        return mapProduct(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export const fetchNewProducts = async (): Promise<IProduct[] | undefined> => {
     try {
         const response = await apiClient.get<IProduct[]>('/articles/new');

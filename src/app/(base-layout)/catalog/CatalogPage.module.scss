@@ -1,0 +1,17 @@
+.catalogPage {
+    padding-top: 60px;
+
+    .title {
+        margin-bottom: 40px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .catalogPage {
+        padding-top: 24px;
+
+        .title {
+            margin-bottom: 24px;
+        }
+    }
+}

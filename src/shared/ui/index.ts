@@ -4,3 +4,6 @@ export { Input } from './Input';
 export { Modal } from './Modal';
 export { Portal } from './Portal';
 export { Textarea } from './Textarea';
+export { Breadcrumbs } from './Breadcrumbs';
+export { Dropdown } from './Dropdown';
+export { Skeleton } from './Skeleton';

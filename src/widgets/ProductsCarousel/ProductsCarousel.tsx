@@ -20,19 +20,17 @@ export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, products, 
             <div className={'container'}>
                 <h2 className={clsx(styles.title, 'title')}>{title}</h2>
             </div>
-            <Swiper
-                slidesPerView={'auto'}
-                breakpoints={{ 0: { spaceBetween: 10 }, 993: { spaceBetween: 20 } }}
-                className={'container'}
-            >
-                {products?.map((product) => {
-                    return (
-                        <SwiperSlide key={product.id} className={styles.slide}>
-                            <ProductCard product={product} />
-                        </SwiperSlide>
-                    );
-                })}
-            </Swiper>
+            <div className={'container'}>
+                <Swiper slidesPerView={'auto'} breakpoints={{ 0: { spaceBetween: 10 }, 993: { spaceBetween: 20 } }}>
+                    {products?.map((product) => {
+                        return (
+                            <SwiperSlide key={product.id} className={styles.slide}>
+                                <ProductCard product={product} />
+                            </SwiperSlide>
+                        );
+                    })}
+                </Swiper>
+            </div>
         </section>
     );
 };
