@@ -50,3 +50,12 @@ export const fetchPopularProducts = async (): Promise<IProduct[] | undefined> =>
         console.error(error);
     }
 };
+
+export const fetchProductsByIds = async (ids: number[]): Promise<IProduct[] | undefined> => {
+    try {
+        const response = await apiClient.get<IProduct[]>('/articlesByIds', { params: { ids } });
+        return response.data.map(mapProduct);
+    } catch (error) {
+        console.error(error);
+    }
+};

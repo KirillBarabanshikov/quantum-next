@@ -6,5 +6,6 @@ export { Dropdown } from './Dropdown';
 export { Input } from './Input';
 export { Modal } from './Modal';
 export { Portal } from './Portal';
+export { Radio } from './Radio';
 export { Skeleton } from './Skeleton';
 export { Textarea } from './Textarea';

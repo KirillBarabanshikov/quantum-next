@@ -75,6 +75,12 @@ h5 {
     font-weight: 500;
 }
 
+input[type='checkbox'],
+input[type='radio'],
+input[type='file'] {
+    display: none;
+}
+
 .container {
     max-width: 1280px;
     padding: 0 80px;

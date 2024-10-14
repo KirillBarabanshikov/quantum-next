@@ -11,16 +11,17 @@ import styles from './ProductsCarousel.module.scss';
 interface IProductsCarouselProps {
     title: string;
     products?: IProduct[];
+    withContainer?: boolean;
     className?: string;
 }
 
-export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, products, className }) => {
+export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, products, withContainer = true, className }) => {
     return (
         <section className={clsx(styles.productsCarouselWrap, className)}>
-            <div className={'container'}>
+            <div className={clsx(withContainer && 'container')}>
                 <h2 className={clsx(styles.title, 'title')}>{title}</h2>
             </div>
-            <div className={'container'}>
+            <div className={clsx(withContainer && 'container')}>
                 <Swiper slidesPerView={'auto'} breakpoints={{ 0: { spaceBetween: 10 }, 993: { spaceBetween: 20 } }}>
                     {products?.map((product) => {
                         return (
