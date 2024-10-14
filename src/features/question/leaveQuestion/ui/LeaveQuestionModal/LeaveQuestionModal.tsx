@@ -1,7 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@tanstack/react-query';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { apiClient } from '@/shared/api';
 import { Button, Input, Modal, Textarea } from '@/shared/ui';
 
 import { leaveQuestionScheme, TLeaveQuestionScheme } from '../../model';
@@ -20,13 +22,22 @@ export const LeaveQuestionModal: FC<ILeaveQuestionModalProps> = ({ isOpen, onClo
         reset,
     } = useForm<TLeaveQuestionScheme>({ resolver: yupResolver(leaveQuestionScheme) });
 
+    const { mutateAsync } = useMutation({
+        mutationFn: async (body: TLeaveQuestionScheme) => await apiClient.post('/forms', body),
+    });
+
     const handleClose = () => {
         onClose();
         reset();
     };
 
-    const onSubmit = (data: TLeaveQuestionScheme) => {
-        console.log(data);
+    const onSubmit = async (data: TLeaveQuestionScheme) => {
+        try {
+            await mutateAsync(data);
+            handleClose();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

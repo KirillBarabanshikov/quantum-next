@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { categoryApi } from '@/entities/category';
 import { IProduct, productApi } from '@/entities/product';
 import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
-import { ProductsList } from '@/widgets';
+import { CallBanner, ProductsList } from '@/widgets';
 
 import styles from './CategoryPage.module.scss';
 
@@ -82,6 +82,7 @@ export const CategoryPage = () => {
                     </div>
                 </div>
             </section>
+            <CallBanner />
         </div>
     );
 };
