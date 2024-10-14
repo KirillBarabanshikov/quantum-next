@@ -1,6 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 
+import { apiClient } from '@/shared/api';
 import { maskPhone } from '@/shared/lib';
 import { Button, Input } from '@/shared/ui';
 
@@ -14,10 +16,20 @@ export const OrderCallForm = () => {
         handleSubmit,
         trigger,
         setValue,
+        reset,
     } = useForm<TOrderCallScheme>({ resolver: yupResolver(orderCallScheme) });
 
-    const onSubmit = (data: TOrderCallScheme) => {
-        console.log(data);
+    const { mutateAsync } = useMutation({
+        mutationFn: async (body: TOrderCallScheme) => await apiClient.post('/persons', body),
+    });
+
+    const onSubmit = async (data: TOrderCallScheme) => {
+        try {
+            await mutateAsync(data);
+            reset();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
