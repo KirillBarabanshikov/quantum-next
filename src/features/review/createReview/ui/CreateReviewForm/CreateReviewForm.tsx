@@ -50,9 +50,9 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId }) => {
                 <div className={styles.label}>{rating > 0 && ratingLabels[rating - 1]}</div>
             </div>
             <div className={styles.fieldsWrap}>
-                <Input label={'Достоинства'} extent={'md'} {...register('pros')} />
-                <Input label={'Недостатки'} extent={'md'} {...register('cons')} />
-                <Input label={'Комментарий к отзыву'} extent={'md'} {...register('comment')} />
+                <Input label={'Достоинства'} {...register('pros')} />
+                <Input label={'Недостатки'} {...register('cons')} />
+                <Input label={'Комментарий к отзыву'} {...register('comment')} />
             </div>
             <File
                 title={'Добавьте фотографии'}

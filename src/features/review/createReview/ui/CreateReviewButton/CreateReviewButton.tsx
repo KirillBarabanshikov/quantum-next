@@ -1,7 +1,7 @@
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 
-import { useSessionStore } from '@/entities/session';
+// import { useSessionStore } from '@/entities/session';
 import { Button, Modal } from '@/shared/ui';
 
 import { CreateReviewForm } from '../CreateReviewForm';
@@ -12,11 +12,11 @@ interface ICreateReviewButtonProps {
 
 export const CreateReviewButton: FC<ICreateReviewButtonProps> = ({ productId }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const router = useRouter();
-    const { isAuthenticated } = useSessionStore();
+    // const router = useRouter();
+    // const { isAuthenticated } = useSessionStore();
 
     const handleClick = () => {
-        isAuthenticated ? setIsOpen(true) : router.push('?authentication=signin', { scroll: false });
+        // isAuthenticated ? setIsOpen(true) : router.push('?authentication=signin', { scroll: false });
     };
 
     return (
