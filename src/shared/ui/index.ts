@@ -5,6 +5,7 @@ export { Button } from './Button';
 export { Checkbox } from './Checkbox';
 export { Dropdown } from './Dropdown';
 export { Input } from './Input';
+export { InputCounter } from './InputCounter';
 export { Modal } from './Modal';
 export { Portal } from './Portal';
 export { Radio } from './Radio';

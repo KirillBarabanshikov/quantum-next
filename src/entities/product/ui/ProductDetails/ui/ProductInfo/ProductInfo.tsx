@@ -10,8 +10,7 @@ import ShareIcon from '@/shared/assets/icons/share.svg';
 import GradeIcon from '@/shared/assets/icons/star.svg';
 import { useStore } from '@/shared/hooks';
 import { priceFormat } from '@/shared/lib';
-import { Badge, Button } from '@/shared/ui';
-import { InputCounter } from '@/shared/ui/InputCounter';
+import { Badge, Button, InputCounter } from '@/shared/ui';
 
 import styles from './ProductInfo.module.scss';
 

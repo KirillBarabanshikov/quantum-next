@@ -7,8 +7,7 @@ import { IProduct } from '@/entities/product';
 import StarIcon from '@/shared/assets/icons/star.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
 import { priceFormat } from '@/shared/lib';
-import { Checkbox } from '@/shared/ui';
-import { InputCounter } from '@/shared/ui/InputCounter';
+import { Checkbox, InputCounter } from '@/shared/ui';
 
 import styles from './CartProduct.module.scss';
 
