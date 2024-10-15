@@ -40,7 +40,7 @@ export const Search = () => {
         searchRef.current.focus();
     };
 
-    const open = isOpen && !!searchValue && !!products?.length;
+    const open = isOpen && !!searchValue && !!products?.products.length;
 
     return (
         <>
@@ -62,7 +62,7 @@ export const Search = () => {
                     {open && (
                         <motion.div className={styles.searchResult}>
                             <div className={styles.searchList}>
-                                {products?.map((product) => (
+                                {products?.products.map((product) => (
                                     <SearchItem
                                         key={product.id}
                                         product={product}

@@ -4,7 +4,9 @@ import { mapProduct } from '../lib';
 import { IProduct } from '../model';
 import { IProductParams } from './types';
 
-export const fetchProducts = async (params: IProductParams = {}): Promise<IProduct[] | undefined> => {
+export const fetchProducts = async (
+    params: IProductParams = {},
+): Promise<{ products: IProduct[]; total: number } | undefined> => {
     try {
         const response = await apiClient.get<IProduct[]>('/articles', {
             params: {
@@ -18,7 +20,11 @@ export const fetchProducts = async (params: IProductParams = {}): Promise<IProdu
                 price: params.price,
             },
         });
-        return response.data.map(mapProduct);
+
+        return {
+            products: response.data.map(mapProduct),
+            total: response.headers['articles-total'],
+        };
     } catch (error) {
         console.error(error);
     }

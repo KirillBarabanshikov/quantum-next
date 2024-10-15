@@ -44,7 +44,7 @@ export const CategoryPage = () => {
 
     useEffect(() => {
         if (!products) return;
-        setProductsList(products);
+        setProductsList(products.products);
         setPage(1);
     }, [products]);
 
@@ -56,7 +56,7 @@ export const CategoryPage = () => {
             categoryId: categorySlug,
             sort,
         });
-        setProductsList((prev) => [...prev, ...(products || [])]);
+        setProductsList((prev) => [...prev, ...(products?.products || [])]);
     };
 
     return (
@@ -80,7 +80,7 @@ export const CategoryPage = () => {
                             />
                         </div>
                         <ProductsList products={productsList} isLoading={isLoading} className={styles.productsList} />
-                        {!isLoading && productsList.length <= category!.total && (
+                        {products && products.total > productsList.length && (
                             <Button fullWidth onClick={handleLoadMore} className={styles.more}>
                                 Загрузить еще
                             </Button>
