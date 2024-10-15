@@ -1,0 +1,19 @@
+.recoverForm {
+    margin: 0 0 18px 0;
+
+    .hint {
+        display: inline-block;
+        font-weight: 500;
+        font-size: 14px;
+        color: var(--color-blue-tertiary);
+        max-width: 323px;
+    }
+
+    .input {
+        margin: 24px 0;
+    }
+
+    .button {
+        margin-top: 24px;
+    }
+}

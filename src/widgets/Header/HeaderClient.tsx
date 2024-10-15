@@ -41,7 +41,7 @@ export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
                         <div className={styles.options}>
                             <CartOption />
                             <FavoritesOption />
-                            <Link href={'/'} scroll={false} className={styles.option}>
+                            <Link href={'/cabinet'} scroll={false} prefetch={false} className={styles.option}>
                                 <AccountIcon />
                             </Link>
                         </div>
