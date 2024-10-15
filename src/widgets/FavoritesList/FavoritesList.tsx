@@ -2,7 +2,7 @@
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-import { useFavoritesStore } from '@/entities/favorites';
+import { useFavoritesStore } from '@/entities/product';
 import { productApi } from '@/entities/product';
 import StarIcon from '@/shared/assets/icons/star.svg';
 import { Dropdown } from '@/shared/ui';

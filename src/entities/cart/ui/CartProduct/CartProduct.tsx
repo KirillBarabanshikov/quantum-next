@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { ChangeEvent, FC } from 'react';
 
 import { useCartStore } from '@/entities/cart';
-import { useFavoritesStore } from '@/entities/favorites';
+import { useFavoritesStore } from '@/entities/product';
 import { IProduct } from '@/entities/product';
 import StarIcon from '@/shared/assets/icons/star.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';

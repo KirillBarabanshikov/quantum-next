@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { useFavoritesStore } from '@/entities/favorites';
+import { useFavoritesStore } from '@/entities/product';
 import { AddToCartButton } from '@/features/cart';
 import GradeIcon from '@/shared/assets/icons/start_outline.svg';
 import { useStore } from '@/shared/hooks';

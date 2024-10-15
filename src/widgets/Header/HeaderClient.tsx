@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import { useCartStore } from '@/entities/cart';
-import { useFavoritesStore } from '@/entities/favorites';
+import { useFavoritesStore } from '@/entities/product';
 import { Search } from '@/features/search';
 import AccountIcon from '@/shared/assets/icons/account.svg';
 import BagIcon from '@/shared/assets/icons/cart.svg';

@@ -31,3 +31,34 @@ export const useFavoritesStore = create<IFavoritesStore>()(
         ),
     ),
 );
+
+interface IRecentState {
+    productsIds: number[];
+    addToRecent: (id: number) => void;
+}
+
+export const useRecentStore = create<IRecentState>()(
+    devtools(
+        persist(
+            (set, get) => ({
+                productsIds: [],
+                addToRecent: (productId) => {
+                    let recentProductsIds = get().productsIds;
+
+                    if (recentProductsIds.find((id) => id === productId)) {
+                        recentProductsIds = recentProductsIds.filter((id) => id !== productId);
+                    }
+
+                    if (recentProductsIds.length >= 10) {
+                        recentProductsIds = recentProductsIds.slice(0, -1);
+                    }
+
+                    set({ productsIds: [productId, ...recentProductsIds] });
+                },
+            }),
+            {
+                name: 'recent',
+            },
+        ),
+    ),
+);

@@ -7,4 +7,5 @@ export { Header } from './Header';
 export { MobileNavbar } from './MobileNavbar';
 export { ProductsCarousel } from './ProductsCarousel';
 export { ProductsList } from './ProductsList';
+export { RecentProduct } from './RecentsProducts';
 export { SideNavigation } from './SideNavigation';

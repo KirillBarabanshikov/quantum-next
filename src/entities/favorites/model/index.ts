@@ -1,1 +1,0 @@
-export { useFavoritesStore } from './store';
