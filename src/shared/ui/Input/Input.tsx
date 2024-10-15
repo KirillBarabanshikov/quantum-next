@@ -8,12 +8,13 @@ import styles from './Input.module.scss';
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     error?: string;
+    hint?: string;
     suffixSlot?: ReactNode;
     variant?: 'default' | 'dark';
 }
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>(
-    ({ label, error, suffixSlot, variant = 'default', type = 'text', className, ...props }, ref) => {
+    ({ label, error, hint, suffixSlot, variant = 'default', type = 'text', className, ...props }, ref) => {
         const id = useId();
 
         return (
@@ -23,6 +24,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
                         <label htmlFor={id} className={styles.label}>
                             {label}
                         </label>
+                        {hint && <span className={styles.hint}>{hint}</span>}
                     </div>
                 )}
                 <div className={styles.inputContainer}>

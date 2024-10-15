@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@tanstack/react-query';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-// import { useSignUpMutation } from '@/entities/session';
+import { sessionApi } from '@/entities/session';
 import { maskPhone } from '@/shared/lib';
 import { Button, Input } from '@/shared/ui';
 
@@ -14,7 +15,6 @@ interface ISignUpForm {
 }
 
 export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
-    // const { mutateAsync: signUp } = useSignUpMutation();
     const {
         register,
         handleSubmit,
@@ -23,10 +23,11 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
         setValue,
     } = useForm<TSignUpFormScheme>({ resolver: yupResolver(signUpFormScheme), mode: 'all' });
 
+    const { mutateAsync: signUp, isPending } = useMutation({ mutationFn: sessionApi.signUp });
+
     const onSubmit = async (data: TSignUpFormScheme) => {
         try {
-            console.log(data);
-            // await signUp(data);
+            await signUp(data);
             setIsSuccess(true);
         } catch (error) {
             console.error(error);
@@ -37,8 +38,7 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
         <form onSubmit={handleSubmit(onSubmit)} className={styles.signupForm}>
             <Input
                 label={'Логин'}
-                // hint={'допускаются только латинские буквы и цифры'}
-                // extent={'md'}
+                hint={'допускаются только латинские буквы и цифры'}
                 autoComplete={'username'}
                 {...register('username')}
                 error={errors.username?.message}
@@ -46,7 +46,6 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
             <Input
                 label={'Телефон'}
                 placeholder={'+7 (495) 000 00 00'}
-                // extent={'md'}
                 {...register('phone', {
                     onChange: (e) => {
                         setValue('phone', maskPhone(e.target.value));
@@ -59,7 +58,6 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
                 type={'email'}
                 label={'E-mail'}
                 placeholder={'example@email.com'}
-                // extent={'md'}
                 autoComplete={'email'}
                 {...register('email')}
                 error={errors.email?.message}
@@ -67,8 +65,7 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
             <Input
                 type={'password'}
                 label={'Пароль'}
-                // hint={'пароль должен быть не менее 6 символов и содержать цифры'}
-                // extent={'md'}
+                hint={'пароль должен быть не менее 6 символов и содержать цифры'}
                 autoComplete={'current-password'}
                 {...register('password', {
                     onChange: () => {
@@ -81,7 +78,6 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
             <Input
                 type={'password'}
                 label={'Подтверждение пароля'}
-                // extent={'md'}
                 autoComplete={'current-password'}
                 {...register('passwordRepeat', {
                     onChange: () => {
@@ -94,7 +90,9 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
             <div className={styles.hint}>
                 Ссылка для входа в личный кабинет будет отправлена на вашу электронную почту.
             </div>
-            <Button type={'submit'}>ЗАРЕГИСТРИРОВАТЬСЯ</Button>
+            <Button type={'submit'} disabled={isPending}>
+                ЗАРЕГИСТРИРОВАТЬСЯ
+            </Button>
         </form>
     );
 };

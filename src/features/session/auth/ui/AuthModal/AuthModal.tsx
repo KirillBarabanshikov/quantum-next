@@ -26,14 +26,14 @@ export const AuthModal: FC = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (!searchParams.get('authentication') || !((searchParams.get('authentication') || '') in formNames)) return;
-        setCurrentForm(searchParams.get('authentication') as TFormName);
+        if (!searchParams.get('auth') || !((searchParams.get('auth') || '') in formNames)) return;
+        setCurrentForm(searchParams.get('auth') as TFormName);
         setIsOpen(true);
     }, [searchParams]);
 
     const handleClose = () => {
         const params = new URLSearchParams(searchParams.toString());
-        params.delete('authentication');
+        params.delete('auth');
         router.replace(`?${params}`, { scroll: false });
         setIsOpen(false);
         setIsSuccess(false);
@@ -41,20 +41,15 @@ export const AuthModal: FC = () => {
 
     const handleChangeForm = (name: TFormName) => {
         setCurrentForm(name);
-        router.push(`?authentication=${name}`, { scroll: false });
+        router.push(`?auth=${name}`, { scroll: false });
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={handleClose}>
+        <Modal isOpen={isOpen} onClose={handleClose} maxWidth={470}>
             {currentForm === 'signin' ? (
                 <>
                     <div className={styles.title}>Авторизация</div>
-                    <SignInForm
-                        onClose={() => {
-                            setIsOpen(false);
-                            setIsSuccess(false);
-                        }}
-                    />
+                    <SignInForm />
                     <span className={styles.recovery} onClick={() => handleChangeForm('recovery')}>
                         Восстановить пароль
                     </span>
@@ -63,31 +58,13 @@ export const AuthModal: FC = () => {
                     </Button>
                 </>
             ) : currentForm === 'signup' ? (
-                isSuccess ? (
-                    <>
-                        <div className={styles.title}>Проверьте вашу почту</div>
-                        <div className={styles.hint}>
-                            Направили письмо с ссылкой для входа в личный кабинет на вашу электронную почту.
-                        </div>
-                        <Button
-                            fullWidth
-                            onClick={() => {
-                                handleChangeForm('signin');
-                                setIsSuccess(false);
-                            }}
-                        >
-                            ВОЙТИ
-                        </Button>
-                    </>
-                ) : (
-                    <>
-                        <div className={styles.title}>Регистрация</div>
-                        <SignUpForm setIsSuccess={setIsSuccess} />
-                        <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
-                            ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
-                        </Button>
-                    </>
-                )
+                <>
+                    <div className={styles.title}>Регистрация</div>
+                    <SignUpForm setIsSuccess={() => setCurrentForm('signin')} />
+                    <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
+                        ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
+                    </Button>
+                </>
             ) : isSuccess ? (
                 <>
                     <div className={styles.title}>Проверьте вашу почту</div>

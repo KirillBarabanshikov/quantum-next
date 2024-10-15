@@ -3,3 +3,9 @@
     flex-direction: column;
     gap: 20px;
 }
+
+.error {
+    text-align: center;
+    color: var(--color-red-accent);
+    font-size: 14px;
+}

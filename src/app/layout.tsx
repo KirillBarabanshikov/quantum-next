@@ -3,7 +3,9 @@ import 'swiper/css/pagination';
 import './_styles/index.css';
 
 import type { Metadata } from 'next';
-import React from 'react';
+import React, { Suspense } from 'react';
+
+import { AuthModal } from '@/features/session/auth';
 
 import { QueryProvider } from './_providers/QueryProvider';
 import { gilroy } from './_styles/fonts';
@@ -21,7 +23,12 @@ export default function RootLayout({
     return (
         <html lang='ru'>
             <body className={gilroy.className}>
-                <QueryProvider>{children}</QueryProvider>
+                <QueryProvider>
+                    {children}
+                    <Suspense fallback={<div />}>
+                        <AuthModal />
+                    </Suspense>
+                </QueryProvider>
                 <div id={'portal'} />
             </body>
         </html>

@@ -28,7 +28,6 @@ export const RecoverForm: FC<IRecoverFormProps> = ({ setIsSuccess }) => {
     });
 
     const onSubmit = async (data: TRecoverScheme) => {
-        console.log(data);
         try {
             await recoverPassword(data.contact.includes('@') ? { email: data.contact } : { phone: data.contact });
             setIsSuccess(true);
