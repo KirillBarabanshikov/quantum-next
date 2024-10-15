@@ -15,7 +15,7 @@ export const SearchItem: FC<ISearchItemProps> = ({ product, onNavigate, searchVa
     const router = useRouter();
 
     const handleNavigate = () => {
-        router.push(`/product/${product.id}`);
+        router.push(`/catalog/${product.categoryId}/${product.id}`);
         onNavigate();
     };
 

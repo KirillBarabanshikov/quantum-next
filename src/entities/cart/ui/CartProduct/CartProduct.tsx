@@ -30,7 +30,7 @@ export const CartProduct: FC<ICartProductProps> = ({ product, count, selected, s
         <div className={styles.cartProduct}>
             <Checkbox className={styles.checkbox} checked={selected} onChange={handleSelect} />
             <Image
-                src={product.images[0]?.image}
+                src={product.images[0]?.image || '/'}
                 alt={product.title}
                 width={128}
                 height={114}

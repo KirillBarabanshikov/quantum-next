@@ -39,7 +39,7 @@ export const FavoritesList = () => {
 
     return (
         <div className={styles.favoritesWrap}>
-            <Dropdown options={options} value={''} onChange={() => {}} />
+            {!isLoading && <Dropdown options={options} value={''} onChange={() => {}} />}
             <ProductsList products={products} isLoading={isLoading} />
         </div>
     );
