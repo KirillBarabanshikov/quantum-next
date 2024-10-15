@@ -26,7 +26,7 @@ export async function POST(request: Request) {
         secure: true,
         sameSite: 'strict',
         path: '/',
-        maxAge: 60 * 60,
+        maxAge: 30 * 24 * 60 * 60,
     });
 
     return NextResponse.json({ message: 'Login successful' });

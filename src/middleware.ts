@@ -4,6 +4,11 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function middleware(request: NextRequest) {
     const cookieStore = cookies();
     const token = cookieStore.get('token')?.value;
+    const password = cookieStore.get('password')?.value;
+
+    if (!password && request.nextUrl.pathname !== '/password') {
+        return NextResponse.redirect(new URL('/password', request.url));
+    }
 
     if (request.nextUrl.pathname.startsWith('/cabinet')) {
         if (!token) {
