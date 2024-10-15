@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { productApi, ProductDetails, useRecentStore } from '@/entities/product';
-import { CallBanner } from '@/widgets';
+import { CallBanner, RecentProduct } from '@/widgets';
 
 export const ProductPage = () => {
     const { productSlug, categorySlug } = useParams<{ productSlug: string; categorySlug: string }>();
@@ -30,6 +30,7 @@ export const ProductPage = () => {
     return (
         <div className={'page sections'}>
             <ProductDetails product={product!} category={category!} />
+            <RecentProduct />
             <CallBanner />
         </div>
     );

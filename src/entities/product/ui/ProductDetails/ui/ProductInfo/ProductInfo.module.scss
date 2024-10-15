@@ -111,14 +111,17 @@
         }
     }
 
-    .actions {
+    .buttons {
         display: flex;
-        gap: 11px;
+        gap: 10px;
 
         .shareButton {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            min-width: 177px;
         }
     }
+}
+
+.favorite {
+    background-color: var(--color-dark-blue) !important;
+    color: var(--color-white) !important;
 }

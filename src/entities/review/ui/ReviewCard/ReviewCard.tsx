@@ -3,8 +3,8 @@ import { FC } from 'react';
 
 import { IReview } from '@/entities/review';
 import DislikeIcon from '@/shared/assets/icons/dislike.svg';
-import StarIcon from '@/shared/assets/icons/grade-outline.svg';
 import LikeIcon from '@/shared/assets/icons/like.svg';
+import StarIcon from '@/shared/assets/icons/start_outline.svg';
 
 import styles from './ReviewCard.module.scss';
 

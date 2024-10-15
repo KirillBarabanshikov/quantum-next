@@ -1,12 +1,14 @@
+'use client';
+
 import clsx from 'clsx';
 import { FC } from 'react';
 
 import { ICategory } from '@/entities/category';
 import { IProduct } from '@/entities/product';
+import { ProductInfo, ProductSlider, ProductTabs } from '@/entities/product/ui/ProductDetails/ui';
 import { Breadcrumbs } from '@/shared/ui';
 
 import styles from './ProductDetails.module.scss';
-import { ProductInfo, ProductSlider } from './ui';
 
 const breadcrumbs = [
     { text: 'Главная', href: '/' },
@@ -34,6 +36,7 @@ export const ProductDetails: FC<IProductDetailsProps> = ({ product, category }) 
                 </div>
                 <ProductInfo product={product} />
             </section>
+            <ProductTabs product={product} />
         </div>
     );
 };

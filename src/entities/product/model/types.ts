@@ -1,3 +1,4 @@
+import { IReview } from '@/entities/review';
 import { IImage } from '@/shared/types';
 
 export interface IProduct {
@@ -54,18 +55,4 @@ interface IProductModification {
         articleId: number;
         measurement?: string;
     }[];
-}
-
-interface IReview {
-    id: number;
-    user: {
-        id: number;
-        username: string;
-    };
-    rating: number;
-    pros: string;
-    cons: string;
-    comment: string;
-    images: FileList;
-    videos: FileList;
 }
