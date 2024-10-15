@@ -180,7 +180,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                 <Button fullWidth onClick={() => handleAddToCart(product.id)}>
                     {inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
                 </Button>
-                <InputCounter />
+                <InputCounter max={product.count} />
                 {/*<IconButton*/}
                 {/*    radius={'full'}*/}
                 {/*    onClick={handleAddToFavorite}*/}

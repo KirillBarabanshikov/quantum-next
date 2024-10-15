@@ -19,7 +19,7 @@ interface IProductDetailsProps {
     product: IProduct;
     category: ICategory;
 }
-
+// TODO Нормально сделать
 export const ProductDetails: FC<IProductDetailsProps> = ({ product, category }) => {
     return (
         <div className={styles.productDetails}>
