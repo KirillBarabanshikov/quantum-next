@@ -17,10 +17,11 @@ export const CartPage = () => {
     const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
     const { products, removeFromCart } = useCartStore();
     const router = useRouter();
+    const productsIds = products.map((product) => product.id);
 
     const { data: cartProducts, isLoading } = useQuery({
-        queryKey: ['cart', [...products.map((product) => product.id)]],
-        queryFn: () => productApi.fetchProductsByIds(products.map((product) => product.id)),
+        queryKey: ['cart', productsIds.length],
+        queryFn: () => productApi.fetchProductsByIds(productsIds),
         placeholderData: keepPreviousData,
     });
 
