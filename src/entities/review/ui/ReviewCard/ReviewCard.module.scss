@@ -52,6 +52,16 @@
                 font-size: 14px;
             }
         }
+
+        .media {
+            display: flex;
+            gap: 10px;
+
+            .image {
+                object-fit: cover;
+                border-radius: 10px;
+            }
+        }
     }
 
     .feedbackWrap {

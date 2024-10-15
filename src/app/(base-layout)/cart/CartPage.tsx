@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { useAuth } from '@/app/_providers/AuthProvider';
 import { CartProduct, useCartStore } from '@/entities/cart';
 import { productApi } from '@/entities/product';
 import Ellipse from '@/shared/assets/icons/ellipse.svg';
@@ -18,6 +19,7 @@ export const CartPage = () => {
     const { products, removeFromCart } = useCartStore();
     const router = useRouter();
     const productsIds = products.map((product) => product.id);
+    const { isAuthenticated } = useAuth();
 
     const { data: cartProducts, isLoading } = useQuery({
         queryKey: ['cart', productsIds.length],
@@ -98,16 +100,18 @@ export const CartPage = () => {
                     <div className={styles.placeholder}>
                         <div className={styles.placeholderTitle}>Корзина пуста</div>
                         <p>
-                            Перейдите в каталог, чтобы добавить товары в корзину. Или авторизуйтесь, чтобы посмотреть
-                            уже добавленные товары.
+                            Перейдите в каталог, чтобы добавить товары в корзину.
+                            {!isAuthenticated && 'Или авторизуйтесь, чтобы посмотреть уже добавленные товары.'}
                         </p>
                         <div className={styles.buttons}>
                             <Button variant={'solid'} fullWidth onClick={() => router.push('/catalog')}>
                                 Продолжить покупки
                             </Button>
-                            <Button variant={'outline'} fullWidth>
-                                Войти
-                            </Button>
+                            {!isAuthenticated && (
+                                <Button variant={'outline'} fullWidth>
+                                    Войти
+                                </Button>
+                            )}
                         </div>
                     </div>
                 )}

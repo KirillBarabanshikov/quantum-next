@@ -23,7 +23,7 @@ export const SignInForm: FC = () => {
     const onSubmit = async (data: TSignInFormScheme) => {
         try {
             await signIn(data);
-            window.location.href = '/cabinet';
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }

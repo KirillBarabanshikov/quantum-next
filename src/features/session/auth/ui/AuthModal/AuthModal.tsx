@@ -18,7 +18,11 @@ const formNames: Record<TFormName, string> = {
     recovery: 'Восстановить пароль',
 };
 
-export const AuthModal: FC = () => {
+interface IAuthModalProps {
+    isAuthenticated: boolean;
+}
+
+export const AuthModal: FC<IAuthModalProps> = ({ isAuthenticated }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [currentForm, setCurrentForm] = useState<TFormName>('signin');
     const [isSuccess, setIsSuccess] = useState(false);
@@ -26,10 +30,15 @@ export const AuthModal: FC = () => {
     const router = useRouter();
 
     useEffect(() => {
+        if (isAuthenticated) {
+            handleClose();
+            return;
+        }
+
         if (!searchParams.get('auth') || !((searchParams.get('auth') || '') in formNames)) return;
         setCurrentForm(searchParams.get('auth') as TFormName);
         setIsOpen(true);
-    }, [searchParams]);
+    }, [searchParams, isAuthenticated]);
 
     const handleClose = () => {
         const params = new URLSearchParams(searchParams.toString());

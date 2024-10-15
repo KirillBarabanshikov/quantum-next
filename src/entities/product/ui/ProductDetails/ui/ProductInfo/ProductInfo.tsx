@@ -21,6 +21,7 @@ interface IProductInfoProps {
 // TODO Переписать модификации
 export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
     const [selectedModifications, setSelectedModifications] = useState<string[]>([]);
+    const [copied, setCopied] = useState(false);
     const cartStore = useStore(useCartStore, (state) => state);
     // const store = useStore(useFavoritesStore, (state) => state);
     const router = useRouter();
@@ -55,6 +56,19 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
     // const handleAddToFavorite = () => {
     //     isFavorite ? store?.removeFromFavorites(product.id) : store?.addToFavorites(product.id);
     // };
+
+    const copyUrl = () => {
+        const currentUrl = window.location.href;
+        navigator.clipboard
+            .writeText(currentUrl)
+            .then(() => {
+                setCopied(true);
+                console.log('url скопирован');
+            })
+            .catch((err) => {
+                console.error('не', err);
+            });
+    };
 
     return (
         <div className={styles.productInfo}>
@@ -174,7 +188,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                 {/*>*/}
                 {/*    <GradeIcon />*/}
                 {/*</IconButton>*/}
-                <Button variant={'outline'} className={styles.shareButton}>
+                <Button variant={copied ? 'solid' : 'outline'} onClick={copyUrl} className={styles.shareButton}>
                     Поделиться
                     <ShareIcon />
                 </Button>

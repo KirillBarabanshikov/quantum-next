@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import { FC } from 'react';
 
 import { IReview } from '@/entities/review';
@@ -6,6 +7,7 @@ import DislikeIcon from '@/shared/assets/icons/dislike.svg';
 import LikeIcon from '@/shared/assets/icons/like.svg';
 import StarIcon from '@/shared/assets/icons/start_outline.svg';
 
+import image from './image.png';
 import styles from './ReviewCard.module.scss';
 
 interface IReviewCardProps {
@@ -43,6 +45,11 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                     <div className={styles.review}>
                         <div className={styles.title}>Комментарий</div>
                         <div className={styles.text}>{review.comment}</div>
+                    </div>
+                )}
+                {review.images && (
+                    <div className={styles.media}>
+                        <Image src={image.src} width={130} height={160} alt={'media'} className={styles.image} />
                     </div>
                 )}
             </div>

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { FC } from 'react';
 
+import { useAuth } from '@/app/_providers/AuthProvider';
 import { useCartStore } from '@/entities/cart';
 import { useFavoritesStore } from '@/entities/product';
 import { Search } from '@/features/search';
@@ -22,6 +23,7 @@ interface IHeaderClientProps {
 
 export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+    const { isAuthenticated } = useAuth();
 
     return (
         <div className={className}>
@@ -41,7 +43,12 @@ export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
                         <div className={styles.options}>
                             <CartOption />
                             <FavoritesOption />
-                            <Link href={'/cabinet'} scroll={false} prefetch={false} className={styles.option}>
+                            <Link
+                                href={isAuthenticated ? '/cabinet' : '?auth=signin'}
+                                scroll={false}
+                                prefetch={false}
+                                className={styles.option}
+                            >
                                 <AccountIcon />
                             </Link>
                         </div>

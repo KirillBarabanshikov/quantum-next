@@ -116,6 +116,9 @@
         gap: 10px;
 
         .shareButton {
+            display: flex;
+            align-items: center;
+            gap: 5px;
             min-width: 177px;
         }
     }

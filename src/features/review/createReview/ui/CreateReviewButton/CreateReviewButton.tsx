@@ -1,5 +1,7 @@
+import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 
+import { useAuth } from '@/app/_providers/AuthProvider';
 import { Button, Modal } from '@/shared/ui';
 
 import { CreateReviewForm } from '../CreateReviewForm';
@@ -10,9 +12,11 @@ interface ICreateReviewButtonProps {
 
 export const CreateReviewButton: FC<ICreateReviewButtonProps> = ({ productId }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const { isAuthenticated } = useAuth();
+    const router = useRouter();
 
     const handleClick = () => {
-        setIsOpen(true);
+        isAuthenticated ? setIsOpen(true) : router.push('?auth=signin', { scroll: false });
     };
 
     return (

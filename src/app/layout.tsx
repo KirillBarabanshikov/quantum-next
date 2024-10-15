@@ -3,8 +3,10 @@ import 'swiper/css/pagination';
 import './_styles/index.css';
 
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import React, { Suspense } from 'react';
 
+import { AuthProvider } from '@/app/_providers/AuthProvider';
 import { AuthModal } from '@/features/session/auth';
 
 import { QueryProvider } from './_providers/QueryProvider';
@@ -20,14 +22,21 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const cookieStore = cookies();
+    const token = cookieStore.get('token')?.value;
+
+    const isAuthenticated = !!token;
+
     return (
         <html lang='ru'>
             <body className={gilroy.className}>
                 <QueryProvider>
-                    {children}
-                    <Suspense fallback={<div />}>
-                        <AuthModal />
-                    </Suspense>
+                    <AuthProvider isAuthenticated={isAuthenticated}>
+                        {children}
+                        <Suspense fallback={<div />}>
+                            <AuthModal isAuthenticated={isAuthenticated} />
+                        </Suspense>
+                    </AuthProvider>
                 </QueryProvider>
                 <div id={'portal'} />
             </body>

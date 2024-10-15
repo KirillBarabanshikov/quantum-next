@@ -22,7 +22,6 @@ export async function POST(request: Request) {
 
     const cookieStore = cookies();
     cookieStore.set('token', token, {
-        httpOnly: true,
         secure: true,
         sameSite: 'strict',
         path: '/',

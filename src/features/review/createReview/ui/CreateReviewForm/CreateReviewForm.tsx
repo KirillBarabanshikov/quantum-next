@@ -23,10 +23,13 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId }) => {
 
     const { mutateAsync: createReview, isPending } = useMutation({ mutationFn: reviewApi.createReview });
 
-    const { register, handleSubmit } = useForm<TCreateReviewScheme>({ resolver: yupResolver(createReviewScheme) });
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<TCreateReviewScheme>({ resolver: yupResolver(createReviewScheme) });
 
     const onSubmit = async (data: TCreateReviewScheme) => {
-        if (rating < 0) return;
         await createReview({ articleId: productId, ...data });
     };
 
@@ -52,19 +55,21 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId }) => {
             <div className={styles.fieldsWrap}>
                 <Input label={'Достоинства'} {...register('pros')} />
                 <Input label={'Недостатки'} {...register('cons')} />
-                <Input label={'Комментарий к отзыву'} {...register('comment')} />
+                <Input label={'Комментарий к отзыву'} {...register('comment')} error={errors.comment?.message} />
             </div>
             <File
                 title={'Добавьте фотографии'}
                 hint={'до 10 изображений в формате PNG, JPEG.'}
                 multiple
                 {...register('images')}
+                error={errors.images?.message}
             />
             <File
                 title={'Добавьте видео'}
                 hint={'до 3 видео длительностью не более 10 минут'}
                 multiple
                 {...register('videos')}
+                error={errors.videos?.message}
             />
             <Button type={'submit'} fullWidth disabled={isPending}>
                 Отправить отзыв
@@ -76,9 +81,10 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId }) => {
 interface IFileProps extends InputHTMLAttributes<HTMLInputElement> {
     title: string;
     hint: string;
+    error?: string;
 }
 
-const File = forwardRef<HTMLInputElement, IFileProps>(({ title, hint, ...props }, ref) => {
+const File = forwardRef<HTMLInputElement, IFileProps>(({ title, hint, error, ...props }, ref) => {
     return (
         <div className={styles.file}>
             <div className={styles.title}>{title}</div>
@@ -89,7 +95,7 @@ const File = forwardRef<HTMLInputElement, IFileProps>(({ title, hint, ...props }
                 </label>
                 <div>
                     <div className={styles.subtitle}>Нажмите на кнопку или перетащите фото в эту область</div>
-                    <div className={styles.hint}>{hint}</div>
+                    <div className={clsx(styles.hint, !!error && styles.error)}>{hint}</div>
                 </div>
             </div>
         </div>

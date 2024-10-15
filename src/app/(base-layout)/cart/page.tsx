@@ -1,5 +1,5 @@
 import { CartPage } from './CartPage';
 
-export default function Page() {
+export default async function Page() {
     return <CartPage />;
 }

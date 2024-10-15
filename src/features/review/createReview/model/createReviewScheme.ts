@@ -18,7 +18,7 @@ export const createReviewScheme = yup.object().shape({
     rating: yup.number().required(),
     pros: yup.string(),
     cons: yup.string(),
-    comment: yup.string().required(),
+    comment: yup.string().required('Пожалуйста, заполните обязательное поле'),
     images: yup
         .mixed<FileList>()
         .test('fileSize', 'Each file must be less than 2MB', (value) => {
@@ -47,7 +47,7 @@ export const createReviewScheme = yup.object().shape({
             const durationChecks = await Promise.all(
                 Array.from(value || []).map((file: File) => getVideoDuration(file)),
             );
-            return durationChecks.every((duration) => duration <= 600); // 600 секунд = 10 минут
+            return durationChecks.every((duration) => duration <= 600);
         }),
 });
 
