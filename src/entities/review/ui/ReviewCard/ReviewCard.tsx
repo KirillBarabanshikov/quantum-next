@@ -6,8 +6,8 @@ import { IReview } from '@/entities/review';
 import DislikeIcon from '@/shared/assets/icons/dislike.svg';
 import LikeIcon from '@/shared/assets/icons/like.svg';
 import StarIcon from '@/shared/assets/icons/start_outline.svg';
+import { API_URL } from '@/shared/consts';
 
-import image from './image.png';
 import styles from './ReviewCard.module.scss';
 
 interface IReviewCardProps {
@@ -49,7 +49,16 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                 )}
                 {review.images && (
                     <div className={styles.media}>
-                        <Image src={image.src} width={130} height={160} alt={'media'} className={styles.image} />
+                        {review.images?.map((image) => (
+                            <Image
+                                key={image.id}
+                                src={`${API_URL}${image?.image}`}
+                                width={130}
+                                height={160}
+                                alt={'media'}
+                                className={styles.image}
+                            />
+                        ))}
                     </div>
                 )}
             </div>

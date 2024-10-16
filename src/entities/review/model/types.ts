@@ -1,3 +1,5 @@
+import { IImage } from '@/shared/types';
+
 export interface IReview {
     id: number;
     user: {
@@ -8,6 +10,6 @@ export interface IReview {
     pros: string;
     cons: string;
     comment: string;
-    images: FileList;
-    videos: FileList;
+    images: IImage[];
+    videos: any[];
 }
