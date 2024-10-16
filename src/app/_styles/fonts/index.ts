@@ -13,7 +13,7 @@ export const gilroy = localFont({
             style: 'normal',
         },
         {
-            path: './Gilroy-SemiBold.ttf',
+            path: './Gilroy-Semibold.ttf',
             weight: '600',
             style: 'normal',
         },
