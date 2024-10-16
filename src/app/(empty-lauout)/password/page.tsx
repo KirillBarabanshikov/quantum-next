@@ -16,7 +16,7 @@ export default function Page() {
     const [email, setEmail] = useState('');
 
     const { mutateAsync } = useMutation({
-        mutationFn: async (email: string) => await apiClient.post('/forms', { email }),
+        mutationFn: async (email: string) => await apiClient.post('/form_emails', { email }),
     });
 
     const onSubmit = async () => {
