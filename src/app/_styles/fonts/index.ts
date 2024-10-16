@@ -8,17 +8,17 @@ export const gilroy = localFont({
             style: 'normal',
         },
         {
-            path: './GilRoy-Medium.ttf',
+            path: './Gilroy-Medium.ttf',
             weight: '500',
             style: 'normal',
         },
         {
-            path: './GilRoy-SemiBold.ttf',
+            path: './Gilroy-SemiBold.ttf',
             weight: '600',
             style: 'normal',
         },
         {
-            path: './GilRoy-Bold.ttf',
+            path: './Gilroy-Bold.ttf',
             weight: '700',
             style: 'normal',
         },
