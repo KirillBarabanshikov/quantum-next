@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     }
 
     const cookieStore = cookies();
-    cookieStore.set('password', 'good', {
+    cookieStore.set('password', 'password', {
         httpOnly: true,
         secure: true,
         sameSite: 'strict',
