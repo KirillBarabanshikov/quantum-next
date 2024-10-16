@@ -16,8 +16,9 @@ export interface IProduct {
     characteristics: IProductCharacteristic[];
     reviews: IReview[];
     additionalCharacteristics: IProductAdditionalCharacteristic[];
-    modifications: IProductModification[];
+    // modifications: IProductModification[];
     categoryId: number;
+    productId?: number;
 }
 
 interface IProductDescription {
@@ -48,7 +49,7 @@ interface IProductAdditionalCharacteristic {
     value?: string;
 }
 
-interface IProductModification {
+export interface IProductModification {
     title: string;
     values: {
         value: string;

@@ -1,11 +1,13 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { FC, Fragment, useEffect, useState } from 'react';
 
 import { useCartStore } from '@/entities/cart';
-import { IProduct } from '@/entities/product';
+import { IProduct, IProductModification } from '@/entities/product';
+import { apiClient } from '@/shared/api';
 import ShareIcon from '@/shared/assets/icons/share.svg';
 import GradeIcon from '@/shared/assets/icons/star.svg';
 import { useStore } from '@/shared/hooks';
@@ -29,15 +31,27 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
     const inCart = !!cartStore?.inCart(product.id);
     // const isFavorite = !!store?.isFavorite(product.id);
 
+    const { data: modifications } = useQuery({
+        queryKey: ['modifications', product.productId],
+        queryFn: async () => {
+            const response = await apiClient.get<IProductModification[]>(
+                `/articles/modifications?id=${product.productId}`,
+            );
+            return response.data;
+        },
+    });
+
     useEffect(() => {
+        if (!modifications) return;
+
         const values: string[] = [];
 
-        product.modifications?.forEach((modification) => {
+        modifications.forEach((modification) => {
             values.push(modification.values[0].value);
         });
 
         setSelectedModifications(values);
-    }, [product]);
+    }, [modifications]);
 
     const handleAddToCart = async (productId: number) => {
         // if (!isAuthenticated || !user) {
@@ -96,7 +110,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                     </div>
                 ))}
             </div>
-            {product.modifications?.map((modification) => {
+            {modifications?.map((modification) => {
                 const values: string[] = [];
 
                 return (
@@ -114,7 +128,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
 
                                     const isSelected: string[] = [];
 
-                                    product.modifications.forEach((mod) => {
+                                    modifications.forEach((mod) => {
                                         mod.values.forEach((v) => {
                                             if (v.articleId === product.id) {
                                                 isSelected.push(v.value);
@@ -128,10 +142,10 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                                             onClick={() => {
                                                 const ids: number[] = [];
                                                 const countMap: any = {};
-                                                // let mostFrequent = 0;
+                                                let mostFrequent = 0;
                                                 let maxCount = 0;
 
-                                                product.modifications.forEach((modification, i) => {
+                                                modifications.forEach((modification, i) => {
                                                     modification.values.forEach((val) => {
                                                         if (val.value === value.value) {
                                                             ids.push(val.articleId);
@@ -142,7 +156,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                                                     });
                                                 });
 
-                                                product.modifications.forEach((modification, i) => {
+                                                modifications.forEach((modification, i) => {
                                                     modification.values.forEach((val) => {
                                                         ids.forEach((id) => {
                                                             if (
@@ -153,14 +167,16 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
 
                                                                 if (countMap[id] > maxCount) {
                                                                     maxCount = countMap[id];
-                                                                    // mostFrequent = id;
+                                                                    mostFrequent = id;
                                                                 }
                                                             }
                                                         });
                                                     });
                                                 });
 
-                                                router.push(`/catalog/${product.categoryId}/${product.id}`);
+                                                router.push(`/catalog/${product.categoryId}/${mostFrequent}`, {
+                                                    scroll: false,
+                                                });
                                             }}
                                             className={clsx(
                                                 styles.equipment,
