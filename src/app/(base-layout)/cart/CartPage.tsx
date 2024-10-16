@@ -108,7 +108,11 @@ export const CartPage = () => {
                                 Продолжить покупки
                             </Button>
                             {!isAuthenticated && (
-                                <Button variant={'outline'} fullWidth>
+                                <Button
+                                    variant={'outline'}
+                                    fullWidth
+                                    onClick={() => router.push('?auth=signin', { scroll: false })}
+                                >
                                     Войти
                                 </Button>
                             )}
