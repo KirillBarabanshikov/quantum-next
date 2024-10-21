@@ -46,7 +46,7 @@ export const CartPage = () => {
 
     const totalCost =
         cartProducts?.reduce((acc, cur, currentIndex) => {
-            return (acc + cur.price) * products[currentIndex].count;
+            return acc + cur.price * products[currentIndex].count;
         }, 0) || 0;
 
     if (isLoading) return <></>;
