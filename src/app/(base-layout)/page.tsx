@@ -12,7 +12,7 @@ export default async function Page() {
     await Promise.all([
         queryClient.prefetchQuery({
             queryKey: ['categories'],
-            queryFn: categoryApi.fetchCategories,
+            queryFn: categoryApi.fetchCategoriesWithChildren,
         }),
         queryClient.prefetchQuery({
             queryKey: ['new-products'],

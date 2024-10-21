@@ -5,18 +5,18 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
-import { categoryApi, ICategory, ICategoryChildren } from '@/entities/category';
+import { categoryApi, ICategoryWithChildren } from '@/entities/category';
 import ArrowDown from '@/shared/assets/icons/arrow_down.svg';
 
 import styles from './DesktopMenu.module.scss';
 
 export const DesktopMenu = () => {
-    const [selectedCategory, setSelectedCategory] = useState<ICategory>();
+    const [selectedCategory, setSelectedCategory] = useState<ICategoryWithChildren>();
     const params = useParams<{ slug: string }>();
 
     const { data: categories } = useQuery({
         queryKey: ['categories'],
-        queryFn: categoryApi.fetchCategories,
+        queryFn: categoryApi.fetchCategoriesWithChildren,
     });
 
     useEffect(() => {
@@ -47,7 +47,7 @@ export const DesktopMenu = () => {
                 <div className={clsx(styles.menuCategory, 'scrollbar-hide')}>
                     <div className={styles.categoryTitle}>
                         {selectedCategory?.title}
-                        <span>{selectedCategory?.total} товара</span>
+                        {selectedCategory?.total && <span>{selectedCategory.total} товара</span>}
                     </div>
                     <div className={styles.categoryItems}>
                         {selectedCategory?.categories.map((item) => <CategoryItem key={item.id} item={item} />)}
@@ -59,7 +59,7 @@ export const DesktopMenu = () => {
 };
 
 interface ICategoryItemsListProps {
-    item: ICategoryChildren;
+    item: ICategoryWithChildren;
 }
 
 const CategoryItem: FC<ICategoryItemsListProps> = ({ item }) => {

@@ -1,13 +1,22 @@
 import { apiClient } from '@/shared/api';
 
-import { mapCategory } from '../lib';
-import { ICategory } from '../model';
-import { ICategoryDto } from './types';
+import { mapCategory, mapCategoryWithChildren } from '../lib';
+import { ICategory, ICategoryWithChildren } from '../model';
+import { ICategoryDto, ICategoryWithChildrenDto } from './types';
 
 export const fetchCategories = async (): Promise<ICategory[] | undefined> => {
     try {
-        const response = await apiClient.get<ICategoryDto[]>('/categories/with-children');
+        const response = await apiClient.get<ICategoryDto[]>('/categories/enters');
         return response.data.map(mapCategory);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const fetchCategoriesWithChildren = async (): Promise<ICategoryWithChildren[] | undefined> => {
+    try {
+        const response = await apiClient.get<ICategoryWithChildrenDto[]>('/categories/with-children');
+        return response.data.map(mapCategoryWithChildren);
     } catch (error) {
         console.error(error);
     }

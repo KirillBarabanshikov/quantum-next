@@ -14,7 +14,7 @@ export const Footer: FC<IFooterProps> = async ({ className }) => {
 
     await queryClient.prefetchQuery({
         queryKey: ['categories'],
-        queryFn: categoryApi.fetchCategories,
+        queryFn: categoryApi.fetchCategoriesWithChildren,
     });
 
     return (

@@ -10,7 +10,7 @@ import styles from './CatalogPage.module.scss';
 
 export const CatalogPage = () => {
     const { data: categories } = useQuery({
-        queryKey: ['categories'],
+        queryKey: ['categories-enters'],
         queryFn: categoryApi.fetchCategories,
     });
 

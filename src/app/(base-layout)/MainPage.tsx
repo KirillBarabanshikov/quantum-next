@@ -23,7 +23,7 @@ export const MainPage = () => {
 
     const { data: categories } = useQuery({
         queryKey: ['categories'],
-        queryFn: categoryApi.fetchCategories,
+        queryFn: categoryApi.fetchCategoriesWithChildren,
     });
 
     const { data: newProducts } = useQuery({

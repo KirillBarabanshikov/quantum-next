@@ -1,1 +1,1 @@
-export { mapCategory } from './mapCategory';
+export { mapCategory, mapCategoryWithChildren } from './mapCategory';

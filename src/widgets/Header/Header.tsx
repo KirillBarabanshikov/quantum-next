@@ -15,7 +15,7 @@ export const Header: FC<IHeaderProps> = async ({ className }) => {
 
     await queryClient.prefetchQuery({
         queryKey: ['categories'],
-        queryFn: categoryApi.fetchCategories,
+        queryFn: categoryApi.fetchCategoriesWithChildren,
     });
 
     return (

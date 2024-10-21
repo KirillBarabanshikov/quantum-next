@@ -18,7 +18,7 @@ interface IFooterClientProps {
 export const FooterClient: FC<IFooterClientProps> = ({ className }) => {
     const { data: categories } = useQuery({
         queryKey: ['categories'],
-        queryFn: categoryApi.fetchCategories,
+        queryFn: categoryApi.fetchCategoriesWithChildren,
     });
 
     return (

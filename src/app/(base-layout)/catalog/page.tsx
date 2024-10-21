@@ -9,7 +9,7 @@ export default async function Page() {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
-        queryKey: ['categories'],
+        queryKey: ['categories-enters'],
         queryFn: categoryApi.fetchCategories,
     });
 
