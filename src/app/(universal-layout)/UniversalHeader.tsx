@@ -19,7 +19,7 @@ export const UniversalHeader: FC<IUniversalHeaderProps> = ({ navItems, className
 
     return (
         <header className={clsx(styles.universalHeader, className)}>
-            {navItems.find((item) => item.href === pathname)?.title}
+            <span>{navItems.find((item) => item.href === pathname)?.title}</span>
             <button onClick={router.back} className={styles.close}>
                 <CloseIcon />
             </button>
