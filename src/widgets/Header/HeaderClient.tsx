@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -25,9 +26,9 @@ export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
     const { isAuthenticated } = useAuth();
 
     return (
-        <div className={className}>
+        <>
             <Links />
-            <header className={styles.header}>
+            <header className={clsx(styles.header, className)}>
                 <div className={'container'}>
                     <div className={styles.headerContent}>
                         <div className={styles.wrap}>
@@ -55,7 +56,7 @@ export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
                     </div>
                 </div>
             </header>
-        </div>
+        </>
     );
 };
 
