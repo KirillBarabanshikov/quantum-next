@@ -10,7 +10,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
 
     .logoWrap {
         display: flex;
@@ -25,13 +25,12 @@
     .linksList {
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        gap: 20px;
         flex: 1;
 
         .link {
             font-weight: 600;
             font-size: 16px;
-            line-height: 11px;
         }
     }
 
@@ -87,13 +86,12 @@
         .collapsibleList {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 15px;
             padding-top: 18px;
 
             a {
                 font-weight: 500;
                 font-size: 16px;
-                line-height: 11px;
                 color: var(--color-blue-tertiary);
             }
         }

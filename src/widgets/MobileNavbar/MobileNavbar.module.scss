@@ -1,56 +1,73 @@
 .mobileNavbar {
     position: fixed;
     z-index: 3;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+    left: 14px;
+    right: 14px;
+    bottom: 24px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: var(--color-white);
-    border-radius: 20px 20px 0 0;
-    padding: 22px 47.5px;
+    justify-content: center;
+    gap: 20px;
+    background-color: var(--color-dark-blue);
+    border-radius: 20px;
+    padding: 15px 18px;
 
-    .bottomNavbarItem {
+    .mobileNavbarItem {
         position: relative;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 27px;
-        height: 27px;
+        gap: 6px;
         color: var(--color-blue-tertiary);
 
         &.active {
-            color: var(--color-dark-blue);
-        }
-
-        svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            position: absolute;
-            top: -4px;
-            right: -9px;
-            min-width: 14px;
-            height: 14px;
-
-            background-color: var(--color-red-accent);
             color: var(--color-white);
-            border-radius: 10px;
-            padding: 0 3px;
+        }
 
-            font-weight: 600;
-            font-size: 10px;
+        .icon {
+            position: relative;
+
+            svg {
+                display: block;
+                width: 24px;
+                height: 24px;
+            }
+
+            .badge {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                position: absolute;
+                top: -4px;
+                right: -9px;
+                min-width: 14px;
+                height: 14px;
+
+                background-color: var(--color-red-accent);
+                color: var(--color-white);
+                border-radius: 10px;
+                padding: 0 3px;
+
+                font-weight: 600;
+                font-size: 10px;
+            }
+        }
+
+        .title {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 8px;
         }
     }
 
     @media screen and (min-width: 769px) {
         display: none;
+    }
+
+    @media screen and (max-width: 576px) {
+        gap: unset;
+        justify-content: space-between;
     }
 }
