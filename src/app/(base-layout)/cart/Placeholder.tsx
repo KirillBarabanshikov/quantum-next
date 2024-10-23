@@ -16,7 +16,7 @@ export const Placeholder = () => {
             <div className={styles.placeholderTitle}>Корзина пуста</div>
             <p>
                 Перейдите в каталог, чтобы добавить товары в корзину.
-                {!isAuthenticated && 'Или авторизуйтесь, чтобы посмотреть уже добавленные товары.'}
+                {!isAuthenticated && ' Или авторизуйтесь, чтобы посмотреть уже добавленные товары.'}
             </p>
             <div className={styles.buttons}>
                 <Button variant={'solid'} fullWidth onClick={() => router.push('/catalog')}>

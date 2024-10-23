@@ -12,6 +12,7 @@ interface IInputCounterProps {
     size?: 'sm' | 'md';
     onIncrement?: (count: number) => void;
     onDecrement?: (count: number) => void;
+    onChange?: (count: number) => void;
     defaultCount?: number;
     max?: number;
     className?: string;
@@ -21,6 +22,7 @@ export const InputCounter: FC<IInputCounterProps> = ({
     size = 'md',
     onIncrement,
     onDecrement,
+    onChange,
     defaultCount = 1,
     max,
     className,
@@ -45,7 +47,9 @@ export const InputCounter: FC<IInputCounterProps> = ({
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         let count = +e.target.value;
         if (max && count >= max) count = max;
+        if (count <= 1) count = 1;
         setCount(count);
+        onChange && onChange(count);
     };
 
     return (

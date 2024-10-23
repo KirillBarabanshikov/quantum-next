@@ -5,7 +5,6 @@ import { FC } from 'react';
 
 import { useAuth } from '@/app/_providers/AuthProvider';
 import { useCartStore } from '@/entities/cart';
-import { useFavoritesStore } from '@/entities/product';
 import { Search } from '@/features/search';
 import AccountIcon from '@/shared/assets/icons/account.svg';
 import BagIcon from '@/shared/assets/icons/cart.svg';
@@ -66,18 +65,15 @@ const CartOption = () => {
     return (
         <Link href={'/cart'} className={styles.option}>
             <BagIcon />
-            {!!store?.products.length && <span className={styles.badge}>{store?.products.length}</span>}
+            {!!store?.products.length && <span className={styles.badge}>{store.getCount()}</span>}
         </Link>
     );
 };
 
 const FavoritesOption = () => {
-    const store = useStore(useFavoritesStore, (state) => state);
-
     return (
         <Link href={'/favorites'} scroll={false} className={styles.option}>
             <GradeIcon />
-            {!!store?.productsIds.length && <span className={styles.badge}>{store?.productsIds.length}</span>}
         </Link>
     );
 };

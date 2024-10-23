@@ -6,7 +6,9 @@ interface ICartStore {
     addToCart: (id: number) => void;
     removeFromCart: (id: number) => void;
     decrementFromCart: (id: number) => void;
+    setCount: (id: number, count: number) => void;
     inCart: (id: number) => boolean;
+    getCount: () => number;
 }
 
 export const useCartStore = create<ICartStore>()(
@@ -14,6 +16,7 @@ export const useCartStore = create<ICartStore>()(
         persist(
             (set, get) => ({
                 products: [],
+                getCount: () => get().products.reduce((acc, cur) => acc + cur.count, 0),
                 addToCart: (id) => {
                     const currentProducts = get().products;
                     const product = currentProducts.find((product) => product.id === id);
@@ -39,6 +42,15 @@ export const useCartStore = create<ICartStore>()(
                     const updatedCart = get().products.map((product) => {
                         if (product.id === id) {
                             return { ...product, count: product.count - 1 };
+                        }
+                        return product;
+                    });
+                    set({ products: updatedCart });
+                },
+                setCount: (id, count) => {
+                    const updatedCart = get().products.map((product) => {
+                        if (product.id === id) {
+                            return { ...product, count };
                         }
                         return product;
                     });

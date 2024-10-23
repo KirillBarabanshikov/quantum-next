@@ -13,13 +13,13 @@ import styles from './CartProduct.module.scss';
 
 interface ICartProductProps {
     product: IProduct;
-    count?: number;
+    count: number;
     selected?: boolean;
     setSelected?: (checked: boolean) => void;
 }
 
 export const CartProduct: FC<ICartProductProps> = ({ product, count, selected, setSelected }) => {
-    const { removeFromCart, addToCart, decrementFromCart } = useCartStore();
+    const { removeFromCart, addToCart, decrementFromCart, setCount } = useCartStore();
     const { addToFavorites, removeFromFavorites, isFavorite } = useFavoritesStore();
 
     const handleSelect = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ export const CartProduct: FC<ICartProductProps> = ({ product, count, selected, s
             <div className={styles.body}>
                 <div className={styles.titleWrap}>
                     <div className={styles.title}>{product.title}</div>
-                    <div className={styles.price}>{priceFormat(product.price)}</div>
+                    <div className={styles.price}>{priceFormat(product.price * count)}</div>
                 </div>
                 <div className={styles.equipment}>Артикул: {product.number}</div>
                 <div className={styles.actionsWrap}>
@@ -61,6 +61,8 @@ export const CartProduct: FC<ICartProductProps> = ({ product, count, selected, s
                         defaultCount={count}
                         onIncrement={() => addToCart(product.id)}
                         onDecrement={() => decrementFromCart(product.id)}
+                        onChange={(count) => setCount(product.id, count)}
+                        max={product.count}
                     />
                 </div>
             </div>
