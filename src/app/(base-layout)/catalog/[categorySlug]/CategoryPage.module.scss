@@ -6,20 +6,28 @@
         margin-bottom: 40px;
     }
 
-    .catalog {
-        .sort {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
+    .catalogWrap {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
 
-        .productsList {
-            margin-bottom: 60px;
-        }
+        .catalog {
+            flex: 1;
 
-        .more {
-            margin: 0 auto;
-            max-width: 265px;
+            .sort {
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 20px;
+            }
+
+            .productsList {
+                margin-bottom: 60px;
+            }
+
+            .more {
+                margin: 0 auto;
+                max-width: 265px;
+            }
         }
     }
 }

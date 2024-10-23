@@ -1,0 +1,12 @@
+.filters {
+    width: 305px;
+    background-color: var(--color-grey);
+    padding: 10px 24px 24px 24px;
+    border-radius: 20px;
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+}

@@ -12,7 +12,7 @@ export const RecentProduct = () => {
         enabled: !!productsIds?.length,
     });
 
-    if (!productsIds.length) return <></>;
+    if (!products?.length) return <></>;
 
     return <ProductsCarousel title={'Вы смотрели'} products={products} />;
 };

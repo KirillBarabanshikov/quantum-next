@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { IProduct, productApi } from '@/entities/product';
+import { Filters } from '@/features/catalog';
 import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
 import { CallBanner, ProductsList } from '@/widgets';
 
@@ -70,21 +71,28 @@ export const CategoryPage = () => {
                         />
                         <h1 className={'title'}>{category?.title}</h1>
                     </div>
-                    <div className={styles.catalog}>
-                        <div className={styles.sort}>
-                            <Dropdown
-                                options={options}
-                                value={sort}
-                                onChange={(value) => setSort(value as string)}
-                                position={'right'}
+                    <div className={styles.catalogWrap}>
+                        <Filters />
+                        <div className={styles.catalog}>
+                            <div className={styles.sort}>
+                                <Dropdown
+                                    options={options}
+                                    value={sort}
+                                    onChange={(value) => setSort(value as string)}
+                                    position={'right'}
+                                />
+                            </div>
+                            <ProductsList
+                                products={productsList}
+                                isLoading={isLoading}
+                                className={styles.productsList}
                             />
+                            {products && products.total > productsList.length && (
+                                <Button fullWidth onClick={handleLoadMore} className={styles.more}>
+                                    Загрузить еще
+                                </Button>
+                            )}
                         </div>
-                        <ProductsList products={productsList} isLoading={isLoading} className={styles.productsList} />
-                        {products && products.total > productsList.length && (
-                            <Button fullWidth onClick={handleLoadMore} className={styles.more}>
-                                Загрузить еще
-                            </Button>
-                        )}
                     </div>
                 </div>
             </section>
