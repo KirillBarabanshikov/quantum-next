@@ -46,13 +46,14 @@ export const CartPage = () => {
     }, [selectedProducts, removeFromCart]);
 
     const totalCost = useMemo(() => {
-        return products.reduce((acc, cur, index) => {
-            if (!cartProducts) {
-                return acc;
+        return cartProducts?.reduce((acc, cur, index) => {
+            if (products[index]) {
+                return acc + cur.price * products[index].count;
             }
-            return acc + cartProducts[index]?.price * cur.count;
+
+            return acc + cur.price;
         }, 0);
-    }, [cartProducts]);
+    }, [cartProducts, products]);
 
     if (isLoading) return <></>;
 
