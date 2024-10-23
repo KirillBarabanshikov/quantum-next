@@ -97,3 +97,34 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .searchWrap {
+        .search {
+            height: 40px;
+
+            .input {
+                font-size: 16px;
+                padding: 0 45px 0 38px;
+            }
+
+            .clearIcon {
+                width: 14px;
+                height: 14px;
+                right: 12px;
+            }
+
+            .searchIcon {
+                left: 12px;
+                width: 14px;
+                height: 14px;
+                color: var(--color-blue-tertiary);
+            }
+        }
+
+        .searchResult {
+            top: 40px;
+            padding: 0 12px 6px 12px;
+        }
+    }
+}

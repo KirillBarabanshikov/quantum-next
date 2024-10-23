@@ -1,9 +1,10 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, FC, useRef, useState } from 'react';
 
 import { productApi } from '@/entities/product';
+import { useSearchStore } from '@/features/search';
 import CrossIcon from '@/shared/assets/icons/cross.svg';
 import SearchIcon from '@/shared/assets/icons/search.svg';
 import { useDebounce, useOutsideClick } from '@/shared/hooks';
@@ -12,11 +13,16 @@ import { Portal } from '@/shared/ui';
 import { SearchItem } from '../SearchItem/SearchItem';
 import styles from './Search.module.scss';
 
-export const Search = () => {
+interface ISearchProps {
+    autoFocus?: boolean;
+    className?: string;
+}
+
+export const Search: FC<ISearchProps> = ({ autoFocus, className }) => {
     const [searchValue, setSearchValue] = useState<string>('');
-    const [isOpen, setIsOpen] = useState(false);
     const searchWrapRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
     const searchRef = useRef<HTMLInputElement>(null);
+    const { isOpen, setIsOpen } = useSearchStore();
 
     const { data: products, refetch } = useQuery({
         queryKey: ['search', searchValue],
@@ -44,7 +50,7 @@ export const Search = () => {
 
     return (
         <>
-            <div className={clsx(styles.searchWrap, open && styles.isOpen)} ref={searchWrapRef}>
+            <div className={clsx(styles.searchWrap, className, open && styles.isOpen)} ref={searchWrapRef}>
                 <div className={styles.search}>
                     <input
                         type={'text'}
@@ -53,6 +59,7 @@ export const Search = () => {
                         onChange={onChangeSearch}
                         value={searchValue}
                         ref={searchRef}
+                        autoFocus={autoFocus}
                         className={styles.input}
                     />
                     {searchValue && <CrossIcon className={styles.clearIcon} onClick={clear} />}

@@ -17,7 +17,10 @@ interface IMobileMenuProps {
 }
 
 export const MobileMenu: FC<IMobileMenuProps> = ({ onClose }) => {
-    const { data: categories } = useQuery({ queryKey: ['categories'], queryFn: categoryApi.fetchCategories });
+    const { data: categories } = useQuery({
+        queryKey: ['categories'],
+        queryFn: categoryApi.fetchCategories,
+    });
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={styles.menu}>

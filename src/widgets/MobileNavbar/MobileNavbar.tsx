@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { useSearchStore } from '@/features/search';
 import AccountIcon from '@/shared/assets/icons/account.svg';
 import BagIcon from '@/shared/assets/icons/cart.svg';
 import CatalogIcon from '@/shared/assets/icons/catalog.svg';
@@ -23,13 +24,14 @@ const navItems = [
 
 export const MobileNavbar = () => {
     const pathname = usePathname();
+    const { isOpen, setIsOpen } = useSearchStore();
 
     return (
         <nav className={styles.mobileNavbar}>
             {navItems.map((item, index) => {
                 if (item.path === '/catalog' && pathname === '/') {
                     return (
-                        <div key={index} className={clsx(styles.mobileNavbarItem)}>
+                        <div key={index} onClick={() => setIsOpen(!isOpen)} className={clsx(styles.mobileNavbarItem)}>
                             <div className={styles.icon}>
                                 <SearchIcon />
                             </div>

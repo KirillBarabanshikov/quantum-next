@@ -6,7 +6,7 @@ import { FC } from 'react';
 
 import { useAuth } from '@/app/_providers/AuthProvider';
 import { useCartStore } from '@/entities/cart';
-import { Search } from '@/features/search';
+import { Search, useSearchStore } from '@/features/search';
 import AccountIcon from '@/shared/assets/icons/account.svg';
 import BagIcon from '@/shared/assets/icons/cart.svg';
 import GradeIcon from '@/shared/assets/icons/star.svg';
@@ -24,6 +24,7 @@ interface IHeaderClientProps {
 export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
     const { isAuthenticated } = useAuth();
+    const { isOpen } = useSearchStore();
 
     return (
         <>
@@ -52,7 +53,12 @@ export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
                                 <AccountIcon />
                             </Link>
                         </div>
-                        {isMatch && <Menu />}
+                        {isMatch && (
+                            <>
+                                <Menu />
+                                {isOpen && <Search autoFocus={true} className={styles.search} />}
+                            </>
+                        )}
                     </div>
                 </div>
             </header>

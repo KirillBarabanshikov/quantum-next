@@ -4,6 +4,7 @@
     z-index: 2;
 
     .headerContent {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -64,6 +65,14 @@
                     font-size: 8px;
                 }
             }
+        }
+
+        .search {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            right: 16px;
+            width: unset;
         }
     }
 }
