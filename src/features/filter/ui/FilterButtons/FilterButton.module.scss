@@ -1,0 +1,29 @@
+.filterButtons {
+    padding: 16px 0;
+
+    .title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 18px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 34px;
+            padding: 12px;
+            border: 1px solid var(--color-grey);
+            border-radius: 10px;
+
+            &.selected {
+                border-color: var(--color-blue-accent);
+            }
+        }
+    }
+}
