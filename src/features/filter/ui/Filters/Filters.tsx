@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from 'react';
 import { filterApi } from '@/entities/filter';
 import { Button } from '@/shared/ui';
 
+import { FilterButtons } from '../FilterButtons';
 import { FilterDropdown } from '../FilterDropdown';
 import { FilterList } from '../FilterList';
 import { FilterRange } from '../FilterRange';
@@ -16,7 +17,7 @@ interface IFiltersProps {
 }
 
 export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
-    const [currentFilters, setCurrentFilters] = useState<Record<number, string[]>>({});
+    const [currentFilters, setCurrentFilters] = useState<Record<number, string[]> | undefined>(undefined);
 
     const { data: filters } = useQuery({
         queryKey: ['filters', categoryId],
@@ -41,30 +42,44 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
         setCurrentFilters((prev) => ({ ...prev, [filterId]: value }));
     };
 
+    console.log(currentFilters);
+
     return (
         <div className={clsx(styles.filters, className)}>
             <div className={styles.filtersList}>
-                {filters?.map((filter) => {
-                    if (filter.filterType === 'checkboxes' || filter.filterType === 'radio') {
-                        return <FilterList key={filter.id} filter={filter} className={styles.filter} />;
-                    }
-                    if (filter.filterType === 'range') {
-                        return <FilterRange key={filter.id} filter={filter} className={styles.filter} />;
-                    }
-                    if (filter.filterType === 'list' || filter.filterType === 'list-multiple') {
-                        return (
-                            <FilterDropdown
-                                key={filter.id}
-                                filter={filter}
-                                value={currentFilters[filter.id]}
-                                onChange={(value) => handleFilterChange(filter.id, value)}
-                                className={styles.filter}
-                            />
-                        );
-                    }
+                {currentFilters &&
+                    filters?.map((filter) => {
+                        if (filter.filterType === 'checkboxes' || filter.filterType === 'radio') {
+                            return (
+                                <FilterList
+                                    key={filter.id}
+                                    filter={filter}
+                                    value={currentFilters[filter.id]}
+                                    onChange={(value) => handleFilterChange(filter.id, value)}
+                                    className={styles.filter}
+                                />
+                            );
+                        }
+                        if (filter.filterType === 'range') {
+                            return <FilterRange key={filter.id} filter={filter} className={styles.filter} />;
+                        }
+                        if (filter.filterType === 'list' || filter.filterType === 'list-multiple') {
+                            return (
+                                <FilterDropdown
+                                    key={filter.id}
+                                    filter={filter}
+                                    value={currentFilters[filter.id]}
+                                    onChange={(value) => handleFilterChange(filter.id, value)}
+                                    className={styles.filter}
+                                />
+                            );
+                        }
+                        if (filter.filterType === 'buttons') {
+                            return <FilterButtons key={filter.id} filter={filter} className={styles.filter} />;
+                        }
 
-                    return <div key={filter.id}>{filter.title}</div>;
-                })}
+                        return <div key={filter.id}>{filter.title}</div>;
+                    })}
             </div>
             <div className={styles.buttons}>
                 <Button>Применить</Button>
