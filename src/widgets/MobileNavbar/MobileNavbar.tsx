@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { useCartStore } from '@/entities/cart';
 import { useSearchStore } from '@/features/search';
 import AccountIcon from '@/shared/assets/icons/account.svg';
 import BagIcon from '@/shared/assets/icons/cart.svg';
@@ -25,6 +26,7 @@ const navItems = [
 export const MobileNavbar = () => {
     const pathname = usePathname();
     const { isOpen, setIsOpen } = useSearchStore();
+    const { getCount } = useCartStore();
 
     return (
         <nav className={styles.mobileNavbar}>
@@ -48,7 +50,7 @@ export const MobileNavbar = () => {
                     >
                         <div className={styles.icon}>
                             {item.icon}
-                            {item.path === '/cart' && <span className={styles.badge}>0</span>}
+                            {item.path === '/cart' && <span className={styles.badge}>{getCount()}</span>}
                         </div>
                         <div className={styles.title}>{item.title}</div>
                     </Link>
