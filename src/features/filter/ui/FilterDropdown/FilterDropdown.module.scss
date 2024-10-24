@@ -1,0 +1,59 @@
+.filterDropdownWrap {
+    padding: 16px 0;
+
+    .filterDropdown {
+        background-color: var(--color-white);
+        border-radius: 10px;
+
+        .filterDropdownHeader {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            height: 34px;
+            cursor: pointer;
+
+            span {
+                font-size: 14px;
+                line-height: 10px;
+                font-weight: 500;
+            }
+        }
+
+        .filterBody {
+            overflow: hidden;
+
+            .filterContent {
+                padding: 4px 12px 10px 12px;
+
+                .list {
+                    display: flex;
+                    flex-direction: column;
+
+                    .filterItem {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 10px;
+                        height: 38px;
+                        padding: 14px;
+                        border-radius: 10px;
+                        transition: background-color 300ms;
+
+                        span {
+                            font-size: 14px;
+                            font-weight: 500;
+                        }
+
+                        @media (hover: hover) {
+                            &:hover {
+                                cursor: pointer;
+                                background-color: var(--color-grey);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

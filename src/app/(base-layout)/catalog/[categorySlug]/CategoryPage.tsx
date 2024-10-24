@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { IProduct, productApi } from '@/entities/product';
-import { Filters } from '@/features/catalog';
+import { Filters } from '@/features/filter';
 import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
 import { CallBanner, ProductsList } from '@/widgets';
 
@@ -72,7 +72,7 @@ export const CategoryPage = () => {
                         <h1 className={'title'}>{category?.title}</h1>
                     </div>
                     <div className={styles.catalogWrap}>
-                        <Filters />
+                        {category && <Filters categoryId={category.id} />}
                         <div className={styles.catalog}>
                             <div className={styles.sort}>
                                 <Dropdown

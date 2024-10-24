@@ -4,6 +4,16 @@
     padding: 10px 24px 24px 24px;
     border-radius: 20px;
 
+    .filtersList {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 24px;
+
+        .filter {
+            border-bottom: 1px solid #091b514d;
+        }
+    }
+
     .buttons {
         display: flex;
         flex-direction: column;
