@@ -6,9 +6,11 @@ import { filterApi } from '@/entities/filter';
 import { Button } from '@/shared/ui';
 
 import { FilterButtons } from '../FilterButtons';
+import { FilterColors } from '../FilterColors';
 import { FilterDropdown } from '../FilterDropdown';
 import { FilterList } from '../FilterList';
 import { FilterRange } from '../FilterRange';
+import { FilterSwitcher } from '../FilterSwitcher';
 import styles from './Filters.module.scss';
 
 interface IFiltersProps {
@@ -42,8 +44,6 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
         setCurrentFilters((prev) => ({ ...prev, [filterId]: value }));
     };
 
-    console.log(currentFilters);
-
     return (
         <div className={clsx(styles.filters, className)}>
             <div className={styles.filtersList}>
@@ -75,10 +75,40 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
                             );
                         }
                         if (filter.filterType === 'buttons') {
-                            return <FilterButtons key={filter.id} filter={filter} className={styles.filter} />;
+                            return (
+                                <FilterButtons
+                                    key={filter.id}
+                                    filter={filter}
+                                    value={currentFilters[filter.id]}
+                                    onChange={(value) => handleFilterChange(filter.id, value)}
+                                    className={styles.filter}
+                                />
+                            );
+                        }
+                        if (filter.filterType === 'switcher') {
+                            return (
+                                <FilterSwitcher
+                                    key={filter.id}
+                                    filter={filter}
+                                    value={currentFilters[filter.id]}
+                                    onChange={(value) => handleFilterChange(filter.id, value)}
+                                    className={styles.filter}
+                                />
+                            );
+                        }
+                        if (filter.filterType === 'colors') {
+                            return (
+                                <FilterColors
+                                    key={filter.id}
+                                    filter={filter}
+                                    value={currentFilters[filter.id]}
+                                    onChange={(value) => handleFilterChange(filter.id, value)}
+                                    className={styles.filter}
+                                />
+                            );
                         }
 
-                        return <div key={filter.id}>{filter.title}</div>;
+                        return <div key={filter.id}>{filter.filterType}</div>;
                     })}
             </div>
             <div className={styles.buttons}>

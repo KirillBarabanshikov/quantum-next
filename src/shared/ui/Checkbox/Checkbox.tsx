@@ -8,22 +8,13 @@ import styles from './Checkbox.module.scss';
 interface ICheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string | ReactNode;
     theme?: 'blue' | 'dark-blue';
-    variant?: string;
     error?: boolean;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>(
-    ({ label, theme = 'blue', className, variant, error, ...props }, ref) => {
+    ({ label, theme = 'blue', className, error, ...props }, ref) => {
         return (
-            <label
-                className={clsx(
-                    styles.wrap,
-                    styles[theme],
-                    className,
-                    variant === 'tabs' && styles.tabs,
-                    error && styles.error,
-                )}
-            >
+            <label className={clsx(styles.wrap, styles[theme], className, error && styles.error)}>
                 <input type='checkbox' ref={ref} {...props} />
                 <span className={styles.checkbox}>
                     <CheckboxIcon />

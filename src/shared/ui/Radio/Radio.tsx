@@ -5,7 +5,7 @@ import styles from './Radio.module.scss';
 
 interface IRadioProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
-    variant?: string;
+    variant?: 'filters';
 }
 
 export const Radio = forwardRef<HTMLInputElement, IRadioProps>(({ label, variant, className, ...props }, ref) => {

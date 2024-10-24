@@ -62,6 +62,7 @@ export const FilterList: FC<IFilterListProps> = ({ filter, value, onChange, clas
                                                 checked={value.includes(val)}
                                                 onChange={() => {}}
                                                 onClick={() => handleOnChange(val)}
+                                                variant={'filters'}
                                             />
                                         );
                                     }

@@ -1,0 +1,23 @@
+.switch {
+    width: 36px;
+    height: 20px;
+    border-radius: 12px;
+    padding: 2px;
+    background-color: var(--color-blue-secondary);
+    transition: background-color 150ms ease-out;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+
+    &.isOn {
+        background-color: var(--color-dark-blue);
+        justify-content: flex-end;
+    }
+
+    .handle {
+        width: 16px;
+        height: 16px;
+        border-radius: 16px;
+        background-color: var(--color-white);
+    }
+}

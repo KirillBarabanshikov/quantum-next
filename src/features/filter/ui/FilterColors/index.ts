@@ -1,0 +1,1 @@
+export { FilterColors } from './FilterColors';

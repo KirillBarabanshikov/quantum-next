@@ -2,17 +2,18 @@ import clsx from 'clsx';
 import { FC } from 'react';
 
 import { IFilter } from '@/entities/filter';
+import { Colorbox } from '@/shared/ui';
 
-import styles from './FilterButton.module.scss';
+import styles from './FilterColors.module.scss';
 
-export interface IFilterButtons {
+export interface IFilterColors {
     filter: IFilter;
     value: string[];
     onChange: (value: string[]) => void;
     className?: string;
 }
 
-export const FilterButtons: FC<IFilterButtons> = ({ filter, value, onChange, className }) => {
+export const FilterColors: FC<IFilterColors> = ({ filter, value, onChange, className }) => {
     const handleOnChange = (val: string) => {
         if (value.includes(val)) {
             onChange(value.filter((v) => v !== val));
@@ -22,17 +23,16 @@ export const FilterButtons: FC<IFilterButtons> = ({ filter, value, onChange, cla
     };
 
     return (
-        <div className={clsx(styles.filterButtons, className)}>
-            <div className={clsx(styles.title)}>{filter.title}</div>
-            <div className={styles.buttons}>
+        <div className={clsx(styles.filterColors, className)}>
+            <div className={styles.title}>{filter.title}</div>
+            <div className={styles.colors}>
                 {filter.values.map((val) => (
-                    <button
+                    <Colorbox
                         key={val}
+                        selected={value.includes(val)}
                         onClick={() => handleOnChange(val)}
-                        className={clsx(styles.button, value.includes(val) && styles.selected)}
-                    >
-                        <span>{val}</span>
-                    </button>
+                        color={val}
+                    />
                 ))}
             </div>
         </div>
