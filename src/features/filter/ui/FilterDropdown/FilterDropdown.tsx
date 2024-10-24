@@ -20,12 +20,18 @@ export const FilterDropdown: FC<IFilterDropdownProps> = ({ filter, value, onChan
     const multiple = filter.filterType === 'list-multiple';
 
     const handleOnChange = (val: string) => {
-        if (!multiple) return onChange([val]);
-
-        if (value.includes(val)) {
-            onChange(value.filter((v) => v !== val));
+        if (multiple) {
+            if (value.includes(val)) {
+                onChange(value.filter((v) => v !== val));
+            } else {
+                onChange([...value, val]);
+            }
         } else {
-            onChange([...value, val]);
+            if (value.includes(val)) {
+                onChange([]);
+            } else {
+                onChange([val]);
+            }
         }
     };
 
@@ -33,7 +39,7 @@ export const FilterDropdown: FC<IFilterDropdownProps> = ({ filter, value, onChan
         <div className={clsx(styles.filterDropdownWrap, className)}>
             <div className={styles.filterDropdown}>
                 <div onClick={() => setIsOpen(!isOpen)} className={styles.filterDropdownHeader}>
-                    <span>{multiple ? filter.title : value[0] ? value[0] : filter.title}</span>
+                    <span>{filter.title}</span>
                     <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ damping: 0 }}>
                         <ArrowIcon />
                     </motion.div>
