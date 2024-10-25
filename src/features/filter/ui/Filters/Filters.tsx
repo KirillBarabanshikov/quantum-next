@@ -12,6 +12,7 @@ import { FilterList } from '../FilterList';
 import { FilterRange } from '../FilterRange';
 import { FilterSwitcher } from '../FilterSwitcher';
 import styles from './Filters.module.scss';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface IFiltersProps {
     categoryId: number;
@@ -20,6 +21,9 @@ interface IFiltersProps {
 
 export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
     const [currentFilters, setCurrentFilters] = useState<Record<number, string[]> | undefined>(undefined);
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
 
     const { data: filters } = useQuery({
         queryKey: ['filters', categoryId],
@@ -32,7 +36,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
         setCurrentFilters(
             filters.reduce(
                 (acc, filter) => {
-                    acc[filter.id] = [];
+                    acc[filter.id] = searchParams.get(`filters[${filter.id}]`)?.split(',') || [];
                     return acc;
                 },
                 {} as Record<number, string[]>,
@@ -42,6 +46,39 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
 
     const handleFilterChange = (filterId: number, value: string[]) => {
         setCurrentFilters((prev) => ({ ...prev, [filterId]: value }));
+    };
+
+    const applyFilters = () => {
+        if (!currentFilters) return;
+
+        const newParams = new URLSearchParams(searchParams.toString());
+
+        for (const filterId in currentFilters) {
+            const value = currentFilters[filterId];
+            if (value[0]) {
+                newParams.set(`filters[${filterId}]`, value.join(','));
+            } else {
+                newParams.delete(`filters[${filterId}]`);
+            }
+        }
+
+        router.push(`?${newParams.toString()}`, { scroll: false });
+    };
+
+    const resetFilters = () => {
+        if (!filters) return;
+
+        setCurrentFilters(
+            filters.reduce(
+                (acc, filter) => {
+                    acc[filter.id] = [];
+                    return acc;
+                },
+                {} as Record<number, string[]>,
+            ),
+        );
+
+        router.push(pathname, { scroll: false });
     };
 
     return (
@@ -112,8 +149,10 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
                     })}
             </div>
             <div className={styles.buttons}>
-                <Button>Применить</Button>
-                <Button variant={'outline'}>Сбросить фильтры</Button>
+                <Button onClick={applyFilters}>Применить</Button>
+                <Button variant={'outline'} onClick={resetFilters}>
+                    Сбросить фильтры
+                </Button>
             </div>
         </div>
     );
