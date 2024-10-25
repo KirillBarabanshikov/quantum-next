@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
 import { filterApi } from '@/entities/filter';
@@ -12,7 +13,6 @@ import { FilterList } from '../FilterList';
 import { FilterRange } from '../FilterRange';
 import { FilterSwitcher } from '../FilterSwitcher';
 import styles from './Filters.module.scss';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface IFiltersProps {
     categoryId: number;
