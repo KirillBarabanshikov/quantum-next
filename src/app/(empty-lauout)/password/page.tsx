@@ -45,7 +45,7 @@ export default function Page() {
                 <Logo />
                 <h1 className={'title'}>Сайт в разработке</h1>
             </div>
-            <div style={{ width: '400px' }}>
+            <div style={{ maxWidth: '400px' }}>
                 <p>Оставьте ваш адрес электронной почты, и мы сообщим вам о запуске маркетплейса Rubot.pro</p>
                 <br />
                 <Input placeholder={'Email'} type={'email'} value={email} onChange={(e) => setEmail(e.target.value)} />
