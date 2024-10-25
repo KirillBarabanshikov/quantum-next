@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useParams } from 'next/navigation';
 import { FC, forwardRef, InputHTMLAttributes, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -16,10 +17,13 @@ const ratingLabels = ['Ужасно', 'Плохо', 'Нормально', 'Хо�
 
 interface ICreateReviewFormProps {
     productId: number;
+    onClose: () => void;
 }
 
-export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId }) => {
+export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClose }) => {
     const [rating, setRating] = useState(-1);
+    const { productSlug } = useParams<{ productSlug: string; categorySlug: string }>();
+    const queryClient = useQueryClient();
 
     const { mutateAsync: createReview, isPending } = useMutation({ mutationFn: reviewApi.createReview });
 
@@ -30,7 +34,13 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId }) => {
     } = useForm<TCreateReviewScheme>({ resolver: yupResolver(createReviewScheme) });
 
     const onSubmit = async (data: TCreateReviewScheme) => {
-        await createReview({ articleId: productId, ...data });
+        try {
+            await createReview({ articleId: productId, ...data });
+            await queryClient.invalidateQueries({ queryKey: ['product', productSlug] });
+            onClose();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

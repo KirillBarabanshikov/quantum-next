@@ -25,7 +25,7 @@ export const CreateReviewButton: FC<ICreateReviewButtonProps> = ({ productId }) 
                 Добавить отзыв
             </Button>
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={'Напишите отзыв о товаре'} maxWidth={596}>
-                <CreateReviewForm productId={productId} />
+                <CreateReviewForm productId={productId} onClose={() => setIsOpen(false)} />
             </Modal>
         </>
     );

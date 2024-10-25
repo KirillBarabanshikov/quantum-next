@@ -11,5 +11,6 @@ export const createReview = async (body: ICreateReviewBody) => {
         });
     } catch (error) {
         console.error(error);
+        throw new Error(`${error}`);
     }
 };

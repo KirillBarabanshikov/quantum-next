@@ -72,7 +72,7 @@ const CartOption = () => {
     return (
         <Link href={'/cart'} className={styles.option}>
             <BagIcon />
-            {!!store?.products.length && <span className={styles.badge}>{store.getCount()}</span>}
+            {!!store?.getCount() && <span className={styles.badge}>{store?.getCount()}</span>}
         </Link>
     );
 };

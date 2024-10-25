@@ -49,9 +49,9 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                 )}
                 {review.images && (
                     <div className={styles.media}>
-                        {review.images?.map((image) => (
+                        {review.images?.map((image, index) => (
                             <Image
-                                key={image.id}
+                                key={index}
                                 src={`${API_URL}${image?.image}`}
                                 width={130}
                                 height={160}

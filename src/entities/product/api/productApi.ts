@@ -8,27 +8,31 @@ export const fetchProducts = async (
     params: IProductParams = {},
 ): Promise<{ products: IProduct[]; total: number } | undefined> => {
     try {
-        const filtersParams = Object.entries(params.filters!)
-            .filter(([, filter]) => filter.value.length > 0)
-            .map(([key, filter]) => {
-                return filter.value
-                    .map((value, index) => {
-                        if (
-                            filter.type === 'list-multiple' ||
-                            filter.type === 'buttons' ||
-                            filter.type === 'colors' ||
-                            filter.type === 'checkboxes'
-                        ) {
-                            return `filters[${key}][]=${value}`;
-                        } else if (filter.type === 'range') {
-                            return `filters[${key}][${index === 0 ? 'gte' : 'lte'}]=${value}`;
-                        } else {
-                            return `filters[${key}]=${value}`;
-                        }
-                    })
-                    .join('&');
-            })
-            .join('&');
+        let filtersParams = '';
+
+        if (params.filters) {
+            filtersParams = Object.entries(params.filters)
+                .filter(([, filter]) => filter.value.length > 0)
+                .map(([key, filter]) => {
+                    return filter.value
+                        .map((value, index) => {
+                            if (
+                                filter.type === 'list-multiple' ||
+                                filter.type === 'buttons' ||
+                                filter.type === 'colors' ||
+                                filter.type === 'checkboxes'
+                            ) {
+                                return `filters[${key}][]=${value}`;
+                            } else if (filter.type === 'range') {
+                                return `filters[${key}][${index === 0 ? 'gte' : 'lte'}]=${value}`;
+                            } else {
+                                return `filters[${key}]=${value}`;
+                            }
+                        })
+                        .join('&');
+                })
+                .join('&');
+        }
 
         const queryFilters = filtersParams ? `?${filtersParams}` : '';
 

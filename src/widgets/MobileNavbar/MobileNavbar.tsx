@@ -12,6 +12,7 @@ import CatalogIcon from '@/shared/assets/icons/catalog.svg';
 import HomeIcon from '@/shared/assets/icons/home.svg';
 import SearchIcon from '@/shared/assets/icons/search.svg';
 import GradeIcon from '@/shared/assets/icons/star.svg';
+import { useStore } from '@/shared/hooks';
 
 import styles from './MobileNavbar.module.scss';
 
@@ -26,7 +27,7 @@ const navItems = [
 export const MobileNavbar = () => {
     const pathname = usePathname();
     const { isOpen, setIsOpen } = useSearchStore();
-    const { getCount } = useCartStore();
+    const store = useStore(useCartStore, (state) => state);
 
     return (
         <nav className={styles.mobileNavbar}>
@@ -50,7 +51,9 @@ export const MobileNavbar = () => {
                     >
                         <div className={styles.icon}>
                             {item.icon}
-                            {item.path === '/cart' && <span className={styles.badge}>{getCount()}</span>}
+                            {item.path === '/cart' && !!store?.getCount() && (
+                                <span className={styles.badge}>{store?.getCount()}</span>
+                            )}
                         </div>
                         <div className={styles.title}>{item.title}</div>
                     </Link>
