@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC } from 'react';
 import ReactSlider from 'react-slider';
 
 import { IFilter } from '@/entities/filter';
@@ -8,32 +8,33 @@ import styles from './FilterRange.module.scss';
 
 interface IFilterRangeProps {
     filter: IFilter;
+    value: string[];
+    onChange: (value: string[]) => void;
     className?: string;
 }
 
-export const FilterRange: FC<IFilterRangeProps> = ({ filter, className }) => {
+export const FilterRange: FC<IFilterRangeProps> = ({ filter, value, onChange, className }) => {
     const min = +filter.values[0];
     const max = +filter.values[1];
-    const [values, setValues] = useState([min, max]);
 
     const handleOnChange = (newValues: number[]) => {
-        setValues(newValues);
+        onChange(newValues.map((value) => value.toString()));
     };
 
     const handleOnChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
-        const data = [...values];
+        const data = value.map((value) => +value);
         if (+e.target.value >= data[1]) data[0] = data[1] - 5;
         else if (+e.target.value < min) data[0] = min;
         else data[0] = +e.target.value;
-        setValues(data);
+        onChange(data.map((value) => value.toString()));
     };
 
     const handleOnChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
-        const data = [...values];
+        const data = [...value.map((value) => +value)];
         if (+e.target.value <= data[0]) data[1] = data[1] + 5;
         else if (+e.target.value > max) data[1] = max;
         else data[1] = +e.target.value;
-        setValues(data);
+        onChange(data.map((value) => value.toString()));
     };
 
     return (
@@ -42,11 +43,11 @@ export const FilterRange: FC<IFilterRangeProps> = ({ filter, className }) => {
             <div className={styles.inputsWrap}>
                 <div className={styles.input}>
                     <span>от</span>
-                    <input value={values[0]} onChange={handleOnChangeMin} />
+                    <input value={value[0]} onChange={handleOnChangeMin} />
                 </div>
                 <div className={styles.input}>
                     <span>до</span>
-                    <input value={values[1]} onChange={handleOnChangeMax} />
+                    <input value={value[1]} onChange={handleOnChangeMax} />
                 </div>
             </div>
             <ReactSlider
@@ -56,7 +57,7 @@ export const FilterRange: FC<IFilterRangeProps> = ({ filter, className }) => {
                 defaultValue={[min, max]}
                 min={min}
                 max={max}
-                value={values}
+                value={value.map((value) => +value)}
                 onChange={handleOnChange}
                 pearling
                 minDistance={5}

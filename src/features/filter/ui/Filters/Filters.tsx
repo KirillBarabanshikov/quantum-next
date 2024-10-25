@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 
 import { filterApi } from '@/entities/filter';
+import { TProductFilters } from '@/entities/product';
 import { Button } from '@/shared/ui';
 
 import { FilterButtons } from '../FilterButtons';
@@ -16,11 +17,12 @@ import styles from './Filters.module.scss';
 
 interface IFiltersProps {
     categoryId: number;
+    currentFilters: TProductFilters | undefined;
+    setCurrentFilters: Dispatch<SetStateAction<TProductFilters | undefined>>;
     className?: string;
 }
 
-export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
-    const [currentFilters, setCurrentFilters] = useState<Record<number, string[]> | undefined>(undefined);
+export const Filters: FC<IFiltersProps> = ({ categoryId, currentFilters, setCurrentFilters, className }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
@@ -34,18 +36,20 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
         if (!filters) return;
 
         setCurrentFilters(
-            filters.reduce(
-                (acc, filter) => {
-                    acc[filter.id] = searchParams.get(`filters[${filter.id}]`)?.split(',') || [];
-                    return acc;
-                },
-                {} as Record<number, string[]>,
-            ),
+            filters.reduce((acc, filter) => {
+                acc[filter.id] = {
+                    value: searchParams.get(`filters[${filter.id}]`)?.split(',') || [
+                        ...(filter.filterType === 'range' ? filter.values : []),
+                    ],
+                    type: filter.filterType,
+                };
+                return acc;
+            }, {} as TProductFilters),
         );
-    }, [filters]);
+    }, [filters, searchParams, setCurrentFilters]);
 
     const handleFilterChange = (filterId: number, value: string[]) => {
-        setCurrentFilters((prev) => ({ ...prev, [filterId]: value }));
+        setCurrentFilters((prev) => ({ ...prev, [filterId]: { ...prev![filterId], value } }));
     };
 
     const applyFilters = () => {
@@ -54,7 +58,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
         const newParams = new URLSearchParams(searchParams.toString());
 
         for (const filterId in currentFilters) {
-            const value = currentFilters[filterId];
+            const value = currentFilters[filterId].value;
             if (value[0]) {
                 newParams.set(`filters[${filterId}]`, value.join(','));
             } else {
@@ -69,13 +73,10 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
         if (!filters) return;
 
         setCurrentFilters(
-            filters.reduce(
-                (acc, filter) => {
-                    acc[filter.id] = [];
-                    return acc;
-                },
-                {} as Record<number, string[]>,
-            ),
+            filters.reduce((acc, filter) => {
+                acc[filter.id] = { value: filter.filterType === 'range' ? filter.values : [], type: filter.filterType };
+                return acc;
+            }, {} as TProductFilters),
         );
 
         router.push(pathname, { scroll: false });
@@ -91,21 +92,29 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
                                 <FilterList
                                     key={filter.id}
                                     filter={filter}
-                                    value={currentFilters[filter.id]}
+                                    value={currentFilters[filter.id].value}
                                     onChange={(value) => handleFilterChange(filter.id, value)}
                                     className={styles.filter}
                                 />
                             );
                         }
                         if (filter.filterType === 'range') {
-                            return <FilterRange key={filter.id} filter={filter} className={styles.filter} />;
+                            return (
+                                <FilterRange
+                                    key={filter.id}
+                                    filter={filter}
+                                    value={currentFilters[filter.id].value}
+                                    onChange={(value) => handleFilterChange(filter.id, value)}
+                                    className={styles.filter}
+                                />
+                            );
                         }
                         if (filter.filterType === 'list' || filter.filterType === 'list-multiple') {
                             return (
                                 <FilterDropdown
                                     key={filter.id}
                                     filter={filter}
-                                    value={currentFilters[filter.id]}
+                                    value={currentFilters[filter.id].value}
                                     onChange={(value) => handleFilterChange(filter.id, value)}
                                     className={styles.filter}
                                 />
@@ -116,7 +125,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
                                 <FilterButtons
                                     key={filter.id}
                                     filter={filter}
-                                    value={currentFilters[filter.id]}
+                                    value={currentFilters[filter.id].value}
                                     onChange={(value) => handleFilterChange(filter.id, value)}
                                     className={styles.filter}
                                 />
@@ -127,7 +136,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
                                 <FilterSwitcher
                                     key={filter.id}
                                     filter={filter}
-                                    value={currentFilters[filter.id]}
+                                    value={currentFilters[filter.id].value}
                                     onChange={(value) => handleFilterChange(filter.id, value)}
                                     className={styles.filter}
                                 />
@@ -138,7 +147,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, className }) => {
                                 <FilterColors
                                     key={filter.id}
                                     filter={filter}
-                                    value={currentFilters[filter.id]}
+                                    value={currentFilters[filter.id].value}
                                     onChange={(value) => handleFilterChange(filter.id, value)}
                                     className={styles.filter}
                                 />

@@ -1,3 +1,5 @@
+import { TFilterType } from '@/entities/filter';
+
 export interface IProductParams {
     query?: string;
     page?: string | number;
@@ -5,6 +7,8 @@ export interface IProductParams {
     categoryId?: string | number;
     stock?: boolean;
     sort?: string;
-    filters?: any[];
+    filters?: TProductFilters;
     price?: any[];
 }
+
+export type TProductFilters = Record<number, { value: string[]; type: TFilterType }>;

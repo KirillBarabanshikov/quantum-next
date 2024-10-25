@@ -2,11 +2,11 @@
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { categoryApi } from '@/entities/category';
-import { IProduct, productApi } from '@/entities/product';
+import { IProduct, productApi, TProductFilters } from '@/entities/product';
 import { Filters } from '@/features/filter';
 import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
 import { CallBanner, ProductsList } from '@/widgets';
@@ -31,6 +31,8 @@ export const CategoryPage = () => {
     const [sort, setSort] = useState('');
     const [productsList, setProductsList] = useState<IProduct[]>([]);
     const { categorySlug } = useParams<{ categorySlug: string }>();
+    const [currentFilters, setCurrentFilters] = useState<TProductFilters | undefined>(undefined);
+    const searchParams = useSearchParams();
 
     const { data: category } = useQuery({
         queryKey: ['category', categorySlug],
@@ -38,9 +40,11 @@ export const CategoryPage = () => {
     });
 
     const { data: products, isLoading } = useQuery({
-        queryKey: ['products', category?.id, sort],
-        queryFn: () => productApi.fetchProducts({ page: 1, categoryId: category?.id, sort: sort }),
+        queryKey: ['products', category?.id, sort, searchParams.toString()],
+        queryFn: () =>
+            productApi.fetchProducts({ page: 1, categoryId: category?.id, sort: sort, filters: currentFilters }),
         placeholderData: keepPreviousData,
+        enabled: !!currentFilters,
     });
 
     useEffect(() => {
@@ -72,7 +76,13 @@ export const CategoryPage = () => {
                         <h1 className={'title'}>{category?.title}</h1>
                     </div>
                     <div className={styles.catalogWrap}>
-                        {category && <Filters categoryId={category.id} />}
+                        {category && (
+                            <Filters
+                                categoryId={category.id}
+                                currentFilters={currentFilters}
+                                setCurrentFilters={setCurrentFilters}
+                            />
+                        )}
                         <div className={styles.catalog}>
                             <div className={styles.sort}>
                                 <Dropdown
