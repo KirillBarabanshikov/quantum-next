@@ -89,7 +89,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
             <h1 className={styles.name}>{product.title}</h1>
             <div className={styles.gradeContainer}>
                 <GradeIcon />
-                <span className={clsx(styles.grade, styles.info)}>0.0</span>
+                <span className={clsx(styles.grade, styles.info)}>{product.average}</span>
                 <span className={styles.ellipse} />
                 <span className={styles.info}>{product.reviews.length} отзыва</span>
             </div>

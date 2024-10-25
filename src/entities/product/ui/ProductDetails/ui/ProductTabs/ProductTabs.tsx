@@ -161,7 +161,7 @@ const ProductFeedback = ({ product }: { product: IProduct }) => {
             <div className={styles.reviewWrap}>
                 <div className={styles.gradeWrap}>
                     <GradeIcon />
-                    <div>0</div>
+                    <div>{product.average}</div>
                     <div className={styles.ellipse} />
                     <div>{product.reviews.length} отзыва</div>
                 </div>

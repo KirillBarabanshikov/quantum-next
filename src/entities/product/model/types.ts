@@ -16,9 +16,10 @@ export interface IProduct {
     characteristics: IProductCharacteristic[];
     reviews: IReview[];
     additionalCharacteristics: IProductAdditionalCharacteristic[];
-    // modifications: IProductModification[];
     categoryId: number;
-    productId?: number;
+    productId: number;
+    mediaReviews: [];
+    average: number;
 }
 
 interface IProductDescription {
