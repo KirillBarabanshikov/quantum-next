@@ -54,3 +54,13 @@
         }
     }
 }
+
+@media screen and (max-width: 992px) {
+    .wrap {
+        &.filters {
+            .radio {
+                border: 2px solid var(--color-blue-tertiary);
+            }
+        }
+    }
+}

@@ -40,21 +40,16 @@ export const FilterRange: FC<IFilterRangeProps> = ({ filter, value, onChange, cl
         });
     }, []);
 
-    const handleOnBlur = useCallback(() => {
-        let correctedValues: number[] = [];
+    const handleOnBlur = () => {
+        const [minValue, maxValue] = values;
 
-        setValues((prevValues) => {
-            const [minValue, maxValue] = prevValues;
-
-            correctedValues = [
-                Math.max(min, Math.min(minValue, maxValue)),
-                Math.min(max, Math.max(maxValue, minValue)),
-            ];
-
-            return correctedValues;
-        });
+        const correctedValues = [
+            Math.max(min, Math.min(minValue, maxValue)),
+            Math.min(max, Math.max(maxValue, minValue)),
+        ];
+        setValues(correctedValues);
         onChange(correctedValues.map((val) => val.toString()));
-    }, [min, max, onChange]);
+    };
 
     return (
         <div className={clsx(styles.filterRange, className)}>

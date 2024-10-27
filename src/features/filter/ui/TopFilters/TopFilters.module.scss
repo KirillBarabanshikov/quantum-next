@@ -2,39 +2,28 @@
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+}
 
-    .pickedFilter {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        height: 34px;
-        background-color: var(--color-blue-accent);
-        border-radius: 20px;
-        padding: 7px 12px;
+.button {
+    margin-top: 16px;
+}
 
-        span {
-            font-weight: 500;
-            font-size: 14px;
-            color: var(--color-white);
-        }
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
 
-        svg {
-            width: 20px;
-            height: 20px;
-        }
+@media screen and (max-width: 992px) {
+    .topFilters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 0 40px;
+    }
+}
 
-        &.reset {
-            background-color: var(--color-grey);
-
-            span {
-                color: var(--color-dark-blue);
-            }
-        }
-
-        @media (hover: hover) {
-            &:hover {
-                cursor: pointer;
-            }
-        }
+@media screen and (max-width: 768px) {
+    .topFilters {
+        padding: 0 14px;
     }
 }

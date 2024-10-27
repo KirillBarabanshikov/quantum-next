@@ -111,6 +111,20 @@ input[type='file'] {
     width: 0;
 }
 
+.track {
+    background-color: var(--color-blue-accent);
+    height: 100%;
+    border-radius: 5px;
+}
+
+.track-0 {
+    background-color: var(--color-blue-tertiary);
+}
+
+.track-2 {
+    background-color: var(--color-blue-tertiary);
+}
+
 @media screen and (max-width: 992px) {
     .container {
         padding: 0 40px;

@@ -10,12 +10,20 @@
     .slide {
         width: auto;
     }
+
+    .productCard {
+        min-width: 305px;
+    }
 }
 
 @media screen and (max-width: 992px) {
     .productsCarouselWrap {
         .title {
             margin-bottom: 24px;
+        }
+
+        .productCard {
+            min-width: 245px;
         }
     }
 }
@@ -24,6 +32,10 @@
     .productsCarouselWrap {
         .title {
             margin-bottom: 20px;
+        }
+
+        .productCard {
+            min-width: 177px;
         }
     }
 }

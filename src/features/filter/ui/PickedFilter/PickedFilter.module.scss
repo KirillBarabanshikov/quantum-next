@@ -1,0 +1,29 @@
+.pickedFilter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    background-color: var(--color-grey);
+    border-radius: 20px;
+    padding: 7px 12px;
+
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-dark-blue);
+
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    &.active {
+        background-color: var(--color-blue-accent);
+        color: var(--color-white);
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

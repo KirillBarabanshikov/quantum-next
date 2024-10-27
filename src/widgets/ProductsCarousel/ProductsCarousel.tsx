@@ -26,7 +26,7 @@ export const ProductsCarousel: FC<IProductsCarouselProps> = ({ title, products, 
                     {products?.map((product) => {
                         return (
                             <SwiperSlide key={product.id} className={styles.slide}>
-                                <ProductCard product={product} />
+                                <ProductCard product={product} className={styles.productCard} />
                             </SwiperSlide>
                         );
                     })}

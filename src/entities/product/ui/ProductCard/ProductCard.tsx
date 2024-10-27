@@ -16,11 +16,12 @@ import styles from './ProductCard.module.scss';
 
 interface IProductCardProps {
     product: IProduct;
+    className?: string;
 }
 
-export const ProductCard: FC<IProductCardProps> = ({ product }) => {
+export const ProductCard: FC<IProductCardProps> = ({ product, className }) => {
     return (
-        <article className={styles.productCard}>
+        <article className={clsx(styles.productCard, className)}>
             <div className={styles.productImage}>
                 <Link href={`/catalog/${product.categoryId}/${product.id}`}>
                     <Image src={product.images[0]?.image || '/'} fill sizes={'300px'} alt={product.title} />

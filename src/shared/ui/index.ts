@@ -1,5 +1,6 @@
 export { AppLayout } from './AppLayout';
 export { Badge } from './Badge';
+export { BottomSheet } from './BottomSheet';
 export { Breadcrumbs } from './Breadcrumbs';
 export { Button } from './Button';
 export { Checkbox } from './Checkbox';

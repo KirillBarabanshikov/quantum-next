@@ -6,6 +6,10 @@
         margin-bottom: 40px;
     }
 
+    .mobileTopFilters {
+        display: none;
+    }
+
     .catalogWrap {
         display: flex;
         gap: 20px;
@@ -28,6 +32,33 @@
             .more {
                 margin: 0 auto;
                 max-width: 265px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .categoryPage {
+        .titleWrap {
+            margin-bottom: 14px;
+        }
+
+        .mobileTopFilters {
+            display: flex;
+        }
+
+        .catalogWrap {
+            .filters {
+                display: none;
+            }
+
+            .catalog {
+                .topFiltersWrap {
+                    .topFilters,
+                    .sort {
+                        display: none;
+                    }
+                }
             }
         }
     }

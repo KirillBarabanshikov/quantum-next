@@ -16,7 +16,7 @@ export const ProductsList: FC<IProductsListProps> = ({ products, isLoading, clas
     return (
         <div className={clsx(styles.productsList, className)}>
             {isLoading
-                ? Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} width={305} height={420} />)
+                ? Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} width={'auto'} height={'420px'} />)
                 : products?.map((product) => <ProductCard key={product.id} product={product} />)}
         </div>
     );
