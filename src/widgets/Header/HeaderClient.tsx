@@ -79,7 +79,7 @@ const CartOption = () => {
 
 const FavoritesOption = () => {
     return (
-        <Link href={'/favorites'} scroll={false} className={styles.option}>
+        <Link href={'/favorites'} className={styles.option}>
             <GradeIcon />
         </Link>
     );
