@@ -11,7 +11,7 @@
 
     &.fullHeight {
         .sheetContent {
-            height: 100vh;
+            height: 100dvh;
             border-radius: unset;
             padding: 14px 14px 16px 14px;
 
@@ -24,7 +24,7 @@
 
             .sheetBody {
                 overflow: auto;
-                max-height: calc(100dvh - 70px);
+                max-height: calc(100vh - 70px);
             }
         }
     }
