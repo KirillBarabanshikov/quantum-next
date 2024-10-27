@@ -1,0 +1,40 @@
+.topFilters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    .pickedFilter {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 34px;
+        background-color: var(--color-blue-accent);
+        border-radius: 20px;
+        padding: 7px 12px;
+
+        span {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-white);
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        &.reset {
+            background-color: var(--color-grey);
+
+            span {
+                color: var(--color-dark-blue);
+            }
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

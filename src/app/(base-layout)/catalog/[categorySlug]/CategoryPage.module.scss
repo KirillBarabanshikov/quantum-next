@@ -14,9 +14,10 @@
         .catalog {
             flex: 1;
 
-            .sort {
+            .topFiltersWrap {
                 display: flex;
-                justify-content: flex-end;
+                gap: 20px;
+                justify-content: space-between;
                 margin-bottom: 20px;
             }
 

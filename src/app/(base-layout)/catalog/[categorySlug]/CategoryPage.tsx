@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { categoryApi } from '@/entities/category';
 import { IProduct, productApi, TProductFilters } from '@/entities/product';
 import { Filters } from '@/features/filter';
+import { TopFilters } from '@/features/filter/ui';
 import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
 import { CallBanner, ProductsList } from '@/widgets';
 
@@ -91,7 +92,14 @@ export const CategoryPage = () => {
                             />
                         )}
                         <div className={styles.catalog}>
-                            <div className={styles.sort}>
+                            <div className={styles.topFiltersWrap}>
+                                {category && (
+                                    <TopFilters
+                                        categoryId={category.id}
+                                        currentFilters={currentFilters}
+                                        setCurrentFilters={setCurrentFilters}
+                                    />
+                                )}
                                 <Dropdown
                                     options={options}
                                     value={sort}
