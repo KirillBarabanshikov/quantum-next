@@ -109,7 +109,7 @@ const DesktopFilters: FC<{
         setShow(false);
 
         filters.forEach((filter) => {
-            if (currentFilters[filter.id].value.length) {
+            if (currentFilters[filter.id].value.length && searchParams.get(`filters[${filter.id}]`)) {
                 return setShow(true);
             }
         });
@@ -121,7 +121,7 @@ const DesktopFilters: FC<{
                 filters?.map((filter) => {
                     const value = currentFilters[filter.id].value;
 
-                    if (!value.length) {
+                    if (!value.length || !searchParams.get(`filters[${filter.id}]`)) {
                         return <Fragment key={filter.id} />;
                     }
 
@@ -153,7 +153,7 @@ const MobileFilters: FC<{
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const filtersByType = (filter: IFilter) => {
+    const filtersByType = (filter: IFilter, single?: boolean) => {
         if (!currentFilters) return <></>;
 
         if (filter.filterType === 'checkboxes' || filter.filterType === 'radio') {
@@ -164,6 +164,7 @@ const MobileFilters: FC<{
                     value={currentFilters[filter.id].value}
                     onChange={(value) => handleFilterChange(filter.id, value)}
                     className={styles.filter}
+                    opened
                 />
             );
         }
@@ -186,6 +187,7 @@ const MobileFilters: FC<{
                     value={currentFilters[filter.id].value}
                     onChange={(value) => handleFilterChange(filter.id, value)}
                     className={styles.filter}
+                    opened={single}
                 />
             );
         }
@@ -321,7 +323,7 @@ const MobileFilters: FC<{
 
 const FilterWithBottomSheet: FC<{
     filter: IFilter;
-    filtersByType: (filter: IFilter) => ReactNode;
+    filtersByType: (filter: IFilter, single: boolean) => ReactNode;
     applyFilters: () => void;
     currentFilters: TProductFilters | undefined;
     setCurrentFilters: Dispatch<SetStateAction<TProductFilters | undefined>>;
@@ -330,7 +332,9 @@ const FilterWithBottomSheet: FC<{
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const active = currentFilters ? currentFilters[filter.id].value.length : undefined;
+    const active = !!(currentFilters
+        ? currentFilters[filter.id].value.length && searchParams.get(`filters[${filter.id}]`)
+        : undefined);
 
     return (
         <Fragment>
@@ -352,13 +356,13 @@ const FilterWithBottomSheet: FC<{
                         setIsOpen(true);
                     }
                 }}
-                withIcon={!!active}
-                active={!!active}
+                withIcon={active}
+                active={active}
             >
                 {filter.title}
             </PickedFilter>
             <BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)} title={'Фильтры'}>
-                {filtersByType(filter)}
+                {filtersByType(filter, true)}
                 <Button
                     fullWidth
                     className={styles.button}

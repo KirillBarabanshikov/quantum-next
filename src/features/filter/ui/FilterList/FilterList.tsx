@@ -12,11 +12,12 @@ interface IFilterListProps {
     filter: IFilter;
     value: string[];
     onChange: (value: string[]) => void;
+    opened?: boolean;
     className?: string;
 }
 
-export const FilterList: FC<IFilterListProps> = ({ filter, value, onChange, className }) => {
-    const [isOpen, setIsOpen] = useState(false);
+export const FilterList: FC<IFilterListProps> = ({ filter, value, onChange, opened = false, className }) => {
+    const [isOpen, setIsOpen] = useState(opened);
 
     const handleOnChange = (val: string) => {
         if (filter.filterType === 'checkboxes') {
@@ -38,11 +39,13 @@ export const FilterList: FC<IFilterListProps> = ({ filter, value, onChange, clas
         <div className={clsx(styles.filterList, className)}>
             <div className={styles.filterHeader} onClick={() => setIsOpen((prev) => !prev)}>
                 <span>{filter.title}</span>
-                <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ damping: 0 }}>
-                    <ArrowIcon />
-                </motion.div>
+                {!opened && (
+                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ damping: 0 }}>
+                        <ArrowIcon />
+                    </motion.div>
+                )}
             </div>
-            <AnimatePresence>
+            <AnimatePresence initial={opened}>
                 {isOpen && (
                     <motion.div
                         initial={{ height: 0 }}

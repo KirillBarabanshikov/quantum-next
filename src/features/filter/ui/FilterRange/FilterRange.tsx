@@ -16,7 +16,7 @@ interface IFilterRangeProps {
 export const FilterRange: FC<IFilterRangeProps> = ({ filter, value, onChange, className }) => {
     const min = +filter.values[0];
     const max = +filter.values[1];
-    const [values, setValues] = useState([min, max]);
+    const [values, setValues] = useState([value.length ? +value[0] : min, value.length ? +value[1] : max]);
 
     const handleOnChange = useCallback(
         (newValues: number[]) => {

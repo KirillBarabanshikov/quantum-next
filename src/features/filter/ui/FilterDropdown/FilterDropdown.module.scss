@@ -18,6 +18,15 @@
                 line-height: 10px;
                 font-weight: 500;
             }
+
+            @media screen and (max-width: 992px) {
+                padding: 12px 0;
+
+                span {
+                    font-weight: 600;
+                    font-size: 16px;
+                }
+            }
         }
 
         .filterBody {
@@ -57,6 +66,10 @@
                             }
                         }
                     }
+                }
+
+                @media screen and (max-width: 992px) {
+                    padding: 10px 0;
                 }
             }
         }

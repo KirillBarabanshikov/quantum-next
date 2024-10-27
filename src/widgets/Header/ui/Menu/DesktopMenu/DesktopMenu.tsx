@@ -7,9 +7,9 @@ import { FC, useEffect, useState } from 'react';
 
 import { categoryApi, ICategoryWithChildren } from '@/entities/category';
 import ArrowDown from '@/shared/assets/icons/arrow_down.svg';
+import { getCountWord } from '@/shared/lib';
 
 import styles from './DesktopMenu.module.scss';
-import { getCountWord } from '@/shared/lib';
 
 export const DesktopMenu = () => {
     const [selectedCategory, setSelectedCategory] = useState<ICategoryWithChildren>();

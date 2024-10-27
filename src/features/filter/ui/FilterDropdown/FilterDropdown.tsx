@@ -12,11 +12,12 @@ interface IFilterDropdownProps {
     filter: IFilter;
     value: string[];
     onChange: (value: string[]) => void;
+    opened?: boolean;
     className?: string;
 }
 
-export const FilterDropdown: FC<IFilterDropdownProps> = ({ filter, value, onChange, className }) => {
-    const [isOpen, setIsOpen] = useState(false);
+export const FilterDropdown: FC<IFilterDropdownProps> = ({ filter, value, onChange, opened = false, className }) => {
+    const [isOpen, setIsOpen] = useState(opened);
     const multiple = filter.filterType === 'list-multiple';
 
     const handleOnChange = (val: string) => {
@@ -40,11 +41,13 @@ export const FilterDropdown: FC<IFilterDropdownProps> = ({ filter, value, onChan
             <div className={styles.filterDropdown}>
                 <div onClick={() => setIsOpen(!isOpen)} className={styles.filterDropdownHeader}>
                     <span>{filter.title}</span>
-                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ damping: 0 }}>
-                        <ArrowIcon />
-                    </motion.div>
+                    {!opened && (
+                        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ damping: 0 }}>
+                            <ArrowIcon />
+                        </motion.div>
+                    )}
                 </div>
-                <AnimatePresence>
+                <AnimatePresence initial={opened}>
                     {isOpen && (
                         <motion.div
                             initial={{ height: 0 }}
