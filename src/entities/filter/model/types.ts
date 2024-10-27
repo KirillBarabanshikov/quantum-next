@@ -13,4 +13,5 @@ export type TFilterType =
     | 'buttons'
     | 'checkboxes'
     | 'switcher'
-    | 'colors';
+    | 'colors'
+    | 'price';

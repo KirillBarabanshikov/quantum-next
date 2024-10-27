@@ -27,11 +27,11 @@ const options = [
 ];
 
 export const CategoryPage = () => {
+    const [productsList, setProductsList] = useState<IProduct[]>([]);
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState('');
-    const [productsList, setProductsList] = useState<IProduct[]>([]);
-    const { categorySlug } = useParams<{ categorySlug: string }>();
     const [currentFilters, setCurrentFilters] = useState<TProductFilters | undefined>(undefined);
+    const { categorySlug } = useParams<{ categorySlug: string }>();
     const searchParams = useSearchParams();
 
     const { data: category } = useQuery({
@@ -42,16 +42,16 @@ export const CategoryPage = () => {
     const { data: products, isLoading } = useQuery({
         queryKey: ['products', category?.id, sort, searchParams.toString()],
         queryFn: () =>
-            productApi.fetchProducts({ page: 1, categoryId: category?.id, sort: sort, filters: currentFilters }),
+            productApi.fetchProducts({
+                page: 1,
+                categoryId: categorySlug,
+                sort,
+                filters: currentFilters,
+            }),
         placeholderData: keepPreviousData,
         enabled: !!currentFilters,
+        refetchOnWindowFocus: false,
     });
-
-    useEffect(() => {
-        if (!products) return;
-        setProductsList(products.products);
-        setPage(1);
-    }, [products]);
 
     const handleLoadMore = async () => {
         const currentPage = page + 1;
@@ -60,9 +60,16 @@ export const CategoryPage = () => {
             page: currentPage,
             categoryId: categorySlug,
             sort,
+            filters: currentFilters,
         });
         setProductsList((prev) => [...prev, ...(products?.products || [])]);
     };
+
+    useEffect(() => {
+        if (!products) return;
+        setProductsList(products.products);
+        setPage(1);
+    }, [products]);
 
     return (
         <div className={clsx(styles.categoryPage, 'page', 'sections')}>
@@ -97,7 +104,7 @@ export const CategoryPage = () => {
                                 isLoading={isLoading}
                                 className={styles.productsList}
                             />
-                            {products && products.total > productsList.length && (
+                            {(products?.totalPages || 1) > page && (
                                 <Button fullWidth onClick={handleLoadMore} className={styles.more}>
                                     Загрузить еще
                                 </Button>

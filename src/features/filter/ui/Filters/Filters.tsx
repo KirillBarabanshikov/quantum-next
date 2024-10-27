@@ -38,9 +38,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, currentFilters, setCurr
         setCurrentFilters(
             filters.reduce((acc, filter) => {
                 acc[filter.id] = {
-                    value: searchParams.get(`filters[${filter.id}]`)?.split(',') || [
-                        ...(filter.filterType === 'range' ? filter.values : []),
-                    ],
+                    value: searchParams.get(`filters[${filter.id}]`)?.split(',') || [],
                     type: filter.filterType,
                 };
                 return acc;
@@ -49,7 +47,10 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, currentFilters, setCurr
     }, [filters, searchParams, setCurrentFilters]);
 
     const handleFilterChange = (filterId: number, value: string[]) => {
-        setCurrentFilters((prev) => ({ ...prev, [filterId]: { ...prev![filterId], value } }));
+        setCurrentFilters((prev) => {
+            if (!prev) return prev;
+            return { ...prev, [filterId]: { ...prev[filterId], value } };
+        });
     };
 
     const applyFilters = () => {
@@ -74,7 +75,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, currentFilters, setCurr
 
         setCurrentFilters(
             filters.reduce((acc, filter) => {
-                acc[filter.id] = { value: filter.filterType === 'range' ? filter.values : [], type: filter.filterType };
+                acc[filter.id] = { value: [], type: filter.filterType };
                 return acc;
             }, {} as TProductFilters),
         );
@@ -98,7 +99,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, currentFilters, setCurr
                                 />
                             );
                         }
-                        if (filter.filterType === 'range') {
+                        if (filter.filterType === 'range' || filter.filterType === 'price') {
                             return (
                                 <FilterRange
                                     key={filter.id}

@@ -6,7 +6,7 @@ import { IProductParams } from './types';
 
 export const fetchProducts = async (
     params: IProductParams = {},
-): Promise<{ products: IProduct[]; total: number } | undefined> => {
+): Promise<{ products: IProduct[]; totalPages: number } | undefined> => {
     try {
         let filtersParams = '';
 
@@ -25,6 +25,8 @@ export const fetchProducts = async (
                                 return `filters[${key}][]=${value}`;
                             } else if (filter.type === 'range') {
                                 return `filters[${key}][${index === 0 ? 'gte' : 'lte'}]=${value}`;
+                            } else if (filter.type === 'price') {
+                                return `price[${index === 0 ? 'gte' : 'lte'}]=${value}`;
                             } else {
                                 return `filters[${key}]=${value}`;
                             }
@@ -50,7 +52,7 @@ export const fetchProducts = async (
 
         return {
             products: response.data.map(mapProduct),
-            total: response.headers['articles-total'],
+            totalPages: response.headers['articles-total-pages'],
         };
     } catch (error) {
         console.error(error);

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
 import ReactSlider from 'react-slider';
 
 import { IFilter } from '@/entities/filter';
@@ -16,26 +16,45 @@ interface IFilterRangeProps {
 export const FilterRange: FC<IFilterRangeProps> = ({ filter, value, onChange, className }) => {
     const min = +filter.values[0];
     const max = +filter.values[1];
+    const [values, setValues] = useState([min, max]);
 
-    const handleOnChange = (newValues: number[]) => {
-        onChange(newValues.map((value) => value.toString()));
-    };
+    const handleOnChange = useCallback(
+        (newValues: number[]) => {
+            onChange(newValues.map((val) => val.toString()));
+            setValues(newValues);
+        },
+        [onChange],
+    );
 
-    const handleOnChangeMin = (e: ChangeEvent<HTMLInputElement>) => {
-        const data = value.map((value) => +value);
-        if (+e.target.value >= data[1]) data[0] = data[1] - 5;
-        else if (+e.target.value < min) data[0] = min;
-        else data[0] = +e.target.value;
-        onChange(data.map((value) => value.toString()));
-    };
+    useEffect(() => {
+        if (value.length) return;
+        setValues([min, max]);
+    }, [value]);
 
-    const handleOnChangeMax = (e: ChangeEvent<HTMLInputElement>) => {
-        const data = [...value.map((value) => +value)];
-        if (+e.target.value <= data[0]) data[1] = data[1] + 5;
-        else if (+e.target.value > max) data[1] = max;
-        else data[1] = +e.target.value;
-        onChange(data.map((value) => value.toString()));
-    };
+    const handleInputChange = useCallback((index: 0 | 1, e: ChangeEvent<HTMLInputElement>) => {
+        const newValue = +e.target.value;
+        setValues((prevValues) => {
+            const updatedValues = [...prevValues];
+            updatedValues[index] = newValue;
+            return updatedValues;
+        });
+    }, []);
+
+    const handleOnBlur = useCallback(() => {
+        let correctedValues: number[] = [];
+
+        setValues((prevValues) => {
+            const [minValue, maxValue] = prevValues;
+
+            correctedValues = [
+                Math.max(min, Math.min(minValue, maxValue)),
+                Math.min(max, Math.max(maxValue, minValue)),
+            ];
+
+            return correctedValues;
+        });
+        onChange(correctedValues.map((val) => val.toString()));
+    }, [min, max, onChange]);
 
     return (
         <div className={clsx(styles.filterRange, className)}>
@@ -43,11 +62,21 @@ export const FilterRange: FC<IFilterRangeProps> = ({ filter, value, onChange, cl
             <div className={styles.inputsWrap}>
                 <div className={styles.input}>
                     <span>от</span>
-                    <input value={value[0]} onChange={handleOnChangeMin} />
+                    <input
+                        type={'number'}
+                        value={values[0]}
+                        onChange={(e) => handleInputChange(0, e)}
+                        onBlur={handleOnBlur}
+                    />
                 </div>
                 <div className={styles.input}>
                     <span>до</span>
-                    <input value={value[1]} onChange={handleOnChangeMax} />
+                    <input
+                        type={'number'}
+                        value={values[1]}
+                        onChange={(e) => handleInputChange(1, e)}
+                        onBlur={handleOnBlur}
+                    />
                 </div>
             </div>
             <ReactSlider
@@ -57,10 +86,10 @@ export const FilterRange: FC<IFilterRangeProps> = ({ filter, value, onChange, cl
                 defaultValue={[min, max]}
                 min={min}
                 max={max}
-                value={value.map((value) => +value)}
+                value={values}
                 onChange={handleOnChange}
                 pearling
-                minDistance={5}
+                minDistance={1}
             />
         </div>
     );
