@@ -25,3 +25,13 @@
         }
     }
 }
+
+@media screen and (max-width: 992px) {
+    .favoritesPage {
+        .favoritesWrap {
+            .sort {
+                display: none;
+            }
+        }
+    }
+}

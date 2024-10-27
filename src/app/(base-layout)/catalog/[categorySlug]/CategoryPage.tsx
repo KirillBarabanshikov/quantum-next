@@ -7,8 +7,7 @@ import { useEffect, useState } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { IProduct, productApi, TProductFilters } from '@/entities/product';
-import { Filters } from '@/features/filter';
-import { TopFilters } from '@/features/filter/ui';
+import { Filters, TopFilters } from '@/features/filter';
 import { sortOptions } from '@/shared/consts';
 import { Breadcrumbs, Button, Dropdown } from '@/shared/ui';
 import { CallBanner, ProductsList } from '@/widgets';
