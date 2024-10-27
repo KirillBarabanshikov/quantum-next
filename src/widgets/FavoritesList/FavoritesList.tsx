@@ -64,7 +64,7 @@ export const FavoritesList = () => {
                 <div className={styles.list}>
                     {options.map((option) => (
                         <Radio
-                            key={option.label}
+                            key={option.value}
                             label={option.label}
                             value={option.value}
                             name={'sort'}
