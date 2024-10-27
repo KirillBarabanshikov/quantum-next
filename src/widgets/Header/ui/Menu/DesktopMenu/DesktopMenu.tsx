@@ -9,6 +9,7 @@ import { categoryApi, ICategoryWithChildren } from '@/entities/category';
 import ArrowDown from '@/shared/assets/icons/arrow_down.svg';
 
 import styles from './DesktopMenu.module.scss';
+import { getCountWord } from '@/shared/lib';
 
 export const DesktopMenu = () => {
     const [selectedCategory, setSelectedCategory] = useState<ICategoryWithChildren>();
@@ -47,7 +48,7 @@ export const DesktopMenu = () => {
                 <div className={clsx(styles.menuCategory, 'scrollbar-hide')}>
                     <div className={styles.categoryTitle}>
                         {selectedCategory?.title}
-                        {selectedCategory?.total && <span>{selectedCategory.total} товара</span>}
+                        {selectedCategory?.total && <span>{getCountWord(selectedCategory.total, 'товар')}</span>}
                     </div>
                     <div className={styles.categoryItems}>
                         {selectedCategory?.categories.map((item) => <CategoryItem key={item.id} item={item} />)}

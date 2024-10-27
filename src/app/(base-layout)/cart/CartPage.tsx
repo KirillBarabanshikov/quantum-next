@@ -8,7 +8,7 @@ import { Placeholder } from '@/app/(base-layout)/cart/Placeholder';
 import { CartProduct, useCartStore } from '@/entities/cart';
 import { productApi } from '@/entities/product';
 import Ellipse from '@/shared/assets/icons/ellipse.svg';
-import { getProductCountWord, priceFormat } from '@/shared/lib';
+import { getCountWord, priceFormat } from '@/shared/lib';
 import { Button, Checkbox, Separator } from '@/shared/ui';
 import { RecentProduct } from '@/widgets';
 
@@ -98,7 +98,7 @@ export const CartPage = () => {
                                 </div>
                                 <Separator />
                                 <div className={styles.total}>
-                                    Всего: {getProductCountWord(getCount())} <Ellipse /> 2 489 г
+                                    Всего: {getCountWord(getCount(), 'товар')} <Ellipse /> 2 489 г
                                 </div>
                                 <div className={styles.priceWrap}>
                                     Общая стоимость
