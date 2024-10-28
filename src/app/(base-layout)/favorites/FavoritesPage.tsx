@@ -26,9 +26,9 @@ export const FavoritesPage = () => {
                 <div className={styles.favoritesWrap}>
                     <div className={styles.sort}>
                         <p>Наличие товара</p>
-                        <Radio label={'Неважно'} variant={'filters'} />
-                        <Radio label={'В наличии'} variant={'filters'} />
-                        <Radio label={'Нет в наличии'} variant={'filters'} />
+                        <Radio label={'Неважно'} variant={'filters'} name={'stock'} />
+                        <Radio label={'В наличии'} variant={'filters'} name={'stock'} />
+                        <Radio label={'Нет в наличии'} variant={'filters'} name={'stock'} />
                     </div>
                     <div className={clsx(styles.list, 'sections')}>
                         <FavoritesList />

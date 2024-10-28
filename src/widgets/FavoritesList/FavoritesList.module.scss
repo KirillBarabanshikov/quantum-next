@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    .selectedSort {
+        display: none;
+    }
 }
 
 .placeholder {
