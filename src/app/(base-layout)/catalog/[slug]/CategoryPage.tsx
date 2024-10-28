@@ -24,12 +24,12 @@ export const CategoryPage = () => {
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState('');
     const [currentFilters, setCurrentFilters] = useState<TProductFilters | undefined>(undefined);
-    const { categorySlug } = useParams<{ categorySlug: string }>();
+    const { slug } = useParams<{ slug: string }>();
     const searchParams = useSearchParams();
 
     const { data: category } = useQuery({
-        queryKey: ['category', categorySlug],
-        queryFn: () => categoryApi.fetchCategoryById(categorySlug),
+        queryKey: ['category', slug],
+        queryFn: () => categoryApi.fetchCategoryBySlug(slug),
     });
 
     const { data: products, isLoading } = useQuery({
@@ -37,7 +37,7 @@ export const CategoryPage = () => {
         queryFn: () =>
             productApi.fetchProducts({
                 page: 1,
-                categoryId: categorySlug,
+                categoryId: category?.id,
                 sort,
                 filters: currentFilters,
             }),
@@ -51,7 +51,7 @@ export const CategoryPage = () => {
         setPage(currentPage);
         const products = await productApi.fetchProducts({
             page: currentPage,
-            categoryId: categorySlug,
+            categoryId: category?.id,
             sort,
             filters: currentFilters,
         });

@@ -30,3 +30,12 @@ export const fetchCategoryById = async (id: number | string): Promise<ICategory 
         console.error(error);
     }
 };
+
+export const fetchCategoryBySlug = async (slug: string): Promise<ICategory | undefined> => {
+    try {
+        const response = await apiClient.get<ICategoryDto>(`/categories/slug`, { params: { slug } });
+        return mapCategory(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};

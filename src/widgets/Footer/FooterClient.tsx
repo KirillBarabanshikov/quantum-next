@@ -35,14 +35,14 @@ export const FooterClient: FC<IFooterClientProps> = ({ className }) => {
                         <div className={styles.wrap}>
                             <div className={styles.column}>
                                 {categories?.slice(0, categories?.length / 2 + 1).map((category) => (
-                                    <Link key={category.id} href={`/catalog/${category.id}`} className={styles.link}>
+                                    <Link key={category.id} href={`/catalog/${category.slug}`} className={styles.link}>
                                         {category.title}
                                     </Link>
                                 ))}
                             </div>
                             <div className={styles.column}>
                                 {categories?.slice(categories?.length / 2 + 1).map((category) => (
-                                    <Link key={category.id} href={`/catalog/${category.id}`} className={styles.link}>
+                                    <Link key={category.id} href={`/catalog/${category.slug}`} className={styles.link}>
                                         {category.title}
                                     </Link>
                                 ))}

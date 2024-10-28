@@ -9,17 +9,17 @@ import { productApi, ProductDetails, useRecentStore } from '@/entities/product';
 import { CallBanner, RecentProduct } from '@/widgets';
 
 export const ProductPage = () => {
-    const { productSlug, categorySlug } = useParams<{ productSlug: string; categorySlug: string }>();
+    const { slug } = useParams<{ slug: string }>();
     const { addToRecent } = useRecentStore();
 
     const { data: product } = useQuery({
-        queryKey: ['product', productSlug],
-        queryFn: () => productApi.fetchProductById(productSlug),
+        queryKey: ['product', slug],
+        queryFn: () => productApi.fetchProductBySlug(slug),
     });
 
     const { data: category } = useQuery({
-        queryKey: ['category', categorySlug],
-        queryFn: () => categoryApi.fetchCategoryById(categorySlug),
+        queryKey: ['category', product!.categoryId],
+        queryFn: () => categoryApi.fetchCategoryById(product!.categoryId),
     });
 
     useEffect(() => {

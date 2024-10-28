@@ -98,3 +98,12 @@ export const fetchProductsByIds = async (
         console.error(error);
     }
 };
+
+export const fetchProductBySlug = async (slug: string): Promise<IProduct | undefined> => {
+    try {
+        const response = await apiClient.get<IProduct>(`/article/slug`, { params: { slug } });
+        return mapProduct(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};

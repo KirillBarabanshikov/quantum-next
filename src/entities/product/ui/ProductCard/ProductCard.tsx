@@ -23,13 +23,13 @@ export const ProductCard: FC<IProductCardProps> = ({ product, className }) => {
     return (
         <article className={clsx(styles.productCard, className)}>
             <div className={styles.productImage}>
-                <Link href={`/catalog/${product.categoryId}/${product.id}`}>
+                <Link href={`/product/${product.slug}`}>
                     <Image src={product.images[0]?.image || '/'} fill sizes={'300px'} alt={product.title} />
                 </Link>
                 <FavoriteOption productId={product.id} />
             </div>
             <div className={styles.productBody}>
-                <Link href={`/catalog/${product.categoryId}/${product.id}`} className={styles.productTitle}>
+                <Link href={`/product/${product.slug}`} className={styles.productTitle}>
                     {product.title}
                 </Link>
                 <p className={styles.productPrice}>{priceFormat(product.price)}</p>

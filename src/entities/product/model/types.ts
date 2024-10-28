@@ -20,6 +20,7 @@ export interface IProduct {
     productId: number;
     mediaReviews: [];
     average: number;
+    slug: string;
 }
 
 interface IProductDescription {

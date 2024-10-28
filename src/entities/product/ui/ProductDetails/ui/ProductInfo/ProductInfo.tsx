@@ -174,7 +174,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                                                     });
                                                 });
 
-                                                router.push(`/catalog/${product.categoryId}/${mostFrequent}`, {
+                                                router.push(`/product/${mostFrequent}`, {
                                                     scroll: false,
                                                 });
                                             }}

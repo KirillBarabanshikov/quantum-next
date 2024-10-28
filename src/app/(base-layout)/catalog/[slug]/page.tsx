@@ -5,15 +5,15 @@ import { categoryApi, ICategory } from '@/entities/category';
 
 import { CategoryPage } from './CategoryPage';
 
-export default async function Page({ params }: { params: { categorySlug: string } }) {
+export default async function Page({ params }: { params: { slug: string } }) {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
-        queryKey: ['category', params.categorySlug],
-        queryFn: () => categoryApi.fetchCategoryById(params.categorySlug),
+        queryKey: ['category', params.slug],
+        queryFn: () => categoryApi.fetchCategoryBySlug(params.slug),
     });
 
-    const category = queryClient.getQueryData<ICategory>(['category', params.categorySlug]);
+    const category = queryClient.getQueryData<ICategory>(['category', params.slug]);
 
     if (!category) return notFound();
 

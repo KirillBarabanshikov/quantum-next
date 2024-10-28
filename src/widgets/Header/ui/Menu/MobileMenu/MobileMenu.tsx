@@ -31,7 +31,10 @@ export const MobileMenu: FC<IMobileMenuProps> = ({ onClose }) => {
             <div className={styles.linksList}>
                 <CollapsibleLink
                     title={'Каталог'}
-                    links={categories?.map((category) => ({ title: category.title, href: `/catalog/${category.id}` }))}
+                    links={categories?.map((category) => ({
+                        title: category.title,
+                        href: `/catalog/${category.slug}`,
+                    }))}
                 />
                 <Link href={'/'} className={styles.link}>
                     Акции

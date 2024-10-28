@@ -28,7 +28,7 @@ export const ProductDetails: FC<IProductDetailsProps> = ({ product, category }) 
                     <Breadcrumbs
                         breadcrumbs={[
                             ...breadcrumbs,
-                            ...[{ text: category.title, href: `/catalog/${category.id}` }, { text: product.title }],
+                            ...[{ text: category.title, href: `/catalog/${category.slug}` }, { text: product.title }],
                         ]}
                         className={styles.breadcrumbs}
                     />

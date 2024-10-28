@@ -33,7 +33,7 @@ export const DesktopMenu = () => {
                         return (
                             <Link
                                 key={category.id}
-                                href={`/catalog/${category.id}`}
+                                href={`/catalog/${category.slug}`}
                                 className={clsx(
                                     styles.menuCategoriesItem,
                                     +params.slug === category.id && styles.active,
@@ -68,12 +68,12 @@ const CategoryItem: FC<ICategoryItemsListProps> = ({ item }) => {
 
     return (
         <div className={styles.categoryItemList}>
-            <Link href={`/catalog/${item.id}`} className={clsx(styles.categoryItem, styles.categoryItemTitle)}>
+            <Link href={`/catalog/${item.slug}`} className={clsx(styles.categoryItem, styles.categoryItemTitle)}>
                 {item.title}
             </Link>
             {item.categories.slice(0, isOpen ? undefined : 6).map((child) => {
                 return (
-                    <Link key={child.id} href={`/catalog/${child.id}`} className={styles.categoryItem}>
+                    <Link key={child.id} href={`/catalog/${child.slug}`} className={styles.categoryItem}>
                         {child.title}
                     </Link>
                 );
