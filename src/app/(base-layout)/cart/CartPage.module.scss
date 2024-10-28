@@ -29,6 +29,19 @@
             font-weight: 500;
             cursor: pointer;
         }
+
+        .delete {
+            pointer-events: none;
+            transition:
+                color 300ms,
+                background-color 300ms;
+
+            &.active {
+                background-color: var(--color-blue-accent);
+                color: var(--color-white);
+                pointer-events: unset;
+            }
+        }
     }
 
     .cart {
@@ -41,6 +54,10 @@
             flex-direction: column;
             gap: 20px;
             width: 100%;
+
+            .productsTitle {
+                display: none;
+            }
         }
 
         .order {
@@ -81,33 +98,170 @@
             }
         }
     }
+}
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    padding: 0 14px;
+
+    .placeholderTitle {
+        font-weight: 500;
+        font-size: 38px;
+        margin-bottom: 24px;
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 40px;
+        max-width: 526px;
+        text-align: center;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        max-width: 429px;
+
+        button {
+            height: 40px;
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .cartPage {
+        padding-top: 46px;
+
+        .title {
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .actions {
+            margin-bottom: 14px;
+        }
+
+        .cart {
+            flex-direction: column;
+            gap: 10px;
+
+            .products {
+                gap: 10px;
+            }
+
+            .order {
+                display: flex;
+                flex-direction: column;
+                padding: 24px;
+                width: 100%;
+
+                .hint {
+                    margin-top: unset;
+                }
+
+                .total {
+                    margin-bottom: 20px;
+                }
+
+                .priceWrap {
+                    order: -1;
+                    margin-bottom: 40px;
+                }
+
+                button {
+                    order: 1;
+                }
+            }
+        }
+    }
 
     .placeholder {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
         .placeholderTitle {
-            font-weight: 500;
-            font-size: 38px;
-            margin-bottom: 24px;
+            font-size: 28px;
         }
 
         p {
-            font-weight: 500;
-            font-size: 18px;
-            margin-bottom: 40px;
-            max-width: 526px;
+            font-size: 16px;
         }
 
         .buttons {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-            max-width: 429px;
+            button {
+                height: 36px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .cartPage {
+        padding-top: 12px;
+
+        .actions {
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .cart {
+            flex-direction: column;
+            gap: 10px;
+
+            .products {
+                background-color: var(--color-grey);
+                padding: 16px;
+                gap: 24px;
+                border-radius: 20px;
+
+                .productsTitle {
+                    display: block;
+                    font-weight: 600;
+                    font-size: 18px;
+                }
+            }
+
+            .order {
+                padding: 12px;
+
+                .hint {
+                    margin-top: unset;
+                }
+
+                .total {
+                    margin-bottom: 20px;
+                }
+
+                .priceWrap {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+
+    .placeholder {
+        .placeholderTitle {
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 17px;
+        }
+
+        .buttons {
+            max-width: 120px;
+
+            .button {
+                display: none;
+            }
 
             button {
-                height: 40px;
+                height: 34px;
+                background-color: var(--color-grey) !important;
+                outline: unset !important;
             }
         }
     }

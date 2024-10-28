@@ -12,6 +12,7 @@
     .image {
         mix-blend-mode: darken;
         margin-right: 28px;
+        object-fit: contain;
     }
 
     .body {
@@ -40,30 +41,101 @@
             color: var(--color-blue-tertiary);
             margin-bottom: 14px;
         }
+    }
+}
 
-        .actionsWrap {
+.actionsWrap {
+    display: flex;
+    justify-content: space-between;
+
+    &.mobile {
+        display: none;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+
+        .action {
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background-color: var(--color-white);
+            color: var(--color-blue-tertiary);
 
-            .actions {
-                display: flex;
-                gap: 10px;
+            .star {
+                width: 20px;
+            }
+        }
+    }
+}
 
-                .action {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 38px;
-                    height: 38px;
-                    border-radius: 10px;
-                    background-color: var(--color-white);
-                    color: var(--color-blue-tertiary);
+@media screen and (max-width: 992px) {
+    .cartProduct {
+        padding: 24px;
+    }
+}
 
-                    .star {
-                        width: 20px;
-                    }
+@media screen and (max-width: 768px) {
+    .wrap {
+        &:not(:last-child) {
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(9, 27, 81, 0.3);
+        }
+    }
+
+    .cartProduct {
+        padding: unset;
+        margin-bottom: 12px;
+
+        .checkbox {
+            margin-right: unset;
+        }
+
+        .image {
+            margin-right: 12px;
+        }
+
+        .body {
+            .titleWrap {
+                .title {
+                    font-size: 14px;
+                }
+
+                .price {
+                    display: none;
                 }
             }
+
+            .equipment {
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .actionsWrap {
+        display: flex;
+        justify-content: space-between;
+
+        &.desktop {
+            display: none;
+        }
+
+        &.mobile {
+            display: flex;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .cartProduct {
+        .image {
+            width: 88px;
+            height: 88px;
         }
     }
 }

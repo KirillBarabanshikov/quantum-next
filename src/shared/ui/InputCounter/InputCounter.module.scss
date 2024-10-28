@@ -17,18 +17,19 @@
         height: 38px;
         padding: 5px 6px;
         border-radius: 10px;
-        min-width: 112px;
-        max-width: 112px;
         background-color: #fff;
         align-items: center;
 
         input {
             font-weight: 500;
             border: none;
+            width: 38px;
+            border-radius: unset;
         }
 
         button {
             height: 100%;
+            width: 28px;
         }
     }
 

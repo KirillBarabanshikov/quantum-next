@@ -19,7 +19,7 @@ export const Placeholder = () => {
                 {!isAuthenticated && ' Или авторизуйтесь, чтобы посмотреть уже добавленные товары.'}
             </p>
             <div className={styles.buttons}>
-                <Button variant={'solid'} fullWidth onClick={() => router.push('/catalog')}>
+                <Button variant={'solid'} fullWidth onClick={() => router.push('/catalog')} className={styles.button}>
                     Продолжить покупки
                 </Button>
                 {!isAuthenticated && (

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Image from 'next/image';
 import { ChangeEvent, FC } from 'react';
 
@@ -27,44 +28,71 @@ export const CartProduct: FC<ICartProductProps> = ({ product, count, selected, s
     };
 
     return (
-        <div className={styles.cartProduct}>
-            <Checkbox className={styles.checkbox} checked={selected} onChange={handleSelect} />
-            <Image
-                src={product.images[0]?.image || '/'}
-                alt={product.title}
-                width={128}
-                height={114}
-                className={styles.image}
-            />
-            <div className={styles.body}>
-                <div className={styles.titleWrap}>
-                    <div className={styles.title}>{product.title}</div>
-                    <div className={styles.price}>{priceFormat(product.price * count)}</div>
-                </div>
-                <div className={styles.equipment}>Артикул: {product.number}</div>
-                <div className={styles.actionsWrap}>
-                    <div className={styles.actions}>
-                        <button onClick={() => removeFromCart(product.id)} className={styles.action}>
-                            <TrashIcon />
-                        </button>
-                        <button
-                            className={styles.action}
-                            onClick={() => {
-                                isFavorite(product.id) ? removeFromFavorites(product.id) : addToFavorites(product.id);
-                            }}
-                        >
-                            <StarIcon className={styles.star} />
-                        </button>
+        <div className={styles.wrap}>
+            <div className={styles.cartProduct}>
+                <Checkbox className={styles.checkbox} checked={selected} onChange={handleSelect} />
+                <Image
+                    src={product.images[0]?.image || '/'}
+                    alt={product.title}
+                    width={128}
+                    height={114}
+                    className={styles.image}
+                />
+                <div className={styles.body}>
+                    <div className={styles.titleWrap}>
+                        <div className={styles.title}>{product.title}</div>
+                        <div className={styles.price}>{priceFormat(product.price * count)}</div>
                     </div>
-                    <InputCounter
-                        size={'sm'}
-                        defaultCount={count}
-                        onIncrement={() => addToCart(product.id)}
-                        onDecrement={() => decrementFromCart(product.id)}
-                        onChange={(count) => setCount(product.id, count)}
-                        max={product.count}
-                    />
+                    <div className={styles.equipment}>Артикул: {product.number}</div>
+                    <div className={clsx(styles.actionsWrap, styles.desktop)}>
+                        <div className={styles.actions}>
+                            <button onClick={() => removeFromCart(product.id)} className={styles.action}>
+                                <TrashIcon />
+                            </button>
+                            <button
+                                className={styles.action}
+                                onClick={() => {
+                                    isFavorite(product.id)
+                                        ? removeFromFavorites(product.id)
+                                        : addToFavorites(product.id);
+                                }}
+                            >
+                                <StarIcon className={styles.star} />
+                            </button>
+                        </div>
+                        <InputCounter
+                            size={'sm'}
+                            defaultCount={count}
+                            onIncrement={() => addToCart(product.id)}
+                            onDecrement={() => decrementFromCart(product.id)}
+                            onChange={(count) => setCount(product.id, count)}
+                            max={product.count}
+                        />
+                    </div>
                 </div>
+            </div>
+            <div className={clsx(styles.actionsWrap, styles.mobile)}>
+                <div className={styles.actions}>
+                    <button onClick={() => removeFromCart(product.id)} className={styles.action}>
+                        <TrashIcon />
+                    </button>
+                    <button
+                        className={styles.action}
+                        onClick={() => {
+                            isFavorite(product.id) ? removeFromFavorites(product.id) : addToFavorites(product.id);
+                        }}
+                    >
+                        <StarIcon className={styles.star} />
+                    </button>
+                </div>
+                <InputCounter
+                    size={'sm'}
+                    defaultCount={count}
+                    onIncrement={() => addToCart(product.id)}
+                    onDecrement={() => decrementFromCart(product.id)}
+                    onChange={(count) => setCount(product.id, count)}
+                    max={product.count}
+                />
             </div>
         </div>
     );

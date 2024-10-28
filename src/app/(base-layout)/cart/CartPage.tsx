@@ -21,7 +21,7 @@ export const CartPage = () => {
 
     const { data: cartProducts, isLoading } = useQuery({
         queryKey: ['cart', productsIds],
-        queryFn: () => productApi.fetchProductsByIds(productsIds),
+        queryFn: () => (productsIds.length > 0 ? productApi.fetchProductsByIds(productsIds) : []),
         placeholderData: keepPreviousData,
     });
 
@@ -46,70 +46,76 @@ export const CartPage = () => {
     }, [selectedProducts, removeFromCart]);
 
     const totalCost = useMemo(() => {
-        return cartProducts?.reduce((acc, cur, index) => {
-            if (products[index]) {
-                return acc + cur.price * products[index].count;
-            }
-
-            return acc + cur.price;
+        return cartProducts?.reduce((acc, cur) => {
+            return acc + cur.price * (products.find((product) => product.id === cur.id)?.count || 1);
         }, 0);
     }, [cartProducts, products]);
 
     if (isLoading) return <></>;
 
+    if (!products || products.length === 0) {
+        return (
+            <div className={'page sections'}>
+                <Placeholder />
+                <RecentProduct />
+            </div>
+        );
+    }
+
     return (
         <div className={clsx(styles.cartPage, 'page', 'sections')}>
             <section>
-                {!!products.length ? (
-                    <div className={'container'}>
-                        <h1 className={clsx(styles.title, 'title')}>
-                            Корзина <span>{getCount()}</span>
-                        </h1>
-                        <div className={styles.actions}>
-                            <Checkbox
-                                label={'Выбрать все'}
-                                className={styles.action}
-                                onChange={(e) => handleSelectAll(e.target.checked)}
-                            />
-                            <span className={styles.action} onClick={handleDelete}>
-                                Удалить выбранное
-                            </span>
-                        </div>
-                        <div className={styles.cart}>
-                            <div className={styles.products}>
-                                {cartProducts?.map((product) => {
-                                    const count = products.find((item) => item.id === product.id)?.count || 1;
+                <div className={'container'}>
+                    <h1 className={clsx(styles.title, 'title')}>
+                        Корзина <span>{getCount()}</span>
+                    </h1>
+                    <div className={styles.actions}>
+                        <Checkbox
+                            label={'Выбрать все'}
+                            className={styles.action}
+                            onChange={(e) => handleSelectAll(e.target.checked)}
+                        />
+                        <span
+                            className={clsx(styles.action, styles.delete, selectedProducts.size && styles.active)}
+                            onClick={handleDelete}
+                        >
+                            Удалить выбранное
+                        </span>
+                    </div>
+                    <div className={styles.cart}>
+                        <div className={styles.products}>
+                            <div className={styles.productsTitle}>Ваш заказ</div>
 
-                                    return (
-                                        <CartProduct
-                                            key={product.id}
-                                            product={product}
-                                            count={count}
-                                            selected={selectedProducts.has(product.id)}
-                                            setSelected={(checked) => handleSelect(checked, product.id)}
-                                        />
-                                    );
-                                })}
+                            {cartProducts?.map((product) => {
+                                const count = products.find((item) => item.id === product.id)?.count || 1;
+
+                                return (
+                                    <CartProduct
+                                        key={product.id}
+                                        product={product}
+                                        count={count}
+                                        selected={selectedProducts.has(product.id)}
+                                        setSelected={(checked) => handleSelect(checked, product.id)}
+                                    />
+                                );
+                            })}
+                        </div>
+                        <div className={styles.order}>
+                            <Button fullWidth>Оформить заказ</Button>
+                            <div className={styles.hint}>
+                                Доступные способы и время доставки можно выбрать при оформлении заказа
                             </div>
-                            <div className={styles.order}>
-                                <Button fullWidth>Оформить заказ</Button>
-                                <div className={styles.hint}>
-                                    Доступные способы и время доставки можно выбрать при оформлении заказа
-                                </div>
-                                <Separator />
-                                <div className={styles.total}>
-                                    Всего: {getCountWord(getCount(), 'товар')} <Ellipse /> 2 489 г
-                                </div>
-                                <div className={styles.priceWrap}>
-                                    Общая стоимость
-                                    <span>{priceFormat(totalCost)}</span>
-                                </div>
+                            <Separator />
+                            <div className={styles.total}>
+                                Всего: {getCountWord(getCount(), 'товар')} <Ellipse /> 2 489 г
+                            </div>
+                            <div className={styles.priceWrap}>
+                                Общая стоимость
+                                <span>{priceFormat(totalCost)}</span>
                             </div>
                         </div>
                     </div>
-                ) : (
-                    <Placeholder />
-                )}
+                </div>
             </section>
             <RecentProduct />
         </div>
