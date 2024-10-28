@@ -1,0 +1,43 @@
+.productModifications {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .modification {
+        display: flex;
+        flex-direction: column;
+        gap: 19px;
+
+        .title {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .values {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+
+            .value {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 12px;
+                background-color: var(--color-grey);
+                font-weight: 500;
+                font-size: 14px;
+                border-radius: 20px;
+                height: 34px;
+
+                &.active {
+                    background-color: var(--color-blue-accent);
+                    color: var(--color-white);
+                }
+
+                @media (hover: hover) {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

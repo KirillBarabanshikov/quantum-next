@@ -4,6 +4,7 @@ export interface ICategoryDto {
     characteristics: any[];
     colors: any[];
     image?: string;
+    slug: string;
 }
 
 export interface ICategoryWithChildrenDto extends ICategoryDto {

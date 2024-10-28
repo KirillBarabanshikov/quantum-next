@@ -57,5 +57,6 @@ export interface IProductModification {
         value: string;
         articleId: number;
         measurement?: string;
+        slug: string;
     }[];
 }

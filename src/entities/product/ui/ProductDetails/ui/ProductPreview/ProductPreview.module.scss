@@ -1,0 +1,65 @@
+.productPreview {
+    .title {
+        font-weight: 500;
+        font-size: 32px;
+        margin-bottom: 12px;
+    }
+
+    .ratingReviews {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 12px;
+
+        .star {
+            width: 20px;
+            height: 20px;
+        }
+
+        .rating {
+            font-weight: 500;
+            color: var(--color-blue-tertiary);
+        }
+
+        .ellipse {
+            color: var(--color-blue-tertiary);
+        }
+    }
+
+    .number {
+        font-weight: 500;
+        color: var(--color-blue-tertiary);
+        margin-bottom: 39px;
+    }
+
+    .price {
+        font-weight: 600;
+        font-size: 32px;
+    }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 24px;
+    }
+
+    .specifications {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+
+        .specification {
+            font-weight: 500;
+            font-size: 14px;
+
+            .specificationTitle {
+                margin-bottom: 10px;
+            }
+
+            .specificationValue {
+                color: var(--color-blue-tertiary);
+            }
+        }
+    }
+}

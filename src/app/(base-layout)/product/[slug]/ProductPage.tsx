@@ -6,7 +6,13 @@ import { useEffect } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { productApi, ProductDetails, useRecentStore } from '@/entities/product';
+import { Breadcrumbs } from '@/shared/ui';
 import { CallBanner, RecentProduct } from '@/widgets';
+
+const breadcrumbs = [
+    { text: 'Главная', href: '/' },
+    { text: 'Каталог', href: '/catalog' },
+];
 
 export const ProductPage = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -29,7 +35,22 @@ export const ProductPage = () => {
 
     return (
         <div className={'page sections'}>
-            <ProductDetails product={product!} category={category!} />
+            <section>
+                <div className={'container'}>
+                    {category && product && (
+                        <Breadcrumbs
+                            breadcrumbs={[
+                                ...breadcrumbs,
+                                ...[
+                                    { text: category.title, href: `/catalog/${category.slug}` },
+                                    { text: product.title },
+                                ],
+                            ]}
+                        />
+                    )}
+                    {product && <ProductDetails product={product} />}
+                </div>
+            </section>
             <RecentProduct />
             <CallBanner />
         </div>
