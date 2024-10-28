@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
@@ -15,6 +15,7 @@ interface IInputCounterProps {
     onChange?: (count: number) => void;
     defaultCount?: number;
     max?: number;
+    min?: number;
     className?: string;
 }
 
@@ -25,9 +26,12 @@ export const InputCounter: FC<IInputCounterProps> = ({
     onChange,
     defaultCount = 1,
     max,
+    min = 1,
     className,
 }) => {
     const [count, setCount] = useState(defaultCount);
+
+    useEffect(() => setCount(defaultCount), [defaultCount]);
 
     const increment = () => {
         let newCount = count + 1;
@@ -38,7 +42,7 @@ export const InputCounter: FC<IInputCounterProps> = ({
 
     const decrement = () => {
         const newCount = count - 1;
-        if (newCount > 0) {
+        if (newCount >= min) {
             setCount(newCount);
             onDecrement && onDecrement(newCount);
         }
@@ -47,14 +51,14 @@ export const InputCounter: FC<IInputCounterProps> = ({
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         let count = +e.target.value;
         if (max && count >= max) count = max;
-        if (count <= 1) count = 1;
+        if (count <= min) count = min;
         setCount(count);
         onChange && onChange(count);
     };
 
     return (
         <div className={clsx(styles.inputCounter, styles[size], className)}>
-            <button onClick={decrement} className={clsx(count <= 1 && styles.disabled)}>
+            <button onClick={decrement} className={clsx(count <= min && styles.disabled)}>
                 <MinusIcon />
             </button>
             <input type={'number'} value={`${count}`} onChange={handleChange} />

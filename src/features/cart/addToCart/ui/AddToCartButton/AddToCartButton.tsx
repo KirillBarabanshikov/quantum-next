@@ -7,10 +7,11 @@ import { Button } from '@/shared/ui';
 
 interface IAddToCartButton {
     product: IProduct;
+    variant?: 'solid';
     className?: string;
 }
 
-export const AddToCartButton: FC<IAddToCartButton> = ({ product, className }) => {
+export const AddToCartButton: FC<IAddToCartButton> = ({ product, variant, className }) => {
     const store = useStore(useCartStore, (state) => state);
     const inCart = store?.inCart(product.id);
 
@@ -20,7 +21,7 @@ export const AddToCartButton: FC<IAddToCartButton> = ({ product, className }) =>
 
     return (
         <Button
-            variant={inCart ? 'solid' : 'outline'}
+            variant={variant === 'solid' ? 'solid' : inCart ? 'solid' : 'outline'}
             fullWidth
             onClick={handleAddToCart}
             disabled={!product.count}

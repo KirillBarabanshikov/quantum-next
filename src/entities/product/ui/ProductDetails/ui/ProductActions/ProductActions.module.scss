@@ -1,0 +1,15 @@
+.productActions {
+    display: flex;
+    gap: 10px;
+
+    .share {
+        gap: 5px;
+        align-items: center;
+    }
+
+    .favorite {
+        max-width: 50px;
+        padding: 15px;
+        border-radius: 16px;
+    }
+}
