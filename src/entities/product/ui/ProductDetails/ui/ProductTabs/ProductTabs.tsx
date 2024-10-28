@@ -17,6 +17,7 @@ import GradeIcon from '@/shared/assets/icons/star.svg';
 import TBank from '@/shared/assets/icons/t-bank_logo.svg';
 import Visa from '@/shared/assets/icons/visa.svg';
 import { API_URL } from '@/shared/consts';
+import { getCountWord } from '@/shared/lib';
 
 import styles from './ProductTabs.module.scss';
 
@@ -30,7 +31,7 @@ export const ProductTabs: FC<IProductTabsProps> = ({ product }) => {
     const [currentTab, setCurrentTab] = useState(0);
 
     return (
-        <div className={clsx(styles.productTabs, 'container')}>
+        <div className={clsx(styles.productTabs)}>
             <Swiper slidesPerView={'auto'} spaceBetween={18} className={clsx(styles.tabs)}>
                 {tabs.map((tab, index) => (
                     <SwiperSlide key={index} className={styles.slide}>
@@ -163,7 +164,7 @@ const ProductFeedback = ({ product }: { product: IProduct }) => {
                     <GradeIcon />
                     <div>{product.average}</div>
                     <div className={styles.ellipse} />
-                    <div>{product.reviews.length} отзыва</div>
+                    <div>{getCountWord(product.reviews.length, 'отзыв')}</div>
                 </div>
                 <CreateReviewButton productId={product.id} />
             </div>
