@@ -86,9 +86,13 @@ export const fetchPopularProducts = async (): Promise<IProduct[] | undefined> =>
     }
 };
 
-export const fetchProductsByIds = async (ids: number[]): Promise<IProduct[] | undefined> => {
+export const fetchProductsByIds = async (
+    ids: number[],
+    sort?: string,
+    stock?: string,
+): Promise<IProduct[] | undefined> => {
     try {
-        const response = await apiClient.get<IProduct[]>('/articlesByIds', { params: { ids } });
+        const response = await apiClient.get<IProduct[]>('/articlesByIds', { params: { ids, sort, stock } });
         return response.data.map(mapProduct);
     } catch (error) {
         console.error(error);

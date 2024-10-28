@@ -1,7 +1,7 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { FC, useState } from 'react';
 
 import { useFavoritesStore } from '@/entities/product';
 import { productApi } from '@/entities/product';
@@ -20,15 +20,24 @@ const options = [
     { label: 'Сначала дорогие', value: 'price:desc' },
 ];
 
-export const FavoritesList = () => {
+interface IFavoritesListProps {
+    stock?: string;
+}
+
+export const FavoritesList: FC<IFavoritesListProps> = ({ stock }) => {
     const [selectedSort, setSelectedSort] = useState('created:desc');
+    const [sort, setSort] = useState('created:desc');
     const [isOpen, setIsOpen] = useState(false);
     const { productsIds } = useFavoritesStore();
 
     const { data: products, isLoading } = useQuery({
-        queryKey: ['favorites', productsIds.length > 0],
-        queryFn: () => (productsIds.length > 0 ? productApi.fetchProductsByIds(productsIds) : []),
+        queryKey: ['favorites', productsIds.length > 0, selectedSort, stock],
+        queryFn: () =>
+            productsIds.length > 0
+                ? productApi.fetchProductsByIds(productsIds, selectedSort, stock ? stock : undefined)
+                : [],
         staleTime: 0,
+        placeholderData: keepPreviousData,
     });
 
     if ((!products || products.length === 0) && !isLoading) {
@@ -60,7 +69,14 @@ export const FavoritesList = () => {
                 </>
             )}
             <ProductsList products={products} isLoading={isLoading} />
-            <BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)} title={'Фильтры'}>
+            <BottomSheet
+                isOpen={isOpen}
+                onClose={() => {
+                    setIsOpen(false);
+                    setSort(selectedSort);
+                }}
+                title={'Фильтры'}
+            >
                 <div className={styles.list}>
                     {options.map((option) => (
                         <Radio
@@ -69,10 +85,19 @@ export const FavoritesList = () => {
                             value={option.value}
                             name={'sort'}
                             variant={'filters'}
+                            checked={option.value === sort}
+                            onChange={(e) => setSort(e.target.value)}
                         />
                     ))}
                 </div>
-                <Button fullWidth className={styles.button}>
+                <Button
+                    fullWidth
+                    className={styles.button}
+                    onClick={() => {
+                        setSelectedSort(sort);
+                        setIsOpen(false);
+                    }}
+                >
                     Применить
                 </Button>
             </BottomSheet>
