@@ -7,9 +7,10 @@ export const RecentProduct = () => {
     const { productsIds } = useRecentStore();
 
     const { data: products } = useQuery({
-        queryKey: ['recent', ...productsIds],
+        queryKey: ['recent'],
         queryFn: () => productApi.fetchProductsByIds(productsIds),
         enabled: !!productsIds?.length,
+        staleTime: 0,
     });
 
     if (!products?.length) return <></>;

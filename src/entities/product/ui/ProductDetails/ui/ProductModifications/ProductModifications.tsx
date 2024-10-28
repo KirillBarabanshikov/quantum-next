@@ -1,18 +1,28 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import Link from 'next/link';
-import { FC, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+import { FC, useCallback, useMemo } from 'react';
 
 import { IProduct, IProductModification } from '@/entities/product';
 import { apiClient } from '@/shared/api';
 
 import styles from './ProductModifications.module.scss';
 
+interface IModification {
+    articleId: number[];
+    slug: string[];
+    measurement?: string;
+}
+
 interface IProductModificationsProps {
     product: IProduct;
 }
 
 export const ProductModifications: FC<IProductModificationsProps> = ({ product }) => {
+    const router = useRouter();
+
     const { data: modifications } = useQuery({
         queryKey: ['modifications', product.productId],
         queryFn: async () => {
@@ -24,8 +34,10 @@ export const ProductModifications: FC<IProductModificationsProps> = ({ product }
     });
 
     const transformedModifications = useMemo(() => {
-        return modifications?.map((item) => {
-            const groupedValues: { [key: string]: { articleId: number[]; slug: string[]; measurement?: string } } = {};
+        if (!modifications) return [];
+
+        return modifications.map((item) => {
+            const groupedValues: { [key: string]: IModification } = {};
 
             item.values.forEach((val) => {
                 if (!groupedValues[val.value]) {
@@ -48,11 +60,43 @@ export const ProductModifications: FC<IProductModificationsProps> = ({ product }
         });
     }, [modifications]);
 
-    console.log(transformedModifications);
+    const handleNavigate = useCallback(
+        (title: string, value: any) => {
+            if (!transformedModifications || !modifications) return;
+
+            const currentSelection = transformedModifications.reduce(
+                (acc, mod) => {
+                    const activeValue = mod.values.find((val) => val.slug.includes(product.slug));
+                    if (activeValue) acc[mod.title] = activeValue.value;
+                    return acc;
+                },
+                {} as Record<string, string>,
+            );
+
+            currentSelection[title] = value.value;
+
+            const slugs = modifications.flatMap((mod) =>
+                mod.values
+                    .filter(
+                        (val) => val.value === currentSelection[mod.title] && value.articleId.includes(val.articleId),
+                    )
+                    .map((val) => val.slug),
+            );
+
+            const mostFrequentSlug = slugs
+                .sort((a, b) => slugs.filter((v) => v === a).length - slugs.filter((v) => v === b).length)
+                .pop();
+
+            if (mostFrequentSlug) {
+                router.push(`/product/${mostFrequentSlug}`);
+            }
+        },
+        [transformedModifications, modifications, product.slug, router],
+    );
 
     return (
         <div className={styles.productModifications}>
-            {transformedModifications?.map((modification) => {
+            {transformedModifications.map((modification) => {
                 return (
                     <div key={modification.title} className={styles.modification}>
                         <div className={styles.title}>{modification.title}</div>
@@ -61,14 +105,13 @@ export const ProductModifications: FC<IProductModificationsProps> = ({ product }
                                 const active = value.slug.includes(product.slug);
 
                                 return (
-                                    <Link
+                                    <div
                                         key={value.value}
-                                        href={`/product/${value.slug[0]}`}
                                         className={clsx(styles.value, active && styles.active)}
-                                        scroll={false}
+                                        onClick={() => handleNavigate(modification.title, value)}
                                     >
                                         {value.value} {value.measurement}
-                                    </Link>
+                                    </div>
                                 );
                             })}
                         </div>
