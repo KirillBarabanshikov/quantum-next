@@ -73,6 +73,6 @@
             color: var(--color-blue-tertiary);
         }
 
-        cursor: not-allowed;
+        pointer-events: none;
     }
 }
