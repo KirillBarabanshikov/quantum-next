@@ -43,7 +43,7 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                 <div className={styles.wrap}>
                     <div className={styles.reviewer}>
                         {review.user.username}
-                        <time className={styles.date}>месяц назад</time>
+                        <time className={styles.date}></time>
                     </div>
                     <div className={styles.rating}>
                         {Array.from({ length: 5 }).map((_, index) => (
@@ -85,7 +85,7 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                 )}
             </div>
             <div className={styles.feedbackWrap}>
-                <time className={styles.date}>месяц назад</time>
+                <time className={styles.date}></time>
                 <div className={styles.feedbacks}>
                     <div className={styles.feedback}>
                         <LikeIcon
