@@ -1,8 +1,12 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
 import { FC } from 'react';
 
+import { useAuth } from '@/app/_providers/AuthProvider';
 import { IReview } from '@/entities/review';
+import { apiClient } from '@/shared/api';
 import DislikeIcon from '@/shared/assets/icons/dislike.svg';
 import LikeIcon from '@/shared/assets/icons/like.svg';
 import StarIcon from '@/shared/assets/icons/start_outline.svg';
@@ -15,6 +19,24 @@ interface IReviewCardProps {
 }
 
 export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
+    const { isAuthenticated } = useAuth();
+    const router = useRouter();
+    const { slug } = useParams<{ slug: string }>();
+    const queryClient = useQueryClient();
+
+    const { mutate: like } = useMutation({
+        mutationFn: async () => {
+            await apiClient.post('/reviews/like', { reviewId: review.id });
+            await queryClient.invalidateQueries({ queryKey: ['product', slug] });
+        },
+    });
+    const { mutate: dislike } = useMutation({
+        mutationFn: async () => {
+            await apiClient.post('/reviews/dislike', { reviewId: review.id });
+            await queryClient.invalidateQueries({ queryKey: ['product', slug] });
+        },
+    });
+
     return (
         <article className={styles.reviewCard}>
             <div className={styles.reviewWrap}>
@@ -66,12 +88,18 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                 <time className={styles.date}>месяц назад</time>
                 <div className={styles.feedbacks}>
                     <div className={styles.feedback}>
-                        <LikeIcon />
-                        (5)
+                        <LikeIcon
+                            onClick={() => (isAuthenticated ? like() : router.push('?auth=signin', { scroll: false }))}
+                        />
+                        ({review.likes})
                     </div>
                     <div className={styles.feedback}>
-                        <DislikeIcon />
-                        (0)
+                        <DislikeIcon
+                            onClick={() =>
+                                isAuthenticated ? dislike() : router.push('?auth=signin', { scroll: false })
+                            }
+                        />
+                        ({review.dislikes})
                     </div>
                 </div>
             </div>

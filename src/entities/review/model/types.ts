@@ -11,5 +11,10 @@ export interface IReview {
     cons: string;
     comment: string;
     images: IImage[];
-    videos: any[];
+    videos: {
+        id: number;
+        video: string;
+    }[];
+    likes: number;
+    dislikes: number;
 }

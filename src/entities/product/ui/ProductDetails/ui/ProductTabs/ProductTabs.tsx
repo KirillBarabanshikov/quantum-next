@@ -39,7 +39,7 @@ export const ProductTabs: FC<IProductTabsProps> = ({ product }) => {
                             className={clsx(styles.tab, currentTab === index && styles.current)}
                             onClick={() => setCurrentTab(index)}
                         >
-                            {tab}
+                            {tab} {tab === 'Отзывы' && <span>({product.reviews.length})</span>}
                         </div>
                     </SwiperSlide>
                 ))}

@@ -35,7 +35,7 @@ export const ProductPreview: FC<IProductPreviewProps> = ({ product }) => {
                         <div key={characteristic.id} className={styles.specification}>
                             <div className={styles.specificationTitle}>{characteristic.title}</div>
                             <div className={styles.specificationValue}>
-                                {characteristic.value} {characteristic.categoryCharacteristic.measurement}
+                                {characteristic.value} {characteristic?.categoryCharacteristic?.measurement}
                             </div>
                         </div>
                     );

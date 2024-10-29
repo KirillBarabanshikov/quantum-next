@@ -22,7 +22,7 @@ interface ICreateReviewFormProps {
 
 export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClose }) => {
     const [rating, setRating] = useState(-1);
-    const { productSlug } = useParams<{ productSlug: string; categorySlug: string }>();
+    const { slug } = useParams<{ slug: string }>();
     const queryClient = useQueryClient();
 
     const { mutateAsync: createReview, isPending } = useMutation({ mutationFn: reviewApi.createReview });
@@ -36,7 +36,7 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClos
     const onSubmit = async (data: TCreateReviewScheme) => {
         try {
             await createReview({ articleId: productId, ...data });
-            await queryClient.invalidateQueries({ queryKey: ['product', productSlug] });
+            await queryClient.invalidateQueries({ queryKey: ['product', slug] });
             onClose();
         } catch (error) {
             console.error(error);
