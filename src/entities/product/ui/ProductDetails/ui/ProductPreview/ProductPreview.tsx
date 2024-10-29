@@ -24,7 +24,7 @@ export const ProductPreview: FC<IProductPreviewProps> = ({ product }) => {
             </div>
             <div className={styles.number}>Артикул: {product.number}</div>
             <div className={styles.price}>{priceFormat(product.price)}</div>
-            <Separator gap={24} />
+            <Separator margin={'24px 0'} />
             <div className={styles.tags}>
                 {product.stock && <Badge text={'В наличии'} color={'#058943'} />}
                 {product.domestic && <Badge text={'Отечественный производитель'} color={'#4733F4'} />}
@@ -41,7 +41,7 @@ export const ProductPreview: FC<IProductPreviewProps> = ({ product }) => {
                     );
                 })}
             </div>
-            <Separator gap={24} />
+            <Separator margin={'24px 0'} />
         </div>
     );
 };

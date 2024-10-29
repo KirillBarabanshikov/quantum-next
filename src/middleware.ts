@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
+import { API_URL } from '@/shared/consts';
+
 export async function middleware(request: NextRequest) {
     const cookieStore = cookies();
     const token = cookieStore.get('token')?.value;
@@ -13,6 +15,13 @@ export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.startsWith('/cabinet')) {
         if (!token) {
             return NextResponse.redirect(new URL('/?auth=signin', request.url));
+        }
+
+        const response = await fetch(API_URL + '/api/me', { headers: { Authorization: `Bearer ${token}` } });
+        const user = await response.json();
+
+        if (!user.payerProfiles.length) {
+            return NextResponse.rewrite(new URL('/create-profile', request.url));
         }
     }
 

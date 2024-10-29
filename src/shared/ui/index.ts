@@ -1,3 +1,4 @@
+export { Accordion } from './Accordion';
 export { AppLayout } from './AppLayout';
 export { Badge } from './Badge';
 export { BottomSheet } from './BottomSheet';

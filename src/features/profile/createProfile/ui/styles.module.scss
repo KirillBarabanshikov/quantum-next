@@ -1,0 +1,86 @@
+.individualForm {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-areas:
+        'contacts passport'
+        'separator separator'
+        'delivery  delivery'
+        'foot foot';
+    grid-template-columns: 1fr 1fr;
+
+    .contacts {
+        grid-area: contacts;
+    }
+
+    .passport {
+        grid-area: passport;
+    }
+
+    .delivery {
+        grid-area: delivery;
+    }
+}
+
+.legalForm,
+.entrepreneurForm {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-areas:
+        'details details2'
+        'separator separator'
+        'delivery  contacts'
+        'foot foot';
+    grid-template-columns: 1fr 1fr;
+
+    .contacts {
+        grid-area: contacts;
+    }
+
+    .delivery {
+        grid-area: delivery;
+    }
+
+    .details {
+        grid-area: details;
+    }
+
+    .details2 {
+        grid-area: details2;
+    }
+}
+
+.entrepreneurForm {
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+
+    .sectionTitle {
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    .inputs {
+        display: flex;
+        gap: 12px;
+
+        & > div {
+            width: 100%;
+        }
+    }
+}
+
+.foot {
+    grid-area: foot;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.separator {
+    grid-area: separator;
+}

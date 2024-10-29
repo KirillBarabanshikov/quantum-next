@@ -14,7 +14,7 @@ interface ICheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 export const Checkbox = forwardRef<HTMLInputElement, ICheckboxProps>(
     ({ label, theme = 'blue', className, error, ...props }, ref) => {
         return (
-            <label className={clsx(styles.wrap, styles[theme], className, error && styles.error)}>
+            <label className={clsx(styles.wrap, styles[theme], error && styles.error, className)}>
                 <input type='checkbox' ref={ref} {...props} />
                 <span className={styles.checkbox}>
                     <CheckboxIcon />

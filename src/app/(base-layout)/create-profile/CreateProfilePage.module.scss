@@ -1,0 +1,61 @@
+.createProfilePage {
+    .title {
+        margin-bottom: 40px;
+    }
+
+    .profilesWrap {
+        padding: 30px;
+        background-color: var(--color-grey);
+        border-radius: 20px;
+
+        .profilesTitle {
+            font-weight: 500;
+            font-size: 28px;
+            margin-bottom: 28px;
+        }
+
+        .profilesList {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+    }
+
+    .hint {
+        font-weight: 500;
+        font-size: 14px;
+        color: var(--color-blue-tertiary);
+        margin-bottom: 18px;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 18px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .createProfilePage {
+        .title {
+            margin-bottom: 24px;
+        }
+
+        .profilesWrap {
+            .profilesTitle {
+                font-size: 24px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .createProfilePage {
+        .profilesWrap {
+            padding: 24px;
+
+            .profilesTitle {
+                font-size: 18px;
+            }
+        }
+    }
+}

@@ -4,10 +4,10 @@ import { FC } from 'react';
 import styles from './Separator.module.scss';
 
 interface ISeparatorProps {
-    gap?: number;
+    margin?: string;
     className?: string;
 }
 
-export const Separator: FC<ISeparatorProps> = ({ gap, className }) => {
-    return <div className={clsx(styles.separator, className)} style={{ margin: `${gap}px 0` }} />;
+export const Separator: FC<ISeparatorProps> = ({ margin = '24px 0', className }) => {
+    return <div className={clsx(styles.separator, className)} style={{ margin: margin }} />;
 };
