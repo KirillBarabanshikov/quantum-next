@@ -45,9 +45,8 @@ export const HeaderClient: FC<IHeaderClientProps> = ({ className }) => {
                             <CartOption />
                             <FavoritesOption />
                             <Link
-                                href={isAuthenticated ? '/cabinet' : '?auth=signin'}
-                                scroll={false}
-                                prefetch={false}
+                                href={isAuthenticated ? '/cabinet/orders' : '?auth=signin'}
+                                scroll={isAuthenticated}
                                 className={styles.option}
                             >
                                 <AccountIcon />

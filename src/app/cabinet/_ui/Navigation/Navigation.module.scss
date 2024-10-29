@@ -1,0 +1,48 @@
+.navigation {
+    padding: 24px;
+    background-color: var(--color-grey);
+    border-radius: 20px;
+    min-width: 305px;
+
+    .name {
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    .itemsList {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .item {
+            padding: 14px;
+            border-radius: 14px;
+            transition: background-color 300ms;
+
+            span {
+                font-weight: 500;
+                font-size: 16px;
+                transition: color 300ms;
+            }
+
+            &.active {
+                background-color: var(--color-white);
+
+                span {
+                    color: var(--color-blue-accent);
+                }
+            }
+
+            @media (hover: hover) {
+                &:hover {
+                    background-color: var(--color-white);
+
+                    span {
+                        color: var(--color-blue-accent);
+                    }
+                }
+            }
+        }
+    }
+}

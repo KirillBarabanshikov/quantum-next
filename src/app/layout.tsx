@@ -24,7 +24,6 @@ export default function RootLayout({
 }>) {
     const cookieStore = cookies();
     const token = cookieStore.get('token')?.value;
-
     const isAuthenticated = !!token;
 
     return (

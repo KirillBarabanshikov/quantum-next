@@ -1,0 +1,17 @@
+.title {
+    margin-bottom: 40px;
+
+    @media screen and (max-width: 992px) {
+        margin-bottom: 14px;
+    }
+}
+
+.wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+
+    .body {
+        width: 100%;
+    }
+}

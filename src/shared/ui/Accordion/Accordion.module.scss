@@ -1,6 +1,8 @@
 .accordionWrap {
     &.isOpen {
-        cursor: initial;
+        .head {
+            cursor: initial;
+        }
 
         .check {
             svg {

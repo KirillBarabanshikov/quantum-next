@@ -1,6 +1,7 @@
 export { Advantages } from './Advantages';
 export { CallBanner, MainBanner, NewCollectionBanner, QuestionBanner } from './Banners';
 export { CategoriesList } from './CategoriesList';
+export { ChildHeader } from './ChildHeader';
 export { FavoritesList } from './FavoritesList';
 export { Footer } from './Footer';
 export { Header } from './Header';

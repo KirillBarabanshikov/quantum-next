@@ -90,6 +90,11 @@
     grid-area: separator;
 }
 
+.deleteProfile {
+    max-width: 265px;
+    margin-top: 12px;
+}
+
 @media screen and (max-width: 768px) {
     .individualForm,
     .entrepreneurForm,

@@ -1,0 +1,23 @@
+.profilesWrap {
+    padding: 30px;
+    background-color: var(--color-grey);
+    border-radius: 20px;
+
+    .title {
+        font-weight: 500;
+        font-size: 28px;
+        margin-bottom: 28px;
+    }
+
+    .profilesList {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 24px;
+    }
+
+    .buttonWrap {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

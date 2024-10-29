@@ -20,8 +20,14 @@ export async function middleware(request: NextRequest) {
         const response = await fetch(API_URL + '/api/me', { headers: { Authorization: `Bearer ${token}` } });
         const user = await response.json();
 
-        if (!user.payerProfiles.length) {
+        if (!user?.payerProfiles?.length) {
             return NextResponse.rewrite(new URL('/create-profile', request.url));
+        }
+    }
+
+    if (request.nextUrl.pathname.startsWith('/create-profile')) {
+        if (!token) {
+            return NextResponse.redirect(new URL('/?auth=signin', request.url));
         }
     }
 

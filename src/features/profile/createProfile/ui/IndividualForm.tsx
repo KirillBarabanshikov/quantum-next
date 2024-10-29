@@ -1,31 +1,69 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { userApi } from '@/entities/user';
+import { IProfile, IUser, userApi } from '@/entities/user';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
+import { maskPhone } from '@/shared/lib';
 import { Button, Checkbox, Input, Separator } from '@/shared/ui';
 
 import { individualFormScheme, TIndividualFormScheme } from '../model';
 import styles from './styles.module.scss';
 
-export const IndividualForm = () => {
+interface IIndividualFormProps {
+    profile?: IProfile;
+}
+
+export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+    const { mutateAsync: createProfile } = useMutation({ mutationFn: userApi.createProfile });
+    const { mutateAsync: deleteProfile } = useMutation({ mutationFn: userApi.deleteProfile });
+    const queryClient = useQueryClient();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<TIndividualFormScheme>({ resolver: yupResolver(individualFormScheme) });
-
-    const { mutateAsync: createProfile } = useMutation({ mutationFn: userApi.createProfile });
+        setValue,
+        trigger,
+    } = useForm<TIndividualFormScheme>({
+        resolver: yupResolver(individualFormScheme),
+        defaultValues: {
+            firstName: profile?.firstName,
+            lastName: profile?.lastName,
+            phoneNumber: profile?.phoneNumber,
+            email: profile?.email,
+            passportSeries: profile?.passportSeries,
+            passportNumber: profile?.passportNumber,
+            passportIssued: profile?.passportIssued,
+            passportDepartmentCode: profile?.passportDepartmentCode,
+            passportDate: profile ? new Date(profile.passportDate).toISOString().split('T')[0] : undefined,
+            deliveryAddressCity: profile?.deliveryAddressCity,
+            deliveryAddress: profile?.deliveryAddress,
+            checked: !!profile,
+        },
+    });
 
     const onSubmit = async (data: TIndividualFormScheme) => {
         try {
             await createProfile({ type: 'individual', ...data });
-            window.location.reload();
+            window.location.href = '/cabinet/profile';
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    const onDelete = async () => {
+        if (!profile) return;
+
+        try {
+            await deleteProfile(profile.id);
+            await queryClient.invalidateQueries({ queryKey: ['user'] });
+            const user = queryClient.getQueryData<IUser>(['user']);
+            if (user && user.payerProfiles.length === 0) window.location.reload();
         } catch (e) {
             console.error(e);
         }
@@ -55,7 +93,12 @@ export const IndividualForm = () => {
                     placeholder={'+7 (495) 000 00 00'}
                     label={'Телефон'}
                     sizes={'sm'}
-                    {...register('phoneNumber')}
+                    {...register('phoneNumber', {
+                        onChange: (e) => {
+                            setValue('phoneNumber', maskPhone(e.target.value));
+                            trigger('phoneNumber');
+                        },
+                    })}
                     error={errors.phoneNumber?.message}
                 />
                 <Input
@@ -128,17 +171,23 @@ export const IndividualForm = () => {
                     error={errors.deliveryAddress?.message}
                 />
             </div>
-            <div className={styles.foot}>
-                <Separator margin={'12px 0 0 0'} />
-                <Checkbox
-                    label={'согласие на обработку персональных данных'}
-                    {...register('checked')}
-                    error={!!errors.checked}
-                />
-                <Button type={'submit'} fullWidth>
-                    Создать профиль
+            {!profile ? (
+                <div className={styles.foot}>
+                    <Separator margin={'12px 0 0 0'} />
+                    <Checkbox
+                        label={'согласие на обработку персональных данных'}
+                        {...register('checked')}
+                        error={!!errors.checked}
+                    />
+                    <Button type={'submit'} fullWidth>
+                        Создать профиль
+                    </Button>
+                </div>
+            ) : (
+                <Button type={'button'} className={styles.deleteProfile} onClick={onDelete}>
+                    Удалить профиль
                 </Button>
-            </div>
+            )}
         </form>
     );
 };
