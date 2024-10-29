@@ -1,10 +1,14 @@
 import clsx from 'clsx';
 
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 import { Button, Checkbox, Input, Separator } from '@/shared/ui';
 
 import styles from './styles.module.scss';
 
 export const EntrepreneurForm = () => {
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+
     return (
         <form className={styles.entrepreneurForm}>
             <div className={clsx(styles.section, styles.details)}>
@@ -17,8 +21,8 @@ export const EntrepreneurForm = () => {
                 <Input placeholder={'ул. Проспект мира 3, д. 1, к2'} label={'Юридический адрес'} sizes={'sm'} />
                 <Input placeholder={'ул. Проспект мира 3, д. 1, к2'} label={'Фактический адрес'} sizes={'sm'} />
             </div>
+            {isMatch && <Separator margin={'12px 0'} />}
             <div className={clsx(styles.section, styles.details2)}>
-                <div className={styles.sectionTitle}>Реквизиты компании</div>
                 <Input placeholder={'00000 00000 00000 00000'} label={'Расчетный счет'} sizes={'sm'} />
                 <Input placeholder={'00000 00000 00000 00000'} label={'Корреспондентский счет'} sizes={'sm'} />
                 <Input placeholder={'000000000'} label={'БИК'} sizes={'sm'} />

@@ -51,11 +51,16 @@
 @media screen and (max-width: 768px) {
     .createProfilePage {
         .profilesWrap {
-            padding: 24px;
+            padding: 24px 16px;
 
             .profilesTitle {
+                font-weight: 600;
                 font-size: 18px;
             }
+        }
+
+        .buttons {
+            flex-direction: column;
         }
     }
 }

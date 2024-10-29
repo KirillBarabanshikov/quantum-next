@@ -19,7 +19,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
+        min-width: 32px;
         height: 32px;
         border-radius: 32px;
         background-color: var(--color-white);
@@ -60,6 +60,10 @@
 
 @media screen and (max-width: 768px) {
     .accordionWrap {
+        .head {
+            margin-bottom: 14px;
+        }
+
         .wrap {
             overflow: hidden;
             background-color: var(--color-white);
@@ -68,6 +72,10 @@
         }
 
         .accordion {
+            .title {
+                font-size: 16px;
+            }
+
             &.desktop {
                 .body {
                     display: none;
@@ -78,6 +86,10 @@
                 background-color: unset;
                 display: initial;
                 padding: unset;
+
+                .title {
+                    font-size: 18px;
+                }
             }
         }
     }

@@ -31,6 +31,7 @@
         'delivery  contacts'
         'foot foot';
     grid-template-columns: 1fr 1fr;
+    align-items: flex-end;
 
     .contacts {
         grid-area: contacts;
@@ -72,6 +73,10 @@
             width: 100%;
         }
     }
+
+    input {
+        width: 100%;
+    }
 }
 
 .foot {
@@ -83,4 +88,21 @@
 
 .separator {
     grid-area: separator;
+}
+
+@media screen and (max-width: 768px) {
+    .individualForm,
+    .entrepreneurForm,
+    .legalForm {
+        display: flex;
+        flex-direction: column;
+        align-items: unset;
+    }
+
+    .section {
+        .inputs {
+            flex-direction: column;
+            gap: 18px;
+        }
+    }
 }

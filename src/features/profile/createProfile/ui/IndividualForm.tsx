@@ -1,15 +1,19 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useForm } from 'react-hook-form';
 
+import { userApi } from '@/entities/user';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 import { Button, Checkbox, Input, Separator } from '@/shared/ui';
 
-import styles from './styles.module.scss';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { individualFormScheme, TIndividualFormScheme } from '../model';
-import { useMutation } from '@tanstack/react-query';
-import { userApi } from '@/entities/user';
+import styles from './styles.module.scss';
 
 export const IndividualForm = () => {
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+
     const {
         register,
         handleSubmit,
@@ -62,6 +66,7 @@ export const IndividualForm = () => {
                     error={errors.email?.message}
                 />
             </div>
+            {isMatch && <Separator margin={'12px 0'} />}
             <div className={clsx(styles.section, styles.passport)}>
                 <div className={styles.sectionTitle}>Паспортные данные</div>
                 <div className={styles.inputs}>
