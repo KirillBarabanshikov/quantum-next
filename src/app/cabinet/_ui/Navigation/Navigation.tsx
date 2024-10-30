@@ -28,7 +28,7 @@ export const Navigation: FC<INavigationProps> = ({ className }) => {
         <div className={clsx(styles.navigation, className)}>
             <div className={styles.name}>
                 {user &&
-                    user.payerProfiles.length &&
+                    !!user.payerProfiles.length &&
                     `${user.payerProfiles[0].firstName} ${user.payerProfiles[0].lastName}`}
             </div>
             <div className={styles.itemsList}>

@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -22,6 +23,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
     const { mutateAsync: createProfile } = useMutation({ mutationFn: userApi.createProfile });
     const { mutateAsync: deleteProfile } = useMutation({ mutationFn: userApi.deleteProfile });
     const queryClient = useQueryClient();
+    const router = useRouter();
 
     const {
         register,
@@ -50,7 +52,8 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
     const onSubmit = async (data: TIndividualFormScheme) => {
         try {
             await createProfile({ type: 'individual', ...data });
-            window.location.href = '/cabinet/profile';
+            await queryClient.invalidateQueries({ queryKey: ['user'] });
+            router.push('/cabinet/profile');
         } catch (e) {
             console.error(e);
         }
@@ -63,7 +66,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
             await deleteProfile(profile.id);
             await queryClient.invalidateQueries({ queryKey: ['user'] });
             const user = queryClient.getQueryData<IUser>(['user']);
-            if (user && user.payerProfiles.length === 0) window.location.reload();
+            if (user && user.payerProfiles.length === 0) router.push('/create-profile');
         } catch (e) {
             console.error(e);
         }
