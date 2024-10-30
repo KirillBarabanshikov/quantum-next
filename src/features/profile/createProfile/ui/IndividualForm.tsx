@@ -1,15 +1,16 @@
+'use client';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useRouter } from 'next/navigation';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { IProfile, IUser, userApi } from '@/entities/user';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
 import { maskPhone } from '@/shared/lib';
-import { Button, Checkbox, Input, Separator } from '@/shared/ui';
+import { Button, Checkbox, ConfirmModal, Input, Separator } from '@/shared/ui';
 
 import { individualFormScheme, TIndividualFormScheme } from '../model';
 import styles from './styles.module.scss';
@@ -19,11 +20,11 @@ interface IIndividualFormProps {
 }
 
 export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
     const { mutateAsync: createProfile } = useMutation({ mutationFn: userApi.createProfile });
     const { mutateAsync: deleteProfile } = useMutation({ mutationFn: userApi.deleteProfile });
     const queryClient = useQueryClient();
-    const router = useRouter();
 
     const {
         register,
@@ -53,7 +54,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
         try {
             await createProfile({ type: 'individual', ...data });
             await queryClient.invalidateQueries({ queryKey: ['user'] });
-            router.push('/cabinet/profile');
+            window.location.href = '/cabinet/profile';
         } catch (e) {
             console.error(e);
         }
@@ -66,7 +67,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
             await deleteProfile(profile.id);
             await queryClient.invalidateQueries({ queryKey: ['user'] });
             const user = queryClient.getQueryData<IUser>(['user']);
-            if (user && user.payerProfiles.length === 0) router.push('/create-profile');
+            if (user && user.payerProfiles.length === 0) window.location.reload();
         } catch (e) {
             console.error(e);
         }
@@ -187,9 +188,19 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
                     </Button>
                 </div>
             ) : (
-                <Button type={'button'} className={styles.deleteProfile} onClick={onDelete}>
-                    Удалить профиль
-                </Button>
+                <>
+                    <Button type={'button'} className={styles.deleteProfile} onClick={() => setIsConfirmOpen(true)}>
+                        Удалить профиль
+                    </Button>
+                    <ConfirmModal
+                        isOpen={isConfirmOpen}
+                        onClose={() => setIsConfirmOpen(false)}
+                        title={'Удалить профиль'}
+                        warningText={'Вы уверены что хотите удалить профиль'}
+                        confirmText={'«Я уверен(-а), что хочу удалить профиль»'}
+                        onConfirm={onDelete}
+                    />
+                </>
             )}
         </form>
     );

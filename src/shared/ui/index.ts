@@ -6,6 +6,7 @@ export { Breadcrumbs } from './Breadcrumbs';
 export { Button } from './Button';
 export { Checkbox } from './Checkbox';
 export { Colorbox } from './Colorbox';
+export { ConfirmModal } from './ConfirmModal';
 export { Dropdown } from './Dropdown';
 export { Input } from './Input';
 export { InputCounter } from './InputCounter';
