@@ -9,6 +9,7 @@ interface ICartStore {
     setCount: (id: number, count: number) => void;
     inCart: (id: number) => boolean;
     getCount: () => number;
+    clearCart: () => void;
 }
 
 export const useCartStore = create<ICartStore>()(
@@ -58,6 +59,9 @@ export const useCartStore = create<ICartStore>()(
                 },
                 inCart: (id) => {
                     return get().products.some((item) => item.id === id);
+                },
+                clearCart: () => {
+                    set({ products: [] });
                 },
             }),
             {

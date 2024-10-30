@@ -59,6 +59,12 @@
         }
     }
 
+    &.white {
+        .inputContainer {
+            background-color: var(--color-white);
+        }
+    }
+
     &.sm {
         .inputContainer {
             height: 34px;

@@ -1,0 +1,35 @@
+.orderProductCard {
+    .body {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .titleWrap {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .title {
+                    font-weight: 500;
+                    font-size: 18px;
+                }
+
+                .number {
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: var(--color-blue-tertiary);
+                }
+            }
+
+            .price {
+                font-weight: 500;
+                font-size: 24px;
+            }
+        }
+    }
+}

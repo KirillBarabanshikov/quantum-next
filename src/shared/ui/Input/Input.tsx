@@ -10,7 +10,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: string;
     hint?: string;
     suffixSlot?: ReactNode;
-    variant?: 'default' | 'dark';
+    variant?: 'default' | 'dark' | 'white';
     sizes?: 'sm' | 'md';
 }
 

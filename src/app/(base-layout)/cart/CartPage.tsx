@@ -2,8 +2,10 @@
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 
+import { useAuth } from '@/app/_providers/AuthProvider';
 import { Placeholder } from '@/app/(base-layout)/cart/Placeholder';
 import { CartProduct, useCartStore } from '@/entities/cart';
 import { productApi } from '@/entities/product';
@@ -18,6 +20,8 @@ export const CartPage = () => {
     const [selectedProducts, setSelectedProducts] = useState<Set<number>>(new Set());
     const { products, getCount, removeFromCart } = useCartStore();
     const productsIds = useMemo(() => products.map((product) => product.id), [products]);
+    const router = useRouter();
+    const { isAuthenticated } = useAuth();
 
     const { data: cartProducts, isLoading } = useQuery({
         queryKey: ['cart', productsIds],
@@ -101,7 +105,12 @@ export const CartPage = () => {
                             })}
                         </div>
                         <div className={styles.order}>
-                            <Button fullWidth>Оформить заказ</Button>
+                            <Button
+                                fullWidth
+                                onClick={() => (isAuthenticated ? router.push('/order') : router.push('?auth=signin'))}
+                            >
+                                Оформить заказ
+                            </Button>
                             <div className={styles.hint}>
                                 Доступные способы и время доставки можно выбрать при оформлении заказа
                             </div>
