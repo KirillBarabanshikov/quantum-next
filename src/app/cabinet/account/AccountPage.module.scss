@@ -1,0 +1,79 @@
+.account {
+    width: 100%;
+    border-radius: 20px;
+    padding: 30px;
+    background-color: var(--color-grey);
+
+    .formsWrap {
+        border-radius: 20px;
+        padding: 30px;
+        background-color: var(--color-white);
+        position: relative;
+
+        .forms {
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 30px;
+
+            .form {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                flex: 1;
+                max-width: 377px;
+
+                .title {
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 13px;
+                }
+
+                .button {
+                    margin-top: 30px;
+                }
+            }
+        }
+
+        .separator {
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            bottom: 128px;
+        }
+
+        .deleteAccount {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-blue-tertiary);
+            cursor: pointer;
+        }
+    }
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 24px;
+
+    .warning {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 11px;
+        color: var(--color-red-accent);
+
+        padding: 18.5px 14px;
+        background-color: var(--color-grey);
+        border-radius: 10px;
+    }
+}
+
+.error {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 11px;
+    color: var(--color-red-accent);
+    position: absolute;
+    bottom: 50px;
+}
