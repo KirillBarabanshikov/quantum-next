@@ -17,9 +17,10 @@ import styles from './styles.module.scss';
 
 interface IIndividualFormProps {
     profile?: IProfile;
+    variant?: 'order';
 }
 
-export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
+export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) => {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
     const { mutateAsync: createProfile } = useMutation({ mutationFn: userApi.createProfile });
@@ -175,32 +176,36 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile }) => {
                     error={errors.deliveryAddress?.message}
                 />
             </div>
-            {!profile ? (
-                <div className={styles.foot}>
-                    <Separator margin={'12px 0 0 0'} />
-                    <Checkbox
-                        label={'согласие на обработку персональных данных'}
-                        {...register('checked')}
-                        error={!!errors.checked}
-                    />
-                    <Button type={'submit'} fullWidth>
-                        Создать профиль
-                    </Button>
-                </div>
+            {!variant ? (
+                !profile ? (
+                    <div className={styles.foot}>
+                        <Separator margin={'12px 0 0 0'} />
+                        <Checkbox
+                            label={'согласие на обработку персональных данных'}
+                            {...register('checked')}
+                            error={!!errors.checked}
+                        />
+                        <Button type={'submit'} fullWidth>
+                            Создать профиль
+                        </Button>
+                    </div>
+                ) : (
+                    <>
+                        <Button type={'button'} className={styles.deleteProfile} onClick={() => setIsConfirmOpen(true)}>
+                            Удалить профиль
+                        </Button>
+                        <ConfirmModal
+                            isOpen={isConfirmOpen}
+                            onClose={() => setIsConfirmOpen(false)}
+                            title={'Удалить профиль'}
+                            warningText={'Вы уверены что хотите удалить профиль'}
+                            confirmText={'«Я уверен(-а), что хочу удалить профиль»'}
+                            onConfirm={onDelete}
+                        />
+                    </>
+                )
             ) : (
-                <>
-                    <Button type={'button'} className={styles.deleteProfile} onClick={() => setIsConfirmOpen(true)}>
-                        Удалить профиль
-                    </Button>
-                    <ConfirmModal
-                        isOpen={isConfirmOpen}
-                        onClose={() => setIsConfirmOpen(false)}
-                        title={'Удалить профиль'}
-                        warningText={'Вы уверены что хотите удалить профиль'}
-                        confirmText={'«Я уверен(-а), что хочу удалить профиль»'}
-                        onConfirm={onDelete}
-                    />
-                </>
+                <></>
             )}
         </form>
     );

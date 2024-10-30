@@ -14,6 +14,7 @@ import ArrowIcon from '@/shared/assets/icons/arrow_right_alt.svg';
 import EllipseIcon from '@/shared/assets/icons/ellipse.svg';
 import { getCountWord, priceFormat } from '@/shared/lib';
 import { Accordion, Button, Checkbox, Input, Separator } from '@/shared/ui';
+import { AlertModal } from '@/shared/ui/AlertModal';
 
 import styles from './OrderPage.module.scss';
 
@@ -25,6 +26,7 @@ const deliveries = [
 export const OrderPage = () => {
     const [selectedProfile, setSelectedProfile] = useState<number | undefined>(undefined);
     const [selectedDelivery, setSelectedDelivery] = useState('pickup');
+    const [isOpen, setIsOpen] = useState(false);
     const { user } = useAuth();
     const router = useRouter();
     const { products, getCount, clearCart } = useCartStore();
@@ -35,7 +37,7 @@ export const OrderPage = () => {
         queryFn: () => (productsIds.length > 0 ? productApi.fetchProductsByIds(productsIds) : []),
     });
 
-    const { mutateAsync: createOrder } = useMutation({ mutationFn: orderApi.createOrder });
+    const { mutateAsync: createOrder, isError } = useMutation({ mutationFn: orderApi.createOrder });
 
     const handleCreateOrder = async () => {
         if (!selectedProfile) return;
@@ -46,11 +48,17 @@ export const OrderPage = () => {
                 deliveryType: selectedDelivery,
                 articles: products.map((product) => ({ id: product.id, quantity: product.count })),
             });
-            router.push('/');
             clearCart();
         } catch (e) {
             console.error(e);
+        } finally {
+            setIsOpen(true);
         }
+    };
+
+    const handleClose = () => {
+        router.push('/cabinet/orders');
+        setIsOpen(false);
     };
 
     const totalCost = useMemo(() => {
@@ -82,7 +90,7 @@ export const OrderPage = () => {
                                             onClick={() => setSelectedProfile(profile.id)}
                                             isOpen={selectedProfile === profile.id}
                                         >
-                                            <IndividualForm />
+                                            <IndividualForm profile={profile} variant={'order'} />
                                         </Accordion>
                                     );
                                 })}
@@ -149,6 +157,7 @@ export const OrderPage = () => {
                     </div>
                 </div>
             </section>
+            <AlertModal isOpen={isOpen} onClose={handleClose} isError={isError} onEnter={handleClose} />
         </div>
     );
 };
