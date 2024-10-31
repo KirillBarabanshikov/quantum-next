@@ -15,7 +15,11 @@ export const individualFormScheme = yup.object().shape({
     passportSeries: yup.string().required('Пожалуйста, заполните обязательное поле').min(4).max(4),
     passportNumber: yup.string().required('Пожалуйста, заполните обязательное поле').min(6).max(6),
     passportIssued: yup.string().required('Пожалуйста, заполните обязательное поле'),
-    passportDepartmentCode: yup.string().required('Пожалуйста, заполните обязательное поле').min(7).max(7),
+    passportDepartmentCode: yup
+        .string()
+        .required('Пожалуйста, заполните обязательное поле')
+        .min(7, 'Недействительный номер')
+        .max(7, 'Недействительный номер'),
     passportDate: yup.string().required('Пожалуйста, заполните обязательное поле'),
     deliveryAddressCity: yup.string().required('Пожалуйста, заполните обязательное поле'),
     deliveryAddress: yup.string().required('Пожалуйста, заполните обязательное поле'),
