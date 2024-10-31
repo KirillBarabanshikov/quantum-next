@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { IProfile, IUser, userApi } from '@/entities/user';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
-import { maskPhone } from '@/shared/lib';
+import { maskPassportDepartmentCode, maskPhone } from '@/shared/lib';
 import { Button, Checkbox, ConfirmModal, Input, Separator } from '@/shared/ui';
 
 import { individualFormScheme, TIndividualFormScheme } from '../model';
@@ -43,7 +43,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
             passportSeries: profile?.passportSeries,
             passportNumber: profile?.passportNumber,
             passportIssued: profile?.passportIssued,
-            passportDepartmentCode: profile?.passportDepartmentCode,
+            passportDepartmentCode: maskPassportDepartmentCode(profile?.passportDepartmentCode || ''),
             passportDate: profile ? new Date(profile.passportDate).toISOString().split('T')[0] : undefined,
             deliveryAddressCity: profile?.deliveryAddressCity,
             deliveryAddress: profile?.deliveryAddress,
@@ -53,7 +53,11 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
 
     const onSubmit = async (data: TIndividualFormScheme) => {
         try {
-            await createProfile({ type: 'individual', ...data });
+            await createProfile({
+                ...data,
+                type: 'individual',
+                passportDepartmentCode: data.passportDepartmentCode.replace(/\D/g, ''),
+            });
             await queryClient.invalidateQueries({ queryKey: ['user'] });
             window.location.href = '/cabinet/profile';
         } catch (e) {
@@ -145,7 +149,12 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
                         placeholder={'310-067'}
                         label={'№ подразделения'}
                         sizes={'sm'}
-                        {...register('passportDepartmentCode')}
+                        {...register('passportDepartmentCode', {
+                            onChange: (e) => {
+                                setValue('passportDepartmentCode', maskPassportDepartmentCode(e.target.value));
+                                trigger('passportDepartmentCode');
+                            },
+                        })}
                         error={errors.passportDepartmentCode?.message}
                     />
                     <Input

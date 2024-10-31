@@ -33,8 +33,8 @@ export const CreateProfilePage = () => {
                         </Accordion>
                         <Accordion
                             title={'Юридическое лицо'}
-                            isOpen={selectedProfile === 1}
-                            onClick={() => setSelectedProfile(1)}
+                            // isOpen={selectedProfile === 1}
+                            // onClick={() => setSelectedProfile(1)}
                         >
                             <Separator margin={'0 0 24px 0'} />
                             <div className={styles.hint}>
@@ -50,8 +50,8 @@ export const CreateProfilePage = () => {
                         </Accordion>
                         <Accordion
                             title={'Индивидуальный предприниматель'}
-                            isOpen={selectedProfile === 2}
-                            onClick={() => setSelectedProfile(2)}
+                            // isOpen={selectedProfile === 2}
+                            // onClick={() => setSelectedProfile(2)}
                         >
                             <Separator margin={'0 0 24px 0'} />
                             <div className={styles.hint}>
