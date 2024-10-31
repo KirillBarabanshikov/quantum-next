@@ -97,6 +97,11 @@ export const OrderPage = () => {
                                     );
                                 })}
                             </div>
+                            <div className={styles.buttonWrap}>
+                                <Button variant={'outline'} fullWidth onClick={() => router.push('/create-profile')}>
+                                    Создать профиль
+                                </Button>
+                            </div>
                         </section>
                         <section className={styles.section}>
                             <div className={styles.sectionTitleWrap}>

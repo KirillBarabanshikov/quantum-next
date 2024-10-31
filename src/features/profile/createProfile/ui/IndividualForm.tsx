@@ -197,7 +197,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
                             {...register('checked')}
                             error={!!errors.checked}
                         />
-                        <Button type={'submit'} fullWidth disabled={isLoading}>
+                        <Button type={'submit'} fullWidth disabled={isLoading} className={styles.createButton}>
                             Создать профиль
                         </Button>
                     </div>
