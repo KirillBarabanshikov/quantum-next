@@ -22,6 +22,7 @@ interface IIndividualFormProps {
 
 export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) => {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
     const { mutateAsync: createProfile } = useMutation({ mutationFn: userApi.createProfile });
     const { mutateAsync: deleteProfile } = useMutation({ mutationFn: userApi.deleteProfile });
@@ -53,6 +54,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
 
     const onSubmit = async (data: TIndividualFormScheme) => {
         try {
+            setIsLoading(true);
             await createProfile({
                 ...data,
                 type: 'individual',
@@ -62,6 +64,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
             window.location.href = '/cabinet/profile';
         } catch (e) {
             console.error(e);
+            setIsLoading(false);
         }
     };
 
@@ -194,7 +197,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
                             {...register('checked')}
                             error={!!errors.checked}
                         />
-                        <Button type={'submit'} fullWidth>
+                        <Button type={'submit'} fullWidth disabled={isLoading}>
                             Создать профиль
                         </Button>
                     </div>
