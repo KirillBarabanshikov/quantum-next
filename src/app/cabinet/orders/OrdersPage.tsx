@@ -13,7 +13,7 @@ export const OrdersPage = () => {
     return (
         <div className={styles.ordersPage}>
             <div className={styles.ordersList}>
-                {user.payerProfiles[0].orders.map((order) => (
+                {user.payerProfiles[0].orders.reverse().map((order) => (
                     <OrderCard key={order.id} order={order} />
                 ))}
             </div>

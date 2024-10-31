@@ -39,6 +39,12 @@
                     margin-bottom: 28px;
                 }
 
+                .profilesList {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 14px;
+                }
+
                 .sectionTitleWrap {
                     display: flex;
                     align-items: center;

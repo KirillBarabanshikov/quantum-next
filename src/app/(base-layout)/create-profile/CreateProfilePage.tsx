@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-import { EntrepreneurForm, IndividualForm, LegalForm } from '@/features/profile';
+import { IndividualForm } from '@/features/profile';
 import { Accordion, Button, Separator } from '@/shared/ui';
 
 import styles from './CreateProfilePage.module.scss';
@@ -31,40 +31,40 @@ export const CreateProfilePage = () => {
                             <Separator />
                             <IndividualForm />
                         </Accordion>
-                        <Accordion
-                            title={'Юридическое лицо'}
-                            // isOpen={selectedProfile === 1}
-                            // onClick={() => setSelectedProfile(1)}
-                        >
-                            <Separator margin={'0 0 24px 0'} />
-                            <div className={styles.hint}>
-                                Для синхронизации данных необходима авторизация на gosuslugi.ru или через Электронную
-                                цифровую подпись
-                            </div>
-                            <div className={styles.buttons}>
-                                <Button fullWidth>Авторизация через Госуслуги</Button>
-                                <Button fullWidth>Авторизация через ЭЦП</Button>
-                            </div>
-                            <Separator />
-                            <LegalForm />
-                        </Accordion>
-                        <Accordion
-                            title={'Индивидуальный предприниматель'}
-                            // isOpen={selectedProfile === 2}
-                            // onClick={() => setSelectedProfile(2)}
-                        >
-                            <Separator margin={'0 0 24px 0'} />
-                            <div className={styles.hint}>
-                                Для синхронизации данных необходима авторизация на gosuslugi.ru или через Электронную
-                                цифровую подпись
-                            </div>
-                            <div className={styles.buttons}>
-                                <Button fullWidth>Авторизация через Госуслуги</Button>
-                                <Button fullWidth>Авторизация через ЭЦП</Button>
-                            </div>
-                            <Separator />
-                            <EntrepreneurForm />
-                        </Accordion>
+                        {/*<Accordion*/}
+                        {/*    title={'Юридическое лицо'}*/}
+                        {/*    isOpen={selectedProfile === 1}*/}
+                        {/*    onClick={() => setSelectedProfile(1)}*/}
+                        {/*>*/}
+                        {/*    <Separator margin={'0 0 24px 0'} />*/}
+                        {/*    <div className={styles.hint}>*/}
+                        {/*        Для синхронизации данных необходима авторизация на gosuslugi.ru или через Электронную*/}
+                        {/*        цифровую подпись*/}
+                        {/*    </div>*/}
+                        {/*    <div className={styles.buttons}>*/}
+                        {/*        <Button fullWidth>Авторизация через Госуслуги</Button>*/}
+                        {/*        <Button fullWidth>Авторизация через ЭЦП</Button>*/}
+                        {/*    </div>*/}
+                        {/*    <Separator />*/}
+                        {/*    <LegalForm />*/}
+                        {/*</Accordion>*/}
+                        {/*<Accordion*/}
+                        {/*    title={'Индивидуальный предприниматель'}*/}
+                        {/*    isOpen={selectedProfile === 2}*/}
+                        {/*    onClick={() => setSelectedProfile(2)}*/}
+                        {/*>*/}
+                        {/*    <Separator margin={'0 0 24px 0'} />*/}
+                        {/*    <div className={styles.hint}>*/}
+                        {/*        Для синхронизации данных необходима авторизация на gosuslugi.ru или через Электронную*/}
+                        {/*        цифровую подпись*/}
+                        {/*    </div>*/}
+                        {/*    <div className={styles.buttons}>*/}
+                        {/*        <Button fullWidth>Авторизация через Госуслуги</Button>*/}
+                        {/*        <Button fullWidth>Авторизация через ЭЦП</Button>*/}
+                        {/*    </div>*/}
+                        {/*    <Separator />*/}
+                        {/*    <EntrepreneurForm />*/}
+                        {/*</Accordion>*/}
                     </div>
                 </div>
             </section>

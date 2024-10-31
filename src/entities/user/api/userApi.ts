@@ -1,11 +1,12 @@
 import { apiClient } from '@/shared/api';
 
+import { mapUser } from '../lib';
 import { IUser } from '../model';
 
-export async function me() {
+export async function me(): Promise<IUser | undefined> {
     try {
         const response = await apiClient.get<IUser>('/me');
-        return response.data;
+        return mapUser(response.data);
     } catch (e) {
         console.error(e);
     }

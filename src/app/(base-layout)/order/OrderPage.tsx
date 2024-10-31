@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -31,6 +31,7 @@ export const OrderPage = () => {
     const router = useRouter();
     const { products, getCount, clearCart } = useCartStore();
     const productsIds = useMemo(() => products.map((product) => product.id), [products]);
+    const queryClient = useQueryClient();
 
     const { data: cartProducts } = useQuery({
         queryKey: ['cart', productsIds],
@@ -48,6 +49,7 @@ export const OrderPage = () => {
                 deliveryType: selectedDelivery,
                 articles: products.map((product) => ({ id: product.id, quantity: product.count })),
             });
+            await queryClient.invalidateQueries({ queryKey: ['user'] });
             clearCart();
         } catch (e) {
             console.error(e);
