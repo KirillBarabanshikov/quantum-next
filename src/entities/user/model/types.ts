@@ -1,3 +1,5 @@
+import { IOrder } from '@/entities/order';
+
 export interface IUser {
     id: number;
     username: string;
@@ -30,5 +32,5 @@ export interface IProfile {
     correspondentAccount: null;
     bik: null;
     bankName: null;
-    orders: any[];
+    orders: IOrder[];
 }

@@ -1,0 +1,69 @@
+.orderCard {
+    padding: 30px;
+    background-color: var(--color-grey);
+    border-radius: 20px;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+
+        .headerTitle {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            .orderNumber {
+                font-weight: 500;
+                font-size: 28px;
+            }
+
+            .status {
+                background-color: var(--color-white);
+                padding: 9px 15px;
+                border-radius: 20px;
+                color: var(--color-green-accent);
+                font-weight: 500;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .body {
+    }
+
+    .wrap {
+        display: flex;
+        justify-content: space-between;
+
+        .info {
+            .count {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 500;
+                font-size: 18px;
+                color: var(--color-blue-tertiary);
+                margin-bottom: 20px;
+            }
+
+            .price {
+                font-weight: 600;
+                font-size: 24px;
+                margin-bottom: 50px;
+            }
+
+            .button {
+                gap: 10px;
+                height: 40px;
+                width: 214px;
+            }
+        }
+
+        .productsPreview {
+            display: flex;
+            gap: 12px;
+        }
+    }
+}

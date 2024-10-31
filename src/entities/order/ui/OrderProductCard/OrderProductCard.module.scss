@@ -4,6 +4,10 @@
         align-items: center;
         gap: 24px;
 
+        img {
+            mix-blend-mode: darken;
+        }
+
         .info {
             display: flex;
             justify-content: space-between;

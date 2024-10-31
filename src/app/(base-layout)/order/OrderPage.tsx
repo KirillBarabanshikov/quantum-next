@@ -40,7 +40,7 @@ export const OrderPage = () => {
     const { mutateAsync: createOrder, isError } = useMutation({ mutationFn: orderApi.createOrder });
 
     const handleCreateOrder = async () => {
-        if (!selectedProfile) return;
+        if (!selectedProfile || !productsIds.length) return;
 
         try {
             await createOrder({
@@ -147,7 +147,7 @@ export const OrderPage = () => {
                             </div>
                             <Checkbox label={'использовать электронный документооборот'} />
                         </div>
-                        <Button disabled={!selectedProfile} onClick={handleCreateOrder}>
+                        <Button disabled={!selectedProfile || !productsIds.length} onClick={handleCreateOrder}>
                             Выставить счет
                         </Button>
                         <div className={styles.hint}>
