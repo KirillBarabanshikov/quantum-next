@@ -22,7 +22,7 @@ const breadcrumbs = [
 export const CategoryPage = () => {
     const [productsList, setProductsList] = useState<IProduct[]>([]);
     const [page, setPage] = useState(1);
-    const [sort, setSort] = useState('');
+    const [sort, setSort] = useState('created:desc');
     const [currentFilters, setCurrentFilters] = useState<TProductFilters | undefined>(undefined);
     const { slug } = useParams<{ slug: string }>();
     const searchParams = useSearchParams();
