@@ -11,6 +11,7 @@ import DislikeIcon from '@/shared/assets/icons/dislike.svg';
 import LikeIcon from '@/shared/assets/icons/like.svg';
 import StarIcon from '@/shared/assets/icons/start_outline.svg';
 import { API_URL } from '@/shared/consts';
+import { VideoPreview } from '@/shared/ui/VideoPreview';
 
 import styles from './ReviewCard.module.scss';
 
@@ -69,20 +70,24 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                         <div className={styles.text}>{review.comment}</div>
                     </div>
                 )}
-                {review.images && (
+                {(review.images || review.videos) && (
                     <div className={styles.media}>
-                        {review.images
-                            ?.slice(0, 4)
-                            .map((image, index) => (
-                                <Image
-                                    key={index}
-                                    src={`${API_URL}${image?.image}`}
-                                    width={130}
-                                    height={160}
-                                    alt={'media'}
-                                    className={styles.image}
-                                />
-                            ))}
+                        {review.videos.map((video, index) => {
+                            return (
+                                <VideoPreview key={index} src={`${API_URL}${video.video}`} width={130} height={160} />
+                            );
+                        })}
+
+                        {review.images.slice(0, 4 - review.videos.length).map((image, index) => (
+                            <Image
+                                key={index}
+                                src={`${API_URL}${image?.image}`}
+                                width={130}
+                                height={160}
+                                alt={'media'}
+                                className={styles.image}
+                            />
+                        ))}
                     </div>
                 )}
             </div>

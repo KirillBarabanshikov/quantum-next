@@ -75,11 +75,16 @@
             cursor: pointer;
         }
 
+        .wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .subtitle {
             font-weight: 500;
             font-size: 14px;
             color: var(--color-dark-blue);
-            margin-bottom: 10px;
         }
 
         .hint {

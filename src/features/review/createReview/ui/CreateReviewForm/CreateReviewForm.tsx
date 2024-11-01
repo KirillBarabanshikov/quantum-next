@@ -2,12 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useParams } from 'next/navigation';
-import { FC, forwardRef, InputHTMLAttributes, useState } from 'react';
+import { ChangeEvent, FC, forwardRef, InputHTMLAttributes, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { reviewApi } from '@/entities/review';
 import Plus from '@/shared/assets/icons/plus.svg';
 import GradeIcon from '@/shared/assets/icons/start_outline.svg';
+import { truncate } from '@/shared/lib';
 import { Button, Input } from '@/shared/ui';
 
 import { createReviewScheme, TCreateReviewScheme } from '../../model';
@@ -73,6 +74,7 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClos
                 multiple
                 {...register('images')}
                 error={errors.images?.message}
+                accept={'image/png, image/jpeg'}
             />
             <File
                 title={'Добавьте видео'}
@@ -80,6 +82,7 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClos
                 multiple
                 {...register('videos')}
                 error={errors.videos?.message}
+                accept={'video/*'}
             />
             <Button type={'submit'} fullWidth disabled={isPending}>
                 Отправить отзыв
@@ -94,18 +97,38 @@ interface IFileProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: string;
 }
 
-const File = forwardRef<HTMLInputElement, IFileProps>(({ title, hint, error, ...props }, ref) => {
+const File = forwardRef<HTMLInputElement, IFileProps>(({ title, hint, error, onChange, ...props }, ref) => {
+    const [selectedValue, setSelectedValue] = useState<null | string>(null);
+
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        onChange && onChange(e);
+        if (!e.target.files) return;
+        let value: string | null;
+
+        if (e.target.files.length) {
+            value =
+                e.target.files.length === 1
+                    ? truncate(e.target.files[0].name)
+                    : `Число файлов: ${e.target.files.length}`;
+        } else {
+            value = null;
+        }
+
+        setSelectedValue(value);
+    };
+
     return (
         <div className={styles.file}>
             <div className={styles.title}>{title}</div>
             <div className={styles.fileWrap}>
                 <label className={styles.fileArea}>
-                    <input type={'file'} ref={ref} {...props} />
+                    <input type={'file'} ref={ref} onChange={handleOnChange} {...props} />
                     <Plus />
                 </label>
-                <div>
+                <div className={styles.wrap}>
                     <div className={styles.subtitle}>Нажмите на кнопку или перетащите фото в эту область</div>
                     <div className={clsx(styles.hint, !!error && styles.error)}>{hint}</div>
+                    {selectedValue && <div className={clsx(styles.hint)}>{selectedValue}</div>}
                 </div>
             </div>
         </div>
