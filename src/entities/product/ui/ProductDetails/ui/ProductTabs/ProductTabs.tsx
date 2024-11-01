@@ -75,12 +75,9 @@ const ProductDescription = ({ product }: { product: IProduct }) => {
     return (
         <div className={clsx(styles.productDescription)}>
             {product.descriptions.map((description) => {
-                return (
-                    <div
-                        key={description.id}
-                        className={clsx(styles.description, description.type === 'left' && styles.left)}
-                    >
-                        {description.images && description.images.length > 1 ? (
+                if (!description.title && !description.description) {
+                    return (
+                        <div key={description.id}>
                             <Swiper
                                 spaceBetween={20}
                                 pagination={true}
@@ -101,23 +98,33 @@ const ProductDescription = ({ product }: { product: IProduct }) => {
                                     );
                                 })}
                             </Swiper>
-                        ) : (
-                            <>
-                                <div className={styles.descriptionWrap}>
-                                    <h2>{description.title}</h2>
-                                    <p>{description.description}</p>
-                                </div>
-                                {!!description.images?.length && (
+                        </div>
+                    );
+                }
+
+                return (
+                    <div
+                        key={description.id}
+                        className={clsx(styles.description, description.type === 'left' && styles.left)}
+                    >
+                        <div className={styles.descriptionWrap}>
+                            <h2>{description.title}</h2>
+                            <p>{description.description}</p>
+                        </div>
+                        <div className={styles.images}>
+                            {description.images.map((image) => {
+                                return (
                                     <Image
-                                        src={`${API_URL}/${description.images[0]?.image}`}
+                                        key={image.id}
+                                        src={`${API_URL}/${image.image}`}
                                         alt={'image'}
                                         width={630}
                                         height={450}
                                         className={styles.image}
                                     />
-                                )}
-                            </>
-                        )}
+                                );
+                            })}
+                        </div>
                     </div>
                 );
             })}

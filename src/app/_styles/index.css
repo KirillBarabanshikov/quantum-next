@@ -125,6 +125,14 @@ input[type='file'] {
     background-color: var(--color-blue-tertiary);
 }
 
+.swiper-pagination {
+    bottom: 18px;
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+    background-color: var(--color-white);
+}
+
 @media screen and (max-width: 992px) {
     .container {
         padding: 0 40px;
