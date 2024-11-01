@@ -1,6 +1,7 @@
 .productCard {
     border-radius: 20px;
     transition: background-color 300ms linear;
+    max-width: 305px;
 
     .productImage {
         position: relative;
@@ -116,6 +117,8 @@
     }
 
     @media screen and (max-width: 768px) {
+        max-width: 177px;
+
         .productImage {
             a {
                 height: 160px;

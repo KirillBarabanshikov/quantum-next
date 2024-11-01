@@ -22,7 +22,7 @@ export const OrderProductCard: FC<IOrderProductCard> = ({ product, withSeparator
                         <div className={styles.title}>{product.title}</div>
                         <div className={styles.number}>{product.number}</div>
                     </div>
-                    <div className={styles.price}>{priceFormat(product.price)}</div>
+                    <div className={styles.price}>Артикул: {priceFormat(product.price)}</div>
                 </div>
             </div>
             {withSeparator && <Separator margin={'10px 0'} />}
