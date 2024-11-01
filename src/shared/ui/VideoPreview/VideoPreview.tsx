@@ -17,16 +17,28 @@ export const VideoPreview: FC<IVideoPreviewProps> = ({ src, width, height, class
         const capturePreview = () => {
             if (videoRef.current) {
                 const video = videoRef.current;
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
 
-                const context = canvas.getContext('2d');
-                if (context) {
-                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const dataURL = canvas.toDataURL();
-                    setPreview(dataURL);
-                }
+                video.currentTime = 1;
+
+                const handleSeeked = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+
+                    const context = canvas.getContext('2d');
+                    if (context) {
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        const dataURL = canvas.toDataURL('image/jpeg');
+                        setPreview(dataURL);
+                    }
+                };
+
+                video.addEventListener('seeked', handleSeeked);
+
+                // Удаляем обработчик, когда эффект завершён
+                return () => {
+                    video.removeEventListener('seeked', handleSeeked);
+                };
             }
         };
 
@@ -49,7 +61,7 @@ export const VideoPreview: FC<IVideoPreviewProps> = ({ src, width, height, class
             ) : (
                 <Skeleton width={`${width}px`} height={`${height}px`} />
             )}
-            <video ref={videoRef} width={width} controls style={{ display: 'none' }}>
+            <video ref={videoRef} width='400' preload='metadata' crossOrigin='anonymous' style={{ display: 'none' }}>
                 <source src={src} type='video/mp4' />
             </video>
         </div>

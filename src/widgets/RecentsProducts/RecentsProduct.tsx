@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 
 import { productApi, useRecentStore } from '@/entities/product';
@@ -8,7 +10,7 @@ export const RecentProduct = () => {
 
     const { data: products } = useQuery({
         queryKey: ['recent'],
-        queryFn: () => productApi.fetchProductsByIds(productsIds),
+        queryFn: () => (productsIds.length > 0 ? productApi.fetchProductsByIds(productsIds) : []),
         enabled: !!productsIds?.length,
         staleTime: 0,
     });
