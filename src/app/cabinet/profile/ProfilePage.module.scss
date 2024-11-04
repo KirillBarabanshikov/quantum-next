@@ -19,5 +19,37 @@
     .buttonWrap {
         display: flex;
         justify-content: flex-end;
+
+        button {
+            max-width: 265px;
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .profilesWrap {
+        padding: 24px;
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 28px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profilesWrap {
+        padding: 24px 16px 16px 16px;
+
+        .title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .buttonWrap {
+            button {
+                max-width: unset;
+            }
+        }
     }
 }

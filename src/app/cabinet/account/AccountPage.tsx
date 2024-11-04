@@ -161,6 +161,7 @@ export const AccountPage = () => {
                             error={errors.email?.message}
                             sizes={'sm'}
                         />
+                        <Separator margin={'0'} className={styles.formSeparator} />
                         <Button type={'submit'} disabled={!isFormChanged} className={styles.button}>
                             Сохранить данные
                         </Button>
@@ -270,6 +271,7 @@ export const PasswordForm = () => {
                 error={errors.passwordRepeat?.message}
                 sizes={'sm'}
             />
+            <Separator margin={'0'} className={styles.formSeparator} />
             <Button type={'submit'} disabled={!isValid} className={styles.button}>
                 Сохранить данные
             </Button>

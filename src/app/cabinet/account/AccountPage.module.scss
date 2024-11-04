@@ -29,6 +29,10 @@
                     line-height: 13px;
                 }
 
+                .formSeparator {
+                    display: none;
+                }
+
                 .button {
                     margin-top: 30px;
                 }
@@ -76,4 +80,38 @@
     color: var(--color-red-accent);
     position: absolute;
     bottom: 50px;
+}
+
+@media screen and (max-width: 768px) {
+    .account {
+        padding: 15px;
+
+        .formsWrap {
+            padding: 24px 12px;
+
+            .forms {
+                display: flex;
+                justify-content: space-between;
+                gap: 24px;
+                margin-bottom: 30px;
+                flex-direction: column;
+
+                .form {
+                    max-width: unset;
+
+                    .formSeparator {
+                        display: block;
+                    }
+
+                    .button {
+                        margin-top: 6px;
+                    }
+                }
+            }
+
+            .separator {
+                display: none;
+            }
+        }
+    }
 }

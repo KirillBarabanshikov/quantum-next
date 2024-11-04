@@ -20,7 +20,7 @@ export const OrderProductCard: FC<IOrderProductCard> = ({ product, withSeparator
     return (
         <article className={styles.orderProductCard}>
             <div className={styles.body}>
-                <Image src={product.images[0]?.image || ''} alt={product.title} width={130} height={114} />
+                <Image src={product.images[0]?.image || '/'} alt={product.title} width={130} height={114} />
                 <div className={styles.info}>
                     <div className={styles.titleWrap}>
                         <div className={styles.title}>{product.title}</div>

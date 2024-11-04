@@ -27,7 +27,9 @@ export const ProfilePage = () => {
                 })}
             </div>
             <div className={styles.buttonWrap}>
-                <Button onClick={() => router.push('/create-profile')}>Создать профиль</Button>
+                <Button onClick={() => router.push('/create-profile')} fullWidth>
+                    Создать профиль
+                </Button>
             </div>
         </div>
     );
