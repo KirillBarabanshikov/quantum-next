@@ -128,3 +128,83 @@
         }
     }
 }
+
+@media screen and (max-width: 1300px) {
+    .orderPage {
+        .back {
+            font-size: 12px;
+        }
+
+        .title {
+            margin-bottom: 24px;
+        }
+
+        .wrap {
+            flex-direction: column;
+            gap: 10px;
+
+            .sections {
+                gap: 10px;
+                width: 100%;
+                max-width: unset;
+
+                .section {
+                    padding: 24px;
+
+                    .sectionTitle {
+                        font-size: 24px;
+                    }
+
+                    .profilesList {
+                    }
+
+                    .buttonWrap {
+                        button {
+                            max-width: 200px;
+                        }
+                    }
+                }
+            }
+
+            .orderInfo {
+                max-width: unset;
+                padding: 24px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .orderPage {
+        .wrap {
+            .sections {
+                gap: 10px;
+                width: 100%;
+                max-width: unset;
+
+                .section {
+                    padding: 16px;
+
+                    .sectionTitle {
+                        font-weight: 600;
+                        font-size: 18px;
+                    }
+
+                    .buttonWrap {
+                        button {
+                            max-width: unset;
+                        }
+                    }
+                }
+            }
+
+            .orderInfo {
+                padding: 16px;
+            }
+        }
+    }
+
+    .deliverySection {
+        display: none;
+    }
+}

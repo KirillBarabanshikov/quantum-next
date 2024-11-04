@@ -103,7 +103,7 @@ export const OrderPage = () => {
                                 </Button>
                             </div>
                         </section>
-                        <section className={styles.section}>
+                        <section className={clsx(styles.section, styles.deliverySection)}>
                             <div className={styles.sectionTitleWrap}>
                                 <h2 className={styles.sectionTitle}>Доставка</h2>
                                 <div className={styles.buttons}>
