@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { productApi, ProductDetails, useRecentStore } from '@/entities/product';
-import { ProductHeader } from '@/entities/product/ui/ProductHeader';
 import { Breadcrumbs } from '@/shared/ui';
 import { CallBanner, RecentProduct } from '@/widgets';
 
