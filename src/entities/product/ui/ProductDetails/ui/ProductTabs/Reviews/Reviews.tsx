@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FC } from 'react';
 
 import { IProduct } from '@/entities/product';
@@ -5,11 +6,10 @@ import { ReviewCard } from '@/entities/review';
 import { CreateReviewButton } from '@/features/review';
 import ArrowIcon from '@/shared/assets/icons/arrow_right.svg';
 import GradeIcon from '@/shared/assets/icons/star.svg';
+import { API_URL } from '@/shared/consts';
 import { getCountWord } from '@/shared/lib';
 
 import styles from '../ProductTabs.module.scss';
-import Image from 'next/image';
-import { API_URL } from '@/shared/consts';
 
 interface IReviewsProps {
     product: IProduct;
