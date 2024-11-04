@@ -14,7 +14,7 @@ export function mapUser(user: IUser): IUser {
                         orderArticles: order.orderArticles.map((product) => {
                             return {
                                 ...product,
-                                article: mapProduct(product.article),
+                                article: product.article ? mapProduct(product.article) : product.article,
                             };
                         }),
                     };

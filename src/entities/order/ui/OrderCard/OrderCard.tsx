@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { FC, useMemo, useState } from 'react';
+import { FC, Fragment, useMemo, useState } from 'react';
 
 import { OrderProductCard } from '@/entities/order';
 import ArrowIcon from '@/shared/assets/icons/arrow_down2.svg';
@@ -22,7 +22,7 @@ export const OrderCard: FC<IOrderCardProps> = ({ order }) => {
 
     const totalCost = useMemo(() => {
         return order.orderArticles.reduce((acc, cur) => {
-            return acc + cur.article.price * cur.quantity;
+            return acc + (cur.article?.price || 0) * cur.quantity;
         }, 0);
     }, [order]);
 
@@ -92,10 +92,12 @@ export const OrderCard: FC<IOrderCardProps> = ({ order }) => {
                             </div>
                             <div className={styles.productsPreview}>
                                 {order.orderArticles.slice(0, 3).map((product) => {
+                                    if (!product.article) return <Fragment key={product.id} />;
+
                                     return (
                                         <Image
-                                            key={product.article.id}
-                                            src={product.article.images[0]?.image || ''}
+                                            key={product.id}
+                                            src={product.article.images[0]?.image || '/'}
                                             alt={product.article.title}
                                             width={164}
                                             height={144}
@@ -115,9 +117,13 @@ export const OrderCard: FC<IOrderCardProps> = ({ order }) => {
                     >
                         <div className={styles.bodyOpen}>
                             <div className={styles.productsList}>
-                                {order.orderArticles.map((product) => (
-                                    <OrderProductCard key={product.id} product={product.article} withSeparator />
-                                ))}
+                                {order.orderArticles.map((product) => {
+                                    if (!product.article) return <Fragment key={product.id} />;
+
+                                    return (
+                                        <OrderProductCard key={product.id} product={product.article} withSeparator />
+                                    );
+                                })}
                             </div>
                             <div className={styles.foot}>
                                 <div className={styles.deliveryType}>

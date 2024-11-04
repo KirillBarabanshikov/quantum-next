@@ -4,5 +4,5 @@ export interface IOrder {
     id: number;
     status: 'new';
     deliveryType: 'courier' | 'pickup';
-    orderArticles: { id: number; article: IProduct; quantity: number }[];
+    orderArticles: { id: number; article?: IProduct; quantity: number }[];
 }
