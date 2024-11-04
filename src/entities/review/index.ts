@@ -1,3 +1,3 @@
 export * from './api';
 export { type IReview } from './model';
-export { ReviewCard } from './ui';
+export { ReviewCard, ReviewDetail } from './ui';

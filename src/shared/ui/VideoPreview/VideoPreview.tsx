@@ -9,12 +9,13 @@ interface IVideoPreviewProps {
     src: string;
     width: number;
     height: number;
+    onClick?: () => void;
     className?: string;
 }
 
-export const VideoPreview: FC<IVideoPreviewProps> = ({ src, className }) => {
+export const VideoPreview: FC<IVideoPreviewProps> = ({ src, className, width, height, onClick }) => {
     return (
-        <div className={clsx(styles.videoPreview, className)}>
+        <div onClick={onClick} className={clsx(styles.videoPreview, className)} style={{ width, height }}>
             <PlayIcon className={styles.play} />
             <video>
                 <source src={src} />

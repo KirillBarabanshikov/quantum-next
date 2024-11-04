@@ -8,6 +8,7 @@ export { Checkbox } from './Checkbox';
 export { Colorbox } from './Colorbox';
 export { ConfirmModal } from './ConfirmModal';
 export { Dropdown } from './Dropdown';
+export { FullScreen } from './FullScreen';
 export { Input } from './Input';
 export { InputCounter } from './InputCounter';
 export { Modal } from './Modal';

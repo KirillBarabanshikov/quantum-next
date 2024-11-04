@@ -2,9 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 
 import { useAuth } from '@/app/_providers/AuthProvider';
+import { ISelectedMedia } from '@/entities/product/ui/ProductDetails/ui/ProductTabs/Reviews/Reviews';
 import { IReview } from '@/entities/review';
 import { apiClient } from '@/shared/api';
 import DislikeIcon from '@/shared/assets/icons/dislike.svg';
@@ -17,9 +18,11 @@ import styles from './ReviewCard.module.scss';
 
 interface IReviewCardProps {
     review: IReview;
+    setSelectedReviewId: Dispatch<SetStateAction<number | undefined>>;
+    setSelectedMedia: Dispatch<SetStateAction<ISelectedMedia | undefined>>;
 }
 
-export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
+export const ReviewCard: FC<IReviewCardProps> = ({ review, setSelectedReviewId, setSelectedMedia }) => {
     const { isAuthenticated } = useAuth();
     const router = useRouter();
     const { slug } = useParams<{ slug: string }>();
@@ -74,7 +77,17 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                     <div className={styles.media}>
                         {review.videos.map((video, index) => {
                             return (
-                                <VideoPreview key={index} src={`${API_URL}${video.video}`} width={130} height={160} />
+                                <VideoPreview
+                                    key={index}
+                                    src={`${API_URL}${video.video}`}
+                                    width={130}
+                                    height={160}
+                                    onClick={() => {
+                                        setSelectedReviewId(review.id);
+                                        setSelectedMedia({ id: video.id, type: 'video' });
+                                    }}
+                                    className={styles.video}
+                                />
                             );
                         })}
 
@@ -86,6 +99,10 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review }) => {
                                 height={160}
                                 alt={'media'}
                                 className={styles.image}
+                                onClick={() => {
+                                    setSelectedReviewId(review.id);
+                                    setSelectedMedia({ id: image.id, type: 'image' });
+                                }}
                             />
                         ))}
                     </div>
