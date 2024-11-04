@@ -13,3 +13,12 @@
         border-radius: 16px;
     }
 }
+
+@media screen and (max-width: 1350px) {
+    .productActions {
+        flex-wrap: wrap;
+        .share {
+            flex: 1;
+        }
+    }
+}

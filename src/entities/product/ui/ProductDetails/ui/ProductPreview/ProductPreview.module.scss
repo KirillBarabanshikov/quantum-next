@@ -63,3 +63,52 @@
         }
     }
 }
+
+@media screen and (max-width: 1350px) {
+    .productPreview {
+        .title {
+            font-weight: 500;
+            font-size: 24px;
+        }
+
+        .ratingReviews {
+            .rating {
+                font-size: 12px;
+            }
+        }
+
+        .number {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .price {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .separator {
+            margin: 14px 0 !important;
+        }
+
+        .specifications {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            .specification {
+                font-weight: 500;
+                font-size: 14px;
+
+                .specificationTitle {
+                    margin-bottom: 10px;
+                }
+
+                .specificationValue {
+                    color: var(--color-blue-tertiary);
+                }
+            }
+        }
+    }
+}

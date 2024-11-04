@@ -1,0 +1,11 @@
+.productHeader {
+    align-items: center;
+    padding: 14px;
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .productHeader {
+        display: flex;
+    }
+}

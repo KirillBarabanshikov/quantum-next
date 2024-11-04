@@ -1,13 +1,17 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { productApi, ProductDetails, useRecentStore } from '@/entities/product';
+import { ProductHeader } from '@/entities/product/ui/ProductHeader';
 import { Breadcrumbs } from '@/shared/ui';
 import { CallBanner, RecentProduct } from '@/widgets';
+
+import styles from './ProductPage.module.scss';
 
 const breadcrumbs = [
     { text: 'Главная', href: '/' },
@@ -34,7 +38,7 @@ export const ProductPage = () => {
     }, [addToRecent, product]);
 
     return (
-        <div className={'page sections'}>
+        <div className={clsx(styles.productPage, 'page sections')}>
             <section>
                 <div className={'container'}>
                     {category && product && (
@@ -46,6 +50,7 @@ export const ProductPage = () => {
                                     { text: product.title },
                                 ],
                             ]}
+                            className={styles.breadcrumbs}
                         />
                     )}
                     {product && <ProductDetails product={product} />}

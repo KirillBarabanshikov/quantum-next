@@ -55,6 +55,9 @@
 
         .media {
             display: flex;
+            flex-wrap: wrap;
+            height: 160px;
+            overflow: hidden;
             gap: 10px;
 
             .image {

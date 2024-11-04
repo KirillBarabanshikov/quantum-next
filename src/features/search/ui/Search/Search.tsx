@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChangeEvent, FC, useRef, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 
 import { productApi } from '@/entities/product';
 import { useSearchStore } from '@/features/search';
@@ -31,6 +31,12 @@ export const Search: FC<ISearchProps> = ({ autoFocus, className }) => {
         placeholderData: keepPreviousData,
         staleTime: 0,
     });
+
+    useEffect(() => {
+        return () => {
+            setIsOpen(false);
+        };
+    }, [setIsOpen]);
 
     const { debouncedFunction: refetchDebouncedProducts } = useDebounce(refetch, 500);
 

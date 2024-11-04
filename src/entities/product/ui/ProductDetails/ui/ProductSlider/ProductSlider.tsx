@@ -40,7 +40,13 @@ export const ProductSlider: FC<IProductSliderProps> = ({ product }) => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <Swiper onSwiper={setThumbsSwiper} modules={[Thumbs]} slidesPerView={'auto'} spaceBetween={13}>
+            <Swiper
+                onSwiper={setThumbsSwiper}
+                modules={[Thumbs]}
+                slidesPerView={'auto'}
+                spaceBetween={13}
+                className={styles.thumbs}
+            >
                 {product.images.map((image, index) => (
                     <SwiperSlide key={image.id} className={styles.slide}>
                         <Image

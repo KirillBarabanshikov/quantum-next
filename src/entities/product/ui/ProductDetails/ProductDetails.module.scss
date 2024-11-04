@@ -7,3 +7,28 @@
         margin-bottom: 100px;
     }
 }
+
+@media screen and (max-width: 1350px) {
+    .productDetails {
+        margin-top: 24px;
+
+        .productInfoContainer {
+            gap: 10px;
+            margin-bottom: 60px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .productDetails {
+        margin-top: unset;
+
+        .productInfoContainer {
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+            margin-bottom: 60px;
+        }
+    }
+}

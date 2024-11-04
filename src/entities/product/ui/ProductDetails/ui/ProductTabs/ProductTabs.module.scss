@@ -339,3 +339,49 @@
         }
     }
 }
+
+@media screen and (max-width: 1350px) {
+    .productDescription {
+        gap: 24px;
+
+        .description {
+            gap: 8px;
+
+            .descriptionWrap {
+                h2 {
+                    font-size: 18px;
+                }
+
+                p {
+                    font-size: 14px;
+                }
+            }
+
+            .images {
+                .image {
+                    width: 374px;
+                    height: 248px;
+                }
+            }
+        }
+
+        .productDescriptionSlider {
+            .slideImage {
+                height: 377px;
+            }
+        }
+    }
+
+    .feedback {
+        gap: 10px;
+
+        .reviewWrap {
+            max-width: 250px;
+        }
+
+        .gradeWrap {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+    }
+}
