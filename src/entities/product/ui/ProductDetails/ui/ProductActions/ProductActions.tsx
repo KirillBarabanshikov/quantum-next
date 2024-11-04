@@ -39,7 +39,7 @@ export const ProductActions: FC<IProductActions> = ({ product }) => {
 
     return (
         <div className={styles.productActions}>
-            <Button variant={copied ? 'solid' : 'outline'} onClick={copyUrl} className={styles.share}>
+            <Button variant={copied ? 'solid' : 'outline'} onClick={copyUrl} fullWidth className={styles.share}>
                 Поделиться <ShareIcon />
             </Button>
             <Button
@@ -49,13 +49,15 @@ export const ProductActions: FC<IProductActions> = ({ product }) => {
             >
                 <StarIcon />
             </Button>
-            <InputCounter
-                defaultCount={count}
-                onIncrement={() => cartStore?.addToCart(product.id)}
-                onDecrement={() => cartStore?.decrementFromCart(product.id)}
-                onChange={(count) => cartStore?.setCount(product.id, count)}
-                max={product.count}
-            />
+            {!!product.count && (
+                <InputCounter
+                    defaultCount={count}
+                    onIncrement={() => cartStore?.addToCart(product.id)}
+                    onDecrement={() => cartStore?.decrementFromCart(product.id)}
+                    onChange={(count) => cartStore?.setCount(product.id, count)}
+                    max={product.count}
+                />
+            )}
             <AddToCartButton product={product} variant={'solid'} />
         </div>
     );

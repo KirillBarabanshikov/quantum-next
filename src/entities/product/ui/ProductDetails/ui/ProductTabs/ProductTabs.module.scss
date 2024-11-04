@@ -112,6 +112,39 @@
         }
     }
 
+    .feedbackListWrap {
+        width: 100%;
+
+        .list {
+            padding: 24px;
+            background-color: var(--color-grey);
+            margin-bottom: 20px;
+            border-radius: 20px;
+
+            .listTitle {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                font-weight: 600;
+                font-size: 18px;
+                margin-bottom: 12px;
+            }
+
+            .mediaList {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+
+                .media {
+                    border-radius: 10px;
+                    object-fit: cover;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
     .feedbackList {
         display: flex;
         flex-direction: column;
