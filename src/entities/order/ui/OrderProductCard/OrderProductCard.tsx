@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 import { IProduct } from '@/entities/product';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 import { priceFormat } from '@/shared/lib';
 import { Separator } from '@/shared/ui';
 
@@ -13,6 +15,8 @@ interface IOrderProductCard {
 }
 
 export const OrderProductCard: FC<IOrderProductCard> = ({ product, withSeparator }) => {
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+
     return (
         <article className={styles.orderProductCard}>
             <div className={styles.body}>
@@ -25,7 +29,7 @@ export const OrderProductCard: FC<IOrderProductCard> = ({ product, withSeparator
                     <div className={styles.price}>{priceFormat(product.price)}</div>
                 </div>
             </div>
-            {withSeparator && <Separator margin={'10px 0'} />}
+            {withSeparator && <Separator margin={isMatch ? '24px 0' : '10px 0'} />}
         </article>
     );
 };

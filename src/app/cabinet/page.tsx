@@ -13,7 +13,7 @@ export default function Page() {
                 <section className={'container'}>
                     <h1 className={clsx(styles.title, 'title')}>Личный кабинет</h1>
                     <div className={styles.wrapper}>
-                        <Navigation />
+                        <Navigation className={styles.navigation} />
                     </div>
                 </section>
             </div>

@@ -37,3 +37,33 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .orderProductCard {
+        .body {
+            gap: 12px;
+
+            img {
+                width: 88px;
+                height: 88px;
+                object-fit: cover;
+            }
+
+            .info {
+                flex-direction: column;
+
+                .titleWrap {
+                    margin-bottom: 14px;
+
+                    .title {
+                        font-size: 14px;
+                    }
+                }
+
+                .price {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}

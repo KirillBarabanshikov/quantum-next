@@ -18,19 +18,16 @@
                 font-weight: 500;
                 font-size: 28px;
             }
-
-            .status {
-                background-color: var(--color-white);
-                padding: 9px 15px;
-                border-radius: 20px;
-                color: var(--color-green-accent);
-                font-weight: 500;
-                font-size: 14px;
-            }
         }
     }
 
-    .body {
+    .status {
+        background-color: var(--color-white);
+        padding: 9px 15px;
+        border-radius: 20px;
+        color: var(--color-green-accent);
+        font-weight: 500;
+        font-size: 14px;
     }
 
     .wrap {
@@ -106,6 +103,95 @@
             .deliveryType {
                 font-weight: 600;
                 font-size: 18px;
+            }
+        }
+    }
+
+    .mobileBody {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .orderCard {
+        padding: 16px;
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            margin-bottom: 24px;
+
+            .headerTitle {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+
+                .orderNumber {
+                    font-weight: 600;
+                    font-size: 18px;
+                }
+
+                .status {
+                    display: none;
+                }
+            }
+
+            svg {
+                display: none;
+            }
+        }
+
+        .separator {
+            display: none;
+        }
+
+        .wrap {
+            display: none;
+        }
+
+        .bodyOpen {
+            display: none;
+        }
+
+        .mobileBody {
+            display: block;
+
+            .count {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 500;
+                font-size: 14px;
+            }
+
+            .statusWrap {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 24px;
+
+                span {
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+            }
+
+            .totalCostWrap {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 24px;
+
+                font-weight: 600;
+                font-size: 18px;
+            }
+
+            .button {
+                display: flex;
+                align-items: center;
+                gap: 10px;
             }
         }
     }

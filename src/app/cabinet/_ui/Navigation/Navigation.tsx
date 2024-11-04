@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 
 import { useAuth } from '@/app/_providers/AuthProvider';
+import ArrowIcon from '@/shared/assets/icons/arrow_right.svg';
 
 import styles from './Navigation.module.scss';
 
@@ -40,6 +41,7 @@ export const Navigation: FC<INavigationProps> = ({ className }) => {
                             className={clsx(styles.item, pathname === item.path && styles.active)}
                         >
                             <span>{item.title}</span>
+                            <ArrowIcon />
                         </Link>
                     );
                 })}

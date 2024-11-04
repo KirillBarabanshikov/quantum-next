@@ -7,6 +7,8 @@ import { OrderProductCard } from '@/entities/order';
 import ArrowIcon from '@/shared/assets/icons/arrow_down2.svg';
 import Ellipse from '@/shared/assets/icons/ellipse.svg';
 import FileIcon from '@/shared/assets/icons/file.svg';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 import { getCountWord, priceFormat } from '@/shared/lib';
 import { Button, Separator } from '@/shared/ui';
 
@@ -19,6 +21,7 @@ interface IOrderCardProps {
 
 export const OrderCard: FC<IOrderCardProps> = ({ order }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
 
     const totalCost = useMemo(() => {
         return order.orderArticles.reduce((acc, cur) => {
@@ -34,7 +37,13 @@ export const OrderCard: FC<IOrderCardProps> = ({ order }) => {
 
     return (
         <article className={styles.orderCard}>
-            <header className={styles.header} onClick={() => setIsOpen((prev) => !prev)}>
+            <header
+                className={styles.header}
+                onClick={() => {
+                    if (isMatch) return;
+                    setIsOpen((prev) => !prev);
+                }}
+            >
                 <div className={styles.headerTitle}>
                     <div className={styles.orderNumber}>Заказ № {order.id}</div>
                     <div className={styles.status}>Передано в доставку</div>
@@ -68,7 +77,7 @@ export const OrderCard: FC<IOrderCardProps> = ({ order }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <Separator />
+            <Separator className={styles.separator} />
             <AnimatePresence initial={false}>
                 {!isOpen && (
                     <motion.div
@@ -134,6 +143,33 @@ export const OrderCard: FC<IOrderCardProps> = ({ order }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
+            <div className={styles.mobileBody}>
+                <div className={styles.productsList}>
+                    {order.orderArticles.map((product) => {
+                        if (!product.article) return <Fragment key={product.id} />;
+
+                        return <OrderProductCard key={product.id} product={product.article} withSeparator />;
+                    })}
+                </div>
+                <div className={styles.count}>
+                    <span>Всего: {getCountWord(totalCount, 'товар')}</span>
+                    <Ellipse />
+                    <span>2 489 г</span>
+                </div>
+                <Separator margin={'18px 0'} />
+                <div className={styles.statusWrap}>
+                    <span>Состояние</span>
+                    <div className={styles.status}>Передано в доставку</div>
+                </div>
+                <div className={styles.totalCostWrap}>
+                    <div className={styles.totalCost}>Общая стоимость</div>
+                    <div className={styles.price}>{priceFormat(totalCost)}</div>
+                </div>
+                <Button variant={'outline'} className={styles.button} fullWidth>
+                    <FileIcon />
+                    Документы
+                </Button>
+            </div>
         </article>
     );
 };
