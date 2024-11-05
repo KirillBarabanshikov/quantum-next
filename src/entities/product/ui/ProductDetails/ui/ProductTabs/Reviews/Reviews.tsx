@@ -41,37 +41,40 @@ export const Reviews: FC<IReviewsProps> = ({ product }) => {
     return (
         <div className={styles.feedback}>
             <div className={styles.feedbackListWrap}>
-                {/*<div className={styles.list}>*/}
-                {/*    <div className={styles.listTitle}>*/}
-                {/*        Фото и видео пользователей*/}
-                {/*        <ArrowIcon />*/}
-                {/*    </div>*/}
-                {/*    <div className={styles.mediaList}>*/}
-                {/*        {product.mediaReviews.videos.map((video) => {*/}
-                {/*            return (*/}
-                {/*                <VideoPreview*/}
-                {/*                    key={video.id}*/}
-                {/*                    src={`${API_URL}${video.video}`}*/}
-                {/*                    width={129}*/}
-                {/*                    height={120}*/}
-                {/*                    className={styles.media}*/}
-                {/*                />*/}
-                {/*            );*/}
-                {/*        })}*/}
-                {/*        {product.mediaReviews.images.map((image) => {*/}
-                {/*            return (*/}
-                {/*                <Image*/}
-                {/*                    key={image.id}*/}
-                {/*                    src={`${API_URL}${image.image}`}*/}
-                {/*                    alt={'image'}*/}
-                {/*                    width={129}*/}
-                {/*                    height={120}*/}
-                {/*                    className={styles.media}*/}
-                {/*                />*/}
-                {/*            );*/}
-                {/*        })}*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                {/*{!!product.mediaReviews.videos.length ||*/}
+                {/*    (!!product.mediaReviews.images.length && (*/}
+                {/*        <div className={styles.list}>*/}
+                {/*            <div className={styles.listTitle}>*/}
+                {/*                Фото и видео пользователей*/}
+                {/*                <ArrowIcon />*/}
+                {/*            </div>*/}
+                {/*            <div className={styles.mediaList}>*/}
+                {/*                {product.mediaReviews.videos.map((video) => {*/}
+                {/*                    return (*/}
+                {/*                        <VideoPreview*/}
+                {/*                            key={video.id}*/}
+                {/*                            src={`${API_URL}${video.video}`}*/}
+                {/*                            width={129}*/}
+                {/*                            height={120}*/}
+                {/*                            className={styles.media}*/}
+                {/*                        />*/}
+                {/*                    );*/}
+                {/*                })}*/}
+                {/*                {product.mediaReviews.images.map((image) => {*/}
+                {/*                    return (*/}
+                {/*                        <Image*/}
+                {/*                            key={image.id}*/}
+                {/*                            src={`${API_URL}${image.image}`}*/}
+                {/*                            alt={'image'}*/}
+                {/*                            width={129}*/}
+                {/*                            height={120}*/}
+                {/*                            className={styles.media}*/}
+                {/*                        />*/}
+                {/*                    );*/}
+                {/*                })}*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    ))}*/}
                 <div className={styles.feedbackList}>
                     {product.reviews.map((review) => {
                         return (

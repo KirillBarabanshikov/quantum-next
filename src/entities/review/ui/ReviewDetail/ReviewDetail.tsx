@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Image from 'next/image';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { ISelectedMedia } from '@/entities/product/ui/ProductDetails/ui/ProductTabs/Reviews/Reviews';
 import { IReview } from '@/entities/review';
@@ -22,14 +22,6 @@ export const ReviewDetail: FC<IReviewDetailProps> = ({ review, selectedMedia, re
     const [currentMedia, setCurrentMedia] = useState(selectedMedia);
     const [currentReview, setCurrentReview] = useState(review);
 
-    useEffect(() => {
-        if (currentReview.videos.length) {
-            setCurrentMedia({ id: currentReview.videos[0].id, type: 'video' });
-        } else if (currentReview.images.length) {
-            setCurrentMedia({ id: currentReview.images[0].id, type: 'image' });
-        }
-    }, [currentReview]);
-
     const onNext = () => {
         const filteredReviews = reviews.filter((review) => review.videos.length || review.images.length);
         const currentIndex = filteredReviews.findIndex((item) => item.id === currentReview.id);
@@ -37,6 +29,11 @@ export const ReviewDetail: FC<IReviewDetailProps> = ({ review, selectedMedia, re
             const nextReview = filteredReviews[currentIndex + 1];
             if (!nextReview) return;
             setCurrentReview(nextReview);
+            if (nextReview.videos.length) {
+                setCurrentMedia({ id: nextReview.videos[0].id, type: 'video' });
+            } else if (nextReview.images.length) {
+                setCurrentMedia({ id: nextReview.images[0].id, type: 'image' });
+            }
         }
     };
 
@@ -47,6 +44,11 @@ export const ReviewDetail: FC<IReviewDetailProps> = ({ review, selectedMedia, re
             const prevReview = filteredReviews[currentIndex - 1];
             if (!prevReview) return;
             setCurrentReview(prevReview);
+            if (prevReview.videos.length) {
+                setCurrentMedia({ id: prevReview.videos[0].id, type: 'video' });
+            } else if (prevReview.images.length) {
+                setCurrentMedia({ id: prevReview.images[0].id, type: 'image' });
+            }
         }
     };
 
