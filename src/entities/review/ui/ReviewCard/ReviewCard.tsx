@@ -75,10 +75,10 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review, setSelectedReviewId, 
                 )}
                 {(!!review.images.length || !!review.videos.length) && (
                     <div className={styles.media}>
-                        {review.videos.map((video, index) => {
+                        {review.videos.map((video) => {
                             return (
                                 <VideoPreview
-                                    key={index}
+                                    key={video.id}
                                     src={`${API_URL}${video.video}`}
                                     width={130}
                                     height={160}
@@ -92,18 +92,24 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review, setSelectedReviewId, 
                         })}
 
                         {review.images.slice(0, 4 - review.videos.length).map((image, index) => (
-                            <Image
-                                key={index}
-                                src={`${API_URL}${image?.image}`}
-                                width={130}
-                                height={160}
-                                alt={'media'}
-                                className={styles.image}
-                                onClick={() => {
-                                    setSelectedReviewId(review.id);
-                                    setSelectedMedia({ id: image.id, type: 'image' });
-                                }}
-                            />
+                            <div key={image.id} className={styles.imageWrap}>
+                                <Image
+                                    src={`${API_URL}${image?.image}`}
+                                    width={130}
+                                    height={160}
+                                    alt={'media'}
+                                    className={styles.image}
+                                    onClick={() => {
+                                        setSelectedReviewId(review.id);
+                                        setSelectedMedia({ id: image.id, type: 'image' });
+                                    }}
+                                />
+                                {index + 1 === 4 - review.videos.length && (
+                                    <div className={styles.badge}>
+                                        +{review.images.length - (4 - review.videos.length)} фото
+                                    </div>
+                                )}
+                            </div>
                         ))}
                     </div>
                 )}

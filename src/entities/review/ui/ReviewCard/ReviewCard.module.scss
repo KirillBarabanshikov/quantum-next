@@ -60,6 +60,22 @@
             overflow: hidden;
             gap: 10px;
 
+            .imageWrap {
+                position: relative;
+
+                .badge {
+                    background-color: var(--color-white);
+                    position: absolute;
+                    right: 10px;
+                    bottom: 10px;
+                    border-radius: 10px;
+                    padding: 4px 6px;
+
+                    font-weight: 500;
+                    font-size: 12px;
+                }
+            }
+
             .image {
                 object-fit: cover;
                 border-radius: 20px;
