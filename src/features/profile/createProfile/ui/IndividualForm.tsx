@@ -163,7 +163,7 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
                     <Input
                         placeholder={'01.01.2024'}
                         type={'date'}
-                        label={'Дата'}
+                        label={'Дата выдачи'}
                         sizes={'sm'}
                         {...register('passportDate')}
                         error={errors.passportDate?.message}
