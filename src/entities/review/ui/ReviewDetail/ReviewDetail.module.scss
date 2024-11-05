@@ -4,6 +4,29 @@
     border-radius: 20px;
     box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.1);
     margin-top: 70px;
+    position: relative;
+
+    .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background-color: var(--color-white);
+        border-radius: 100px;
+        box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.1);
+
+        position: absolute;
+        top: calc(50% - 24px);
+
+        &.left {
+            left: -90px;
+        }
+
+        &.right {
+            right: -90px;
+        }
+    }
 
     .mediaWrap {
         width: 689px;
@@ -20,7 +43,8 @@
     .reviewWrap {
         padding: 24px;
         max-width: 375px;
-        max-height: 576px;
+        max-height: 567px;
+        height: 567px;
         overflow: auto;
 
         .reviewer {

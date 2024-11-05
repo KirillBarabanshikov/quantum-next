@@ -73,7 +73,7 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review, setSelectedReviewId, 
                         <div className={styles.text}>{review.comment}</div>
                     </div>
                 )}
-                {(review.images || review.videos) && (
+                {(!!review.images.length || !!review.videos.length) && (
                     <div className={styles.media}>
                         {review.videos.map((video, index) => {
                             return (

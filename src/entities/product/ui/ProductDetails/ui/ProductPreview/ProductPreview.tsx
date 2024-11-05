@@ -18,7 +18,7 @@ export const ProductPreview: FC<IProductPreviewProps> = ({ product }) => {
             <h1 className={styles.title}>{product.title}</h1>
             <div className={styles.ratingReviews}>
                 <StarIcon className={styles.star} />
-                <span className={styles.rating}>{product.average}</span>
+                <span className={styles.rating}>{product.average.toFixed(1)}</span>
                 <EllipseIcon className={styles.ellipse} />
                 <span className={styles.rating}>{getCountWord(product.reviews.length, 'отзыв')}</span>
             </div>

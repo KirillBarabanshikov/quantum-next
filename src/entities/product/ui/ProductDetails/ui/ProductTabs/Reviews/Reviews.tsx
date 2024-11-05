@@ -74,7 +74,7 @@ export const Reviews: FC<IReviewsProps> = ({ product }) => {
             <div className={styles.reviewWrap}>
                 <div className={styles.gradeWrap}>
                     <GradeIcon />
-                    <div>{product.average}</div>
+                    <div>{product.average.toFixed(1)}</div>
                     <div className={styles.ellipse} />
                     <div>{getCountWord(product.reviews.length, 'отзыв')}</div>
                 </div>
@@ -88,7 +88,9 @@ export const Reviews: FC<IReviewsProps> = ({ product }) => {
                     setSelectedMedia(undefined);
                 }}
             >
-                {review && selectedMedia && <ReviewDetail review={review} selectedMedia={selectedMedia} />}
+                {review && selectedMedia && (
+                    <ReviewDetail review={review} selectedMedia={selectedMedia} reviews={product.reviews} />
+                )}
             </FullScreen>
         </div>
     );
