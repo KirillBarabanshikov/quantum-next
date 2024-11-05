@@ -164,7 +164,18 @@ export const OrderPage = () => {
                     </div>
                 </div>
             </section>
-            <AlertModal isOpen={isOpen} onClose={handleClose} isError={isError} onEnter={handleClose} />
+            <AlertModal
+                isOpen={isOpen}
+                onClose={handleClose}
+                isError={isError}
+                onEnter={handleClose}
+                title={isError ? 'Ошибка' : 'Успех'}
+                subtitle={
+                    isError
+                        ? 'К сожалению, оплата не прошла. Пожалуйста попробуйте еще раз или выберите другой способ оплаты.'
+                        : 'Спасибо за покупку! Оплата прошла успешно. Вся информация о заказе и доставке направлена на вашу электронную почту.'
+                }
+            />
         </div>
     );
 };
