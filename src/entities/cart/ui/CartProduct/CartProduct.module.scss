@@ -65,9 +65,24 @@
             border-radius: 10px;
             background-color: var(--color-white);
             color: var(--color-blue-tertiary);
+            transition:
+                background-color 300ms,
+                color 300ms;
 
             .star {
                 width: 20px;
+            }
+
+            &.active {
+                background-color: var(--color-dark-blue);
+                color: var(--color-white);
+            }
+
+            @media (hover: hover) {
+                &:hover {
+                    background-color: var(--color-dark-blue);
+                    color: var(--color-white);
+                }
             }
         }
     }

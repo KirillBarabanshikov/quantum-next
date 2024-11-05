@@ -50,7 +50,7 @@ export const CartProduct: FC<ICartProductProps> = ({ product, count, selected, s
                                 <TrashIcon />
                             </button>
                             <button
-                                className={styles.action}
+                                className={clsx(styles.action, isFavorite(product.id) && styles.active)}
                                 onClick={() => {
                                     isFavorite(product.id)
                                         ? removeFromFavorites(product.id)
