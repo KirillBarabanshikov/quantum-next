@@ -1,0 +1,39 @@
+.productWrap {
+    display: none;
+
+    .productBody {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .wrap {
+            padding: 16px 12px;
+            background-color: var(--color-grey);
+            border-radius: 20px;
+        }
+
+        .price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--color-blue-accent);
+
+            span {
+                font-weight: 600;
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .productWrap {
+        display: initial;
+    }
+}

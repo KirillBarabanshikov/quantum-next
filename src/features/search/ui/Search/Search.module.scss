@@ -58,6 +58,12 @@
             flex-direction: column;
         }
     }
+
+    &.product {
+        .search {
+            background-color: var(--color-grey);
+        }
+    }
 }
 
 .overlay {

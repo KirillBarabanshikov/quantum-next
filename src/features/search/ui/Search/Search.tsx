@@ -16,9 +16,10 @@ import styles from './Search.module.scss';
 interface ISearchProps {
     autoFocus?: boolean;
     className?: string;
+    variant?: 'product';
 }
 
-export const Search: FC<ISearchProps> = ({ autoFocus, className }) => {
+export const Search: FC<ISearchProps> = ({ autoFocus, variant, className }) => {
     const [searchValue, setSearchValue] = useState<string>('');
     const searchWrapRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
     const searchRef = useRef<HTMLInputElement>(null);
@@ -56,7 +57,15 @@ export const Search: FC<ISearchProps> = ({ autoFocus, className }) => {
 
     return (
         <>
-            <div className={clsx(styles.searchWrap, className, open && styles.isOpen)} ref={searchWrapRef}>
+            <div
+                className={clsx(
+                    styles.searchWrap,
+                    variant === 'product' && styles.product,
+                    className,
+                    open && styles.isOpen,
+                )}
+                ref={searchWrapRef}
+            >
                 <div className={styles.search}>
                     <input
                         type={'text'}
