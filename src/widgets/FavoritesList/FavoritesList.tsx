@@ -1,7 +1,7 @@
 'use client';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 
 import { useFavoritesStore } from '@/entities/product';
 import { productApi } from '@/entities/product';
@@ -29,14 +29,14 @@ export const FavoritesList: FC<IFavoritesListProps> = ({ stock }) => {
     const [sort, setSort] = useState('created:desc');
     const [isOpen, setIsOpen] = useState(false);
     const { productsIds } = useFavoritesStore();
+    const ids = useMemo(() => productsIds.map((id) => id), [productsIds]);
 
     const { data: products, isLoading } = useQuery({
-        queryKey: ['favorites', productsIds.length > 0, selectedSort, stock],
+        queryKey: ['favorites', ids, selectedSort, stock],
         queryFn: () =>
             productsIds.length > 0
                 ? productApi.fetchProductsByIds(productsIds, selectedSort, stock ? stock : undefined)
                 : [],
-        staleTime: 0,
         placeholderData: keepPreviousData,
     });
 
