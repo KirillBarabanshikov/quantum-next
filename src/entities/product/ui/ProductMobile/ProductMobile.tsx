@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import { FC, Fragment } from 'react';
 
 import { IProduct } from '@/entities/product';
@@ -7,12 +8,11 @@ import Ellipse from '@/shared/assets/icons/ellipse.svg';
 import WalletIcon from '@/shared/assets/icons/wallet.svg';
 import { priceFormat } from '@/shared/lib';
 import { Badge, Button } from '@/shared/ui';
+import { RecentProduct } from '@/widgets';
 
 import { ProductSlider } from '../ProductDetails/ui';
 import { ProductHeader } from '../ProductHeader';
 import styles from './ProductMobile.module.scss';
-import Image from 'next/image';
-import { RecentProduct } from '@/widgets';
 
 interface IProductMobileProps {
     product: IProduct;
