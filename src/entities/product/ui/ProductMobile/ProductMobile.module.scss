@@ -29,6 +29,34 @@
                 font-size: 18px;
             }
         }
+
+        .title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
+
+        .characteristics {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--color-blue-tertiary);
+            margin-bottom: 14px;
+        }
+
+        .image {
+            width: 100%;
+            object-fit: cover;
+            mix-blend-mode: darken;
+            margin-bottom: 14px;
+        }
+
+        .button {
+            color: var(--color-blue-accent) !important;
+        }
     }
 }
 

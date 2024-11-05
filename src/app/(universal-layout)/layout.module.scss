@@ -2,8 +2,8 @@
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    padding-top: 24px;
-    padding-bottom: 160px;
+    padding-top: 24px !important;
+    padding-bottom: 160px !important;
 
     .title {
         font-weight: 600;

@@ -18,7 +18,16 @@ export interface IProduct {
     additionalCharacteristics: IProductAdditionalCharacteristic[];
     categoryId: number;
     productId: number;
-    mediaReviews: [];
+    mediaReviews: {
+        images: {
+            id: number;
+            image: string;
+        }[];
+        videos: {
+            id: number;
+            video: string;
+        }[];
+    };
     average: number;
     slug: string;
 }
