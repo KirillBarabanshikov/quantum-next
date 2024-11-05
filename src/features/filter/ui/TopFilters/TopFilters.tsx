@@ -106,13 +106,13 @@ const DesktopFilters: FC<{
 
     useEffect(() => {
         if (!currentFilters || !filters) return;
-        setShow(false);
 
         filters.forEach((filter) => {
             if (currentFilters[filter.id].value.length && searchParams.get(`filters[${filter.id}]`)) {
                 return setShow(true);
             }
         });
+        return () => setShow(false);
     }, [currentFilters, filters]);
 
     return (
