@@ -62,6 +62,7 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClos
                     })}
                 </div>
                 <div className={styles.label}>{rating > 0 && ratingLabels[rating - 1]}</div>
+                <div className={styles.error}>{errors.rating?.message}</div>
             </div>
             <div className={styles.fieldsWrap}>
                 <Input label={'Достоинства'} {...register('pros')} />

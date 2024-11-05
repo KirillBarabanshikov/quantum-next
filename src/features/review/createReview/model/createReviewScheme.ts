@@ -7,7 +7,7 @@ const getVideoDuration = (file: File): Promise<number> => {
 
         video.onloadedmetadata = function () {
             window.URL.revokeObjectURL(video.src);
-            resolve(video.duration); // Длительность в секундах
+            resolve(video.duration);
         };
 
         video.src = URL.createObjectURL(file);
@@ -15,7 +15,7 @@ const getVideoDuration = (file: File): Promise<number> => {
 };
 
 export const createReviewScheme = yup.object().shape({
-    rating: yup.number().required(),
+    rating: yup.number().required('Пожалуйста, заполните рейтинг'),
     pros: yup.string(),
     cons: yup.string(),
     comment: yup.string().required('Пожалуйста, заполните обязательное поле'),
