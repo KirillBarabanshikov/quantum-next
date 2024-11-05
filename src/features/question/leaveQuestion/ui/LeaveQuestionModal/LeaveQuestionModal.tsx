@@ -55,6 +55,7 @@ export const LeaveQuestionModal: FC<ILeaveQuestionModalProps> = ({ isOpen, onClo
                     placeholder={'Введите ваш вопрос'}
                     {...register('question')}
                     error={errors.question?.message}
+                    rows={4}
                 />
                 <Button type={'submit'}>Ответить</Button>
             </form>

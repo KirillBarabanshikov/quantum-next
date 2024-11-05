@@ -9,7 +9,7 @@ import { reviewApi } from '@/entities/review';
 import Plus from '@/shared/assets/icons/plus.svg';
 import GradeIcon from '@/shared/assets/icons/start_outline.svg';
 import { truncate } from '@/shared/lib';
-import { Button, Input } from '@/shared/ui';
+import { Button, Textarea } from '@/shared/ui';
 
 import { createReviewScheme, TCreateReviewScheme } from '../../model';
 import styles from './CreateReviewForm.module.scss';
@@ -65,9 +65,14 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClos
                 <div className={styles.error}>{errors.rating?.message}</div>
             </div>
             <div className={styles.fieldsWrap}>
-                <Input label={'Достоинства'} {...register('pros')} />
-                <Input label={'Недостатки'} {...register('cons')} />
-                <Input label={'Комментарий к отзыву'} {...register('comment')} error={errors.comment?.message} />
+                <Textarea label={'Достоинства'} {...register('pros')} rows={2} />
+                <Textarea label={'Недостатки'} {...register('cons')} rows={2} />
+                <Textarea
+                    label={'Комментарий к отзыву'}
+                    {...register('comment')}
+                    error={errors.comment?.message}
+                    rows={2}
+                />
             </div>
             <File
                 title={'Добавьте фотографии'}
