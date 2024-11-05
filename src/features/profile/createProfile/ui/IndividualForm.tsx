@@ -193,7 +193,11 @@ export const IndividualForm: FC<IIndividualFormProps> = ({ profile, variant }) =
                     <div className={styles.foot}>
                         <Separator margin={'12px 0 0 0'} />
                         <Checkbox
-                            label={'согласие на обработку персональных данных'}
+                            label={
+                                <a href={'/personal-data'} target={'_blank'}>
+                                    согласие на обработку персональных данных
+                                </a>
+                            }
                             {...register('checked')}
                             error={!!errors.checked}
                         />
