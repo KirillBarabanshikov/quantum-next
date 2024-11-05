@@ -12,11 +12,23 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     suffixSlot?: ReactNode;
     variant?: 'default' | 'dark' | 'white';
     sizes?: 'sm' | 'md';
+    showErrorText?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>(
     (
-        { label, error, hint, suffixSlot, variant = 'default', type = 'text', sizes = 'md', className, ...props },
+        {
+            label,
+            error,
+            hint,
+            suffixSlot,
+            variant = 'default',
+            type = 'text',
+            sizes = 'md',
+            showErrorText = true,
+            className,
+            ...props
+        },
         ref,
     ) => {
         const id = useId();
@@ -35,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
                     <input type={type} id={id} className={styles.input} ref={ref} {...props} />
                     {suffixSlot}
                 </div>
-                {error && <div className={styles.error}>{error}</div>}
+                {error && showErrorText && <div className={styles.error}>{error}</div>}
             </div>
         );
     },

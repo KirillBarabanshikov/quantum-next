@@ -36,7 +36,13 @@ export const OrderCallForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <Input placeholder={'Ваше имя'} {...register('name')} error={errors.name?.message} variant={'dark'} />
+            <Input
+                placeholder={'Ваше имя'}
+                {...register('name')}
+                error={errors.name?.message}
+                showErrorText={false}
+                variant={'dark'}
+            />
             <Input
                 placeholder={'Ваш телефон'}
                 {...register('phone', {
@@ -46,6 +52,7 @@ export const OrderCallForm = () => {
                     },
                 })}
                 error={errors.phone?.message}
+                showErrorText={false}
                 variant={'dark'}
             />
             <Button type={'submit'} theme={'white'}>

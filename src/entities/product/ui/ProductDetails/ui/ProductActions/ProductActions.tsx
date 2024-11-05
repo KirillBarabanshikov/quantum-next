@@ -53,9 +53,16 @@ export const ProductActions: FC<IProductActions> = ({ product }) => {
                 <InputCounter
                     defaultCount={count}
                     onIncrement={() => cartStore?.addToCart(product.id)}
-                    onDecrement={() => cartStore?.decrementFromCart(product.id)}
+                    onDecrement={(count) => {
+                        if (count === 0) {
+                            cartStore?.removeFromCart(product.id);
+                        } else {
+                            cartStore?.decrementFromCart(product.id);
+                        }
+                    }}
                     onChange={(count) => cartStore?.setCount(product.id, count)}
                     max={product.count}
+                    min={0}
                 />
             )}
             <AddToCartButton product={product} variant={'solid'} />
