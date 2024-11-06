@@ -22,7 +22,8 @@ export const ProductPreview: FC<IProductPreviewProps> = ({ product }) => {
                 <EllipseIcon className={styles.ellipse} />
                 <span className={styles.rating}>{getCountWord(product.reviews.length, 'отзыв')}</span>
             </div>
-            <div className={styles.number}>Артикул: {product.number}</div>
+            <div className={styles.article}>Артикул: {product.number}</div>
+            <div className={styles.number}>Количество на складе: {product.count} шт.</div>
             <div className={styles.price}>{priceFormat(product.price)}</div>
             <Separator margin={'24px 0'} className={styles.separator} />
             <div className={styles.tags}>

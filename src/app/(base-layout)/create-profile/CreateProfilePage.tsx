@@ -4,12 +4,13 @@ import clsx from 'clsx';
 import { useState } from 'react';
 
 import { IndividualForm } from '@/features/profile';
-import { Accordion, Button, Separator } from '@/shared/ui';
+import { Accordion, Button, Modal, Separator } from '@/shared/ui';
 
 import styles from './CreateProfilePage.module.scss';
 
 export const CreateProfilePage = () => {
     const [selectedProfile, setSelectedProfile] = useState(0);
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <div className={clsx(styles.createProfilePage, 'page')}>
@@ -27,7 +28,9 @@ export const CreateProfilePage = () => {
                             <div className={styles.hint}>
                                 Для синхронизации данных с сервисом госуслуг необходима авторизация на gosuslugi.ru
                             </div>
-                            <Button fullWidth>Авторизация через Госуслуги</Button>
+                            <Button onClick={() => setShowModal(!showModal)} fullWidth>
+                                Авторизация через Госуслуги
+                            </Button>
                             <Separator />
                             <IndividualForm />
                         </Accordion>
@@ -68,6 +71,24 @@ export const CreateProfilePage = () => {
                     </div>
                 </div>
             </section>
+            <Modal
+                isOpen={showModal}
+                onClose={() => {
+                    setShowModal(false);
+                }}
+                title={'Функционал в разработке'}
+                maxWidth={428}
+            >
+                <div className={styles.btns}>
+                    <Button
+                        onClick={async () => {
+                            setShowModal(false);
+                        }}
+                    >
+                        Закрыть
+                    </Button>
+                </div>
+            </Modal>
         </div>
     );
 };
