@@ -101,8 +101,15 @@ export const PasswordPage = () => {
         <div className={styles.container}>
             <div className={styles.title}>
                 <Logo />
-                <h1 className={'title'}>Сайт в разработке</h1>
+                <h1 className={'title'} style={{ textAlign: 'center' }}>
+                    Рады приветствовать на RUBOT!
+                </h1>
             </div>
+            <p className={styles.subtitle}>
+                Первом специализированном маркетплейсе, агрегирующем широкий спектр решений российских производителей
+                робототехники, систем интеллектуального управления, в&nbsp;том числе беспилотных систем, модулей,
+                микросхем и иных составных микроэлектронных элементов и&nbsp;различного программного обеспечения.
+            </p>
             <p className={styles.subtitle}>
                 Оставьте ваш адрес электронной почты, и мы сообщим вам о запуске маркетплейса Rubot.pro
             </p>
