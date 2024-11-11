@@ -37,7 +37,7 @@ export const MainPage = () => {
     });
 
     return (
-        <div className={clsx(styles.mainPage, 'page', 'sections')}>
+        <div className={clsx('page', 'sections', styles.mainPage)}>
             <div>
                 <MainBanner className={styles.mainBanner} />
                 <div className={'container'}>

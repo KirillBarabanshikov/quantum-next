@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { IProduct, ProductCard } from '@/entities/product';
 import { Skeleton } from '@/shared/ui';
@@ -12,7 +12,7 @@ interface IProductsListProps {
     className?: string;
 }
 
-export const ProductsList: FC<IProductsListProps> = ({ products, isLoading, className }) => {
+export const ProductsList: FC<IProductsListProps> = memo(({ products, isLoading, className }) => {
     return (
         <div className={clsx(styles.productsList, className)}>
             {isLoading
@@ -20,4 +20,6 @@ export const ProductsList: FC<IProductsListProps> = ({ products, isLoading, clas
                 : products?.map((product) => <ProductCard key={product.id} product={product} />)}
         </div>
     );
-};
+});
+
+ProductsList.displayName = 'ProductsList';
