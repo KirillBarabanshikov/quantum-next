@@ -42,11 +42,17 @@
         font-weight: 600;
         font-size: 20px;
         line-height: 24.5px;
+        margin-bottom: 20px;
+    }
+
+    .desc {
+        margin-bottom: 20px;
     }
 
     ul,
     ol {
         list-style: inside;
+        margin-bottom: 20px;
     }
 }
 
@@ -216,7 +222,7 @@
 
 .allMedia {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(225px, 256px));
     gap: 13px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -227,6 +233,7 @@
         cursor: pointer;
         object-fit: cover;
         border-radius: 20px;
+        width: 100%;
 
         video {
             border-radius: 20px !important;
@@ -288,6 +295,7 @@
     display: flex;
     align-items: center;
     gap: 40px;
+    margin-bottom: 20px;
 }
 
 .reviewBody {
@@ -406,6 +414,48 @@
         .gradeWrap {
             font-size: 24px;
             margin-bottom: 30px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .specifications {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .productDescription {
+        gap: 24px;
+
+        .description {
+            flex-direction: column;
+            gap: 24px;
+
+            &.left {
+                flex-direction: column;
+            }
+
+            .images {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+
+                .image {
+                    border-radius: 20px;
+                    object-fit: cover;
+                    width: 100%;
+                }
+            }
+        }
+
+        .productDescriptionSlider {
+            .slideImage {
+                width: 100%;
+                height: 248px;
+                object-fit: cover;
+                border-radius: 20px;
+            }
         }
     }
 }

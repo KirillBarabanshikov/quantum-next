@@ -60,6 +60,31 @@
     }
 }
 
+.tabs {
+    padding: 14px;
+
+    .slide {
+        width: min-content;
+    }
+
+    .tab {
+        font-weight: 500;
+        font-size: 14px;
+        padding: 12px;
+        background-color: var(--color-grey);
+        border-radius: 20px;
+
+        &.current {
+            background-color: var(--color-blue-accent);
+            color: var(--color-white);
+        }
+    }
+}
+
+.tabBody {
+    padding: 0 14px 30px 14px;
+}
+
 @media screen and (max-width: 768px) {
     .productWrap {
         display: initial;

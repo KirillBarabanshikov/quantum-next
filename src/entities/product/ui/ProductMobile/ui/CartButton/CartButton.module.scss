@@ -1,0 +1,23 @@
+.cartButton {
+    position: fixed;
+    left: 14px;
+    right: 14px;
+    bottom: 100px;
+    z-index: 5;
+
+    .counterWrap {
+        background-color: var(--color-dark-blue);
+        border-radius: 20px;
+        height: 53px;
+        overflow: hidden;
+
+        .counter {
+            max-width: unset;
+
+            input {
+                background-color: unset;
+                color: var(--color-white);
+            }
+        }
+    }
+}

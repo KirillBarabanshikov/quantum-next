@@ -27,7 +27,7 @@ export const FullScreen: FC<IFullScreenProps> = ({ isOpen, onClose, title, child
     return (
         <Portal>
             <div className={clsx(styles.fullScreen)}>
-                <div className={styles.container}>
+                <div className={clsx(styles.container, 'scrollbar-hide')}>
                     {title && <div className={styles.title}>{title}</div>}
                     <CloseIcon onClick={onClose} className={styles.close} />
                     <div>{children}</div>

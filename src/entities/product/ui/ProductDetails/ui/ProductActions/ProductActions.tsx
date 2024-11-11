@@ -60,7 +60,13 @@ export const ProductActions: FC<IProductActions> = ({ product }) => {
                             cartStore?.decrementFromCart(product.id);
                         }
                     }}
-                    onChange={(count) => cartStore?.setCount(product.id, count)}
+                    onChange={(count) => {
+                        if (count === 0) {
+                            cartStore?.removeFromCart(product.id);
+                        } else {
+                            cartStore?.setCount(product.id, count);
+                        }
+                    }}
                     max={product.count}
                     min={0}
                 />
