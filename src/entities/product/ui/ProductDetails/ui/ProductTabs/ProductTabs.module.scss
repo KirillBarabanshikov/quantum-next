@@ -214,6 +214,26 @@
     }
 }
 
+.allMedia {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 88vh;
+    padding-bottom: 30px;
+
+    .media {
+        cursor: pointer;
+        object-fit: cover;
+        border-radius: 20px;
+
+        video {
+            border-radius: 20px !important;
+        }
+    }
+}
+
 .productDescription {
     display: flex;
     flex-direction: column;

@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 
@@ -41,39 +42,7 @@ export const Reviews: FC<IReviewsProps> = ({ product }) => {
     return (
         <div className={styles.feedback}>
             <div className={styles.feedbackListWrap}>
-                {(!!product.mediaReviews.videos.length || !!product.mediaReviews.images.length) && (
-                    <div className={styles.list}>
-                        <div className={styles.listTitle}>
-                            Фото и видео пользователей
-                            <ArrowIcon />
-                        </div>
-                        <div className={styles.mediaList}>
-                            {product.mediaReviews.videos.map((video) => {
-                                return (
-                                    <VideoPreview
-                                        key={video.id}
-                                        src={`${API_URL}${video.video}`}
-                                        width={129}
-                                        height={120}
-                                        className={styles.media}
-                                    />
-                                );
-                            })}
-                            {product.mediaReviews.images.map((image) => {
-                                return (
-                                    <Image
-                                        key={image.id}
-                                        src={`${API_URL}${image.image}`}
-                                        alt={'image'}
-                                        width={129}
-                                        height={120}
-                                        className={styles.media}
-                                    />
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
+                <AllMedia product={product} />
                 <div className={styles.feedbackList}>
                     {product.reviews.map((review) => {
                         return (
@@ -110,5 +79,78 @@ export const Reviews: FC<IReviewsProps> = ({ product }) => {
                 )}
             </FullScreen>
         </div>
+    );
+};
+
+interface IAllMediaProps {
+    product: IProduct;
+}
+
+const AllMedia: FC<IAllMediaProps> = ({ product }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    if (!product.mediaReviews.videos.length && !product.mediaReviews.images.length) return <></>;
+
+    return (
+        <>
+            <div className={styles.list}>
+                <div className={styles.listTitle} onClick={() => setIsOpen(true)}>
+                    Фото и видео пользователей
+                    <ArrowIcon />
+                </div>
+                <div className={styles.mediaList}>
+                    {product.mediaReviews.videos.map((video) => {
+                        return (
+                            <VideoPreview
+                                key={video.id}
+                                src={`${API_URL}${video.video}`}
+                                width={129}
+                                height={120}
+                                className={styles.media}
+                            />
+                        );
+                    })}
+                    {product.mediaReviews.images.map((image) => {
+                        return (
+                            <Image
+                                key={image.id}
+                                src={`${API_URL}${image.image}`}
+                                alt={'image'}
+                                width={129}
+                                height={120}
+                                className={styles.media}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
+            <FullScreen isOpen={isOpen} onClose={() => setIsOpen(false)} title={'Все фото и видео'}>
+                <div className={clsx(styles.allMedia, 'scrollbar-hide')}>
+                    {product.mediaReviews.videos.map((video) => {
+                        return (
+                            <VideoPreview
+                                key={video.id}
+                                src={`${API_URL}${video.video}`}
+                                width={256}
+                                height={356}
+                                className={styles.media}
+                            />
+                        );
+                    })}
+                    {product.mediaReviews.images.map((image) => {
+                        return (
+                            <Image
+                                key={image.id}
+                                src={`${API_URL}${image.image}`}
+                                alt={'image'}
+                                width={256}
+                                height={356}
+                                className={styles.media}
+                            />
+                        );
+                    })}
+                </div>
+            </FullScreen>
+        </>
     );
 };
