@@ -33,12 +33,6 @@ export const Search: FC<ISearchProps> = ({ autoFocus, variant, className }) => {
         staleTime: 0,
     });
 
-    useEffect(() => {
-        return () => {
-            setIsOpen(false);
-        };
-    }, [setIsOpen]);
-
     const { debouncedFunction: refetchDebouncedProducts } = useDebounce(refetch, 500);
 
     const onChangeSearch = async (e: ChangeEvent<HTMLInputElement>) => {
