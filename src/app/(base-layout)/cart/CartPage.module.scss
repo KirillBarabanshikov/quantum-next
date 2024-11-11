@@ -1,5 +1,5 @@
 .cartPage {
-    padding-top: 60px;
+    padding-top: 60px !important;
 
     .title {
         display: flex;
@@ -135,7 +135,7 @@
 
 @media screen and (max-width: 992px) {
     .cartPage {
-        padding-top: 46px;
+        padding-top: 46px !important;
 
         .title {
             gap: 12px;
@@ -199,7 +199,7 @@
 
 @media screen and (max-width: 768px) {
     .cartPage {
-        padding-top: 12px;
+        padding-top: 12px !important;
 
         .actions {
             justify-content: space-between;

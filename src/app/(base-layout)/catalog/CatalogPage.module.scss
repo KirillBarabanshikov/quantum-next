@@ -1,5 +1,5 @@
 .catalogPage {
-    padding-top: 60px;
+    padding-top: 60px !important;
 
     .title {
         margin-bottom: 40px;
@@ -8,7 +8,7 @@
 
 @media screen and (max-width: 992px) {
     .catalogPage {
-        padding-top: 24px;
+        padding-top: 24px !important;
 
         .title {
             margin-bottom: 24px;
