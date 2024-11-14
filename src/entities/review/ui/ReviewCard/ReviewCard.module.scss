@@ -132,11 +132,14 @@
 @media screen and (max-width: 768px) {
     .reviewCard {
         flex-direction: column;
+        padding: 16px 12px;
 
         .reviewWrap {
             max-width: unset;
 
             .wrap {
+                order: -2;
+
                 .reviewer {
                     display: flex;
                     align-items: center;
@@ -145,6 +148,28 @@
                     .date {
                         display: block;
                     }
+                }
+            }
+
+            .media {
+                height: 84px;
+                gap: 4px;
+                order: -1;
+
+                .imageWrap {
+                    .badge {
+                        display: none;
+                    }
+                }
+
+                .image {
+                    object-fit: cover;
+                    border-radius: 10px;
+                    cursor: pointer;
+                }
+
+                .video {
+                    cursor: pointer;
                 }
             }
         }

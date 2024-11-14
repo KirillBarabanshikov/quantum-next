@@ -11,7 +11,8 @@ import { apiClient } from '@/shared/api';
 import DislikeIcon from '@/shared/assets/icons/dislike.svg';
 import LikeIcon from '@/shared/assets/icons/like.svg';
 import StarIcon from '@/shared/assets/icons/start_outline.svg';
-import { API_URL } from '@/shared/consts';
+import { API_URL, MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 import { VideoPreview } from '@/shared/ui/VideoPreview';
 
 import styles from './ReviewCard.module.scss';
@@ -27,6 +28,7 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review, setSelectedReviewId, 
     const router = useRouter();
     const { slug } = useParams<{ slug: string }>();
     const queryClient = useQueryClient();
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
 
     const { mutate: like } = useMutation({
         mutationFn: async () => {
@@ -80,8 +82,8 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review, setSelectedReviewId, 
                                 <VideoPreview
                                     key={video.id}
                                     src={`${API_URL}${video.video}`}
-                                    width={130}
-                                    height={160}
+                                    width={isMatch ? 90 : 130}
+                                    height={isMatch ? 84 : 160}
                                     onClick={() => {
                                         setSelectedReviewId(review.id);
                                         setSelectedMedia({ id: video.id, type: 'video' });
@@ -95,8 +97,8 @@ export const ReviewCard: FC<IReviewCardProps> = ({ review, setSelectedReviewId, 
                             <div key={image.id} className={styles.imageWrap}>
                                 <Image
                                     src={`${API_URL}${image?.image}`}
-                                    width={130}
-                                    height={160}
+                                    width={isMatch ? 90 : 130}
+                                    height={isMatch ? 84 : 160}
                                     alt={'media'}
                                     className={styles.image}
                                     onClick={() => {

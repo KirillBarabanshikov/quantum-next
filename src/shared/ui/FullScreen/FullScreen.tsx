@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import { FC, PropsWithChildren, useEffect } from 'react';
 
+import BackIcon from '@/shared/assets/icons/arrow_left.svg';
 import CloseIcon from '@/shared/assets/icons/close.svg';
 import { useBodyScrollLock } from '@/shared/hooks';
 import { Portal } from '@/shared/ui';
@@ -13,9 +14,18 @@ interface IFullScreenProps extends PropsWithChildren {
     isOpen: boolean;
     onClose: () => void;
     title?: string;
+    withCloseIcon?: boolean;
+    withBackIcon?: boolean;
 }
 
-export const FullScreen: FC<IFullScreenProps> = ({ isOpen, onClose, title, children }) => {
+export const FullScreen: FC<IFullScreenProps> = ({
+    isOpen,
+    onClose,
+    title,
+    children,
+    withCloseIcon = true,
+    withBackIcon = false,
+}) => {
     const { setIsLocked } = useBodyScrollLock();
 
     useEffect(() => {
@@ -29,7 +39,8 @@ export const FullScreen: FC<IFullScreenProps> = ({ isOpen, onClose, title, child
             <div className={clsx(styles.fullScreen)}>
                 <div className={clsx(styles.container, 'scrollbar-hide')}>
                     {title && <div className={styles.title}>{title}</div>}
-                    <CloseIcon onClick={onClose} className={styles.close} />
+                    {withCloseIcon && <CloseIcon className={styles.close} onClick={onClose} />}
+                    {withBackIcon && <BackIcon className={styles.back} onClick={onClose} />}
                     <div>{children}</div>
                 </div>
             </div>
