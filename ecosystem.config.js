@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'dc-mining-next',
+            name: 'rubot',
             exec_mode: 'cluster',
             instances: 2,
             script: 'node_modules/next/dist/bin/next',
