@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 
 import { IProduct } from '@/entities/product';
 import { ReviewCard } from '@/entities/review';
+import { CreateReviewButton } from '@/features/review';
 import ArrowIcon from '@/shared/assets/icons/arrow_right.svg';
 import StarIcon from '@/shared/assets/icons/star.svg';
 import { API_URL } from '@/shared/consts';
@@ -59,6 +60,7 @@ export const Reviews: FC<IReviewsProps> = ({ product }) => {
                         <div className={styles.average}>{product.average}</div>
                         <div className={styles.reviewsCount}>{getCountWord(product.reviews.length, 'отзыв')}</div>
                     </div>
+                    <CreateReviewButton productId={product.id} className={styles.reviewButton} />
 
                     <div className={styles.reviewsList}>
                         {product.reviews.map((review) => {

@@ -8,9 +8,10 @@ import { CreateReviewForm } from '../CreateReviewForm';
 
 interface ICreateReviewButtonProps {
     productId: number;
+    className?: string;
 }
 
-export const CreateReviewButton: FC<ICreateReviewButtonProps> = ({ productId }) => {
+export const CreateReviewButton: FC<ICreateReviewButtonProps> = ({ productId, className }) => {
     const [isOpen, setIsOpen] = useState(false);
     const { isAuthenticated } = useAuth();
     const router = useRouter();
@@ -21,7 +22,7 @@ export const CreateReviewButton: FC<ICreateReviewButtonProps> = ({ productId }) 
 
     return (
         <>
-            <Button fullWidth onClick={handleClick}>
+            <Button fullWidth onClick={handleClick} className={className}>
                 Добавить отзыв
             </Button>
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={'Напишите отзыв о товаре'} maxWidth={596}>

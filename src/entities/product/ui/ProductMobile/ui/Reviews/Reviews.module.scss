@@ -71,7 +71,7 @@
         align-items: center;
         justify-content: center;
         gap: 12px;
-        margin-bottom: 18px;
+        margin-bottom: 24px;
 
         svg {
             width: 33px;
@@ -89,6 +89,10 @@
             font-size: 14px;
             color: var(--color-blue-tertiary);
         }
+    }
+
+    .reviewButton {
+        margin-bottom: 24px;
     }
 
     .reviewsList {
