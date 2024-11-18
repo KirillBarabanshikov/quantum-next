@@ -3,6 +3,7 @@ import { devtools, persist } from 'zustand/middleware';
 
 interface IFavoritesStore {
     productsIds: number[];
+    setProductsIds: (productsIds: number[]) => void;
     addToFavorites: (id: number) => void;
     removeFromFavorites: (id: number) => void;
     isFavorite: (id: number) => boolean;
@@ -13,6 +14,9 @@ export const useFavoritesStore = create<IFavoritesStore>()(
         persist(
             (set, get) => ({
                 productsIds: [],
+                setProductsIds: (productsIds) => {
+                    set({ productsIds });
+                },
                 addToFavorites: (id) => {
                     const currentFavorites = get().productsIds;
                     set({ productsIds: [id, ...currentFavorites] });

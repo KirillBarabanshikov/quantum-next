@@ -5,6 +5,7 @@ import { ChangeEvent, FC } from 'react';
 import { useCartStore } from '@/entities/cart';
 import { useFavoritesStore } from '@/entities/product';
 import { IProduct } from '@/entities/product';
+import { FavoriteOption } from '@/features/product';
 import StarIcon from '@/shared/assets/icons/star.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
 import { priceFormat } from '@/shared/lib';
@@ -49,16 +50,11 @@ export const CartProduct: FC<ICartProductProps> = ({ product, count, selected, s
                             <button onClick={() => removeFromCart(product.id)} className={styles.action}>
                                 <TrashIcon />
                             </button>
-                            <button
-                                className={clsx(styles.action, isFavorite(product.id) && styles.active)}
-                                onClick={() => {
-                                    isFavorite(product.id)
-                                        ? removeFromFavorites(product.id)
-                                        : addToFavorites(product.id);
-                                }}
-                            >
-                                <StarIcon className={styles.star} />
-                            </button>
+                            <FavoriteOption
+                                productId={product.id}
+                                variant={'button'}
+                                className={clsx(styles.action, styles.star, isFavorite(product.id) && styles.active)}
+                            />
                         </div>
                         <InputCounter
                             size={'sm'}

@@ -107,3 +107,28 @@ export const fetchProductBySlug = async (slug: string): Promise<IProduct | undef
         console.error(error);
     }
 };
+
+export const fetchFavoritesProducts = async (): Promise<number[] | undefined> => {
+    try {
+        const response = await apiClient.get<number[]>(`/product/favorite`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const addProductsToFavorite = async (productId: number[]) => {
+    try {
+        await apiClient.post('/product/favorite/add', { articlesIds: productId });
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const deleteProductsFromFavorite = async (productId: number[]) => {
+    try {
+        await apiClient.post('/product/favorite/delete', { articlesIds: productId });
+    } catch (error) {
+        console.error(error);
+    }
+};

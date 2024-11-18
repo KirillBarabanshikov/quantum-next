@@ -1,0 +1,19 @@
+.favoriteOption {
+    &.icon {
+        fill: var(--color-white);
+        transition:
+            fill 300ms,
+            opacity 300ms;
+
+        &.active {
+            fill: var(--color-dark-blue);
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                fill: var(--color-dark-blue);
+                cursor: pointer;
+            }
+        }
+    }
+}

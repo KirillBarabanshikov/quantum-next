@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
 
 import { useCartStore } from '@/entities/cart';
-import { IProduct, useFavoritesStore } from '@/entities/product';
+import { IProduct } from '@/entities/product';
 import { AddToCartButton } from '@/features/cart';
+import { FavoriteOption } from '@/features/product';
 import ShareIcon from '@/shared/assets/icons/share.svg';
-import StarIcon from '@/shared/assets/icons/star.svg';
 import { useStore } from '@/shared/hooks';
 import { Button, InputCounter } from '@/shared/ui';
 
@@ -16,9 +16,7 @@ interface IProductActions {
 
 export const ProductActions: FC<IProductActions> = ({ product }) => {
     const [copied, setCopied] = useState(false);
-    const favoritesStore = useStore(useFavoritesStore, (state) => state);
     const cartStore = useStore(useCartStore, (state) => state);
-    const isFavorite = favoritesStore?.isFavorite(product.id);
     const count = cartStore?.products.find((item) => item.id === product.id)?.count || 0;
 
     const copyUrl = () => {
@@ -33,22 +31,12 @@ export const ProductActions: FC<IProductActions> = ({ product }) => {
             });
     };
 
-    const handleAddToFavorite = () => {
-        isFavorite ? favoritesStore?.removeFromFavorites(product.id) : favoritesStore?.addToFavorites(product.id);
-    };
-
     return (
         <div className={styles.productActions}>
             <Button variant={copied ? 'solid' : 'outline'} onClick={copyUrl} fullWidth className={styles.share}>
                 Поделиться <ShareIcon />
             </Button>
-            <Button
-                variant={isFavorite ? 'solid' : 'outline'}
-                onClick={handleAddToFavorite}
-                className={styles.favorite}
-            >
-                <StarIcon />
-            </Button>
+            <FavoriteOption productId={product.id} variant={'button'} className={styles.favorite} />
             {!!product.count && (
                 <InputCounter
                     defaultCount={count}

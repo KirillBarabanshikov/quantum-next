@@ -5,10 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { useFavoritesStore } from '@/entities/product';
 import { AddToCartButton } from '@/features/cart';
-import GradeIcon from '@/shared/assets/icons/start_outline.svg';
-import { useStore } from '@/shared/hooks';
+import { FavoriteOption } from '@/features/product';
 import { priceFormat } from '@/shared/lib';
 
 import { IProduct } from '../../model';
@@ -26,7 +24,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product, className }) => {
                 <Link href={`/product/${product.slug}`}>
                     <Image src={product.images[0]?.image || '/'} fill sizes={'300px'} alt={product.title} />
                 </Link>
-                <FavoriteOption productId={product.id} />
+                <FavoriteOption productId={product.id} variant={'icon'} className={styles.grade} />
             </div>
             <div className={styles.productBody}>
                 <Link href={`/product/${product.slug}`} className={styles.productTitle}>
@@ -39,15 +37,4 @@ export const ProductCard: FC<IProductCardProps> = ({ product, className }) => {
             </div>
         </article>
     );
-};
-
-const FavoriteOption = ({ productId }: { productId: number }) => {
-    const store = useStore(useFavoritesStore, (state) => state);
-    const isFavorite = store?.isFavorite(productId);
-
-    const handleAddFavorite = () => {
-        isFavorite ? store?.removeFromFavorites(productId) : store?.addToFavorites(productId);
-    };
-
-    return <GradeIcon onClick={handleAddFavorite} className={clsx(styles.grade, isFavorite && styles.active)} />;
 };

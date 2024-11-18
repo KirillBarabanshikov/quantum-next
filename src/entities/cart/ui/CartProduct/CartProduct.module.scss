@@ -68,9 +68,13 @@
             transition:
                 background-color 300ms,
                 color 300ms;
+            padding: unset !important;
+            outline: unset !important;
 
-            .star {
-                width: 20px;
+            &.star {
+                svg {
+                    width: 20px;
+                }
             }
 
             &.active {
