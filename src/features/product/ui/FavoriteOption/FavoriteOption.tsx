@@ -28,8 +28,6 @@ export const FavoriteOption: FC<IFavoriteOptionProps> = ({ productId, variant, c
                 isFavorite
                     ? await productApi.deleteProductsFromFavorite([productId])
                     : await productApi.addProductsToFavorite([productId]);
-                const favorites = await productApi.fetchFavoritesProducts();
-                favorites && store?.setProductsIds(favorites);
             }
         } catch (error) {
             console.error();
