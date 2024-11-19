@@ -59,12 +59,12 @@ export const AuthModal: FC<IAuthModalProps> = ({ isAuthenticated }) => {
                 <>
                     <div className={styles.title}>Авторизация</div>
                     <SignInForm />
-                    <span className={styles.recovery} onClick={() => handleChangeForm('recovery')}>
-                        Восстановить пароль
-                    </span>
                     <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signup')}>
                         РЕГИСТРАЦИЯ
                     </Button>
+                    <span className={styles.recovery} onClick={() => handleChangeForm('recovery')}>
+                        Восстановить пароль
+                    </span>
                 </>
             ) : currentForm === 'signup' ? (
                 <>

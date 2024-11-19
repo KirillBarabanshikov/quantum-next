@@ -1,13 +1,14 @@
 .recovery {
-    display: inline-block;
+    display: block;
     font-weight: 500;
     font-size: 16px;
     color: var(--color-blue-tertiary);
-    margin: 24px 0 24px 0;
+    margin: 24px auto 0 auto;
     cursor: pointer;
     height: 20px;
     text-decoration: underline;
     text-underline-offset: 3px;
+    text-align: center;
 }
 
 .title {

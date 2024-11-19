@@ -39,6 +39,11 @@
                 color: var(--color-blue-tertiary);
             }
         }
+
+        .eye {
+            cursor: pointer;
+            color: var(--color-blue-tertiary);
+        }
     }
 
     &.dark {
