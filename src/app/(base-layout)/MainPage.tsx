@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 
 import { categoryApi } from '@/entities/category';
 import { productApi } from '@/entities/product';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 import { Button } from '@/shared/ui';
 import {
     Advantages,
@@ -17,8 +19,6 @@ import {
 } from '@/widgets';
 
 import styles from './MainPage.module.scss';
-import { useMediaQuery } from '@/shared/hooks';
-import { MAX_WIDTH_MD } from '@/shared/consts';
 
 export const MainPage = () => {
     const router = useRouter();
