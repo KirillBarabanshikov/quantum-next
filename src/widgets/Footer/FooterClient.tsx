@@ -74,7 +74,7 @@ export const FooterClient: FC<IFooterClientProps> = ({ className }) => {
                                     <a href={'tel:+74957301111'} className={styles.link}>
                                         +7 (495) 730-11-11
                                     </a>
-                                    <div className={styles.hint}>звонок по России бесплатный</div>
+                                    <div className={clsx(styles.hint, styles.call)}>звонок по России бесплатный</div>
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,7 @@
     .linksWrap {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 24px;
         margin-bottom: 51px;
 
         .link {
@@ -39,7 +39,7 @@
                 .column {
                     display: flex;
                     flex-direction: column;
-                    gap: 20px;
+                    gap: 24px;
                 }
             }
         }
@@ -49,6 +49,10 @@
         font-size: 14px;
         color: var(--color-blue-tertiary);
         white-space: nowrap;
+
+        &.call {
+            margin-top: 8px;
+        }
     }
 
     .contacts {
@@ -66,7 +70,7 @@
 
         .socials {
             display: flex;
-            gap: 25px;
+            gap: 26px;
 
             .social {
                 display: flex;
@@ -84,6 +88,55 @@
 @media screen and (max-width: 992px) {
     .footer {
         padding: 40px 0 20px 0;
+
+        .logo {
+            svg {
+                width: 68px;
+                height: 20px;
+            }
+        }
+
+        .linksWrap {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 51px;
+
+            .link {
+                font-weight: 500;
+                font-size: 12px;
+
+                &.title {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .hint {
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        .contacts {
+            .links {
+                max-width: 326px;
+            }
+
+            .socials {
+                gap: 14px;
+
+                .social {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 30px;
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -93,9 +146,25 @@
 
         .logo {
             margin-bottom: 24px;
+
+            svg {
+                width: 100px;
+                height: 26px;
+            }
         }
 
         .linksWrap {
+            margin-bottom: 40px;
+
+            .link {
+                font-weight: 400;
+                font-size: 14px;
+
+                &.title {
+                    font-size: 16px;
+                }
+            }
+
             .links {
                 .wrap {
                     flex: 1;
@@ -112,16 +181,34 @@
             }
         }
 
+        .hint {
+            font-weight: 400;
+            font-size: 14px;
+        }
+
         .contacts {
             flex-direction: column;
 
             .links {
+                max-width: unset;
                 width: 100%;
                 flex-wrap: wrap;
             }
 
             .socials {
                 order: -1;
+                gap: 26px;
+
+                .social {
+                    width: 43px;
+                    height: 43px;
+                    border-radius: 43px;
+
+                    svg {
+                        width: unset;
+                        height: unset;
+                    }
+                }
             }
         }
     }
