@@ -24,3 +24,29 @@
     margin-bottom: 80px;
     max-width: 323px;
 }
+
+@media screen and (max-width: 992px) {
+    .title {
+        margin: 0 0 24px 0;
+    }
+
+    .signinWrap {
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .signupWrap {
+        max-width: 407px;
+        margin: 0 auto;
+    }
+
+    .recoveryWrap {
+        max-width: 407px;
+        margin: 0 auto;
+    }
+
+    .mailWrap {
+        max-width: 323px;
+        margin: 0 auto;
+    }
+}

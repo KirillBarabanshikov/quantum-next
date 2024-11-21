@@ -17,6 +17,22 @@
     z-index: 11;
     padding: 14px;
 
+    &.fullScreen {
+        padding: unset;
+
+        .modal {
+            width: 100vw;
+            height: 100vh;
+            max-height: unset;
+            border-radius: unset;
+            padding: 20px 30px;
+        }
+
+        .titleWrap {
+            margin-bottom: 14px;
+        }
+    }
+
     .modal {
         padding: 30px;
         background-color: var(--color-white);
