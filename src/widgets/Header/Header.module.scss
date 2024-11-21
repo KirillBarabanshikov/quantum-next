@@ -11,6 +11,7 @@
         background-color: var(--color-dark-blue);
         border-radius: 20px;
         padding: 14px 30px;
+        gap: 20px;
 
         .wrap {
             display: flex;
@@ -18,29 +19,33 @@
             justify-content: space-between;
             width: 100%;
             max-width: 876px;
-            margin-right: 80px;
+            gap: 20px;
         }
 
         .logo {
-            margin-right: 20px;
         }
 
         .searchWrap {
             display: flex;
-            gap: 17px;
+            gap: 18px;
             width: 100%;
+            max-width: 684px;
         }
 
         .options {
             display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-            gap: 23px;
-            flex: 1;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
 
             .option {
                 position: relative;
                 color: var(--color-white);
+                display: block;
+
+                svg {
+                    display: block;
+                }
 
                 @media (hover: hover) {
                     cursor: pointer;
@@ -55,7 +60,7 @@
                     padding: 0 4.5px;
                     position: absolute;
                     right: -5px;
-                    bottom: 0;
+                    bottom: -5px;
                     font-weight: 600;
                     font-size: 8px;
                 }
@@ -79,10 +84,18 @@
         .headerContent {
             padding: 12px 20px;
 
+            .wrap {
+                max-width: 555px;
+            }
+
             .logo {
                 svg {
                     width: 76px;
                 }
+            }
+
+            .options {
+                gap: 12px;
             }
 
             .searchWrap {
