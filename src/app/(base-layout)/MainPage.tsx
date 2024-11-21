@@ -17,9 +17,12 @@ import {
 } from '@/widgets';
 
 import styles from './MainPage.module.scss';
+import { useMediaQuery } from '@/shared/hooks';
+import { MAX_WIDTH_MD } from '@/shared/consts';
 
 export const MainPage = () => {
     const router = useRouter();
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
 
     const { data: categories } = useQuery({
         queryKey: ['categories'],
@@ -48,7 +51,7 @@ export const MainPage = () => {
                         onClick={() => router.push('/catalog')}
                         className={styles.button}
                     >
-                        Каталог
+                        {isMatch ? 'Показать ещё' : 'Каталог'}
                     </Button>
                 </div>
             </div>
