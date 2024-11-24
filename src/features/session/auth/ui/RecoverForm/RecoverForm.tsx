@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 
 import { recoverScheme, TRecoverScheme } from '@/features/session/auth/model';
 import { apiClient } from '@/shared/api';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 import { Button, Input } from '@/shared/ui';
 
 import styles from './RecoverForm.module.scss';
@@ -14,6 +16,8 @@ interface IRecoverFormProps {
 }
 
 export const RecoverForm: FC<IRecoverFormProps> = ({ setIsSuccess }) => {
+    const { isMatch } = useMediaQuery(MAX_WIDTH_MD);
+
     const {
         register,
         handleSubmit,
@@ -50,7 +54,7 @@ export const RecoverForm: FC<IRecoverFormProps> = ({ setIsSuccess }) => {
                 Ссылка на восстановление пароля будет отправлена на вашу электронную почту
             </span>
             <Button type={'submit'} fullWidth className={styles.button}>
-                ВОССТАНОВИТЬ ПАРОЛЬ
+                {isMatch ? 'Продолжить' : 'ВОССТАНОВИТЬ ПАРОЛЬ'}
             </Button>
         </form>
     );

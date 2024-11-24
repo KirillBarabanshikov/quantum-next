@@ -4,6 +4,8 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { sessionApi } from '@/entities/session';
+import { MAX_WIDTH_LG } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/hooks';
 import { maskPhone } from '@/shared/lib';
 import { Button, Input } from '@/shared/ui';
 
@@ -15,6 +17,8 @@ interface ISignUpForm {
 }
 
 export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
+    const { isMatch } = useMediaQuery(MAX_WIDTH_LG);
+
     const {
         register,
         handleSubmit,
@@ -65,7 +69,7 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
             <Input
                 type={'password'}
                 label={'Пароль'}
-                hint={'пароль должен быть не менее 6 символов и содержать цифры'}
+                hint={isMatch ? '' : 'пароль должен быть не менее 6 символов и содержать цифры'}
                 autoComplete={'current-password'}
                 {...register('password', {
                     onChange: () => {
@@ -91,7 +95,7 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
                 Ссылка для входа в личный кабинет будет отправлена на вашу электронную почту.
             </div>
             <Button type={'submit'} disabled={isPending}>
-                ЗАРЕГИСТРИРОВАТЬСЯ
+                {isMatch ? 'Продолжить' : 'ЗАРЕГИСТРИРОВАТЬСЯ'}
             </Button>
         </form>
     );

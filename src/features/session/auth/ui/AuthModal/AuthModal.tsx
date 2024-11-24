@@ -4,8 +4,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
 import { RecoverForm } from '@/features/session/auth/ui/RecoverForm';
+import ArrowBack from '@/shared/assets/icons/arrow_left.svg';
 import Logo from '@/shared/assets/logo_dark.svg';
-import { MAX_WIDTH_LG } from '@/shared/consts';
+import { MAX_WIDTH_LG, MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
 import { Button, Modal } from '@/shared/ui';
 
@@ -32,6 +33,7 @@ export const AuthModal: FC<IAuthModalProps> = ({ isAuthenticated }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const { isMatch } = useMediaQuery(MAX_WIDTH_LG);
+    const { isMatch: isMatchMd } = useMediaQuery(MAX_WIDTH_MD);
 
     useEffect(() => {
         if (isAuthenticated) {
@@ -59,12 +61,12 @@ export const AuthModal: FC<IAuthModalProps> = ({ isAuthenticated }) => {
 
     return (
         <Modal isOpen={isOpen} onClose={handleClose} maxWidth={470} fullScreen={isMatch}>
-            {isMatch && <Logo className={styles.logo} />}
+            {isMatchMd && <Logo className={styles.logo} />}
             {currentForm === 'signin' ? (
                 <div className={styles.signinWrap}>
                     <div className={styles.title}>Авторизация</div>
                     <SignInForm />
-                    {isMatch && (
+                    {isMatchMd && (
                         <div className={styles.separator}>
                             <span />
                             или
@@ -80,11 +82,14 @@ export const AuthModal: FC<IAuthModalProps> = ({ isAuthenticated }) => {
                 </div>
             ) : currentForm === 'signup' ? (
                 <div className={styles.signupWrap}>
+                    {isMatchMd && <ArrowBack onClick={() => handleChangeForm('signin')} className={styles.back} />}
                     <div className={styles.title}>Регистрация</div>
                     <SignUpForm setIsSuccess={() => setCurrentForm('signin')} />
-                    <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
-                        ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
-                    </Button>
+                    {!isMatchMd && (
+                        <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
+                            ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
+                        </Button>
+                    )}
                 </div>
             ) : isSuccess ? (
                 <div className={styles.mailWrap}>
@@ -104,11 +109,14 @@ export const AuthModal: FC<IAuthModalProps> = ({ isAuthenticated }) => {
                 </div>
             ) : (
                 <div className={styles.recoveryWrap}>
+                    {isMatchMd && <ArrowBack onClick={() => handleChangeForm('signin')} className={styles.back} />}
                     <div className={styles.title}>Восстановить пароль</div>
                     <RecoverForm setIsSuccess={setIsSuccess} />
-                    <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
-                        ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
-                    </Button>
+                    {!isMatchMd && (
+                        <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signin')}>
+                            ВЕРНУТЬСЯ К АВТОРИЗАЦИИ
+                        </Button>
+                    )}
                 </div>
             )}
         </Modal>

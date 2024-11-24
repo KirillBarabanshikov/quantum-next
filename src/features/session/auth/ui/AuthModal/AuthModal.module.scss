@@ -46,6 +46,12 @@
     }
 }
 
+.back {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+}
+
 @media screen and (max-width: 992px) {
     .title {
         margin: 0 0 24px 0;
@@ -74,9 +80,22 @@
 
 @media screen and (max-width: 768px) {
     .signinWrap {
+        max-width: unset;
         display: flex;
         flex-direction: column;
         height: calc(100vh - 135px);
+    }
+
+    .signupWrap {
+        max-width: unset;
+    }
+
+    .recoveryWrap {
+        max-width: unset;
+    }
+
+    .mailWrap {
+        max-width: unset;
     }
 
     .recovery {
