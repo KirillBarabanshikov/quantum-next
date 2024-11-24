@@ -25,6 +25,27 @@
     max-width: 323px;
 }
 
+.logo {
+    margin-bottom: 31px;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 24px 0;
+
+    font-weight: 500;
+    color: var(--color-blue-tertiary);
+
+    span {
+        height: 1px;
+        width: 93px;
+        background-color: var(--color-grey);
+    }
+}
+
 @media screen and (max-width: 992px) {
     .title {
         margin: 0 0 24px 0;
@@ -48,5 +69,19 @@
     .mailWrap {
         max-width: 323px;
         margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .signinWrap {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 135px);
+    }
+
+    .recovery {
+        color: var(--color-blue-accent);
+        text-decoration: inherit;
+        margin: auto auto 30px auto;
     }
 }

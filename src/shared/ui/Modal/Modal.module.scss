@@ -26,10 +26,18 @@
             max-height: unset;
             border-radius: unset;
             padding: 20px 30px;
-        }
 
-        .titleWrap {
-            margin-bottom: 14px;
+            .titleWrap {
+                margin-bottom: 14px;
+            }
+
+            @media screen and (max-width: 768px) {
+                padding: 12px 14px;
+
+                .title {
+                    margin-bottom: 6px;
+                }
+            }
         }
     }
 

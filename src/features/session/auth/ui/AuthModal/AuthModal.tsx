@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
 import { RecoverForm } from '@/features/session/auth/ui/RecoverForm';
+import Logo from '@/shared/assets/logo_dark.svg';
 import { MAX_WIDTH_LG } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/hooks';
 import { Button, Modal } from '@/shared/ui';
@@ -58,10 +59,18 @@ export const AuthModal: FC<IAuthModalProps> = ({ isAuthenticated }) => {
 
     return (
         <Modal isOpen={isOpen} onClose={handleClose} maxWidth={470} fullScreen={isMatch}>
+            {isMatch && <Logo className={styles.logo} />}
             {currentForm === 'signin' ? (
                 <div className={styles.signinWrap}>
                     <div className={styles.title}>Авторизация</div>
                     <SignInForm />
+                    {isMatch && (
+                        <div className={styles.separator}>
+                            <span />
+                            или
+                            <span />
+                        </div>
+                    )}
                     <Button fullWidth variant={'outline'} onClick={() => handleChangeForm('signup')}>
                         РЕГИСТРАЦИЯ
                     </Button>
