@@ -23,7 +23,7 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
         run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << 'EOF'
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << EOF
             cd $PROJECT_PATH
             git pull origin production 
             npm install
