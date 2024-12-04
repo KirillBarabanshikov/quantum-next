@@ -42,7 +42,9 @@ export const CartProduct: FC<ICartProductProps> = ({ product, count, selected, s
                 <div className={styles.body}>
                     <div className={styles.titleWrap}>
                         <div className={styles.title}>{product.title}</div>
-                        <div className={styles.price}>{priceFormat(product.price * count)}</div>
+                        <div className={styles.price}>
+                            {product.priceRequest ? 'Цена по запросу' : priceFormat(product.price * count)}
+                        </div>
                     </div>
                     <div className={styles.equipment}>Артикул: {product.number}</div>
                     <div className={clsx(styles.actionsWrap, styles.desktop)}>

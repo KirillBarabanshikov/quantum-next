@@ -24,11 +24,13 @@ export const ProductPreview: FC<IProductPreviewProps> = ({ product }) => {
             </div>
             <div className={styles.article}>Артикул: {product.number}</div>
             <div className={styles.number}>Количество на складе: {product.count} шт.</div>
-            <div className={styles.price}>{priceFormat(product.price)}</div>
+            <div className={styles.price}>{product.priceRequest ? 'Цена по запросу' : priceFormat(product.price)}</div>
             <Separator margin={'24px 0'} className={styles.separator} />
             <div className={styles.tags}>
                 {product.stock && <Badge text={'В наличии'} color={'#058943'} />}
                 {product.domestic && <Badge text={'Отечественный производитель'} color={'#4733F4'} />}
+                {product.new && <Badge text={'Новинка'} color={'#EE4723'} />}
+                {product.popular && <Badge text={'Популярное'} color={'#FF3538'} />}
             </div>
             <div className={styles.specifications}>
                 {product.characteristics.map((characteristic) => {

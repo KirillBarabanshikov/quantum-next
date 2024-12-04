@@ -30,7 +30,9 @@ export const ProductCard: FC<IProductCardProps> = ({ product, className }) => {
                 <Link href={`/product/${product.slug}`} className={styles.productTitle}>
                     {product.title}
                 </Link>
-                <p className={styles.productPrice}>{priceFormat(product.price)}</p>
+                <p className={styles.productPrice}>
+                    {product.priceRequest ? 'Цена по запросу' : priceFormat(product.price)}
+                </p>
             </div>
             <div className={styles.buttonWrap}>
                 <AddToCartButton product={product} className={styles.button} />

@@ -12,11 +12,14 @@ export interface IProduct {
     descriptions: IProductDescription[];
     new: boolean;
     popular: boolean;
+    color: null;
     images: IImage[];
     characteristics: IProductCharacteristic[];
     reviews: IReview[];
+    priceRequest: boolean;
     additionalCharacteristics: IProductAdditionalCharacteristic[];
     categoryId: number;
+    slug: string;
     productId: number;
     mediaReviews: {
         images: {
@@ -29,7 +32,6 @@ export interface IProduct {
         }[];
     };
     average: number;
-    slug: string;
 }
 
 interface IProductDescription {

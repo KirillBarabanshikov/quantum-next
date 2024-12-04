@@ -29,7 +29,7 @@ export const ProductMobile: FC<IProductMobileProps> = ({ product }) => {
                 <div className={clsx(styles.wrap)}>
                     <div className={styles.price}>
                         <WalletIcon />
-                        <span>{priceFormat(product.price)}</span>
+                        <span>{product.priceRequest ? 'Цена по запросу' : priceFormat(product.price)}</span>
                     </div>
                 </div>
                 <ProductModifications product={product} />

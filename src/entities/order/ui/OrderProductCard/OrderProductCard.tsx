@@ -26,7 +26,9 @@ export const OrderProductCard: FC<IOrderProductCard> = ({ product, withSeparator
                         <div className={styles.title}>{product.title}</div>
                         <div className={styles.number}>Артикул: {product.number}</div>
                     </div>
-                    <div className={styles.price}>{priceFormat(product.price)}</div>
+                    <div className={styles.price}>
+                        {product.priceRequest ? 'Цена по запросу' : priceFormat(product.price)}
+                    </div>
                 </div>
             </div>
             {withSeparator && <Separator margin={isMatch ? '24px 0' : '10px 0'} />}
