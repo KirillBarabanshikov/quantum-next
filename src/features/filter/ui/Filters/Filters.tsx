@@ -38,7 +38,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, currentFilters, setCurr
         setCurrentFilters(
             filters.reduce((acc, filter) => {
                 acc[filter.id] = {
-                    value: searchParams.get(`filters[${filter.id}]`)?.split(',') || [],
+                    value: searchParams.get(`filters[${filter.id}]`)?.split('&&') || [],
                     type: filter.filterType,
                 };
                 return acc;
@@ -61,7 +61,7 @@ export const Filters: FC<IFiltersProps> = ({ categoryId, currentFilters, setCurr
         for (const filterId in currentFilters) {
             const value = currentFilters[filterId].value;
             if (value[0]) {
-                newParams.set(`filters[${filterId}]`, value.join(','));
+                newParams.set(`filters[${filterId}]`, value.join('&&'));
             } else {
                 newParams.delete(`filters[${filterId}]`);
             }
