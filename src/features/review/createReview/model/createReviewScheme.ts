@@ -16,9 +16,12 @@ const getVideoDuration = (file: File): Promise<number> => {
 
 export const createReviewScheme = yup.object().shape({
     rating: yup.number().required('Пожалуйста, заполните рейтинг'),
-    pros: yup.string(),
-    cons: yup.string(),
-    comment: yup.string().required('Пожалуйста, заполните обязательное поле'),
+    pros: yup.string().max(5000, 'Должно быть не более 5000 символов'),
+    cons: yup.string().max(5000, 'Должно быть не более 5000 символов'),
+    comment: yup
+        .string()
+        .max(5000, 'Должно быть не более 5000 символов')
+        .required('Пожалуйста, заполните обязательное поле'),
     images: yup
         .mixed<FileList>()
         // .test('fileSize', 'Each file must be less than 2MB', (value) => {

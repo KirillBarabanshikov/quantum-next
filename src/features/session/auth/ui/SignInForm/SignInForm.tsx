@@ -53,10 +53,10 @@ export const SignInForm: FC = () => {
                 {...register('password', { setValueAs: (value) => value.trim() })}
                 error={errors.password?.message}
             />
+            {isError && <div className={styles.error}>Пользователь не найден</div>}
             <Button type={'submit'} disabled={isLoading}>
                 ВОЙТИ
             </Button>
-            {isError && <div className={styles.error}>Пользователь не найден</div>}
         </form>
     );
 };

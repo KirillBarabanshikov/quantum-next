@@ -133,6 +133,12 @@ input[type='file'] {
     background-color: var(--color-white);
 }
 
+.error {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-red-accent);
+}
+
 @media screen and (max-width: 992px) {
     .container {
         padding: 0 40px;

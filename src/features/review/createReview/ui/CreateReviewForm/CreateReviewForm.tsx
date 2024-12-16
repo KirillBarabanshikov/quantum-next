@@ -23,6 +23,7 @@ interface ICreateReviewFormProps {
 
 export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClose }) => {
     const [rating, setRating] = useState(-1);
+    const [error, setError] = useState('');
     const { slug } = useParams<{ slug: string }>();
     const queryClient = useQueryClient();
 
@@ -39,8 +40,11 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClos
             await createReview({ articleId: productId, ...data });
             await queryClient.invalidateQueries({ queryKey: ['product', slug] });
             onClose();
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
+            if (error.response.data.error === 'Cant review. Already reviewed by this user.') {
+                setError('Вы уже оставили отзыв для данного товара');
+            }
         }
     };
 
@@ -65,8 +69,8 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClos
                 <div className={styles.error}>{errors.rating?.message}</div>
             </div>
             <div className={styles.fieldsWrap}>
-                <Textarea label={'Достоинства'} {...register('pros')} rows={2} />
-                <Textarea label={'Недостатки'} {...register('cons')} rows={2} />
+                <Textarea label={'Достоинства'} {...register('pros')} error={errors.pros?.message} rows={2} />
+                <Textarea label={'Недостатки'} {...register('cons')} error={errors.cons?.message} rows={2} />
                 <Textarea
                     label={'Комментарий к отзыву'}
                     {...register('comment')}
@@ -90,6 +94,7 @@ export const CreateReviewForm: FC<ICreateReviewFormProps> = ({ productId, onClos
                 error={errors.videos?.message}
                 accept={'video/*'}
             />
+            {error && <div className={'error'}>{error}</div>}
             <Button type={'submit'} fullWidth disabled={isPending}>
                 Отправить отзыв
             </Button>
