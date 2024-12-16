@@ -17,5 +17,11 @@ export async function POST(request: Request) {
         return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
     }
 
+    const json = await res.json();
+
+    if (json.status === 'error') {
+        return NextResponse.json(json, { status: 401 });
+    }
+
     return NextResponse.json({ message: 'Register successful' });
 }

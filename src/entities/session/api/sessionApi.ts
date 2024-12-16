@@ -15,7 +15,10 @@ export const signUp = async (body: ISignUpBody) => {
     try {
         const response = await axios.post<ISignInResponse>('/api/auth/signup', body);
         return response.data;
-    } catch (error) {
+    } catch (error: any) {
+        if (error.response.data.details === 'User with this login already exists.') {
+            throw new Error('Пользователь с таким логином уже существует');
+        }
         throw new Error(`${error}`);
     }
 };

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { sessionApi } from '@/entities/session';
@@ -18,6 +18,7 @@ interface ISignUpForm {
 
 export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
     const { isMatch } = useMediaQuery(MAX_WIDTH_LG);
+    const [error, setError] = useState('');
 
     const {
         register,
@@ -33,8 +34,9 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
         try {
             await signUp(data);
             setIsSuccess(true);
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
+            setError(error.message);
         }
     };
 
@@ -94,6 +96,7 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
             <div className={styles.hint}>
                 Ссылка для входа в личный кабинет будет отправлена на вашу электронную почту.
             </div>
+            {error && <div className={styles.error}>{error}</div>}
             <Button type={'submit'} disabled={isPending}>
                 {isMatch ? 'Продолжить' : 'ЗАРЕГИСТРИРОВАТЬСЯ'}
             </Button>

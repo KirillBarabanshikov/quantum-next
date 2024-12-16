@@ -11,4 +11,10 @@
         max-width: 323px;
         margin: 6px 0;
     }
+
+    .error {
+        font-weight: 500;
+        font-size: 14px;
+        color: var(--color-red-accent);
+    }
 }
