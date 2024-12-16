@@ -21,11 +21,13 @@ export const createReviewScheme = yup.object().shape({
     comment: yup.string().required('Пожалуйста, заполните обязательное поле'),
     images: yup
         .mixed<FileList>()
-        .test('fileSize', 'Each file must be less than 2MB', (value) => {
-            return Array.from(value || []).every((file: File) => file.size <= 2000000);
-        })
+        // .test('fileSize', 'Each file must be less than 2MB', (value) => {
+        //     return Array.from(value || []).every((file: File) => file.size <= 2000000);
+        // })
         .test('fileFormat', 'Only PNG or JPEG formats are allowed', (value) => {
-            return Array.from(value || []).every((file: File) => ['image/png', 'image/jpeg'].includes(file.type));
+            return Array.from(value || []).every((file: File) =>
+                ['image/png', 'image/jpg', 'image/jpeg'].includes(file.type),
+            );
         })
         .test('maxFiles', 'You can upload up to 10 images', (value) => {
             return value && value.length <= 10;
