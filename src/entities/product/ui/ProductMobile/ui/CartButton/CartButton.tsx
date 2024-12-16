@@ -43,8 +43,12 @@ export const CartButton: FC<ICartButtonProps> = ({ product }) => {
                     />
                 </div>
             ) : (
-                <Button fullWidth disabled={!product.count} onClick={() => store?.addToCart(product.id)}>
-                    {!product.count ? 'Нет в наличии' : 'В КОРЗИНУ'}
+                <Button
+                    fullWidth
+                    disabled={!product.count || !product.stock}
+                    onClick={() => store?.addToCart(product.id)}
+                >
+                    {!product.count || !product.stock ? 'Нет в наличии' : inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
                 </Button>
             )}
         </div>

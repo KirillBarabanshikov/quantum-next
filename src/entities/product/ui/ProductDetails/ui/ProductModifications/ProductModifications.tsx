@@ -94,6 +94,8 @@ export const ProductModifications: FC<IProductModificationsProps> = ({ product }
         [transformedModifications, modifications, product.slug, router],
     );
 
+    if (!transformedModifications.length) return <></>;
+
     return (
         <div className={styles.productModifications}>
             {transformedModifications.map((modification) => {

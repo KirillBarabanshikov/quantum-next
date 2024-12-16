@@ -28,10 +28,10 @@ export const AddToCartButton: FC<IAddToCartButton> = ({ product, variant, classN
             variant={variant === 'solid' ? 'solid' : inCart ? 'solid' : 'outline'}
             fullWidth
             onClick={handleAddToCart}
-            disabled={!product.count}
+            disabled={!product.count || !product.stock}
             className={className}
         >
-            {!product.count ? 'Нет в наличии' : inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
+            {!product.count || !product.stock ? 'Нет в наличии' : inCart ? 'В КОРЗИНЕ' : 'В КОРЗИНУ'}
         </Button>
     );
 };

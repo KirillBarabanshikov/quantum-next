@@ -23,7 +23,9 @@ export const ProductPreview: FC<IProductPreviewProps> = ({ product }) => {
                 <span className={styles.rating}>{getCountWord(product.reviews.length, 'отзыв')}</span>
             </div>
             <div className={styles.article}>Артикул: {product.number}</div>
-            <div className={styles.number}>Количество на складе: {product.count} шт.</div>
+            {product.stock && !!product.count && (
+                <div className={styles.number}>Количество на складе: {product.count} шт.</div>
+            )}
             <div className={styles.price}>{product.priceRequest ? 'Цена по запросу' : priceFormat(product.price)}</div>
             <Separator margin={'24px 0'} className={styles.separator} />
             <div className={styles.tags}>

@@ -37,7 +37,7 @@ export const ProductActions: FC<IProductActions> = ({ product }) => {
                 Поделиться <ShareIcon />
             </Button>
             <FavoriteOption productId={product.id} variant={'button'} className={styles.favorite} />
-            {!!product.count && (
+            {!!product.count && product.stock && (
                 <InputCounter
                     defaultCount={count}
                     onIncrement={() => cartStore?.addToCart(product.id)}
