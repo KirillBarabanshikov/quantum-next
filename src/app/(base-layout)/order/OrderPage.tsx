@@ -154,13 +154,13 @@ export const OrderPage = () => {
                             </div>
                             <Checkbox label={'использовать электронный документооборот'} />
                         </div>
-                        <Button disabled={!selectedProfile || !productsIds.length} onClick={handleCreateOrder}>
-                            Выставить счет
-                        </Button>
                         <div className={styles.hint}>
                             Нажимая на кнопку, вы соглашаетесь с Условиями обработки персональных данных, а также с
                             Условиями продажи
                         </div>
+                        <Button disabled={!selectedProfile || !productsIds.length} onClick={handleCreateOrder}>
+                            Выставить счет
+                        </Button>
                     </div>
                 </div>
             </section>
