@@ -53,20 +53,22 @@ export const Description: FC<IDescriptionProps> = ({ product }) => {
                             <h2>{description.title}</h2>
                             <p>{description.description}</p>
                         </div>
-                        <div className={styles.images}>
-                            {description.images.map((image) => {
-                                return (
-                                    <Image
-                                        key={image.id}
-                                        src={`${API_URL}/${image.image}`}
-                                        alt={'image'}
-                                        width={630}
-                                        height={450}
-                                        className={styles.image}
-                                    />
-                                );
-                            })}
-                        </div>
+                        {!!description.images.length && (
+                            <div className={styles.images}>
+                                {description.images.map((image) => {
+                                    return (
+                                        <Image
+                                            key={image.id}
+                                            src={`${API_URL}/${image.image}`}
+                                            alt={'image'}
+                                            width={630}
+                                            height={450}
+                                            className={styles.image}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                 );
             })}
