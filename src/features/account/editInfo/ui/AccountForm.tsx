@@ -19,8 +19,19 @@ interface IAccountFormProps {
 export const AccountForm: FC<IAccountFormProps> = ({ user }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [error, setError] = useState('');
     const queryClient = useQueryClient();
+
+    const { mutateAsync: editEmail } = useMutation({
+        mutationFn: (email: string) => apiClient.post('/users/edit-email', { email }),
+    });
+
+    const { mutateAsync: editPhone } = useMutation({
+        mutationFn: (phoneNumber: string) => apiClient.post('/users/edit-phone', { phoneNumber }),
+    });
+
+    const { mutateAsync: editUsername } = useMutation({
+        mutationFn: (username: string) => apiClient.post('/users/edit-username', { username }),
+    });
 
     const {
         register,
@@ -38,15 +49,6 @@ export const AccountForm: FC<IAccountFormProps> = ({ user }) => {
         },
     });
 
-    const { mutateAsync: editAccount } = useMutation({
-        mutationFn: (data: Partial<TAccountScheme>) =>
-            apiClient.patch(
-                '/users/edit-user',
-                { username: data.username, phone: data.phoneNumber, email: data.email },
-                { headers: { 'content-type': 'application/vnd.api+json' } },
-            ),
-    });
-
     const watchedValues = watch();
 
     const isFormChanged = Object.keys({
@@ -58,32 +60,18 @@ export const AccountForm: FC<IAccountFormProps> = ({ user }) => {
     const onSubmit = async (changedData: TAccountScheme) => {
         try {
             setIsError(false);
-            const updatedFields: Partial<TAccountScheme> = {};
-
-            if (changedData.username !== user.username) {
-                updatedFields.username = changedData.username;
+            if (changedData.email !== user?.email) {
+                await editEmail(changedData.email);
             }
-
-            if (changedData.phoneNumber !== user.phoneNumber) {
-                updatedFields.phoneNumber = changedData.phoneNumber;
+            if (changedData.username !== user?.username) {
+                await editUsername(changedData.username);
             }
-
-            if (changedData.email !== user.email) {
-                updatedFields.email = changedData.email;
+            if (changedData.phoneNumber !== user?.phoneNumber) {
+                await editPhone(changedData.phoneNumber);
             }
-            await editAccount(updatedFields);
             await queryClient.invalidateQueries({ queryKey: ['user'] });
-        } catch (error: any) {
+        } catch (error) {
             console.error(error);
-            if (error.response.data.details === 'User with that email already exists.') {
-                setError('Пользователь с таким адресом электронной почты уже существует');
-            } else if (error.response.data.details === 'User with that phone already exists.') {
-                setError('Пользователь с таким телефоном уже существует');
-            } else if (error.response.data.details === 'User with that username already exists.') {
-                setError('Пользователь с таким логином уже существует');
-            } else {
-                setError('Что-то пошло не так');
-            }
             setIsError(true);
         } finally {
             setIsOpen(true);
@@ -129,7 +117,7 @@ export const AccountForm: FC<IAccountFormProps> = ({ user }) => {
                 isError={isError}
                 onEnter={() => setIsOpen(false)}
                 title={isError ? 'Ошибка' : 'Успех'}
-                subtitle={isError ? error : 'Данные сохранены'}
+                subtitle={isError ? '' : 'Данные сохранены'}
             />
         </form>
     );
