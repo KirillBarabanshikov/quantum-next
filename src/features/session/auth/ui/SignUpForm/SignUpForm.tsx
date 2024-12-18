@@ -36,15 +36,7 @@ export const SignUpForm: FC<ISignUpForm> = ({ setIsSuccess }) => {
             setIsSuccess(true);
         } catch (error: any) {
             console.error(error);
-            if (error.response.data.details === 'User with this email already exists.') {
-                setError('Пользователь с таким адресом электронной почты уже существует');
-            } else if (error.response.data.details === 'User with this phone already exists.') {
-                setError('Пользователь с таким телефоном уже существует');
-            } else if (error.response.data.details === 'User with this login already exists.') {
-                setError('Пользователь с таким логином уже существует');
-            } else {
-                setError('Ошибка регистрации');
-            }
+            setError(error.message);
         }
     };
 
